@@ -1,0 +1,61 @@
+project:
+  type: website
+
+website:
+  title: "16S rRNA Microbiome Analysis"
+  description: "KUMC Microbiome Symposium Workshop"
+  navbar:
+    left:
+      - href: index.qmd
+        text: Home
+      - href: kumc-resources.qmd
+        text: KUMC Resources
+    right:
+      - href: slides/workshop-slides.qmd
+        text: Slides
+        icon: easel
+
+  sidebar:
+    style: "docked"
+    search: true
+    contents:
+      - text: "Overview"
+        href: index.qmd
+      - section: "Wet Lab"
+        contents:
+          - text: "Sample Preparation"
+            href: 01-sample-prep.qmd
+          - text: "Amplification (PCR)"
+            href: 02-amplification.qmd
+          - text: "Sequencing"
+            href: 03-sequencing.qmd
+      - section: "Data Processing"
+        contents:
+          - text: "FASTQ Files"
+            href: 04-fastq.qmd
+          - text: "Demultiplexing"
+            href: 05-demultiplexing.qmd
+          - text: "Quality Control"
+            href: 06-quality-control.qmd
+      - section: "Analysis"
+        contents:
+          - text: "Count Table (ASVs / OTUs)"
+            href: 07-count-table.qmd
+          - text: "Normalization & Ordination"
+            href: 08-dimension-reduction.qmd
+          - text: "Diversity Analysis"
+            href: 09-diversity-analysis.qmd
+      - text: "---"
+      - text: "KUMC Resources"
+        href: kumc-resources.qmd
+
+format:
+  html:
+    theme: cosmo
+    css: styles.css
+    toc: true
+    toc-depth: 3
+    toc-title: "On this page"
+    code-fold: true
+    code-summary: "Show example"
+    smooth-scroll: true

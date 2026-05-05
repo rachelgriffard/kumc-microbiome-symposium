@@ -1,0 +1,28 @@
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+.output/
+_site/
+
+# Framework caches
+.astro/
+.quarto/
+.cache/
+
+# Environment
+.env
+.env.*
+!.env.example
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editors
+.vscode/settings.json
+*.swp
+
+/.quarto/
+**/*.quarto_ipynb
