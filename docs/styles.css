@@ -1,0 +1,16 @@
+/* Pipeline stage callouts */
+.callout-warning .callout-title {
+  font-weight: 600;
+}
+
+/* Slightly tighter sidebar */
+.sidebar-navigation .sidebar-section .sidebar-item {
+  font-size: 0.9rem;
+}
+
+/* Pipeline step headers */
+.pipeline-step {
+  border-left: 4px solid #0d6efd;
+  padding-left: 1rem;
+  margin-bottom: 1.5rem;
+}

@@ -1,0 +1,78 @@
+---
+title: "Quality Control"
+---
+
+After demultiplexing and primer trimming, quality control filters and trims reads to remove low-quality sequence before the reads are used to infer microbial taxa. The goal is to remove noise introduced by the sequencer while retaining as much real biological signal as possible. This is a step where the decisions you make have downstream consequences that are not always obvious.
+
+## What quality filtering does
+
+**Truncation** cuts reads at a fixed length. Reads shorter than the specified length after trimming are discarded. This is a blunt-instrument approach: it removes the low-quality 3' tails that all Illumina reads develop, at the cost of losing some read length.
+
+**Quality filtering** discards reads (or bases) below a quality threshold. Common approaches:
+- Remove any read with more than N expected errors (DADA2's approach — more principled than a simple Q threshold)
+- Sliding window trimming: cut when the average quality in a window drops below a threshold (Trimmomatic)
+- Simple per-base Q score cutoff
+
+**Paired-end joining** (if not done later in denoising): after truncation, forward and reverse reads must overlap to be merged. If truncation is too aggressive, you may eliminate the overlap region and reads cannot be merged.
+
+## The truncation decision
+
+This is one of the most impactful parameters in the pipeline. Looking at the quality profiles (available in QIIME2's demux summary, or FastQC):
+
+Illumina quality profiles typically show a characteristic pattern: high-quality bases at the start of the read (Q ≥ 30), followed by a gradual or sharp drop toward the 3′ end. This drop-off point — often called the **"elbow"** — is a natural guide for where to truncate. A Q30 score means a 1-in-1,000 chance of a base call error; Q25 means roughly 1-in-300. Truncation is generally recommended when quality consistently falls below Q25–30 across the majority of reads.
+
+Two constraints must be balanced:
+
+1. **Quality**: truncate where quality drops, to remove unreliable bases.
+2. **Overlap**: for paired-end data, after truncation the forward and reverse reads must still overlap enough to merge — typically at least 20–30 bp.
+
+The overlap available is: `overlap = (R1 truncated length + R2 truncated length) − amplicon length`. For V3–V4 (~460 bp) with 2×250 reads, truncating R1 to 230 and R2 to 200 leaves 30 bp of overlap — workable. Truncating R2 to 180 leaves only 10 bp — marginal and likely to cause most pairs to fail merging. Quality cannot be the only consideration.
+
+::: {.callout-important}
+## These parameters must be the same for all samples in a study
+Changing truncation lengths between samples is not valid — it would affect error rates differently across samples and make them incomparable. Choose one set of parameters for the entire dataset based on the median quality profile across all samples.
+:::
+
+<details>
+<summary>Example: DADA2 filterAndTrim parameters</summary>
+
+```r
+# In R using the dada2 package:
+filtered <- filterAndTrim(
+  fwd = forward_reads,
+  filt = forward_filtered,
+  rev = reverse_reads,
+  filt.rev = reverse_filtered,
+  truncLen = c(230, 200),      # truncate R1 at 230 bp, R2 at 200 bp
+  maxEE = c(2, 2),             # maximum expected errors per read
+  truncQ = 2,                  # truncate at quality score 2 or below
+  rm.phix = TRUE,              # remove PhiX reads if present
+  compress = TRUE,
+  multithread = TRUE
+)
+```
+</details>
+
+## Expected errors vs. quality score cutoffs
+
+DADA2 uses the **expected errors** framework: rather than filtering on per-base quality scores directly, it computes the expected number of errors in an entire read as the sum of the error probabilities at each position. `maxEE = 2` means: discard any read where the expected number of errors exceeds 2.
+
+This is more principled than "discard reads with any base below Q20" because it considers the whole read rather than being thrown off by a single low-quality base.
+
+## What gets discarded
+
+After filtering, check how many reads were retained per sample. Typical retention rates:
+- 70–90% is normal
+- <50% suggests something went wrong: poor run quality, very long amplicon with insufficient overlap, or parameters that are too aggressive
+
+A sample that loses >80% of its reads may not have enough depth for reliable analysis and may need to be excluded.
+
+## What can go wrong
+
+**Overlap failure** — if truncation removes too much of the read, R1 and R2 no longer overlap enough to merge. The result is very few or no merged reads, and the sample appears to have failed. The fix is to increase the truncation lengths (or accept some reduction in 3' quality).
+
+**Overly aggressive filtering** — setting `maxEE = 0` or very short truncation lengths produces very clean reads, but discards so much data that rare taxa are no longer detectable and diversity estimates become unreliable.
+
+**Too permissive filtering** — retaining low-quality reads introduces errors that appear as spurious taxa (sequence variants that don't exist in nature). The error model in DADA2 is designed to handle some error rate, but it is not unlimited.
+
+**Batch effects from re-runs** — if some samples were re-sequenced on a different run (e.g., due to low read counts), those reads will have a different error profile. Quality filtering parameters chosen for the original run may not be appropriate for the re-run batch. Consider analyzing them separately and merging at the count table level.

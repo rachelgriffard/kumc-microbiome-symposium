@@ -1,0 +1,111 @@
+---
+title: "Diversity Analysis"
+---
+
+Diversity analysis is where sequencing data becomes biological insight — or where analytical choices obscure it. This section covers the two main branches of diversity analysis (alpha and beta), the statistical methods used to test them, and the interpretive traps that are common in published microbiome literature.
+
+## Alpha diversity: within-sample diversity
+
+Alpha diversity describes the diversity of a single sample — how many different taxa are present, and how evenly distributed the reads are among them. Different alpha diversity metrics capture different aspects of this.
+
+| Metric | What it captures | Notes |
+|---|---|---|
+| **Observed features** | Raw count of unique ASVs/OTUs | Sensitive to sequencing depth; should be compared only at equal rarefaction depth |
+| **Shannon index** | Both richness and evenness | Penalizes communities dominated by one taxon |
+| **Simpson / Inverse Simpson** | Evenness-weighted diversity | Less sensitive to rare taxa than Shannon |
+| **Faith's PD** | Phylogenetic diversity — total branch length of the community's phylogenetic tree | Accounts for how evolutionarily distinct the taxa are |
+| **Chao1** | Estimated true richness, accounting for undetected rare taxa | Useful when comparing samples at different depths |
+
+::: {.callout-note}
+## High diversity is not always good
+Alpha diversity is often discussed as if "more diversity = healthier." This is true for some contexts (gut microbiome diversity tends to be lower in disease states) but not universal. Lower diversity can indicate a specialized, adapted community. Interpret alpha diversity in the context of your sample type and hypothesis.
+:::
+
+### Statistical testing of alpha diversity
+
+Use non-parametric tests (Kruskal-Wallis for multiple groups, Wilcoxon for two groups) when alpha diversity values are not normally distributed — which they often aren't. For more complex models (multiple covariates, longitudinal data), linear mixed models are appropriate.
+
+::: {.callout-warning}
+## Confounding variables in alpha diversity
+Alpha diversity is affected by sample quality, extraction efficiency, sequencing depth, and the rarefaction cutoff — not just biology. A group difference in alpha diversity may reflect any of these. Always include negative controls and check whether outliers correlate with technical variables before interpreting biologically.
+:::
+
+## Beta diversity: between-sample diversity
+
+Beta diversity (covered in more detail in [Normalization & Ordination](08-dimension-reduction.qmd)) compares community composition across samples. The statistical test for beta diversity is PERMANOVA.
+
+### PERMANOVA
+
+PERMANOVA (Permutational Multivariate Analysis of Variance) tests whether groups of samples have significantly different community composition. It works directly on the distance matrix and makes no distributional assumptions.
+
+The key output is an R² value (proportion of variance explained) and a p-value. The R² for microbiome studies is typically small — 5–15% — because within-group variation is substantial. A small but significant R² is still scientifically meaningful.
+
+::: {.callout-important}
+## PERMANOVA and PERMDISP
+PERMANOVA tests whether group centroids differ. But if one group is more variable than another (different spread in ordination space), PERMANOVA can be significant due to dispersion differences, not true differences in composition. Always run PERMDISP (beta dispersion test) alongside PERMANOVA and report both.
+:::
+
+<details>
+<summary>Example: PERMANOVA in R</summary>
+
+```r
+library(vegan)
+
+# Bray-Curtis distance matrix
+dist_bc <- vegdist(otu_table, method = "bray")
+
+# PERMANOVA: does treatment group explain community composition?
+adonis2(dist_bc ~ treatment + age + sex,
+        data = metadata,
+        permutations = 999,
+        by = "margin")
+
+# Test dispersion (PERMDISP)
+disp <- betadisper(dist_bc, metadata$treatment)
+permutest(disp)
+```
+</details>
+
+## Differential abundance: which taxa differ between groups?
+
+Identifying individual taxa that are more or less abundant between groups is one of the most requested analyses — and one of the most statistically fraught.
+
+Because the count table is compositional (relative abundances sum to 1), standard statistical tests assume independence that is not present. An increase in one taxon's abundance necessarily decreases others' relative abundance.
+
+Current recommended tools:
+- **ANCOM-BC2** — compositionally aware; controls false discovery rate
+- **DESeq2** — borrowed from RNA-seq; performs well in practice but assumptions may not strictly hold
+- **ALDEx2** — Dirichlet-multinomial model; robust but conservative
+- **Maaslin2** — handles multivariable models and mixed effects
+
+Avoid naive t-tests or Wilcoxon tests on raw relative abundances — they do not account for compositionality.
+
+### Why ANCOM works: the log-ratio approach
+
+ANCOM and ANCOM-BC are widely used because they are built around the compositional nature of microbiome data from the start. Instead of asking "is taxon A more abundant in group 1 vs. group 2?" — a question that is confounded by the fact that relative abundances are not independent — ANCOM asks "is the *ratio* of taxon A to every other taxon different between groups?" For each taxon, it counts how many of these pairwise log-ratio tests come back significant (the W statistic). A taxon is called differentially abundant only if it shows consistent differences across the majority of its comparisons.
+
+This "majority-wins" design means random noise is extremely unlikely to produce a false positive: noise might make a few ratios look significant, but it would have to affect most of them simultaneously to trigger a call. The tradeoff is lower sensitivity — ANCOM may miss real differences, especially for rare taxa — but it almost never produces false positives.
+
+ANCOM-BC extends this by explicitly modeling and correcting for library size (the total reads per sample) and providing interpretable log-fold changes with confidence intervals, similar to what you would see in an RNA-seq differential expression report.
+
+::: {.callout-note}
+## Analogy: proving one student is taller than the class
+
+A standard t-test is like comparing one student to a single classmate — easy to get a false positive if the classmate happens to slouch. ANCOM compares that student to *everyone* in the class, and only declares them "significantly taller" if they are taller than the majority of classmates. This majority-vote safeguard is why ANCOM's false positive rate is near zero.
+:::
+
+### Multiple testing
+
+A typical microbiome study tests hundreds to thousands of taxa simultaneously. Apply a false discovery rate correction (Benjamini-Hochberg is standard). Report both uncorrected p-values and FDR-adjusted q-values.
+
+## Common interpretive traps
+
+**Correlation ≠ causation** — a taxon associated with a disease state may be a cause, a consequence, or correlated with a third variable (e.g., diet, medication, age). 16S data alone cannot distinguish these.
+
+**Relative abundance artifacts** — if an antibiotic kills one dominant taxon, all other taxa will appear to increase in relative abundance even if their absolute counts did not change. This is particularly important in intervention studies.
+
+**Confounders** — diet, BMI, antibiotic history, proton pump inhibitor use, and laxative use all have large effects on gut microbiome composition. Studies that do not account for these will attribute their effects to the variable of interest.
+
+**Low sample sizes** — microbiome studies are highly variable. Small cohorts (n < 20 per group) are underpowered for most analyses. Effect sizes in published literature are frequently inflated due to small-sample bias.
+
+**Taxonomy gaps** — a large fraction of "unclassified" reads in a sample may represent true biology (novel taxa) or analytical failure (poor DNA quality, wrong reference database). Do not ignore them.

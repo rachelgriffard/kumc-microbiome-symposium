@@ -1,0 +1,132 @@
+---
+title: "16S rRNA Microbiome Analysis"
+subtitle: "KUMC Microbiome Symposium"
+author: ""
+date: ""
+format:
+  revealjs:
+    theme: simple
+    transition: fade
+    slide-number: true
+    toc: false
+    code-fold: true
+    smaller: false
+    scrollable: true
+---
+
+## The pipeline
+
+| Stage              | What happens                        |
+|--------------------|-------------------------------------|
+| Sample preparation | DNA extraction                      |
+| Amplification      | PCR enrichment of 16S               |
+| Sequencing         | Short-read sequencing               |
+| FASTQ              | Raw data                            |
+| Demultiplexing     | Sort reads to samples               |
+| Quality control    | Filter and trim                     |
+| Count table        | ASVs × samples                      |
+| Ordination         | Account for depth, visualize        |
+| Diversity analysis | Alpha, beta, differential abundance |
+
+------------------------------------------------------------------------
+
+## Sample preparation
+
+-   Goal: total community DNA from every organism in your sample
+-   Bead beating vs. chemical lysis — gram-positive bias matters
+-   Storage conditions are a biological variable
+-   Negative extraction controls are not optional
+
+::: callout-warning
+NanoDrop overestimates concentration. Use Qubit for input quantification.
+:::
+
+------------------------------------------------------------------------
+
+## Amplification
+
+-   You are selecting a slice of microbial diversity with your primer choice
+-   V3–V4 (341F/805R) and V4 (515F/806R) are most common
+-   Mixing primer pairs across studies is not valid
+-   Relative abundance ≠ absolute abundance — PCR is exponential
+
+------------------------------------------------------------------------
+
+## Sequencing
+
+-   MiSeq 2×250 or 2×300 is standard for 16S
+-   Paired-end reads overlap in the middle of the amplicon — that overlap corrects errors
+-   Check the run report: % passing filter, Q30 score
+-   PhiX spike-in is needed for amplicon libraries — low-complexity sequence
+
+------------------------------------------------------------------------
+
+## FASTQ files
+
+-   Four lines per read: ID, sequence, `+`, quality scores
+-   Quality scores degrade toward the 3' end — expected, not a problem
+-   Q30 = 1 error per 1,000 bases
+-   Forward and reverse reads arrive as separate files (R1, R2)
+
+------------------------------------------------------------------------
+
+## Demultiplexing
+
+-   Barcodes/indices match reads to samples
+-   Primer trimming is not optional
+-   Check: read counts per sample, % unassigned reads
+-   A sample with \<1,000 reads after demultiplexing may need to be excluded
+
+------------------------------------------------------------------------
+
+## Quality control
+
+-   Truncate reads before quality drops
+-   Truncation length must allow R1 and R2 to still overlap after merging
+-   Use the same parameters for all samples
+-   Track read retention at every step
+
+------------------------------------------------------------------------
+
+## Count table: ASVs vs. OTUs
+
+-   **OTUs**: reads clustered at 97% similarity — fast, tolerant of errors, but imprecise
+-   **ASVs**: exact sequences after error correction — reproducible, higher resolution
+-   The field has largely moved to ASVs (DADA2, QIIME2)
+-   Taxonomy assignment is only as good as the reference database
+
+------------------------------------------------------------------------
+
+## Normalization & ordination
+
+-   Raw counts are not comparable across samples (different sequencing depth)
+-   Rarefaction: subsample all samples to the same depth — simple, loses data
+-   CLR transformation: compositionally aware, recommended for statistics
+-   PCoA: visualize beta diversity in 2D — patterns suggest differences, don't prove them
+
+------------------------------------------------------------------------
+
+## Diversity analysis
+
+**Alpha diversity** — within-sample diversity (Shannon, Faith's PD)
+
+**Beta diversity** — between-sample similarity (Bray-Curtis, UniFrac)
+
+-   Test with PERMANOVA; check dispersion with PERMDISP
+-   Differential abundance: use ANCOM-BC2, DESeq2, or ALDEx2 — not t-tests
+-   Correct for multiple comparisons (FDR / Benjamini-Hochberg)
+
+------------------------------------------------------------------------
+
+## Common traps
+
+-   Relative abundance artifacts: if one taxon disappears, all others look like they increased
+-   Confounders: diet, antibiotics, BMI can drive microbiome differences
+-   Low n: microbiome studies are highly variable — small cohorts are underpowered
+-   Correlation ≠ causation
+
+------------------------------------------------------------------------
+
+## Questions?
+
+*Workshop reference site and KUMC resources available at \[link\]*

@@ -1,0 +1,79 @@
+---
+title: "Sample Preparation"
+---
+
+Before any sequencing happens, you need DNA — and the quality of that DNA shapes everything downstream. Microbiome studies add complications that standard molecular biology workflows don't always account for: microbial communities are physically diverse, and extraction efficiency varies dramatically across taxa.
+
+::: {.callout-important}
+## Batch effects start here
+
+Every decision in sample preparation — extraction kit, bead-beating duration, storage conditions, PCR cycle number, who runs the extraction — introduces technical variation. When that variation is **systematic** (e.g., all your cases were extracted in one batch and all your controls in another), it becomes a batch effect that is statistically indistinguishable from biology.
+
+The most common and damaging mistake in microbiome study design is confounding experimental groups with batches. Distribute cases and controls across extraction batches from the beginning, and include the same reference sample (e.g., a mock community or pooled aliquot) in every batch so you can detect and measure batch-to-batch drift.
+:::
+
+## What you are actually extracting
+
+The goal is total community DNA: a mixture of genomic material from every organism present in your sample. Unlike culturing, you are not selecting for any particular microbe. That is the power of culture-independent sequencing — but it also means your extraction protocol needs to work reasonably well across a wide range of cell wall architectures (gram-positive bacteria with thick peptidoglycan, gram-negative bacteria, fungi, archaea).
+
+No extraction kit is equally efficient for all of these.
+
+## Key decisions
+
+### Extraction method
+
+**Bead beating** physically disrupts cells through mechanical agitation with small beads. It is more aggressive and tends to give higher yield from difficult-to-lyse organisms (e.g., *Lactobacillus*, fungi, spore-formers). The tradeoff is potential DNA shearing and co-extraction of more inhibitors.
+
+**Chemical/enzymatic lysis** (e.g., detergent-based kits without bead beating) is gentler and better suited to fragile organisms or samples where you want to preserve DNA integrity. It may underrepresent gram-positive taxa.
+
+For gut microbiome work, bead beating is standard. For other sample types, review the literature for your matrix.
+
+### Sample storage
+
+DNA degrades rapidly at room temperature. For field-collected samples:
+
+-   Snap-freeze in liquid nitrogen and store at -80°C is the gold standard
+-   DNA stabilization buffers (e.g., RNAlater, OMNIgene) allow room-temperature storage for short periods
+-   Repeated freeze-thaw cycles degrade both DNA quality and community composition — aliquot samples before freezing
+
+::: callout-important
+## Storage conditions are a biological variable
+
+Samples stored at -80°C vs. -20°C vs. room temperature will yield different community profiles. Within a study, storage conditions must be consistent across all samples.
+:::
+
+### Kit choice
+
+Commercial kits vary in their lysis chemistry, binding conditions, and inhibitor removal. The most commonly used for microbiome work include the Qiagen DNeasy PowerSoil (soil, stool), PowerFecal (stool), and ZymoBIOMICS kits. Using the same kit across all samples in a study is critical — switching kits mid-study introduces a systematic batch effect.
+
+## Assessing DNA quality
+
+After extraction, you need to assess whether you have enough usable DNA.
+
+| Measurement | Tool | What to look for |
+|------------------------|------------------------|------------------------|
+| Concentration | Qubit (fluorometric) | More accurate than NanoDrop for dilute samples |
+| Purity | NanoDrop | A260/280 ≈ 1.8; A260/230 ≈ 2.0–2.2 |
+| Integrity | Agarose gel or TapeStation | High molecular weight band, minimal smearing |
+
+::: callout-warning
+## NanoDrop overestimates concentration
+
+NanoDrop measures all UV-absorbing material, including RNA, free nucleotides, and carryover reagents. Qubit measures double-stranded DNA specifically. For low-biomass samples, this difference can be substantial. Always use Qubit for input quantification to the library prep.
+:::
+
+## What can go wrong
+
+**Inhibitor carryover** — humic acids (soil, stool), heme (blood, tissue), polysaccharides (plant material), and bile salts can co-purify with DNA and inhibit PCR. Signs include poor or no amplification despite adequate DNA concentration. Additional purification steps (e.g., PowerClean Pro, dilution series) can help.
+
+**Low-biomass samples** — skin swabs, BAL, and some environmental samples may have so little microbial DNA that reagent and kit contamination becomes a meaningful fraction of your signal. Negative extraction controls are not optional for low-biomass work.
+
+**Host DNA dominance** — tissue biopsies and some mucosal samples may be overwhelmingly human DNA. This does not usually prevent 16S amplification (primers are bacteria/archaea specific) but can complicate shotgun approaches and may affect some kits' binding efficiency.
+
+**Inconsistent extraction** — variation in how thoroughly samples are homogenized, bead-beating duration, or elution volume introduces technical noise that gets interpreted as biological signal.
+
+## Negative and positive controls
+
+Run a negative extraction control (reagents only, no sample) with every batch. If sequences appear in your negative control, you have contamination — in the kit, the water, the bench, or the tubes. This is especially important for low-biomass samples.
+
+A positive control (a mock community of known composition, e.g., ZymoBIOMICS Microbial Community Standard) lets you verify your extraction and downstream workflow are performing consistently across batches.

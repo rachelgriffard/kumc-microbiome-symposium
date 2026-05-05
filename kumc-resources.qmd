@@ -1,0 +1,53 @@
+---
+title: "University of Kansas Medical Center and External Resources"
+---
+
+## Bioinformatics support
+
+<!-- Add: name of bioinformatics core, contact info, services offered, how to request a consult, pricing model -->
+
+## Genomics core / sequencing
+
+<!-- Add: name of sequencing core, contact info, accepted sample types, turnaround time, submission portal, data delivery method -->
+
+## High-performance computing
+
+<!-- Add: KUMC HPC cluster name and access, how to request an account, available software modules (QIIME2, R, etc.), storage quotas, who to contact for support -->
+
+## Data management and storage
+
+<!-- Add: policies on where to store raw sequencing data, IRB/data security requirements for human microbiome samples, backup procedures -->
+
+## Software available on HPC
+
+<!-- Add: list of pre-installed tools relevant to microbiome analysis — QIIME2, DADA2, R/Bioconductor, FastQC, Cutadapt, etc. — with version information and how to load them -->
+
+## Training and workshops
+
+<!-- Add: links to past and upcoming bioinformatics training events at KUMC, KU Biostatistics collaboration, external resources recommended by the core -->
+
+## Contacts
+
+```{=html}
+<!-- Add: a simple table or list of who to reach out to for what:
+- Sequencing library prep questions
+- Bioinformatics analysis support
+- HPC access and troubleshooting
+- Data management questions
+-->
+```
+
+## External resources
+
+### Analysis pipelines and tutorials
+
+-   [QIIME2 documentation](https://docs.qiime2.org) — tutorials, plugin references, and a community forum for the most widely used microbiome analysis platform
+-   [nf-core/ampliseq](https://nf-co.re/ampliseq) — a Nextflow pipeline for amplicon sequencing analysis maintained by the nf-core community
+-   [DADA2 tutorial](https://benjjneb.github.io/dada2/tutorial.html) — R-based ASV pipeline
+-   [phyloseq tutorials](https://joey711.github.io/phyloseq/) — R package for microbiome data analysis and visualization
+
+### Reference databases and comparative datasets
+
+-   [Earth Microbiome Project](https://earthmicrobiome.org) — protocols, reference databases, and comparative datasets
+-   [Silva database](https://www.arb-silva.de) — rRNA reference database for taxonomy assignment
+-   [Greengenes2](https://greengenes2.ucsd.edu) — updated 16S reference database
