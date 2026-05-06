@@ -77,9 +77,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-dec5d4009982995cbac9a5d81cafe446.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="site_libs/bootstrap/bootstrap-dark-41ae4dfd645b57871dcea61b49b8224c.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="site_libs/bootstrap/bootstrap-dec5d4009982995cbac9a5d81cafe446.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-72be8382eaa325d6a0089fca006bb000.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark-746cf2f3b7df649972bea76384bf8222.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="site_libs/bootstrap/bootstrap-72be8382eaa325d6a0089fca006bb000.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -108,6 +108,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   }
 }</script>
 <style>html{ scroll-behavior: smooth; }</style>
+<script type="module" src="site_libs/quarto-ojs/quarto-ojs-runtime.js"></script>
+<link href="site_libs/quarto-ojs/quarto-ojs.css" rel="stylesheet">
 
 
 <link rel="stylesheet" href="styles.css">
@@ -321,7 +323,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./04-fastq.html">Data Processing</a></li><li class="breadcrumb-item"><a href="./06-quality-control.html">Quality Control</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./public-data.html">Data Processing</a></li><li class="breadcrumb-item"><a href="./06-quality-control.html">Quality Control</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -391,6 +393,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./public-data.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Public Sequencing Data</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./04-fastq.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">FASTQ Files</span></a>
   </div>
@@ -445,6 +453,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="menu-text">KUMC Resources</span></a>
   </div>
 </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./citations.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Citations</span></a>
+  </div>
+</li>
     </ul>
     </div>
 </nav>
@@ -456,10 +470,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
    
   <ul>
   <li><a href="#what-quality-filtering-does" id="toc-what-quality-filtering-does" class="nav-link active" data-scroll-target="#what-quality-filtering-does">What quality filtering does</a></li>
+  <li><a href="#looking-at-a-quality-report" id="toc-looking-at-a-quality-report" class="nav-link" data-scroll-target="#looking-at-a-quality-report">Looking at a quality report</a></li>
   <li><a href="#the-truncation-decision" id="toc-the-truncation-decision" class="nav-link" data-scroll-target="#the-truncation-decision">The truncation decision</a></li>
   <li><a href="#expected-errors-vs.-quality-score-cutoffs" id="toc-expected-errors-vs.-quality-score-cutoffs" class="nav-link" data-scroll-target="#expected-errors-vs.-quality-score-cutoffs">Expected errors vs.&nbsp;quality score cutoffs</a></li>
   <li><a href="#what-gets-discarded" id="toc-what-gets-discarded" class="nav-link" data-scroll-target="#what-gets-discarded">What gets discarded</a></li>
-  <li><a href="#what-can-go-wrong" id="toc-what-can-go-wrong" class="nav-link" data-scroll-target="#what-can-go-wrong">What can go wrong</a></li>
   </ul>
 </nav>
     </div>
@@ -467,7 +481,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <main class="content" id="quarto-document-content">
 
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./04-fastq.html">Data Processing</a></li><li class="breadcrumb-item"><a href="./06-quality-control.html">Quality Control</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./public-data.html">Data Processing</a></li><li class="breadcrumb-item"><a href="./06-quality-control.html">Quality Control</a></li></ol></nav>
 <div class="quarto-title">
 <h1 class="title">Quality Control</h1>
 </div>
@@ -486,12 +500,65 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="assets/quality-control.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:60.0%"></p>
+</figure>
+</div>
 <p>After demultiplexing and primer trimming, quality control filters and trims reads to remove low-quality sequence before the reads are used to infer microbial taxa. The goal is to remove noise introduced by the sequencer while retaining as much real biological signal as possible. This is a step where the decisions you make have downstream consequences that are not always obvious.</p>
 <section id="what-quality-filtering-does" class="level2">
 <h2 class="anchored" data-anchor-id="what-quality-filtering-does">What quality filtering does</h2>
-<p><strong>Truncation</strong> cuts reads at a fixed length. Reads shorter than the specified length after trimming are discarded. This is a blunt-instrument approach: it removes the low-quality 3’ tails that all Illumina reads develop, at the cost of losing some read length.</p>
-<p><strong>Quality filtering</strong> discards reads (or bases) below a quality threshold. Common approaches: - Remove any read with more than N expected errors (DADA2’s approach — more principled than a simple Q threshold) - Sliding window trimming: cut when the average quality in a window drops below a threshold (Trimmomatic) - Simple per-base Q score cutoff</p>
-<p><strong>Paired-end joining</strong> (if not done later in denoising): after truncation, forward and reverse reads must overlap to be merged. If truncation is too aggressive, you may eliminate the overlap region and reads cannot be merged.</p>
+<p><strong>Truncation</strong> cuts reads at a fixed length. Reads shorter than the specified length after trimming are discarded. This approach removes the low-quality 3’ tails that all Illumina reads develop, at the cost of losing some read length.</p>
+<p><strong>Quality filtering</strong> discard reads (or bases) below a quality threshold.</p>
+</section>
+<section id="looking-at-a-quality-report" class="level2">
+<h2 class="anchored" data-anchor-id="looking-at-a-quality-report">Looking at a quality report</h2>
+<p><strong>FastQC</strong> is one standard tool for a quick sanity check on raw reads. It produces plots of:</p>
+<ul>
+<li>Per-base quality scores across the read length</li>
+<li>Per-sequence quality distribution</li>
+<li>Sequence length distribution</li>
+<li>Adapter content</li>
+<li>Overrepresented sequences (primers should appear here)</li>
+</ul>
+<p>QIIME2’s demux plugin produces similar quality plots and is often the first thing you look at after importing your data within the QIIME2 framework.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>FastQC
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>For more information about FastQC, check out <a href="https://www.bioinformatics.babraham.ac.uk/projects/fastqc/">this site</a>.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># to run the analysis on all files in a folder ending in .fastq.gz</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="ex">fastqc</span> <span class="pp">*</span>.fastq.gz</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>QIIME2 Demux Summarize
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>For more information about QIIME2 demux-summarize, check out <a href="https://docs.qiime2.org/2024.10/plugins/available/demux/summarize/">this site</a>.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">qiime2</span> demux-summarize <span class="dt">\</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">--i-data</span> demux.qza</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="ex">--o-visualization.qzv</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+</div>
 </section>
 <section id="the-truncation-decision" class="level2">
 <h2 class="anchored" data-anchor-id="the-truncation-decision">The truncation decision</h2>
@@ -503,6 +570,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><strong>Overlap</strong>: for paired-end data, after truncation the forward and reverse reads must still overlap enough to merge — typically at least 20–30 bp.</li>
 </ol>
 <p>The overlap available is: <code>overlap = (R1 truncated length + R2 truncated length) − amplicon length</code>. For V3–V4 (~460 bp) with 2×250 reads, truncating R1 to 230 and R2 to 200 leaves 30 bp of overlap — workable. Truncating R2 to 180 leaves only 10 bp — marginal and likely to cause most pairs to fail merging. Quality cannot be the only consideration.</p>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Warning</span>They must have overlap!
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>If truncation is too aggressive, you may eliminate the overlap region and reads cannot be merged. To retain around 20-50 overlap that is necessary, you have to ensure that you do not trim the sequences too short.</p>
+</div>
+</div>
 <div class="callout callout-style-default callout-important callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -516,24 +596,186 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Changing truncation lengths between samples is not valid — it would affect error rates differently across samples and make them incomparable. Choose one set of parameters for the entire dataset based on the median quality profile across all samples.</p>
 </div>
 </div>
-<details>
-<summary>
-Example: DADA2 filterAndTrim parameters
-</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># In R using the dada2 package:</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>filtered <span class="ot">&lt;-</span> <span class="fu">filterAndTrim</span>(</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">fwd =</span> forward_reads,</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">filt =</span> forward_filtered,</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">rev =</span> reverse_reads,</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">filt.rev =</span> reverse_filtered,</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">truncLen =</span> <span class="fu">c</span>(<span class="dv">230</span>, <span class="dv">200</span>),      <span class="co"># truncate R1 at 230 bp, R2 at 200 bp</span></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">maxEE =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>),             <span class="co"># maximum expected errors per read</span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">truncQ =</span> <span class="dv">2</span>,                  <span class="co"># truncate at quality score 2 or below</span></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">rm.phix =</span> <span class="cn">TRUE</span>,              <span class="co"># remove PhiX reads if present</span></span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">compress =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">multithread =</span> <span class="cn">TRUE</span></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>A common diagnostic plot is the <strong>per-base quality score distribution</strong>. These are often a box plot or line plot showing, at each read position, the spread of quality scores across all reads. For this example below, the shaded band is the interquartile range (middle 50% of reads), the solid line is the median, and the thin lines are the whiskers. Toggle between R1 and R2 to see how the quality degrades over the length of the read.</p>
+<div class="cell">
+<details class="code-fold hidden">
+<summary>Show example</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb3" data-startfrom="78" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 77;"><span id="cb3-78"><a href="#cb3-78" aria-hidden="true" tabindex="-1"></a>viewof selectedRead <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">radio</span>([<span class="st">"R1"</span><span class="op">,</span> <span class="st">"R2"</span><span class="op">,</span> <span class="st">"Both"</span>]<span class="op">,</span> {</span>
+<span id="cb3-79"><a href="#cb3-79" aria-hidden="true" tabindex="-1"></a>  <span class="dt">value</span><span class="op">:</span> <span class="st">"Both"</span><span class="op">,</span></span>
+<span id="cb3-80"><a href="#cb3-80" aria-hidden="true" tabindex="-1"></a>  <span class="dt">label</span><span class="op">:</span> <span class="st">"Read direction"</span></span>
+<span id="cb3-81"><a href="#cb3-81" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
+<div class="cell-output cell-output-display">
+<div id="ojs-cell-1" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell">
+<details class="code-fold hidden">
+<summary>Show example</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb4" data-startfrom="86" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 85;"><span id="cb4-86"><a href="#cb4-86" aria-hidden="true" tabindex="-1"></a>{</span>
+<span id="cb4-87"><a href="#cb4-87" aria-hidden="true" tabindex="-1"></a>  <span class="kw">function</span> <span class="fu">qualityStats</span>(readType<span class="op">,</span> nPos) {</span>
+<span id="cb4-88"><a href="#cb4-88" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="bu">Array</span><span class="op">.</span><span class="fu">from</span>({<span class="dt">length</span><span class="op">:</span> nPos}<span class="op">,</span> (_<span class="op">,</span> i) <span class="kw">=&gt;</span> {</span>
+<span id="cb4-89"><a href="#cb4-89" aria-hidden="true" tabindex="-1"></a>      <span class="kw">const</span> pos <span class="op">=</span> i <span class="op">+</span> <span class="dv">1</span><span class="op">;</span></span>
+<span id="cb4-90"><a href="#cb4-90" aria-hidden="true" tabindex="-1"></a>      <span class="kw">const</span> t <span class="op">=</span> i <span class="op">/</span> (nPos <span class="op">-</span> <span class="dv">1</span>)<span class="op">;</span></span>
+<span id="cb4-91"><a href="#cb4-91" aria-hidden="true" tabindex="-1"></a>      <span class="kw">let</span> median<span class="op">,</span> spread<span class="op">;</span></span>
+<span id="cb4-92"><a href="#cb4-92" aria-hidden="true" tabindex="-1"></a>      <span class="cf">if</span> (readType <span class="op">===</span> <span class="st">"R1"</span>) {</span>
+<span id="cb4-93"><a href="#cb4-93" aria-hidden="true" tabindex="-1"></a>        median <span class="op">=</span> t <span class="op">&lt;</span> <span class="fl">0.08</span> <span class="op">?</span> <span class="dv">33</span> <span class="op">+</span> t <span class="op">*</span> <span class="dv">50</span></span>
+<span id="cb4-94"><a href="#cb4-94" aria-hidden="true" tabindex="-1"></a>               <span class="op">:</span> t <span class="op">&lt;</span> <span class="fl">0.80</span> <span class="op">?</span> <span class="dv">37</span> <span class="op">-</span> t <span class="op">*</span> <span class="dv">2</span></span>
+<span id="cb4-95"><a href="#cb4-95" aria-hidden="true" tabindex="-1"></a>               <span class="op">:</span> <span class="dv">37</span> <span class="op">-</span> t <span class="op">*</span> <span class="dv">2</span> <span class="op">-</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">pow</span>((t <span class="op">-</span> <span class="fl">0.80</span>) <span class="op">/</span> <span class="fl">0.20</span><span class="op">,</span> <span class="dv">2</span>) <span class="op">*</span> <span class="dv">14</span><span class="op">;</span></span>
+<span id="cb4-96"><a href="#cb4-96" aria-hidden="true" tabindex="-1"></a>        spread <span class="op">=</span> t <span class="op">&lt;</span> <span class="fl">0.80</span> <span class="op">?</span> <span class="dv">2</span> <span class="op">:</span> <span class="dv">2</span> <span class="op">+</span> (t <span class="op">-</span> <span class="fl">0.80</span>) <span class="op">*</span> <span class="dv">15</span><span class="op">;</span></span>
+<span id="cb4-97"><a href="#cb4-97" aria-hidden="true" tabindex="-1"></a>      } <span class="cf">else</span> {</span>
+<span id="cb4-98"><a href="#cb4-98" aria-hidden="true" tabindex="-1"></a>        median <span class="op">=</span> t <span class="op">&lt;</span> <span class="fl">0.08</span> <span class="op">?</span> <span class="dv">31</span> <span class="op">+</span> t <span class="op">*</span> <span class="dv">45</span></span>
+<span id="cb4-99"><a href="#cb4-99" aria-hidden="true" tabindex="-1"></a>               <span class="op">:</span> t <span class="op">&lt;</span> <span class="fl">0.60</span> <span class="op">?</span> <span class="dv">36</span> <span class="op">-</span> t <span class="op">*</span> <span class="dv">3</span></span>
+<span id="cb4-100"><a href="#cb4-100" aria-hidden="true" tabindex="-1"></a>               <span class="op">:</span> <span class="dv">36</span> <span class="op">-</span> t <span class="op">*</span> <span class="dv">3</span> <span class="op">-</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">pow</span>((t <span class="op">-</span> <span class="fl">0.60</span>) <span class="op">/</span> <span class="fl">0.40</span><span class="op">,</span> <span class="fl">1.5</span>) <span class="op">*</span> <span class="dv">16</span><span class="op">;</span></span>
+<span id="cb4-101"><a href="#cb4-101" aria-hidden="true" tabindex="-1"></a>        spread <span class="op">=</span> t <span class="op">&lt;</span> <span class="fl">0.60</span> <span class="op">?</span> <span class="fl">2.5</span> <span class="op">:</span> <span class="fl">2.5</span> <span class="op">+</span> (t <span class="op">-</span> <span class="fl">0.60</span>) <span class="op">*</span> <span class="dv">20</span><span class="op">;</span></span>
+<span id="cb4-102"><a href="#cb4-102" aria-hidden="true" tabindex="-1"></a>      }</span>
+<span id="cb4-103"><a href="#cb4-103" aria-hidden="true" tabindex="-1"></a>      median <span class="op">=</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">max</span>(<span class="dv">5</span><span class="op">,</span> median)<span class="op">;</span></span>
+<span id="cb4-104"><a href="#cb4-104" aria-hidden="true" tabindex="-1"></a>      <span class="cf">return</span> {</span>
+<span id="cb4-105"><a href="#cb4-105" aria-hidden="true" tabindex="-1"></a>        pos<span class="op">,</span></span>
+<span id="cb4-106"><a href="#cb4-106" aria-hidden="true" tabindex="-1"></a>        <span class="dt">read</span><span class="op">:</span> readType<span class="op">,</span></span>
+<span id="cb4-107"><a href="#cb4-107" aria-hidden="true" tabindex="-1"></a>        <span class="dt">median</span><span class="op">:</span> <span class="op">+</span>median<span class="op">.</span><span class="fu">toFixed</span>(<span class="dv">1</span>)<span class="op">,</span></span>
+<span id="cb4-108"><a href="#cb4-108" aria-hidden="true" tabindex="-1"></a>        <span class="dt">q1</span><span class="op">:</span>     <span class="op">+</span><span class="bu">Math</span><span class="op">.</span><span class="fu">max</span>(<span class="dv">2</span><span class="op">,</span>  median <span class="op">-</span> spread <span class="op">*</span> <span class="fl">0.7</span>)<span class="op">.</span><span class="fu">toFixed</span>(<span class="dv">1</span>)<span class="op">,</span></span>
+<span id="cb4-109"><a href="#cb4-109" aria-hidden="true" tabindex="-1"></a>        <span class="dt">q3</span><span class="op">:</span>     <span class="op">+</span><span class="bu">Math</span><span class="op">.</span><span class="fu">min</span>(<span class="dv">40</span><span class="op">,</span> median <span class="op">+</span> spread <span class="op">*</span> <span class="fl">0.4</span>)<span class="op">.</span><span class="fu">toFixed</span>(<span class="dv">1</span>)<span class="op">,</span></span>
+<span id="cb4-110"><a href="#cb4-110" aria-hidden="true" tabindex="-1"></a>        <span class="dt">wLow</span><span class="op">:</span>   <span class="op">+</span><span class="bu">Math</span><span class="op">.</span><span class="fu">max</span>(<span class="dv">0</span><span class="op">,</span>  median <span class="op">-</span> spread <span class="op">*</span> <span class="fl">1.5</span>)<span class="op">.</span><span class="fu">toFixed</span>(<span class="dv">1</span>)<span class="op">,</span></span>
+<span id="cb4-111"><a href="#cb4-111" aria-hidden="true" tabindex="-1"></a>        <span class="dt">wHigh</span><span class="op">:</span>  <span class="op">+</span><span class="bu">Math</span><span class="op">.</span><span class="fu">min</span>(<span class="dv">40</span><span class="op">,</span> median <span class="op">+</span> spread <span class="op">*</span> <span class="fl">0.9</span>)<span class="op">.</span><span class="fu">toFixed</span>(<span class="dv">1</span>)</span>
+<span id="cb4-112"><a href="#cb4-112" aria-hidden="true" tabindex="-1"></a>      }<span class="op">;</span></span>
+<span id="cb4-113"><a href="#cb4-113" aria-hidden="true" tabindex="-1"></a>    })<span class="op">;</span></span>
+<span id="cb4-114"><a href="#cb4-114" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb4-115"><a href="#cb4-115" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-116"><a href="#cb4-116" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> nPos <span class="op">=</span> <span class="dv">250</span><span class="op">;</span></span>
+<span id="cb4-117"><a href="#cb4-117" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> reads <span class="op">=</span> selectedRead <span class="op">===</span> <span class="st">"Both"</span> <span class="op">?</span> [<span class="st">"R1"</span><span class="op">,</span> <span class="st">"R2"</span>] <span class="op">:</span> [selectedRead]<span class="op">;</span></span>
+<span id="cb4-118"><a href="#cb4-118" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> data  <span class="op">=</span> reads<span class="op">.</span><span class="fu">flatMap</span>(r <span class="kw">=&gt;</span> <span class="fu">qualityStats</span>(r<span class="op">,</span> nPos))<span class="op">;</span></span>
+<span id="cb4-119"><a href="#cb4-119" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> clr   <span class="op">=</span> { <span class="dt">R1</span><span class="op">:</span> <span class="st">"#1565C0"</span><span class="op">,</span> <span class="dt">R2</span><span class="op">:</span> <span class="st">"#C62828"</span> }<span class="op">;</span></span>
+<span id="cb4-120"><a href="#cb4-120" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> w     <span class="op">=</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">min</span>(width<span class="op">,</span> <span class="dv">720</span>)<span class="op">;</span></span>
+<span id="cb4-121"><a href="#cb4-121" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-122"><a href="#cb4-122" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> Plot<span class="op">.</span><span class="fu">plot</span>({</span>
+<span id="cb4-123"><a href="#cb4-123" aria-hidden="true" tabindex="-1"></a>    <span class="dt">width</span><span class="op">:</span> w<span class="op">,</span></span>
+<span id="cb4-124"><a href="#cb4-124" aria-hidden="true" tabindex="-1"></a>    <span class="dt">height</span><span class="op">:</span> <span class="dv">340</span><span class="op">,</span></span>
+<span id="cb4-125"><a href="#cb4-125" aria-hidden="true" tabindex="-1"></a>    <span class="dt">marginRight</span><span class="op">:</span> selectedRead <span class="op">===</span> <span class="st">"Both"</span> <span class="op">?</span> <span class="dv">50</span> <span class="op">:</span> <span class="dv">20</span><span class="op">,</span></span>
+<span id="cb4-126"><a href="#cb4-126" aria-hidden="true" tabindex="-1"></a>    <span class="dt">x</span><span class="op">:</span> { <span class="dt">label</span><span class="op">:</span> <span class="st">"Position in read (bp) →"</span><span class="op">,</span> <span class="dt">domain</span><span class="op">:</span> [<span class="dv">1</span><span class="op">,</span> nPos] }<span class="op">,</span></span>
+<span id="cb4-127"><a href="#cb4-127" aria-hidden="true" tabindex="-1"></a>    <span class="dt">y</span><span class="op">:</span> { <span class="dt">label</span><span class="op">:</span> <span class="st">"↑ Phred quality score"</span><span class="op">,</span> <span class="dt">domain</span><span class="op">:</span> [<span class="dv">0</span><span class="op">,</span> <span class="dv">42</span>]<span class="op">,</span> <span class="dt">grid</span><span class="op">:</span> <span class="kw">true</span> }<span class="op">,</span></span>
+<span id="cb4-128"><a href="#cb4-128" aria-hidden="true" tabindex="-1"></a>    <span class="dt">marks</span><span class="op">:</span> [</span>
+<span id="cb4-129"><a href="#cb4-129" aria-hidden="true" tabindex="-1"></a>      Plot<span class="op">.</span><span class="fu">rect</span>(</span>
+<span id="cb4-130"><a href="#cb4-130" aria-hidden="true" tabindex="-1"></a>        [{<span class="dt">y1</span><span class="op">:</span> <span class="dv">0</span><span class="op">,</span> <span class="dt">y2</span><span class="op">:</span> <span class="dv">20</span>}<span class="op">,</span> {<span class="dt">y1</span><span class="op">:</span> <span class="dv">20</span><span class="op">,</span> <span class="dt">y2</span><span class="op">:</span> <span class="dv">28</span>}<span class="op">,</span> {<span class="dt">y1</span><span class="op">:</span> <span class="dv">28</span><span class="op">,</span> <span class="dt">y2</span><span class="op">:</span> <span class="dv">42</span>}]<span class="op">,</span></span>
+<span id="cb4-131"><a href="#cb4-131" aria-hidden="true" tabindex="-1"></a>        { <span class="dt">x1</span><span class="op">:</span> <span class="dv">1</span><span class="op">,</span> <span class="dt">x2</span><span class="op">:</span> nPos<span class="op">,</span> <span class="dt">y1</span><span class="op">:</span> <span class="st">"y1"</span><span class="op">,</span> <span class="dt">y2</span><span class="op">:</span> <span class="st">"y2"</span><span class="op">,</span></span>
+<span id="cb4-132"><a href="#cb4-132" aria-hidden="true" tabindex="-1"></a>          <span class="dt">fill</span><span class="op">:</span> [<span class="st">"#ffebee"</span><span class="op">,</span> <span class="st">"#fff9c4"</span><span class="op">,</span> <span class="st">"#e8f5e9"</span>]<span class="op">,</span> <span class="dt">fillOpacity</span><span class="op">:</span> <span class="fl">0.6</span> }</span>
+<span id="cb4-133"><a href="#cb4-133" aria-hidden="true" tabindex="-1"></a>      )<span class="op">,</span></span>
+<span id="cb4-134"><a href="#cb4-134" aria-hidden="true" tabindex="-1"></a>      <span class="op">...</span>reads<span class="op">.</span><span class="fu">flatMap</span>(r <span class="kw">=&gt;</span> [</span>
+<span id="cb4-135"><a href="#cb4-135" aria-hidden="true" tabindex="-1"></a>        Plot<span class="op">.</span><span class="fu">areaY</span>(data<span class="op">.</span><span class="fu">filter</span>(d <span class="kw">=&gt;</span> d<span class="op">.</span><span class="at">read</span> <span class="op">===</span> r)<span class="op">,</span></span>
+<span id="cb4-136"><a href="#cb4-136" aria-hidden="true" tabindex="-1"></a>          { <span class="dt">x</span><span class="op">:</span> <span class="st">"pos"</span><span class="op">,</span> <span class="dt">y1</span><span class="op">:</span> <span class="st">"q1"</span><span class="op">,</span> <span class="dt">y2</span><span class="op">:</span> <span class="st">"q3"</span><span class="op">,</span></span>
+<span id="cb4-137"><a href="#cb4-137" aria-hidden="true" tabindex="-1"></a>            <span class="dt">fill</span><span class="op">:</span> clr[r]<span class="op">,</span> <span class="dt">fillOpacity</span><span class="op">:</span> <span class="fl">0.22</span> })<span class="op">,</span></span>
+<span id="cb4-138"><a href="#cb4-138" aria-hidden="true" tabindex="-1"></a>        Plot<span class="op">.</span><span class="fu">lineY</span>(data<span class="op">.</span><span class="fu">filter</span>(d <span class="kw">=&gt;</span> d<span class="op">.</span><span class="at">read</span> <span class="op">===</span> r)<span class="op">,</span></span>
+<span id="cb4-139"><a href="#cb4-139" aria-hidden="true" tabindex="-1"></a>          { <span class="dt">x</span><span class="op">:</span> <span class="st">"pos"</span><span class="op">,</span> <span class="dt">y</span><span class="op">:</span> <span class="st">"wLow"</span><span class="op">,</span>  <span class="dt">stroke</span><span class="op">:</span> clr[r]<span class="op">,</span> <span class="dt">strokeWidth</span><span class="op">:</span> <span class="fl">0.8</span><span class="op">,</span> <span class="dt">strokeOpacity</span><span class="op">:</span> <span class="fl">0.45</span> })<span class="op">,</span></span>
+<span id="cb4-140"><a href="#cb4-140" aria-hidden="true" tabindex="-1"></a>        Plot<span class="op">.</span><span class="fu">lineY</span>(data<span class="op">.</span><span class="fu">filter</span>(d <span class="kw">=&gt;</span> d<span class="op">.</span><span class="at">read</span> <span class="op">===</span> r)<span class="op">,</span></span>
+<span id="cb4-141"><a href="#cb4-141" aria-hidden="true" tabindex="-1"></a>          { <span class="dt">x</span><span class="op">:</span> <span class="st">"pos"</span><span class="op">,</span> <span class="dt">y</span><span class="op">:</span> <span class="st">"wHigh"</span><span class="op">,</span> <span class="dt">stroke</span><span class="op">:</span> clr[r]<span class="op">,</span> <span class="dt">strokeWidth</span><span class="op">:</span> <span class="fl">0.8</span><span class="op">,</span> <span class="dt">strokeOpacity</span><span class="op">:</span> <span class="fl">0.45</span> })<span class="op">,</span></span>
+<span id="cb4-142"><a href="#cb4-142" aria-hidden="true" tabindex="-1"></a>        Plot<span class="op">.</span><span class="fu">lineY</span>(data<span class="op">.</span><span class="fu">filter</span>(d <span class="kw">=&gt;</span> d<span class="op">.</span><span class="at">read</span> <span class="op">===</span> r)<span class="op">,</span></span>
+<span id="cb4-143"><a href="#cb4-143" aria-hidden="true" tabindex="-1"></a>          { <span class="dt">x</span><span class="op">:</span> <span class="st">"pos"</span><span class="op">,</span> <span class="dt">y</span><span class="op">:</span> <span class="st">"median"</span><span class="op">,</span> <span class="dt">stroke</span><span class="op">:</span> clr[r]<span class="op">,</span> <span class="dt">strokeWidth</span><span class="op">:</span> <span class="fl">2.5</span> })</span>
+<span id="cb4-144"><a href="#cb4-144" aria-hidden="true" tabindex="-1"></a>      ])<span class="op">,</span></span>
+<span id="cb4-145"><a href="#cb4-145" aria-hidden="true" tabindex="-1"></a>      Plot<span class="op">.</span><span class="fu">ruleY</span>([<span class="dv">30</span>]<span class="op">,</span> { <span class="dt">stroke</span><span class="op">:</span> <span class="st">"#666"</span><span class="op">,</span> <span class="dt">strokeDasharray</span><span class="op">:</span> <span class="st">"6,3"</span><span class="op">,</span> <span class="dt">strokeWidth</span><span class="op">:</span> <span class="fl">1.5</span> })<span class="op">,</span></span>
+<span id="cb4-146"><a href="#cb4-146" aria-hidden="true" tabindex="-1"></a>      Plot<span class="op">.</span><span class="fu">text</span>([{ <span class="dt">pos</span><span class="op">:</span> <span class="dv">8</span><span class="op">,</span> <span class="dt">q</span><span class="op">:</span> <span class="dv">30</span> }]<span class="op">,</span></span>
+<span id="cb4-147"><a href="#cb4-147" aria-hidden="true" tabindex="-1"></a>        { <span class="dt">x</span><span class="op">:</span> <span class="st">"pos"</span><span class="op">,</span> <span class="dt">y</span><span class="op">:</span> <span class="st">"q"</span><span class="op">,</span> <span class="dt">text</span><span class="op">:</span> [<span class="st">"Q30"</span>]<span class="op">,</span> <span class="dt">dy</span><span class="op">:</span> <span class="op">-</span><span class="dv">8</span><span class="op">,</span></span>
+<span id="cb4-148"><a href="#cb4-148" aria-hidden="true" tabindex="-1"></a>          <span class="dt">fontSize</span><span class="op">:</span> <span class="dv">11</span><span class="op">,</span> <span class="dt">fill</span><span class="op">:</span> <span class="st">"#666"</span><span class="op">,</span> <span class="dt">fontWeight</span><span class="op">:</span> <span class="st">"600"</span> })<span class="op">,</span></span>
+<span id="cb4-149"><a href="#cb4-149" aria-hidden="true" tabindex="-1"></a>      <span class="op">...</span>(selectedRead <span class="op">===</span> <span class="st">"Both"</span> <span class="op">?</span> reads<span class="op">.</span><span class="fu">map</span>(r <span class="kw">=&gt;</span></span>
+<span id="cb4-150"><a href="#cb4-150" aria-hidden="true" tabindex="-1"></a>        Plot<span class="op">.</span><span class="fu">text</span>(</span>
+<span id="cb4-151"><a href="#cb4-151" aria-hidden="true" tabindex="-1"></a>          [{ <span class="dt">pos</span><span class="op">:</span> nPos<span class="op">,</span> <span class="dt">y</span><span class="op">:</span> data<span class="op">.</span><span class="fu">filter</span>(d <span class="kw">=&gt;</span> d<span class="op">.</span><span class="at">read</span> <span class="op">===</span> r)<span class="op">.</span><span class="fu">at</span>(<span class="op">-</span><span class="dv">1</span>)<span class="op">.</span><span class="at">median</span> }]<span class="op">,</span></span>
+<span id="cb4-152"><a href="#cb4-152" aria-hidden="true" tabindex="-1"></a>          { <span class="dt">x</span><span class="op">:</span> <span class="st">"pos"</span><span class="op">,</span> <span class="dt">y</span><span class="op">:</span> <span class="st">"y"</span><span class="op">,</span> <span class="dt">text</span><span class="op">:</span> [r]<span class="op">,</span> <span class="dt">dx</span><span class="op">:</span> <span class="dv">8</span><span class="op">,</span></span>
+<span id="cb4-153"><a href="#cb4-153" aria-hidden="true" tabindex="-1"></a>            <span class="dt">fill</span><span class="op">:</span> clr[r]<span class="op">,</span> <span class="dt">fontWeight</span><span class="op">:</span> <span class="st">"700"</span><span class="op">,</span> <span class="dt">fontSize</span><span class="op">:</span> <span class="dv">12</span> }</span>
+<span id="cb4-154"><a href="#cb4-154" aria-hidden="true" tabindex="-1"></a>        )</span>
+<span id="cb4-155"><a href="#cb4-155" aria-hidden="true" tabindex="-1"></a>      ) <span class="op">:</span> [])</span>
+<span id="cb4-156"><a href="#cb4-156" aria-hidden="true" tabindex="-1"></a>    ]</span>
+<span id="cb4-157"><a href="#cb4-157" aria-hidden="true" tabindex="-1"></a>  })<span class="op">;</span></span>
+<span id="cb4-158"><a href="#cb4-158" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display">
+<div id="ojs-cell-2" data-nodetype="expression">
+
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Reading the plot
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The <strong>green zone</strong> (Q ≥ 28) is good quality. The <strong>yellow zone</strong> (Q 20–28) is acceptable but worth watching. The <strong>red zone</strong> (Q &lt; 20) should be trimmed before analysis. Notice that R2 dips into the yellow zone well before position 250 — this is normal and is why DADA2 truncation lengths for R1 and R2 are set independently.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Important</span>Reproducibility in truncation
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Make sure that you carefully note the selection of where to truncate based on quality scores for both the forward and reverse reads. This is necessary for others to reproduce your results.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>DADA2 filterAndTrim
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-7" class="callout-7-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>DADA2 is a package that can be run using R.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># In R using the dada2 package:</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>filtered <span class="ot">&lt;-</span> <span class="fu">filterAndTrim</span>(</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">fwd =</span> forward_reads,</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">filt =</span> forward_filtered,</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">rev =</span> reverse_reads,</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">filt.rev =</span> reverse_filtered,</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">truncLen =</span> <span class="fu">c</span>(<span class="dv">230</span>, <span class="dv">200</span>),      <span class="co"># truncate R1 at 230 bp, R2 at 200 bp</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">maxEE =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>),             <span class="co"># maximum expected errors per read</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">truncQ =</span> <span class="dv">2</span>,                  <span class="co"># truncate at quality score 2 or below</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">rm.phix =</span> <span class="cn">TRUE</span>,              <span class="co"># remove PhiX reads if present</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">compress =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">multithread =</span> <span class="cn">TRUE</span></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-8-contents" aria-controls="callout-8" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>QIIME2 denoise-paired
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-8" class="callout-8-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>The same analysis can be run using the QIIME2 framework in the command line.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># In command line using the QIIME2 framework:</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="ex">qiime</span> dada2 denoise-paired <span class="dt">\</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">--i-demultiplexed-seqs</span> demultiplexed-sequences.qza <span class="dt">\</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">--p-trunc-len-f</span> 230 <span class="dt">\</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">--p-trunc-len-r</span> 200 <span class="dt">\</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">--p-max-ee-f</span> 2 <span class="dt">\</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">--p-max-ee-r</span> 2 <span class="dt">\</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">--p-n-threads</span> N <span class="dt">\</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">--o-representative-sequences</span> asv-sequences-0.qza <span class="dt">\</span></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">--o-table</span> feature-table-0.qza <span class="dt">\</span></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">--o-denoising-stats</span> dada2-stats.qza</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+</div>
 </section>
 <section id="expected-errors-vs.-quality-score-cutoffs" class="level2">
 <h2 class="anchored" data-anchor-id="expected-errors-vs.-quality-score-cutoffs">Expected errors vs.&nbsp;quality score cutoffs</h2>
@@ -544,18 +786,22 @@ Example: DADA2 filterAndTrim parameters
 <h2 class="anchored" data-anchor-id="what-gets-discarded">What gets discarded</h2>
 <p>After filtering, check how many reads were retained per sample. Typical retention rates: - 70–90% is normal - &lt;50% suggests something went wrong: poor run quality, very long amplicon with insufficient overlap, or parameters that are too aggressive</p>
 <p>A sample that loses &gt;80% of its reads may not have enough depth for reliable analysis and may need to be excluded.</p>
-</section>
-<section id="what-can-go-wrong" class="level2">
-<h2 class="anchored" data-anchor-id="what-can-go-wrong">What can go wrong</h2>
-<p><strong>Overlap failure</strong> — if truncation removes too much of the read, R1 and R2 no longer overlap enough to merge. The result is very few or no merged reads, and the sample appears to have failed. The fix is to increase the truncation lengths (or accept some reduction in 3’ quality).</p>
-<p><strong>Overly aggressive filtering</strong> — setting <code>maxEE = 0</code> or very short truncation lengths produces very clean reads, but discards so much data that rare taxa are no longer detectable and diversity estimates become unreliable.</p>
-<p><strong>Too permissive filtering</strong> — retaining low-quality reads introduces errors that appear as spurious taxa (sequence variants that don’t exist in nature). The error model in DADA2 is designed to handle some error rate, but it is not unlimited.</p>
-<p><strong>Batch effects from re-runs</strong> — if some samples were re-sequenced on a different run (e.g., due to low read counts), those reads will have a different error profile. Quality filtering parameters chosen for the original run may not be appropriate for the re-run batch. Consider analyzing them separately and merging at the count table level.</p>
 
 
 </section>
 
 </main> <!-- /main -->
+<script type="ojs-module-contents">
+eyJjb250ZW50cyI6W3sibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtMSIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6InZpZXdvZiBzZWxlY3RlZFJlYWQgPSBJbnB1dHMucmFkaW8oW1wiUjFcIiwgXCJSMlwiLCBcIkJvdGhcIl0sIHtcbiAgdmFsdWU6IFwiQm90aFwiLFxuICBsYWJlbDogXCJSZWFkIGRpcmVjdGlvblwiXG59KVxuIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0IiwiY2VsbE5hbWUiOiJvanMtY2VsbC0yIiwiaW5saW5lIjpmYWxzZSwic291cmNlIjoie1xuICBmdW5jdGlvbiBxdWFsaXR5U3RhdHMocmVhZFR5cGUsIG5Qb3MpIHtcbiAgICByZXR1cm4gQXJyYXkuZnJvbSh7bGVuZ3RoOiBuUG9zfSwgKF8sIGkpID0+IHtcbiAgICAgIGNvbnN0IHBvcyA9IGkgKyAxO1xuICAgICAgY29uc3QgdCA9IGkgLyAoblBvcyAtIDEpO1xuICAgICAgbGV0IG1lZGlhbiwgc3ByZWFkO1xuICAgICAgaWYgKHJlYWRUeXBlID09PSBcIlIxXCIpIHtcbiAgICAgICAgbWVkaWFuID0gdCA8IDAuMDggPyAzMyArIHQgKiA1MFxuICAgICAgICAgICAgICAgOiB0IDwgMC44MCA/IDM3IC0gdCAqIDJcbiAgICAgICAgICAgICAgIDogMzcgLSB0ICogMiAtIE1hdGgucG93KCh0IC0gMC44MCkgLyAwLjIwLCAyKSAqIDE0O1xuICAgICAgICBzcHJlYWQgPSB0IDwgMC44MCA/IDIgOiAyICsgKHQgLSAwLjgwKSAqIDE1O1xuICAgICAgfSBlbHNlIHtcbiAgICAgICAgbWVkaWFuID0gdCA8IDAuMDggPyAzMSArIHQgKiA0NVxuICAgICAgICAgICAgICAgOiB0IDwgMC42MCA/IDM2IC0gdCAqIDNcbiAgICAgICAgICAgICAgIDogMzYgLSB0ICogMyAtIE1hdGgucG93KCh0IC0gMC42MCkgLyAwLjQwLCAxLjUpICogMTY7XG4gICAgICAgIHNwcmVhZCA9IHQgPCAwLjYwID8gMi41IDogMi41ICsgKHQgLSAwLjYwKSAqIDIwO1xuICAgICAgfVxuICAgICAgbWVkaWFuID0gTWF0aC5tYXgoNSwgbWVkaWFuKTtcbiAgICAgIHJldHVybiB7XG4gICAgICAgIHBvcyxcbiAgICAgICAgcmVhZDogcmVhZFR5cGUsXG4gICAgICAgIG1lZGlhbjogK21lZGlhbi50b0ZpeGVkKDEpLFxuICAgICAgICBxMTogICAgICtNYXRoLm1heCgyLCAgbWVkaWFuIC0gc3ByZWFkICogMC43KS50b0ZpeGVkKDEpLFxuICAgICAgICBxMzogICAgICtNYXRoLm1pbig0MCwgbWVkaWFuICsgc3ByZWFkICogMC40KS50b0ZpeGVkKDEpLFxuICAgICAgICB3TG93OiAgICtNYXRoLm1heCgwLCAgbWVkaWFuIC0gc3ByZWFkICogMS41KS50b0ZpeGVkKDEpLFxuICAgICAgICB3SGlnaDogICtNYXRoLm1pbig0MCwgbWVkaWFuICsgc3ByZWFkICogMC45KS50b0ZpeGVkKDEpXG4gICAgICB9O1xuICAgIH0pO1xuICB9XG5cbiAgY29uc3QgblBvcyA9IDI1MDtcbiAgY29uc3QgcmVhZHMgPSBzZWxlY3RlZFJlYWQgPT09IFwiQm90aFwiID8gW1wiUjFcIiwgXCJSMlwiXSA6IFtzZWxlY3RlZFJlYWRdO1xuICBjb25zdCBkYXRhICA9IHJlYWRzLmZsYXRNYXAociA9PiBxdWFsaXR5U3RhdHMociwgblBvcykpO1xuICBjb25zdCBjbHIgICA9IHsgUjE6IFwiIzE1NjVDMFwiLCBSMjogXCIjQzYyODI4XCIgfTtcbiAgY29uc3QgdyAgICAgPSBNYXRoLm1pbih3aWR0aCwgNzIwKTtcblxuICByZXR1cm4gUGxvdC5wbG90KHtcbiAgICB3aWR0aDogdyxcbiAgICBoZWlnaHQ6IDM0MCxcbiAgICBtYXJnaW5SaWdodDogc2VsZWN0ZWRSZWFkID09PSBcIkJvdGhcIiA/IDUwIDogMjAsXG4gICAgeDogeyBsYWJlbDogXCJQb3NpdGlvbiBpbiByZWFkIChicCkg4oaSXCIsIGRvbWFpbjogWzEsIG5Qb3NdIH0sXG4gICAgeTogeyBsYWJlbDogXCLihpEgUGhyZWQgcXVhbGl0eSBzY29yZVwiLCBkb21haW46IFswLCA0Ml0sIGdyaWQ6IHRydWUgfSxcbiAgICBtYXJrczogW1xuICAgICAgUGxvdC5yZWN0KFxuICAgICAgICBbe3kxOiAwLCB5MjogMjB9LCB7eTE6IDIwLCB5MjogMjh9LCB7eTE6IDI4LCB5MjogNDJ9XSxcbiAgICAgICAgeyB4MTogMSwgeDI6IG5Qb3MsIHkxOiBcInkxXCIsIHkyOiBcInkyXCIsXG4gICAgICAgICAgZmlsbDogW1wiI2ZmZWJlZVwiLCBcIiNmZmY5YzRcIiwgXCIjZThmNWU5XCJdLCBmaWxsT3BhY2l0eTogMC42IH1cbiAgICAgICksXG4gICAgICAuLi5yZWFkcy5mbGF0TWFwKHIgPT4gW1xuICAgICAgICBQbG90LmFyZWFZKGRhdGEuZmlsdGVyKGQgPT4gZC5yZWFkID09PSByKSxcbiAgICAgICAgICB7IHg6IFwicG9zXCIsIHkxOiBcInExXCIsIHkyOiBcInEzXCIsXG4gICAgICAgICAgICBmaWxsOiBjbHJbcl0sIGZpbGxPcGFjaXR5OiAwLjIyIH0pLFxuICAgICAgICBQbG90LmxpbmVZKGRhdGEuZmlsdGVyKGQgPT4gZC5yZWFkID09PSByKSxcbiAgICAgICAgICB7IHg6IFwicG9zXCIsIHk6IFwid0xvd1wiLCAgc3Ryb2tlOiBjbHJbcl0sIHN0cm9rZVdpZHRoOiAwLjgsIHN0cm9rZU9wYWNpdHk6IDAuNDUgfSksXG4gICAgICAgIFBsb3QubGluZVkoZGF0YS5maWx0ZXIoZCA9PiBkLnJlYWQgPT09IHIpLFxuICAgICAgICAgIHsgeDogXCJwb3NcIiwgeTogXCJ3SGlnaFwiLCBzdHJva2U6IGNscltyXSwgc3Ryb2tlV2lkdGg6IDAuOCwgc3Ryb2tlT3BhY2l0eTogMC40NSB9KSxcbiAgICAgICAgUGxvdC5saW5lWShkYXRhLmZpbHRlcihkID0+IGQucmVhZCA9PT0gciksXG4gICAgICAgICAgeyB4OiBcInBvc1wiLCB5OiBcIm1lZGlhblwiLCBzdHJva2U6IGNscltyXSwgc3Ryb2tlV2lkdGg6IDIuNSB9KVxuICAgICAgXSksXG4gICAgICBQbG90LnJ1bGVZKFszMF0sIHsgc3Ryb2tlOiBcIiM2NjZcIiwgc3Ryb2tlRGFzaGFycmF5OiBcIjYsM1wiLCBzdHJva2VXaWR0aDogMS41IH0pLFxuICAgICAgUGxvdC50ZXh0KFt7IHBvczogOCwgcTogMzAgfV0sXG4gICAgICAgIHsgeDogXCJwb3NcIiwgeTogXCJxXCIsIHRleHQ6IFtcIlEzMFwiXSwgZHk6IC04LFxuICAgICAgICAgIGZvbnRTaXplOiAxMSwgZmlsbDogXCIjNjY2XCIsIGZvbnRXZWlnaHQ6IFwiNjAwXCIgfSksXG4gICAgICAuLi4oc2VsZWN0ZWRSZWFkID09PSBcIkJvdGhcIiA/IHJlYWRzLm1hcChyID0+XG4gICAgICAgIFBsb3QudGV4dChcbiAgICAgICAgICBbeyBwb3M6IG5Qb3MsIHk6IGRhdGEuZmlsdGVyKGQgPT4gZC5yZWFkID09PSByKS5hdCgtMSkubWVkaWFuIH1dLFxuICAgICAgICAgIHsgeDogXCJwb3NcIiwgeTogXCJ5XCIsIHRleHQ6IFtyXSwgZHg6IDgsXG4gICAgICAgICAgICBmaWxsOiBjbHJbcl0sIGZvbnRXZWlnaHQ6IFwiNzAwXCIsIGZvbnRTaXplOiAxMiB9XG4gICAgICAgIClcbiAgICAgICkgOiBbXSlcbiAgICBdXG4gIH0pO1xufVxuIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0UXVpZXQiLCJzb3VyY2UiOiJzaGlueUlucHV0KCdzZWxlY3RlZFJlYWQnKSJ9XX0=
+</script>
+<script type="module">
+if (window.location.protocol === "file:") { alert("The OJS runtime does not work with file:// URLs. Please use a web server to view this document."); }
+window._ojs.paths.runtimeToDoc = "../..";
+window._ojs.paths.runtimeToRoot = "../..";
+window._ojs.paths.docToRoot = "";
+window._ojs.selfContained = false;
+window._ojs.runtime.interpretFromScriptTags();
+</script>
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     // Ensure there is a toggle, if there isn't float one in the top right

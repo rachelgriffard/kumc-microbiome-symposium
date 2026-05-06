@@ -5,11 +5,13 @@ subtitle: "KUMC Microbiome Symposium Workshop"
 
 The human body is home to trillions of microorganisms — bacteria, archaea, viruses, and fungi — collectively called the microbiome. These communities play documented roles in immune development, metabolism, and susceptibility to disease. Understanding which microbes are present, in what proportions, and how those communities differ across individuals or conditions is now a central question across many areas of biomedical research.
 
-The primary tool for profiling bacterial communities is **16S rRNA gene sequencing**. The 16S rRNA gene is present in all bacteria and archaea. Within its \~1,500 base pairs, some regions are highly conserved across species — useful for designing universal primers — while others are variable enough to act as genetic barcodes that distinguish taxa. By amplifying and sequencing these variable regions, researchers can profile entire bacterial communities directly from a biological sample, without culturing a single organism.
+One primary tool for profiling bacterial communities is **16S rRNA gene sequencing**. The 16S rRNA gene is present in all bacteria and archaea. Within its \~1,500 base pairs, some regions are highly conserved across species (light gray) — useful for designing universal primers — while others are variable (dark gray and labelled) enough to act as genetic barcodes that distinguish taxa. By amplifying and sequencing these variable regions, researchers can profile entire bacterial communities directly from a biological sample, without culturing a single organism.
 
-This workshop walks through the full analysis pipeline, from sample collection through diversity analysis. The emphasis is on understanding *why* each step exists, what decisions you are making along the way, and how those decisions shape the biology you can — and cannot — see in your results.
+![16S gene with variable regions (dark gray and labelled) and conserved regions (light gray)](assets/16Sgene_transparent.png){fig-alt="16S gene visualization" fig-align="center"}
 
-This is not a coding tutorial. The goal is enough conceptual grounding to collaborate effectively with a bioinformatician, critically evaluate published microbiome analyses, and make informed decisions when you design your own studies.
+This workshop walks through a typical analysis pipeline, from sample collection through diversity analysis. The emphasis is on understanding *why* each step exists, what decisions you are making along the way, and how those decisions shape other choices and results downstream.
+
+The goal for today is enough conceptual grounding to critically evaluate published microbiome analyses and make informed decisions when you design your own studies.
 
 ## The pipeline at a glance
 
@@ -26,6 +28,51 @@ This is not a coding tutorial. The goal is enough conceptual grounding to collab
 | [Count table](07-count-table.qmd) | Building a table of taxa × samples |
 | [Normalization & ordination](08-dimension-reduction.qmd) | Accounting for sequencing depth differences |
 | [Diversity analysis](09-diversity-analysis.qmd) | Alpha and beta diversity, statistical testing |
+
+## How to read this guide
+
+Each page uses four types of callout boxes to signal different kinds of content. Click any box below to see an example.
+
+::: {.callout-note collapse="true"}
+## Further information
+
+These boxes provide additional context, background, or elaboration that deepens understanding without being required reading. They typically explain *why* something works the way it does, or offer an analogy to make an abstract concept more concrete.
+
+**Example of when you'll see this:** An explanation of why quality scores degrade toward the 3′ end of a read, or what a rarefaction curve is measuring conceptually.
+:::
+
+::: {.callout-warning collapse="true"}
+## Warnings
+
+These boxes flag common mistakes, easy-to-overlook pitfalls, or steps where errors are frequently introduced. Pay close attention — skipping or mis-applying the flagged step often causes silent failures that are difficult to diagnose later.
+
+**Example of when you'll see this:** Reminders to use Qubit instead of NanoDrop for quantification, or that primer trimming cannot be skipped before DADA2.
+:::
+
+::: {.callout-important collapse="true"}
+## Reproducibility reminders
+
+These boxes highlight decisions that must be documented and held consistent across all samples. They represent the choices that most often introduce batch effects or make results impossible to reproduce or compare — whether across batches, runs, or publications.
+
+**Example of when you'll see this:** The requirement that truncation parameters, extraction kits, and rarefaction depth be identical across all samples in a study.
+:::
+
+::: {.callout-tip collapse="true"}
+## Code and pseudocode examples
+
+These expandable blocks contain example commands, R code, or pseudocode illustrating how a pipeline step is implemented in practice. They are collapsed by default so they don't interrupt the conceptual flow — open them when you want to see the mechanics behind a step.
+
+``` bash
+# Example: primer trimming with Cutadapt
+cutadapt \
+  -g GTGYCAGCMGCCGCGGTAA \
+  -G GGACTACNVGGGTWTCTAAT \
+  --discard-untrimmed \
+  -o sample_R1_trimmed.fastq.gz \
+  -p sample_R2_trimmed.fastq.gz \
+  sample_R1.fastq.gz sample_R2.fastq.gz
+```
+:::
 
 ## A note on reproducibility
 

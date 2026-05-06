@@ -88,7 +88,7 @@
     "href": "index.html",
     "title": "16S rRNA Microbiome Analysis",
     "section": "",
-    "text": "The human body is home to trillions of microorganisms — bacteria, archaea, viruses, and fungi — collectively called the microbiome. These communities play documented roles in immune development, metabolism, and susceptibility to disease. Understanding which microbes are present, in what proportions, and how those communities differ across individuals or conditions is now a central question across many areas of biomedical research.\nThe primary tool for profiling bacterial communities is 16S rRNA gene sequencing. The 16S rRNA gene is present in all bacteria and archaea. Within its ~1,500 base pairs, some regions are highly conserved across species — useful for designing universal primers — while others are variable enough to act as genetic barcodes that distinguish taxa. By amplifying and sequencing these variable regions, researchers can profile entire bacterial communities directly from a biological sample, without culturing a single organism.\nThis workshop walks through the full analysis pipeline, from sample collection through diversity analysis. The emphasis is on understanding why each step exists, what decisions you are making along the way, and how those decisions shape the biology you can — and cannot — see in your results.\nThis is not a coding tutorial. The goal is enough conceptual grounding to collaborate effectively with a bioinformatician, critically evaluate published microbiome analyses, and make informed decisions when you design your own studies.",
+    "text": "The human body is home to trillions of microorganisms — bacteria, archaea, viruses, and fungi — collectively called the microbiome. These communities play documented roles in immune development, metabolism, and susceptibility to disease. Understanding which microbes are present, in what proportions, and how those communities differ across individuals or conditions is now a central question across many areas of biomedical research.\nOne primary tool for profiling bacterial communities is 16S rRNA gene sequencing. The 16S rRNA gene is present in all bacteria and archaea. Within its ~1,500 base pairs, some regions are highly conserved across species (light gray) — useful for designing universal primers — while others are variable (dark gray and labelled) enough to act as genetic barcodes that distinguish taxa. By amplifying and sequencing these variable regions, researchers can profile entire bacterial communities directly from a biological sample, without culturing a single organism.\nThis workshop walks through a typical analysis pipeline, from sample collection through diversity analysis. The emphasis is on understanding why each step exists, what decisions you are making along the way, and how those decisions shape other choices and results downstream.\nThe goal for today is enough conceptual grounding to critically evaluate published microbiome analyses and make informed decisions when you design your own studies.",
     "crumbs": [
       "Home",
       "Overview"
@@ -217,7 +217,7 @@
     "href": "06-quality-control.html#what-quality-filtering-does",
     "title": "Quality Control",
     "section": "What quality filtering does",
-    "text": "What quality filtering does\nTruncation cuts reads at a fixed length. Reads shorter than the specified length after trimming are discarded. This is a blunt-instrument approach: it removes the low-quality 3’ tails that all Illumina reads develop, at the cost of losing some read length.\nQuality filtering discards reads (or bases) below a quality threshold. Common approaches: - Remove any read with more than N expected errors (DADA2’s approach — more principled than a simple Q threshold) - Sliding window trimming: cut when the average quality in a window drops below a threshold (Trimmomatic) - Simple per-base Q score cutoff\nPaired-end joining (if not done later in denoising): after truncation, forward and reverse reads must overlap to be merged. If truncation is too aggressive, you may eliminate the overlap region and reads cannot be merged.",
+    "text": "What quality filtering does\nTruncation cuts reads at a fixed length. Reads shorter than the specified length after trimming are discarded. This approach removes the low-quality 3’ tails that all Illumina reads develop, at the cost of losing some read length.\nQuality filtering discard reads (or bases) below a quality threshold.",
     "crumbs": [
       "Home",
       "Data Processing",
@@ -229,7 +229,7 @@
     "href": "06-quality-control.html#the-truncation-decision",
     "title": "Quality Control",
     "section": "The truncation decision",
-    "text": "The truncation decision\nThis is one of the most impactful parameters in the pipeline. Looking at the quality profiles (available in QIIME2’s demux summary, or FastQC):\nIllumina quality profiles typically show a characteristic pattern: high-quality bases at the start of the read (Q ≥ 30), followed by a gradual or sharp drop toward the 3′ end. This drop-off point — often called the “elbow” — is a natural guide for where to truncate. A Q30 score means a 1-in-1,000 chance of a base call error; Q25 means roughly 1-in-300. Truncation is generally recommended when quality consistently falls below Q25–30 across the majority of reads.\nTwo constraints must be balanced:\n\nQuality: truncate where quality drops, to remove unreliable bases.\nOverlap: for paired-end data, after truncation the forward and reverse reads must still overlap enough to merge — typically at least 20–30 bp.\n\nThe overlap available is: overlap = (R1 truncated length + R2 truncated length) − amplicon length. For V3–V4 (~460 bp) with 2×250 reads, truncating R1 to 230 and R2 to 200 leaves 30 bp of overlap — workable. Truncating R2 to 180 leaves only 10 bp — marginal and likely to cause most pairs to fail merging. Quality cannot be the only consideration.\n\n\n\n\n\n\nImportantThese parameters must be the same for all samples in a study\n\n\n\nChanging truncation lengths between samples is not valid — it would affect error rates differently across samples and make them incomparable. Choose one set of parameters for the entire dataset based on the median quality profile across all samples.\n\n\n\n\nExample: DADA2 filterAndTrim parameters\n\n# In R using the dada2 package:\nfiltered &lt;- filterAndTrim(\n  fwd = forward_reads,\n  filt = forward_filtered,\n  rev = reverse_reads,\n  filt.rev = reverse_filtered,\n  truncLen = c(230, 200),      # truncate R1 at 230 bp, R2 at 200 bp\n  maxEE = c(2, 2),             # maximum expected errors per read\n  truncQ = 2,                  # truncate at quality score 2 or below\n  rm.phix = TRUE,              # remove PhiX reads if present\n  compress = TRUE,\n  multithread = TRUE\n)",
+    "text": "The truncation decision\nThis is one of the most impactful parameters in the pipeline. Looking at the quality profiles (available in QIIME2’s demux summary, or FastQC):\nIllumina quality profiles typically show a characteristic pattern: high-quality bases at the start of the read (Q ≥ 30), followed by a gradual or sharp drop toward the 3′ end. This drop-off point — often called the “elbow” — is a natural guide for where to truncate. A Q30 score means a 1-in-1,000 chance of a base call error; Q25 means roughly 1-in-300. Truncation is generally recommended when quality consistently falls below Q25–30 across the majority of reads.\nTwo constraints must be balanced:\n\nQuality: truncate where quality drops, to remove unreliable bases.\nOverlap: for paired-end data, after truncation the forward and reverse reads must still overlap enough to merge — typically at least 20–30 bp.\n\nThe overlap available is: overlap = (R1 truncated length + R2 truncated length) − amplicon length. For V3–V4 (~460 bp) with 2×250 reads, truncating R1 to 230 and R2 to 200 leaves 30 bp of overlap — workable. Truncating R2 to 180 leaves only 10 bp — marginal and likely to cause most pairs to fail merging. Quality cannot be the only consideration.\n\n\n\n\n\n\nWarningThey must have overlap!\n\n\n\nIf truncation is too aggressive, you may eliminate the overlap region and reads cannot be merged. To retain around 20-50 overlap that is necessary, you have to ensure that you do not trim the sequences too short.\n\n\n\n\n\n\n\n\nImportantThese parameters must be the same for all samples in a study\n\n\n\nChanging truncation lengths between samples is not valid — it would affect error rates differently across samples and make them incomparable. Choose one set of parameters for the entire dataset based on the median quality profile across all samples.\n\n\nA common diagnostic plot is the per-base quality score distribution. These are often a box plot or line plot showing, at each read position, the spread of quality scores across all reads. For this example below, the shaded band is the interquartile range (middle 50% of reads), the solid line is the median, and the thin lines are the whiskers. Toggle between R1 and R2 to see how the quality degrades over the length of the read.\n\n\nShow example\nviewof selectedRead = Inputs.radio([\"R1\", \"R2\", \"Both\"], {\n  value: \"Both\",\n  label: \"Read direction\"\n})\n\n\n\n\n\n\n\n\n\nShow example\n{\n  function qualityStats(readType, nPos) {\n    return Array.from({length: nPos}, (_, i) =&gt; {\n      const pos = i + 1;\n      const t = i / (nPos - 1);\n      let median, spread;\n      if (readType === \"R1\") {\n        median = t &lt; 0.08 ? 33 + t * 50\n               : t &lt; 0.80 ? 37 - t * 2\n               : 37 - t * 2 - Math.pow((t - 0.80) / 0.20, 2) * 14;\n        spread = t &lt; 0.80 ? 2 : 2 + (t - 0.80) * 15;\n      } else {\n        median = t &lt; 0.08 ? 31 + t * 45\n               : t &lt; 0.60 ? 36 - t * 3\n               : 36 - t * 3 - Math.pow((t - 0.60) / 0.40, 1.5) * 16;\n        spread = t &lt; 0.60 ? 2.5 : 2.5 + (t - 0.60) * 20;\n      }\n      median = Math.max(5, median);\n      return {\n        pos,\n        read: readType,\n        median: +median.toFixed(1),\n        q1:     +Math.max(2,  median - spread * 0.7).toFixed(1),\n        q3:     +Math.min(40, median + spread * 0.4).toFixed(1),\n        wLow:   +Math.max(0,  median - spread * 1.5).toFixed(1),\n        wHigh:  +Math.min(40, median + spread * 0.9).toFixed(1)\n      };\n    });\n  }\n\n  const nPos = 250;\n  const reads = selectedRead === \"Both\" ? [\"R1\", \"R2\"] : [selectedRead];\n  const data  = reads.flatMap(r =&gt; qualityStats(r, nPos));\n  const clr   = { R1: \"#1565C0\", R2: \"#C62828\" };\n  const w     = Math.min(width, 720);\n\n  return Plot.plot({\n    width: w,\n    height: 340,\n    marginRight: selectedRead === \"Both\" ? 50 : 20,\n    x: { label: \"Position in read (bp) →\", domain: [1, nPos] },\n    y: { label: \"↑ Phred quality score\", domain: [0, 42], grid: true },\n    marks: [\n      Plot.rect(\n        [{y1: 0, y2: 20}, {y1: 20, y2: 28}, {y1: 28, y2: 42}],\n        { x1: 1, x2: nPos, y1: \"y1\", y2: \"y2\",\n          fill: [\"#ffebee\", \"#fff9c4\", \"#e8f5e9\"], fillOpacity: 0.6 }\n      ),\n      ...reads.flatMap(r =&gt; [\n        Plot.areaY(data.filter(d =&gt; d.read === r),\n          { x: \"pos\", y1: \"q1\", y2: \"q3\",\n            fill: clr[r], fillOpacity: 0.22 }),\n        Plot.lineY(data.filter(d =&gt; d.read === r),\n          { x: \"pos\", y: \"wLow\",  stroke: clr[r], strokeWidth: 0.8, strokeOpacity: 0.45 }),\n        Plot.lineY(data.filter(d =&gt; d.read === r),\n          { x: \"pos\", y: \"wHigh\", stroke: clr[r], strokeWidth: 0.8, strokeOpacity: 0.45 }),\n        Plot.lineY(data.filter(d =&gt; d.read === r),\n          { x: \"pos\", y: \"median\", stroke: clr[r], strokeWidth: 2.5 })\n      ]),\n      Plot.ruleY([30], { stroke: \"#666\", strokeDasharray: \"6,3\", strokeWidth: 1.5 }),\n      Plot.text([{ pos: 8, q: 30 }],\n        { x: \"pos\", y: \"q\", text: [\"Q30\"], dy: -8,\n          fontSize: 11, fill: \"#666\", fontWeight: \"600\" }),\n      ...(selectedRead === \"Both\" ? reads.map(r =&gt;\n        Plot.text(\n          [{ pos: nPos, y: data.filter(d =&gt; d.read === r).at(-1).median }],\n          { x: \"pos\", y: \"y\", text: [r], dx: 8,\n            fill: clr[r], fontWeight: \"700\", fontSize: 12 }\n        )\n      ) : [])\n    ]\n  });\n}\n\n\n\n\n\n\n\n\n\n\n\n\n\nTipReading the plot\n\n\n\nThe green zone (Q ≥ 28) is good quality. The yellow zone (Q 20–28) is acceptable but worth watching. The red zone (Q &lt; 20) should be trimmed before analysis. Notice that R2 dips into the yellow zone well before position 250 — this is normal and is why DADA2 truncation lengths for R1 and R2 are set independently.\n\n\n\n\n\n\n\n\nImportantReproducibility in truncation\n\n\n\nMake sure that you carefully note the selection of where to truncate based on quality scores for both the forward and reverse reads. This is necessary for others to reproduce your results.\n\n\n\n\n\n\n\n\nTipDADA2 filterAndTrim\n\n\n\n\n\nDADA2 is a package that can be run using R.\n# In R using the dada2 package:\nfiltered &lt;- filterAndTrim(\n  fwd = forward_reads,\n  filt = forward_filtered,\n  rev = reverse_reads,\n  filt.rev = reverse_filtered,\n  truncLen = c(230, 200),      # truncate R1 at 230 bp, R2 at 200 bp\n  maxEE = c(2, 2),             # maximum expected errors per read\n  truncQ = 2,                  # truncate at quality score 2 or below\n  rm.phix = TRUE,              # remove PhiX reads if present\n  compress = TRUE,\n  multithread = TRUE\n)\n\n\n\n\n\n\n\n\n\nNoteQIIME2 denoise-paired\n\n\n\n\n\nThe same analysis can be run using the QIIME2 framework in the command line.\n# In command line using the QIIME2 framework:\nqiime dada2 denoise-paired \\\n  --i-demultiplexed-seqs demultiplexed-sequences.qza \\\n  --p-trunc-len-f 230 \\\n  --p-trunc-len-r 200 \\\n  --p-max-ee-f 2 \\\n  --p-max-ee-r 2 \\\n  --p-n-threads N \\\n  --o-representative-sequences asv-sequences-0.qza \\\n  --o-table feature-table-0.qza \\\n  --o-denoising-stats dada2-stats.qza",
     "crumbs": [
       "Home",
       "Data Processing",
@@ -277,7 +277,7 @@
     "href": "04-fastq.html",
     "title": "FASTQ Files",
     "section": "",
-    "text": "After sequencing, you receive your data as FASTQ files — a plain text format that stores both the sequence and the sequencer’s confidence estimate for each base. Understanding this format helps you interpret quality reports and make sense of what the downstream tools are doing.",
+    "text": "After sequencing, you receive your data as FASTQ files. FASTQ files are a plain text format that stores both the sequence and the sequencer’s confidence estimate for each base. Understanding this format helps you interpret quality reports and make sense of what the downstream tools are doing.",
     "crumbs": [
       "Home",
       "Data Processing",
@@ -289,7 +289,7 @@
     "href": "04-fastq.html#the-fastq-format",
     "title": "FASTQ Files",
     "section": "The FASTQ format",
-    "text": "The FASTQ format\nEach read in a FASTQ file is represented by four lines:\n@M05891:42:000000000-K9P2L:1:1101:15473:1364 1:N:0:ATCGATCG\nTACGGAGGATCCGAGCGTTATCCGGATTTATTGGGTTTAAAGGGAGCGCAG...\n+\nBBBBBFFFFFFFGGGGGGGGGGHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH...\n\n\n\n\n\n\n\nLine\nContains\n\n\n\n\nLine 1\nRead identifier (instrument, run, flow cell, coordinates, barcode)\n\n\nLine 2\nDNA sequence\n\n\nLine 3\n+ (separator, sometimes repeats the identifier)\n\n\nLine 4\nQuality scores, one character per base",
+    "text": "The FASTQ format\nEach read in a FASTQ file is represented by four lines:\n@SEQ_ID\nGATTTGGGGTTCAAAGCAGTATCGATCAAATAGTAAATCCATTTGTTCAACTCACAGTTT\n+\n!''*((((***+))%%%++)(%%%%).1***-+*'))**55CCF&gt;&gt;&gt;&gt;&gt;&gt;CCCCCCC65\n\n\n\n\n\n\n\nLine\nContains\n\n\n\n\nLine 1\nRead identifier (instrument, run, flow cell, coordinates, barcode)\n\n\nLine 2\nDNA sequence\n\n\nLine 3\n+ (separator, sometimes repeats the identifier)\n\n\nLine 4\nQuality scores, one character per base\n\n\n\n\n\n\n\n\n\nTipFour lines per read\n\n\n\nThe nature of each read having four lines means that there is a simple command line function we can use to get the amount of reads in a sample, included here below. This simply counts the lines in a file and then divides by four.\n# if unzipped file\necho $(($(wc -l &lt; input.fastq) / 4))\n\n# if zipped\necho $(($(zcat input.fastq.gz | wc -l) / 4))",
     "crumbs": [
       "Home",
       "Data Processing",
@@ -301,7 +301,7 @@
     "href": "04-fastq.html#phred-quality-scores",
     "title": "FASTQ Files",
     "section": "Phred quality scores",
-    "text": "Phred quality scores\nThe quality score for each base is encoded as a single ASCII character. The underlying value (called a Q score or Phred score) represents the sequencer’s estimate of the probability that the base call is wrong:\n\n\n\nQ score\nError probability\nAccuracy\n\n\n\n\nQ10\n1 in 10\n90%\n\n\nQ20\n1 in 100\n99%\n\n\nQ30\n1 in 1000\n99.9%\n\n\nQ40\n1 in 10,000\n99.99%\n\n\n\nA Q30 score is generally the minimum acceptable threshold. Run reports from Illumina sequencers report the percentage of bases at or above Q30 as a key quality metric.\n\n\n\n\n\n\nNoteWhy do quality scores drop at the 3’ end?\n\n\n\nIllumina sequencing reads the template base-by-base as a fluorescent cluster. As sequencing cycles progress, clusters lose synchrony (phasing) — some copies in a cluster get one base ahead or behind, blurring the signal. This accumulates over the run, causing quality to degrade toward the 3’ end of every read. This is normal and expected. It is why trimming the 3’ ends of reads is standard practice.",
+    "text": "Phred quality scores\nThe quality score for each base is encoded as a single ASCII character. The underlying value (called a Q score or Phred score) represents the sequencer’s estimate of the probability that the base call is wrong:\n\n\n\nQ score\nError probability\nAccuracy\n\n\n\n\nQ10\n1 in 10\n90%\n\n\nQ20\n1 in 100\n99%\n\n\nQ30\n1 in 1000\n99.9%\n\n\nQ40\n1 in 10,000\n99.99%\n\n\n\nA Q30 score is generally the minimum acceptable threshold. Run reports from Illumina sequencers report the percentage of bases at or above Q30 as a key quality metric.\n\n\n\n\n\n\nNoteWhy do quality scores drop at the 3’ end?\n\n\n\nIllumina sequencing reads the template base-by-base as a fluorescent cluster. As sequencing cycles progress, clusters lose synchrony (phasing) — some copies in a cluster get one base ahead or behind, blurring the signal. This accumulates over the run, causing quality to degrade toward the 3’ end of every read. This is normal and expected. It is why trimming the 3’ ends of reads is standard practice.\n\n\n\n\n\n\n\n\nNoteMore information on PHRED scores\n\n\n\n\n\nIn case you are interested to learn more about these scores, these are a few resources to learn more:\nGATK PHRED score overview\nIllumina Quality Scorres for Next-Generation Sequencing",
     "crumbs": [
       "Home",
       "Data Processing",
@@ -313,7 +313,7 @@
     "href": "04-fastq.html#what-you-actually-receive-from-the-core",
     "title": "FASTQ Files",
     "section": "What you actually receive from the core",
-    "text": "What you actually receive from the core\nFor a paired-end run, expect:\n\nsample_R1.fastq.gz — forward reads (the primer end)\nsample_R2.fastq.gz — reverse reads (sequenced from the other end)\n\nFiles are usually gzip-compressed (.fastq.gz or .fq.gz). They can be very large — a MiSeq run produces ~8 GB of compressed data.\nSome cores deliver a single multiplexed file with all samples mixed together, with barcodes embedded in the sequence or the read header. In that case, demultiplexing is your first computational step.",
+    "text": "What you actually receive from the core\nFor a paired-end run, you should expect to receive:\n\nsample_R1.fastq.gz — forward reads (the primer end)\nsample_R2.fastq.gz — reverse reads (sequenced from the other end)\n\nFiles are usually gzip-compressed (.fastq.gz or .fq.gz). They can be very large — a MiSeq run produces ~8 GB of compressed data.\nSome cores deliver a single multiplexed file with all samples mixed together, with barcodes embedded in the sequence or the read header. In that case, demultiplexing is your first computational step.",
     "crumbs": [
       "Home",
       "Data Processing",
@@ -325,7 +325,7 @@
     "href": "04-fastq.html#looking-at-a-quality-report",
     "title": "FASTQ Files",
     "section": "Looking at a quality report",
-    "text": "Looking at a quality report\nFastQC is the standard tool for a quick sanity check on raw reads. It produces plots of:\n\nPer-base quality scores across the read length\nPer-sequence quality distribution\nSequence length distribution\nAdapter content\nOverrepresented sequences (primers should appear here)\n\nQIIME2’s demux plugin produces similar quality plots and is often the first thing you look at after importing your data.\n\n\nExample: what a FastQC quality profile looks like for 16S data\n\nForward reads (R1):\n- Bases 1-240: Q &gt; 30 (good)\n- Bases 240-250: Q drops to 20-25 (normal end-of-read degradation)\n- Adapter content: clean (adapter sequences removed by core)\n- Overrepresented sequences: primer sequence (expected)\n\nReverse reads (R2):\n- Quality drops earlier (~base 200) — also normal\n- More aggressive trimming will be needed on R2",
+    "text": "Looking at a quality report\nFastQC is the standard tool for a quick sanity check on raw reads. It produces plots of:\n\nPer-base quality scores across the read length\nPer-sequence quality distribution\nSequence length distribution\nAdapter content\nOverrepresented sequences (primers should appear here)\n\nQIIME2’s demux plugin produces similar quality plots and is often the first thing you look at after importing your data within the QIIME2 framework.",
     "crumbs": [
       "Home",
       "Data Processing",
@@ -337,7 +337,7 @@
     "href": "04-fastq.html#what-can-go-wrong",
     "title": "FASTQ Files",
     "section": "What can go wrong",
-    "text": "What can go wrong\nTruncated files — an incomplete sequencing run or data transfer error can produce files that end mid-read. Most tools will throw an error, but some will silently discard the truncated read. Always verify file sizes are consistent with expected read counts.\nEncoding issues — older FASTQ files used a different quality score encoding (Illumina 1.3+, Illumina 1.5+) that shifts the ASCII offset. Modern Illumina platforms use Phred+33 (Sanger encoding). Rarely an issue now, but worth knowing if you are working with older published data.\nSwapped R1/R2 — accidentally providing the reverse read as the forward read will cause primer trimming and demultiplexing to fail silently or produce nonsense results. Check that R1 begins with your forward primer sequence.",
+    "text": "What can go wrong\nTruncated files — an incomplete sequencing run or data transfer error can produce files that end mid-read. Most tools will throw an error, but some will silently discard the truncated read. Always verify file sizes are consistent with expected read counts.\nEncoding issues — older FASTQ files used a different quality score encoding (Illumina 1.3+, Illumina 1.5+) that shifts the ASCII offset. Modern Illumina platforms use Phred+33 (Sanger encoding). Rarely an issue now, but worth knowing if you are working with older archival data.\nSwapped R1/R2 — accidentally providing the reverse read as the forward read will cause primer trimming and demultiplexing to fail silently or produce nonsense results. Check that R1 begins with your forward primer sequence.",
     "crumbs": [
       "Home",
       "Data Processing",
@@ -349,7 +349,7 @@
     "href": "02-amplification.html",
     "title": "Amplification (PCR)",
     "section": "",
-    "text": "16S rRNA amplicon sequencing works by selectively amplifying a portion of the 16S rRNA gene — a gene present in virtually all bacteria and archaea, with conserved regions (where your primers bind) flanking hypervariable regions (where the sequence differs enough to distinguish taxa). The amplification step is where you define the slice of microbial diversity you will be able to see.",
+    "text": "16S rRNA amplicon sequencing works by selectively amplifying a conserved portion or portions of the 16S rRNA gene a gene present in virtually all bacteria and archaea, with conserved regions flanking hypervariable regions where the sequence differs enough to distinguish taxa.",
     "crumbs": [
       "Home",
       "Wet Lab",
@@ -361,7 +361,7 @@
     "href": "02-amplification.html#the-16s-rrna-gene-structure",
     "title": "Amplification (PCR)",
     "section": "The 16S rRNA gene structure",
-    "text": "The 16S rRNA gene structure\nBacterial DNA is built from a sequence of nucleotide base pairs (A-T and C-G). The total length of a DNA fragment is measured in base pairs (bp). The 16S rRNA gene is approximately 1,500 bp long and contains alternating conserved regions (similar across all bacteria, used as primer binding sites) and nine hypervariable regions (V1–V9) whose sequence diversity distinguishes taxa — functioning like genetic barcodes. No single variable region resolves all taxa equally well, and short-read sequencing (150–300 bp per read) means you are targeting one or two regions at a time.\nYour choice of target region is one of the most consequential decisions in study design.",
+    "text": "The 16S rRNA gene structure\nThe 16S rRNA gene is approximately 1,500 bp long and contains alternating conserved regions and nine hypervariable regions (V1–V9) whose sequence diversity distinguishes taxa — functioning like genetic barcodes. No single variable region resolves all taxa equally well, and short-read sequencing (150–300 bp per read) means you are targeting one or two regions at a time.\nYour choice of target region is a consequential decision in your study design.",
     "crumbs": [
       "Home",
       "Wet Lab",
@@ -373,7 +373,7 @@
     "href": "02-amplification.html#variable-region-selection",
     "title": "Amplification (PCR)",
     "section": "Variable region selection",
-    "text": "Variable region selection\n\n\n\n\n\n\n\n\n\n\nRegion\nForward / Reverse Primers\nAmplicon Size\nSequencing Mode\nNotes\n\n\n\n\nV4\n515F GTGYCAGCMGCCGCGGTAA / 806R GGACTACHVGGGTWTCTAAT\n~250 bp\n2×150 or 2×250 bp\nEarth Microbiome Project standard; short, fits Illumina read lengths well; broad coverage\n\n\nV3–V4\n341F CCTACGGGNGGCWGCAG / 805R GACTACHVGGGTATCTAATCC\n~460 bp\n2×250 or 2×300 bp\nMost common in clinical microbiome studies; better taxonomic resolution; requires good paired-end overlap\n\n\nV4–V5\n515F GTGYCAGCMGCCGCGGTAA / 926R CCGYCAATTYMTTTRAGTTT\n~380–415 bp\n2×250 bp\nBetter archaeal coverage; less standardized than V4\n\n\nV1–V2\n27F AGAGTTTGATCMTGGCTCAG / 338R TGCTGCCTCCCGTAGGAGT\n~310 bp\n2×250 bp\nBetter gram-positive resolution; less reference data\n\n\n\n\n\n\n\n\n\nImportantMixing studies with different primers is not straightforward\n\n\n\nCommunity composition estimates are not directly comparable across studies that used different primer pairs. Even within the same region, primer mismatches create systematic biases toward certain taxa. If you are comparing to published data or a reference cohort, use the same primer pair.",
+    "text": "Variable region selection\n\n\n\n\n\n\n\n\n\n\nRegion\nForward / Reverse Primers\nAmplicon Size\nSequencing Mode\nNotes\n\n\n\n\nV4\n515F GTGYCAGCMGCCGCGGTAA / 806R GGACTACHVGGGTWTCTAAT\n~250 bp\n2×150 or 2×250 bp\nEarth Microbiome Project standard; short, fits Illumina read lengths well; broad coverage\n\n\nV3–V4\n341F CCTACGGGNGGCWGCAG / 805R GACTACHVGGGTATCTAATCC\n~460 bp\n2×250 or 2×300 bp\nMost common in clinical microbiome studies; better taxonomic resolution; requires good paired-end overlap\n\n\nV4–V5\n515F GTGYCAGCMGCCGCGGTAA / 926R CCGYCAATTYMTTTRAGTTT\n~380–415 bp\n2×250 bp\nBetter archaeal coverage\n\n\nV1–V2\n27F AGAGTTTGATCMTGGCTCAG / 338R TGCTGCCTCCCGTAGGAGT\n~310 bp\n2×250 bp\nBetter gram-positive resolution; less reference data\n\n\n\n\n\n\n\n\n\nImportantMixing samples with different primers: I wouldn’t!\n\n\n\nCommunity composition estimates are not directly comparable across studies that used different primer pairs. Even within the same region, primer mismatches can create systematic biases toward certain taxa. If you are comparing to published data or a reference cohort, you are best off using the same primer pair.",
     "crumbs": [
       "Home",
       "Wet Lab",
@@ -385,7 +385,7 @@
     "href": "02-amplification.html#primer-design",
     "title": "Amplification (PCR)",
     "section": "Primer design",
-    "text": "Primer design\nUniversal primers target the conserved flanking sequences. “Universal” is a relative term — primers vary in how well they match across the full breadth of bacterial diversity. Some lineages (e.g., Verrucomicrobia, Tenericutes, Archaea) are systematically underamplified by common primer sets.\nPrimers for Illumina sequencing are ordered with adapter sequences attached (often Nextera XT or a custom adapter) so the amplicon can be directly sequenced without additional ligation. Some protocols use a two-step PCR: first to amplify the target, second to add the full sequencing adapters and barcodes. Know which approach your core facility uses.",
+    "text": "Primer design\nUniversal primers target the conserved region sequences. “Universal” is a relative term — primers vary in how well they match across the full breadth of bacterial diversity. Some lineages (e.g., Verrucomicrobia, Tenericutes, Archaea) can be systematically underamplified by common primer sets.\nPrimers for Illumina sequencing are ordered with adapter sequences attached so the amplicon can be directly sequenced without additional ligation. Some protocols use a two-step PCR: first to amplify the target, second to add the full sequencing adapters and barcodes.",
     "crumbs": [
       "Home",
       "Wet Lab",
@@ -409,7 +409,7 @@
     "href": "02-amplification.html#what-can-go-wrong",
     "title": "Amplification (PCR)",
     "section": "What can go wrong",
-    "text": "What can go wrong\nChimera formation — during PCR, a partially-extended strand can anneal to a different template and be extended, creating a hybrid sequence that doesn’t exist in nature. Chimeras are filtered computationally downstream, but they are introduced here. Minimizing cycle number and using high-fidelity polymerase reduces chimera rate.\nPrimer dimers — primers annealing to each other instead of template. Produces a small product (~60–80 bp) that can dominate the library. Usually resolved with a bead cleanup (AMPure) after PCR.\nFailed amplification — no product despite good DNA. Possible causes: inhibitors (see sample prep), primer-template mismatch for unusual taxa, degraded DNA, pipetting error. Run on a gel to diagnose before sending for sequencing.\nDifferential amplification efficiency — some taxa amplify more efficiently than others under your conditions. This introduces a systematic bias in relative abundance estimates that is inherent to amplicon sequencing and cannot be fully corrected.",
+    "text": "What can go wrong\nChimera formation — during PCR, a partially-extended strand can anneal to a different template and be extended, creating a hybrid sequence that doesn’t exist in nature. Chimeras are filtered computationally downstream, but they are introduced here. Minimizing cycle number and using high-fidelity polymerase reduces chimera rate.\nPrimer dimers — primers annealing to each other instead of template. Produces a small product (~60–80 bp) that can dominate the library. Usually resolved with a bead cleanup after PCR.\nDifferential amplification efficiency — some taxa amplify more efficiently than others under your conditions. This introduces a systematic bias in relative abundance estimates that is inherent to amplicon sequencing and cannot be fully corrected.",
     "crumbs": [
       "Home",
       "Wet Lab",
@@ -433,7 +433,7 @@
     "href": "01-sample-prep.html",
     "title": "Sample Preparation",
     "section": "",
-    "text": "Before any sequencing happens, you need DNA — and the quality of that DNA shapes everything downstream. Microbiome studies add complications that standard molecular biology workflows don’t always account for: microbial communities are physically diverse, and extraction efficiency varies dramatically across taxa.",
+    "text": "16S rRNA gene sequencing is a culture-independent method, meaning you are characterizing an entire microbial community directly from a biological sample without growing anything in a lab. This power comes with a fundamental constraint: every organism present must yield its DNA through the same extraction protocol, regardless of how different its cell wall or membrane structure may be. The choices made before a single read is sequenced such as how the sample was collected, stored, lysed, and quantified will determine what biology you can detect and how much technical noise will propagate through every step that follows (Weinroth et al., 2022).",
     "crumbs": [
       "Home",
       "Wet Lab",
@@ -469,7 +469,7 @@
     "href": "01-sample-prep.html#assessing-dna-quality",
     "title": "Sample Preparation",
     "section": "Assessing DNA quality",
-    "text": "Assessing DNA quality\nAfter extraction, you need to assess whether you have enough usable DNA.\n\n\n\n\n\n\n\n\nMeasurement\nTool\nWhat to look for\n\n\n\n\nConcentration\nQubit (fluorometric)\nMore accurate than NanoDrop for dilute samples\n\n\nPurity\nNanoDrop\nA260/280 ≈ 1.8; A260/230 ≈ 2.0–2.2\n\n\nIntegrity\nAgarose gel or TapeStation\nHigh molecular weight band, minimal smearing\n\n\n\n\n\n\n\n\n\nWarningNanoDrop overestimates concentration\n\n\n\nNanoDrop measures all UV-absorbing material, including RNA, free nucleotides, and carryover reagents. Qubit measures double-stranded DNA specifically. For low-biomass samples, this difference can be substantial. Always use Qubit for input quantification to the library prep.",
+    "text": "Assessing DNA quality\nAfter extraction, three measurements together give a complete picture of whether the DNA is suitable for library preparation:\n\n\n\n\n\n\n\n\nMeasurement\nRecommended tool\nWhat to look for\n\n\n\n\nConcentration\nQubit (fluorometric)\nInput-specific; consult your library prep protocol\n\n\nPurity\nNanoDrop\nA260/280 ≈ 1.8; A260/230 ≈ 2.0–2.2; deviations suggest protein or solvent carryover\n\n\nIntegrity\nAgarose gel or TapeStation\nHigh-molecular-weight band with minimal smearing or degradation\n\n\n\n\n\n\n\n\n\nWarningNanoDrop overestimates DNA concentration\n\n\n\nNanoDrop measures all UV-absorbing material — RNA, free nucleotides, residual reagents, and contaminants — not just double-stranded DNA. Qubit fluorometric quantification is specific to dsDNA and is far more accurate for low-concentration or complex samples. Use Qubit for any input quantification step that requires precision.",
     "crumbs": [
       "Home",
       "Wet Lab",
@@ -505,7 +505,7 @@
     "href": "03-sequencing.html",
     "title": "Sequencing",
     "section": "",
-    "text": "The amplicon library is loaded onto a sequencer, which reads the nucleotide sequence of millions of DNA fragments simultaneously. For 16S rRNA studies, Illumina short-read sequencing on MiSeq or NovaSeq is standard. The sequencer produces a FASTQ file per sample (or per run, if not yet demultiplexed) — your first encounter with the actual data.",
+    "text": "The amplicon library is loaded onto a sequencer, which reads the nucleotide sequence of millions of DNA fragments simultaneously. For 16S rRNA studies, Illumina short-read sequencing on MiSeq or NovaSeq is standard. The sequencer produces a FASTQ file per sample (or per run, if not yet demultiplexed).",
     "crumbs": [
       "Home",
       "Wet Lab",
@@ -517,7 +517,7 @@
     "href": "03-sequencing.html#how-samples-become-reads",
     "title": "Sequencing",
     "section": "How samples become reads",
-    "text": "How samples become reads\nUnderstanding the flow from plate to data file makes many downstream analytical decisions easier to interpret:\n\nExtraction and amplification — DNA is extracted from each sample and the 16S region is amplified with barcoded primers. Each sample gets a unique barcode, so its reads can later be identified.\nPooling — Amplified libraries from all samples are combined into a single tube and loaded onto the sequencer together. All samples share the same flow cell.\nSequencing — The machine randomly samples from the mixed pool. It does not allocate reads equally across samples; it samples stochastically from whatever DNA is present.\nDemultiplexing output — After sequencing, reads are sorted back to individual samples using their barcodes, producing one FASTQ file (or file pair) per sample.\n\nThe stochastic nature of step 3 is why read counts vary across samples even when pooling was careful — differences in pipetting accuracy, PCR efficiency, DNA quality, and random cluster formation all contribute. This technical variation in sequencing depth is the reason normalization is required before comparing diversity across samples.",
+    "text": "How samples become reads\nUnderstanding the flow from plate to data file makes many downstream analytical decisions easier to interpret:\n\nExtraction and amplification — DNA is extracted from each sample and the 16S region is amplified with barcoded primers. Each sample gets a unique barcode, so its reads can later be identified.\nPooling — Amplified libraries from all samples are combined into a single tube and loaded onto the sequencer together. All samples share the same flow cell.\nSequencing — The machine randomly samples from the mixed pool. It does not allocate reads equally across samples; it samples stochastically from whatever DNA is present.\nDemultiplexing output — After sequencing, reads are sorted back to individual samples using their barcodes, producing one FASTQ file (or file pair) per sample.\n\nThe stochastic nature of step 3 is why read counts vary across samples even when pooling was careful: differences in pipetting accuracy, PCR efficiency, DNA quality, and random cluster formation all contribute. This technical variation in sequencing depth is the reason normalization is required before comparing diversity across samples.\n\n\n\n\n\n\nWarningAlways remember the pooling!\n\n\n\nDuring 16S rRNA library preparation, samples are pooled into a single sequencing library while maintaining identity through barcoding. However, because libraries are not always perfectly normalized before pooling, this can result in uneven sequencing depth across samples, which may affect downstream diversity estimates and the detection of low-abundance taxa.",
     "crumbs": [
       "Home",
       "Wet Lab",
@@ -529,7 +529,7 @@
     "href": "03-sequencing.html#single-end-vs.-paired-end-sequencing",
     "title": "Sequencing",
     "section": "Single-end vs. paired-end sequencing",
-    "text": "Single-end vs. paired-end sequencing\nIllumina instruments can read each DNA fragment from one end only (single-end) or from both ends (paired-end), producing a forward read (R1) and a reverse read (R2). For paired-end runs, if the read length is sufficient, R1 and R2 overlap in the middle of the amplicon. This overlapping region is used to error-correct both reads — disagreements in the overlap are resolved using quality scores — which substantially improves accuracy.\n\nSingle-end may be sufficient for short amplicons like V4 (~250 bp) with 2×150 bp reads, though paired-end is still preferred.\nPaired-end is required for longer amplicons like V3–V4 (~460 bp), where overlap is essential for merging and error correction.",
+    "text": "Single-end vs. paired-end sequencing\nIllumina instruments can read each DNA fragment from one end only (single-end) or from both ends (paired-end), producing a forward read (R1) and a reverse read (R2). For paired-end runs, if the read length is sufficient, R1 and R2 overlap in the middle of the amplicon. This overlapping region is used to error-correct both reads. Disagreements in the overlap are resolved using quality scores, and this substantially improves accuracy.\n\nSingle-end may be sufficient for short amplicons like V4 (~250 bp) with 2×150 bp reads, though paired-end is still preferred.\nPaired-end is required for longer amplicons like V3–V4 (~460 bp), where overlap is essential for merging and error correction.\n\n\n\n\n\n\n\nNotePaired-end sequencing\n\n\n\nAs it is generally the standard, the rest of this workshop will focus on paired-end data. However, the tools referenced in the coding examples can be adjusted with general ease to run on single-end data as required.",
     "crumbs": [
       "Home",
       "Wet Lab",
@@ -541,7 +541,7 @@
     "href": "03-sequencing.html#platform-choices",
     "title": "Sequencing",
     "section": "Platform choices",
-    "text": "Platform choices\nMiSeq is the most common platform for 16S work. It supports longer reads (2×250 bp or 2×300 bp paired-end) and has a well-established track record for amplicon sequencing. Throughput is lower (~25M reads/run) and cost-per-run is higher than HiSeq/NovaSeq, but the read quality and length are well-suited to 16S amplicons (~450 bp for V3–V4).\nNovaSeq produces vastly more reads but with shorter read lengths (2×150 bp standard). This is sufficient for V4-only studies and is increasingly used when large sample numbers or high depth are needed, but may not provide full overlap for longer amplicons.\n\n\n\n\n\n\nNotePaired-end sequencing\n\n\n\nMost 16S protocols use paired-end (PE) sequencing: the instrument reads the amplicon from both ends, producing a forward (R1) and reverse (R2) read for each fragment. If read length is sufficient, the two reads overlap in the middle of the amplicon. The overlapping region is used to correct sequencing errors — reads disagree in the overlap zone, and the correct base can be determined by comparing quality scores. This is a major source of error correction in DADA2 and similar pipelines.",
+    "text": "Platform choices\nMiSeq is the most common platform for 16S work. It supports longer reads (2×250 bp or 2×300 bp paired-end) and has a well-established track record for amplicon sequencing. Throughput is lower (~25M reads/run) and cost-per-run is higher than HiSeq/NovaSeq, but the read quality and length are well-suited to 16S amplicons (~450 bp for V3–V4).\nNovaSeq produces vastly more reads but with shorter read lengths (2×150 bp standard). This is sufficient for V4-only studies and is increasingly used when large sample numbers or high depth are needed, but may not provide full overlap for longer amplicons.",
     "crumbs": [
       "Home",
       "Wet Lab",
@@ -553,7 +553,7 @@
     "href": "03-sequencing.html#sequencing-depth",
     "title": "Sequencing",
     "section": "Sequencing depth",
-    "text": "Sequencing depth\nHow many reads do you need per sample? There is no universal answer, but some guidelines:\n\nFor gut microbiome (high biomass, high diversity): 10,000–50,000 reads/sample is common\nFor low-diversity samples (vaginal, skin): fewer reads may be sufficient\nFor low-biomass samples: deeper sequencing helps, but also amplifies contamination signal\n\nUnderfunded runs that produce only 1,000–2,000 reads per sample will miss rare taxa and produce unstable diversity estimates. The rarefaction curve (reads vs. observed taxa) tells you whether you have sequenced deeply enough — a curve that has not plateaued means you would detect more taxa with more sequencing.\n\nWhat a rarefaction curve looks like\nDrag the slider below to change sequencing depth and watch how each sample’s curve responds. A flattened curve means diversity is captured; a still-rising curve means additional reads would continue to reveal new taxa.\n\n\nShow example\nviewof seqDepth = Inputs.range([2000, 80000], {\n  value: 30000,\n  step: 500,\n  label: \"Sequencing depth (reads per sample)\"\n})\n\n\n\n\n\n\n\n\n\nShow example\n{\n  function curve(richness, halfSat, group) {\n    return Array.from({length: 101}, (_, i) =&gt; {\n      const r = (i / 100) * seqDepth;\n      return { reads: r, asv: richness * r / (halfSat + r), group };\n    });\n  }\n\n  const samples = [\n    { richness: 200, halfSat: 3000,  label: \"Sample A — moderate diversity (ex. gut)\"           },\n    { richness:  80, halfSat: 2000,  label: \"Sample B — low diversity (ex. skin)\"             },\n    { richness: 500, halfSat: 80000, label: \"Sample C — high diversity (ex. environmental)\" }\n  ];\n\n  const data = samples.flatMap(s =&gt; curve(s.richness, s.halfSat, s.label));\n\n  const endpoints = samples.map(s =&gt; {\n    const asv = s.richness * seqDepth / (s.halfSat + seqDepth);\n    const pct  = asv / s.richness * 100;\n    return { reads: seqDepth, asv, pct, plateaued: pct &gt;= 90, label: s.label };\n  });\n\n  const w = Math.min(width, 720);\n\n  return Plot.plot({\n    width: w,\n    height: 380,\n    marginRight: 205,\n    x: {\n      label: \"Reads per sample →\",\n      tickFormat: d =&gt; `${(d / 1000).toFixed(0)}k`,\n      grid: true\n    },\n    y: {\n      label: \"↑ Observed ASVs\",\n      domain: [0, 520],\n      grid: true\n    },\n    color: {\n      legend: true,\n      domain: samples.map(s =&gt; s.label),\n      range: [\"#1565C0\", \"#2E7D32\", \"#C62828\"]\n    },\n    marks: [\n      Plot.line(data, {\n        x: \"reads\", y: \"asv\", stroke: \"group\", strokeWidth: 2.5\n      }),\n      Plot.dot(endpoints, {\n        x: \"reads\", y: \"asv\", fill: \"label\", r: 7,\n        stroke: \"white\", strokeWidth: 1.5\n      }),\n      Plot.text(endpoints, {\n        x: \"reads\", y: \"asv\",\n        text: d =&gt; `${d.plateaued ? \"✓\" : \"⚠\"} ${d.pct.toFixed(0)}% captured`,\n        dx: 12,\n        fontSize: 12,\n        fill: d =&gt; d.plateaued ? \"#2E7D32\" : \"#C62828\",\n        fontWeight: \"bold\",\n        textAnchor: \"start\",\n        lineAnchor: \"middle\"\n      })\n    ]\n  });\n}\n\n\n\n\n\n\n\n\n\n\n\n\n\nTipWhat to look for\n\n\n\n\nPlateau reached (✓) — the curve has flattened. Additional reads would yield few new taxa; sequencing depth is adequate.\nStill rising (⚠) — the curve has not flattened. Rare taxa are being missed and diversity estimates will be biased downward.\n\nNotice that the environmental sample (Sample C) requires far more reads to plateau than the gut or vaginal samples. Different sample types have very different depth requirements — this is why “10,000 reads” is not a universal standard.",
+    "text": "Sequencing depth\nHow many reads do you need per sample? There is no universal answer, but some common guidelines are listed here:\n\nFor gut microbiome (high biomass, high diversity): 10,000–50,000 reads/sample is common\nFor low-diversity samples (vaginal, skin): fewer reads may be sufficient\nFor low-biomass samples: deeper sequencing helps, but also amplifies contamination signal\n\nWe can see below the impact of the level of diversity in a sample and how deep we need to sequence it in the example below.\n\nWhat a rarefaction curve looks like\nDrag the slider below to change sequencing depth and watch how each sample’s curve responds. A flattened curve means diversity is captured; a still-rising curve means additional reads would continue to reveal new taxa.\n\n\nShow example\nviewof seqDepth = Inputs.range([2000, 80000], {\n  value: 30000,\n  step: 500,\n  label: \"Sequencing depth (reads per sample)\"\n})\n\n\n\n\n\n\n\n\n\nShow example\n{\n  function curve(richness, halfSat, group) {\n    return Array.from({length: 101}, (_, i) =&gt; {\n      const r = (i / 100) * seqDepth;\n      return { reads: r, asv: richness * r / (halfSat + r), group };\n    });\n  }\n\n  const samples = [\n    { richness: 200, halfSat: 3000,  label: \"Sample A — moderate diversity (ex. gut)\"           },\n    { richness:  80, halfSat: 2000,  label: \"Sample B — low diversity (ex. skin)\"             },\n    { richness: 500, halfSat: 80000, label: \"Sample C — high diversity (ex. environmental)\" }\n  ];\n\n  const data = samples.flatMap(s =&gt; curve(s.richness, s.halfSat, s.label));\n\n  const endpoints = samples.map(s =&gt; {\n    const asv = s.richness * seqDepth / (s.halfSat + seqDepth);\n    const pct  = asv / s.richness * 100;\n    return { reads: seqDepth, asv, pct, plateaued: pct &gt;= 90, label: s.label };\n  });\n\n  const w = Math.min(width, 720);\n\n  return Plot.plot({\n    width: w,\n    height: 380,\n    marginRight: 205,\n    x: {\n      label: \"Reads per sample →\",\n      tickFormat: d =&gt; `${(d / 1000).toFixed(0)}k`,\n      grid: true\n    },\n    y: {\n      label: \"↑ Observed ASVs\",\n      domain: [0, 520],\n      grid: true\n    },\n    color: {\n      legend: true,\n      domain: samples.map(s =&gt; s.label),\n      range: [\"#1565C0\", \"#2E7D32\", \"#C62828\"]\n    },\n    marks: [\n      Plot.line(data, {\n        x: \"reads\", y: \"asv\", stroke: \"group\", strokeWidth: 2.5\n      }),\n      Plot.dot(endpoints, {\n        x: \"reads\", y: \"asv\", fill: \"label\", r: 7,\n        stroke: \"white\", strokeWidth: 1.5\n      }),\n      Plot.text(endpoints, {\n        x: \"reads\", y: \"asv\",\n        text: d =&gt; `${d.plateaued ? \"✓\" : \"⚠\"} ${d.pct.toFixed(0)}% captured`,\n        dx: 12,\n        fontSize: 12,\n        fill: d =&gt; d.plateaued ? \"#2E7D32\" : \"#C62828\",\n        fontWeight: \"bold\",\n        textAnchor: \"start\",\n        lineAnchor: \"middle\"\n      })\n    ]\n  });\n}\n\n\n\n\n\n\n\n\n\n\n\n\n\nTipWhat to look for\n\n\n\n\nPlateau reached (✓) — the curve has flattened. Additional reads would yield few new taxa; sequencing depth is adequate.\nStill rising (⚠) — the curve has not flattened. Rare taxa are being missed and diversity estimates will be biased downward.\n\nNotice that the environmental sample (Sample C) requires far more reads to plateau than the gut or vaginal samples. Different sample types have very different depth requirements. This is why “10,000 reads” is not a universal standard.",
     "crumbs": [
       "Home",
       "Wet Lab",
@@ -899,6 +899,239 @@
     "crumbs": [
       "Home",
       "KUMC Resources"
+    ]
+  },
+  {
+    "objectID": "index.html#how-to-read-this-guide",
+    "href": "index.html#how-to-read-this-guide",
+    "title": "16S rRNA Microbiome Analysis",
+    "section": "How to read this guide",
+    "text": "How to read this guide\nEach page uses four types of callout boxes to signal different kinds of content. Click any box below to see an example.\n\n\n\n\n\n\nNoteFurther information\n\n\n\n\n\nThese boxes provide additional context, background, or elaboration that deepens understanding without being required reading. They typically explain why something works the way it does, or offer an analogy to make an abstract concept more concrete.\nExample of when you’ll see this: An explanation of why quality scores degrade toward the 3′ end of a read, or what a rarefaction curve is measuring conceptually.\n\n\n\n\n\n\n\n\n\nWarningWarnings\n\n\n\n\n\nThese boxes flag common mistakes, easy-to-overlook pitfalls, or steps where errors are frequently introduced. Pay close attention — skipping or mis-applying the flagged step often causes silent failures that are difficult to diagnose later.\nExample of when you’ll see this: Reminders to use Qubit instead of NanoDrop for quantification, or that primer trimming cannot be skipped before DADA2.\n\n\n\n\n\n\n\n\n\nImportantReproducibility reminders\n\n\n\n\n\nThese boxes highlight decisions that must be documented and held consistent across all samples. They represent the choices that most often introduce batch effects or make results impossible to reproduce or compare — whether across batches, runs, or publications.\nExample of when you’ll see this: The requirement that truncation parameters, extraction kits, and rarefaction depth be identical across all samples in a study.\n\n\n\n\n\n\n\n\n\nTipCode and pseudocode examples\n\n\n\n\n\nThese expandable blocks contain example commands, R code, or pseudocode illustrating how a pipeline step is implemented in practice. They are collapsed by default so they don’t interrupt the conceptual flow — open them when you want to see the mechanics behind a step.\n# Example: primer trimming with Cutadapt\ncutadapt \\\n  -g GTGYCAGCMGCCGCGGTAA \\\n  -G GGACTACNVGGGTWTCTAAT \\\n  --discard-untrimmed \\\n  -o sample_R1_trimmed.fastq.gz \\\n  -p sample_R2_trimmed.fastq.gz \\\n  sample_R1.fastq.gz sample_R2.fastq.gz",
+    "crumbs": [
+      "Home",
+      "Overview"
+    ]
+  },
+  {
+    "objectID": "citations.html",
+    "href": "citations.html",
+    "title": "Citations & Image Credits",
+    "section": "",
+    "text": "16S rRNA gene structure (variable and conserved regions, V1–V9, with 515F/806R primer locations)\n\nFigure used on the Overview page. Source: ResearchGate. Retrieved from https://www.researchgate.net/figure/S-rRNA-gene-showing-the-V1-V9-varaibale-regions-and-conserved-regions-The-515F-806R_fig1_340622946",
+    "crumbs": [
+      "Home",
+      "Citations"
+    ]
+  },
+  {
+    "objectID": "citations.html#figures-and-diagrams",
+    "href": "citations.html#figures-and-diagrams",
+    "title": "Citations & Image Credits",
+    "section": "",
+    "text": "16S rRNA gene structure (variable and conserved regions, V1–V9, with 515F/806R primer locations)\n\nFigure used on the Overview page. Source: ResearchGate. Retrieved from https://www.researchgate.net/figure/S-rRNA-gene-showing-the-V1-V9-varaibale-regions-and-conserved-regions-The-515F-806R_fig1_340622946",
+    "crumbs": [
+      "Home",
+      "Citations"
+    ]
+  },
+  {
+    "objectID": "citations.html#software-and-pipelines",
+    "href": "citations.html#software-and-pipelines",
+    "title": "Citations & Image Credits",
+    "section": "Software and pipelines",
+    "text": "Software and pipelines\nCallahan, B.J., McMurdie, P.J., Rosen, M.J., Han, A.W., Johnson, A.J.A., & Holmes, S.P. (2016). DADA2: High-resolution sample inference from Illumina amplicon data. Nature Methods, 13, 581–583. https://doi.org/10.1038/nmeth.3869\nBolyen, E., Rideout, J.R., Dillon, M.R., et al. (2019). Reproducible, interactive, scalable and extensible microbiome data science using QIIME 2. Nature Biotechnology, 37, 852–857. https://doi.org/10.1038/s41587-019-0209-9\nMartin, M. (2011). Cutadapt removes adapter sequences from high-throughput sequencing reads. EMBnet.journal, 17(1), 10–12. https://doi.org/10.14806/ej.17.1.200\nMcMurdie, P.J., & Holmes, S. (2013). phyloseq: An R package for reproducible interactive analysis and graphics of microbiome census data. PLOS ONE, 8(4), e61217. https://doi.org/10.1371/journal.pone.0061217\nOksanen, J., et al. (2022). vegan: Community Ecology Package. R package version 2.6-2. https://CRAN.R-project.org/package=vegan",
+    "crumbs": [
+      "Home",
+      "Citations"
+    ]
+  },
+  {
+    "objectID": "citations.html#reference-databases",
+    "href": "citations.html#reference-databases",
+    "title": "Citations & Image Credits",
+    "section": "Reference databases",
+    "text": "Reference databases\nQuast, C., Pruesse, E., Yilmaz, P., et al. (2013). The SILVA ribosomal RNA gene database project: improved data processing and web-based tools. Nucleic Acids Research, 41(D1), D590–D596. https://doi.org/10.1093/nar/gks1219\nMcDonald, D., Jiang, Y., Balaban, M., et al. (2023). Greengenes2 unifies microbial data in a single reference tree. Nature Biotechnology, 41, 1630–1633. https://doi.org/10.1038/s41587-023-01845-1",
+    "crumbs": [
+      "Home",
+      "Citations"
+    ]
+  },
+  {
+    "objectID": "public-data.html",
+    "href": "public-data.html",
+    "title": "Public Sequencing Data",
+    "section": "",
+    "text": "Not every microbiome project starts with your own sequencing run. A growing number of well-characterized datasets are publicly available through open repositories. These can be great resources for pilot analyses, comparative studies, replication, and methods development. Once you have downloaded FASTQ files from a repository, the analysis pipeline is identical to what you would run on your own data.\nBelow we list some of the most common repositories for microbiome data, but this is far from a complete list.",
+    "crumbs": [
+      "Home",
+      "Data Processing",
+      "Public Sequencing Data"
+    ]
+  },
+  {
+    "objectID": "public-data.html#major-repositories",
+    "href": "public-data.html#major-repositories",
+    "title": "Public Sequencing Data",
+    "section": "Major repositories",
+    "text": "Major repositories\n\nNCBI Sequence Read Archive (SRA)\nThe SRA is the largest publicly available repository of high-throughput sequencing data. Nearly all data associated with published microbiome papers in U.S.-funded journals is archived here.\n\nSearch by condition, body site, organism, or keyword at https://www.ncbi.nlm.nih.gov/sra\nEach dataset has a BioProject accession (e.g., PRJNA######) linking all samples from a study\nIndividual samples have SRR accessions (SRR#######) for download\nDownload via the SRA Toolkit (fastq-dump or fasterq-dump) or through NCBI’s cloud interface\n\n\n\n\n\n\n\nTipFinding data efficiently\n\n\n\nSearch SRA using BioProject accessions from papers you are trying to replicate. The BioProject page lists all associated SRR accessions, metadata, and links to the original publication.\n\n\n\n\nENA — European Nucleotide Archive\nENA mirrors most SRA content and is often faster to download from outside North America. It also accepts direct submissions from European-funded projects that may not appear in SRA.\n\nBrowser interface at https://www.ebi.ac.uk/ena/browser\nENA accessions begin with ERR (runs), ERS (samples), or PRJEB (projects)\nFASTQ files are available directly via FTP or the ENA browser — no toolkit required\n\n\n\nQIITA\nQIITA is a specialized platform for microbiome data hosting and reanalysis, developed by the QIIME2 team. It stores not just raw reads but processed artifacts (count tables, metadata) from large-scale studies, making it easier to access analysis-ready data.\n\nBrowse at https://qiita.ucsd.edu\nParticularly useful for studies processed through QIIME2 — artifacts can be downloaded and used directly\nHosts data from the Earth Microbiome Project and Human Microbiome Project\n\n\n\nEarth Microbiome Project (EMP)\nA collaborative effort to characterize microbial diversity across the planet’s environments. Standardized protocols and uniform processing make EMP data highly comparable across studies.\n\nData and protocols at https://earthmicrobiome.org\nUses 515F/806R primers (V4 region) throughout — straightforward to integrate with your own V4 data\nEMP data is accessible through QIITA and SRA\n\n\n\nHuman Microbiome Project (HMP)\nA foundational reference dataset for human-associated microbiome communities, covering gut, oral, skin, vaginal, and airway sites across healthy adults.\n\nData portal at https://hmpdacc.org\nIncludes both 16S amplicon and shotgun metagenomic data\nUseful as a reference community or baseline for human studies\n\n\n\nMGnify\nEBI’s microbiome analysis portal, which both hosts raw data and provides pre-computed analyses (taxonomic profiles, functional annotations) for thousands of publicly available studies.\n\nBrowse at https://www.ebi.ac.uk/metagenomics\nUseful when you want a quick look at a public dataset without re-running the full pipeline",
+    "crumbs": [
+      "Home",
+      "Data Processing",
+      "Public Sequencing Data"
+    ]
+  },
+  {
+    "objectID": "public-data.html#downloading-data-from-sra",
+    "href": "public-data.html#downloading-data-from-sra",
+    "title": "Public Sequencing Data",
+    "section": "Downloading data from SRA",
+    "text": "Downloading data from SRA\nThe SRA Toolkit is the standard command-line tool for downloading reads. Modern workflows prefer fasterq-dump over the older fastq-dump.\n\n\nExample: downloading a paired-end run with fasterq-dump\n\n# Install SRA Toolkit (if not already available via module load or conda)\nconda install -c bioconda sra-tools\n\n# Download paired-end FASTQ files for a single run accession\nfasterq-dump SRR12345678 \\\n  --split-files \\          # produces _1.fastq and _2.fastq (R1 and R2)\n  --outdir ./raw_reads/ \\\n  --threads 4\n\n# Compress the output\ngzip ./raw_reads/SRR12345678_1.fastq\ngzip ./raw_reads/SRR12345678_2.fastq\n\n\n\nExample: downloading all runs in a BioProject with a metadata table\n\n# 1. Go to the BioProject page on NCBI and download the RunInfo table as a CSV\n#    (SRA Run Selector &gt; \"Metadata\" button)\n\n# 2. Extract the SRR accession column and loop over it\ncut -d',' -f1 SraRunTable.txt | tail -n +2 | while read SRR; do\n  fasterq-dump \"$SRR\" --split-files --outdir ./raw_reads/ --threads 4\n  gzip ./raw_reads/\"${SRR}\"_*.fastq\ndone",
+    "crumbs": [
+      "Home",
+      "Data Processing",
+      "Public Sequencing Data"
+    ]
+  },
+  {
+    "objectID": "public-data.html#what-to-check-before-using-public-data",
+    "href": "public-data.html#what-to-check-before-using-public-data",
+    "title": "Public Sequencing Data",
+    "section": "What to check before using public data",
+    "text": "What to check before using public data\nPublic datasets vary widely in quality and comparability. Before beginning analysis, it is prudent to check the following:\nPrimer pair — confirm which variable region and primers were used. A study using V3–V4 (341F/805R) cannot be directly compared to one using V4 (515F/806R).\nSequencing platform and read length — Data from different sequencing runs should be processed separately.\nMetadata completeness — public metadata can be incomplete or inconsistently coded. Before relying on a covariate (BMI, antibiotic use, disease status), check how it was collected and whether the coding is consistent across samples. Certain metadata may not be housed in the public repository and may require request to the corresponding author.",
+    "crumbs": [
+      "Home",
+      "Data Processing",
+      "Public Sequencing Data"
+    ]
+  },
+  {
+    "objectID": "public-data.html#open-source-repositories",
+    "href": "public-data.html#open-source-repositories",
+    "title": "Public Sequencing Data",
+    "section": "Open-source repositories",
+    "text": "Open-source repositories\n\nNCBI Sequence Read Archive (SRA)\nThe SRA is the largest publicly available repository of high-throughput sequencing data. Most data associated with published microbiome papers in U.S.-funded journals is archived here.\n\nSearch by condition, body site, organism, or keyword at https://www.ncbi.nlm.nih.gov/sra\nEach dataset has a BioProject accession (e.g., PRJNA######) linking all samples from a study\nIndividual samples have SRR accessions (SRR#######) for download\nDownload via the SRA Toolkit (fastq-dump or fasterq-dump) or through NCBI’s cloud interface\n\n\n\n\n\n\n\nTipFinding data efficiently\n\n\n\nSearch SRA using BioProject accessions from papers you are trying to replicate. The BioProject page lists all associated SRR accessions, metadata, and links to the original publication.\n\n\n\n\nENA — European Nucleotide Archive\nENA mirrors most SRA content and is often faster to download from outside North America. It also accepts direct submissions from European-funded projects that may not appear in SRA.\n\nBrowser interface at https://www.ebi.ac.uk/ena/browser\nENA accessions begin with ERR (runs), ERS (samples), or PRJEB (projects)\nFASTQ files are available directly via FTP or the ENA browser — no toolkit required\n\n\n\nQIITA\nQIITA is a specialized platform for microbiome data hosting and reanalysis, developed by the QIIME2 team. It stores not just raw reads but processed artifacts (count tables, metadata) from large-scale studies, making it easier to access analysis-ready data.\n\nBrowse at https://qiita.ucsd.edu\nParticularly useful for studies processed through QIIME2 — artifacts can be downloaded and used directly\nHosts data from the Earth Microbiome Project and Human Microbiome Project\n\n\n\nEarth Microbiome Project (EMP)\nA collaborative effort to characterize microbial diversity across the planet’s environments. Standardized protocols and uniform processing make EMP data highly comparable across studies.\n\nData and protocols at https://earthmicrobiome.org\nUses 515F/806R primers (V4 region) throughout — straightforward to integrate with your own V4 data\nEMP data is accessible through QIITA and SRA\n\n\n\nHuman Microbiome Project (HMP)\nA foundational reference dataset for human-associated microbiome communities, covering gut, oral, skin, vaginal, and airway sites across healthy adults.\n\nData portal at https://hmpdacc.org\nIncludes both 16S amplicon and shotgun metagenomic data\nUseful as a reference community or baseline for human studies\n\n\n\nMGnify\nEBI’s microbiome analysis portal that hosts raw data and provides pre-computed analyses (taxonomic profiles, functional annotations) for thousands of publicly available studies.\n\nBrowse at https://www.ebi.ac.uk/metagenomics\nUseful when you want a quick look at a public dataset without re-running the full pipeline",
+    "crumbs": [
+      "Home",
+      "Data Processing",
+      "Public Sequencing Data"
+    ]
+  },
+  {
+    "objectID": "public-data.html#repositories",
+    "href": "public-data.html#repositories",
+    "title": "Public Sequencing Data",
+    "section": "Repositories",
+    "text": "Repositories\n\nNCBI Sequence Read Archive (SRA)\nThe SRA is the largest publicly available repository of high-throughput sequencing data. Most data associated with published microbiome papers in U.S.-funded journals is archived here.\n\nSearch by condition, body site, organism, or keyword at https://www.ncbi.nlm.nih.gov/sra\nEach dataset has a BioProject accession (e.g., PRJNA######) linking all samples from a study\nIndividual samples have SRR accessions (SRR#######) for download\nDownload via the SRA Toolkit (fastq-dump or fasterq-dump) or through NCBI’s cloud interface\n\n\n\n\n\n\n\nTipFinding data efficiently\n\n\n\nSearch SRA using BioProject accessions from papers you are trying to replicate. The BioProject page lists all associated SRR accessions, metadata, and links to the original publication.\n\n\n\n\nENA — European Nucleotide Archive\nENA mirrors most SRA content and is often faster to download from outside North America. It also accepts direct submissions from European-funded projects that may not appear in SRA.\n\nBrowser interface at https://www.ebi.ac.uk/ena/browser\nENA accessions begin with ERR (runs), ERS (samples), or PRJEB (projects)\nFASTQ files are available directly via FTP or the ENA browser — no toolkit required\n\n\n\nQIITA\nQIITA is a specialized platform for microbiome data hosting and reanalysis, developed by the QIIME2 team. It stores not just raw reads but processed artifacts (count tables, metadata) from large-scale studies, making it easier to access analysis-ready data.\n\nBrowse at https://qiita.ucsd.edu\nParticularly useful for studies processed through QIIME2 — artifacts can be downloaded and used directly\nHosts data from the Earth Microbiome Project and Human Microbiome Project\n\n\n\nEarth Microbiome Project (EMP)\nA collaborative effort to characterize microbial diversity across the planet’s environments. Standardized protocols and uniform processing make EMP data highly comparable across studies.\n\nData and protocols at https://earthmicrobiome.org\nUses 515F/806R primers (V4 region) throughout — straightforward to integrate with your own V4 data\nEMP data is accessible through QIITA and SRA\n\n\n\nHuman Microbiome Project (HMP)\nA foundational reference dataset for human-associated microbiome communities, covering gut, oral, skin, vaginal, and airway sites across healthy adults.\n\nData portal at https://hmpdacc.org\nIncludes both 16S amplicon and shotgun metagenomic data\nUseful as a reference community or baseline for human studies\n\n\n\nMGnify\nEBI’s microbiome analysis portal that hosts raw data and provides pre-computed analyses (taxonomic profiles, functional annotations) for thousands of publicly available studies.\n\nBrowse at https://www.ebi.ac.uk/metagenomics\nUseful when you want a quick look at a public dataset without re-running the full pipeline",
+    "crumbs": [
+      "Home",
+      "Data Processing",
+      "Public Sequencing Data"
+    ]
+  },
+  {
+    "objectID": "citations.html#reviews-and-methods-papers",
+    "href": "citations.html#reviews-and-methods-papers",
+    "title": "Citations & Image Credits",
+    "section": "Reviews and methods papers",
+    "text": "Reviews and methods papers\nWeinroth, M.D., Belk, A.D., Dean, C., et al. (2022). Considerations and best practices in animal science 16S ribosomal RNA gene sequencing microbiome studies. Journal of Animal Science, 100(2), skab346. https://doi.org/10.1093/jas/skab346",
+    "crumbs": [
+      "Home",
+      "Citations"
+    ]
+  },
+  {
+    "objectID": "01-sample-prep.html#the-goal-total-community-dna",
+    "href": "01-sample-prep.html#the-goal-total-community-dna",
+    "title": "Sample Preparation",
+    "section": "The goal: total community DNA",
+    "text": "The goal: total community DNA\nUnlike single-species extractions, you are not targeting one known organism with a known lysis protocol. You are asking one protocol to work across gram-positive bacteria (thick peptidoglycan cell walls), gram-negative bacteria (thin cell wall, outer membrane), archaea, fungi (chitin cell walls), and spore-formers — all present in the same tube. No extraction kit is equally efficient for all of these, which means your results will always reflect, in part, which organisms your protocol lyses most efficiently.\nThis is not a flaw to be eliminated — it is a reality to be understood and held constant. If every sample in your study is extracted the same way, the bias is systematic and consistent. If extraction method varies across samples or groups, the bias becomes a confounder.",
+    "crumbs": [
+      "Home",
+      "Wet Lab",
+      "Sample Preparation"
+    ]
+  },
+  {
+    "objectID": "01-sample-prep.html#cell-lysis-where-community-representation-is-won-or-lost",
+    "href": "01-sample-prep.html#cell-lysis-where-community-representation-is-won-or-lost",
+    "title": "Sample Preparation",
+    "section": "Cell lysis — where community representation is won or lost",
+    "text": "Cell lysis — where community representation is won or lost\nThe lysis step determines which organisms actually contribute DNA to your extract. Two broad strategies are used:\nMechanical lysis (bead beating) uses high-speed agitation with small beads to physically shear cell walls. It is the most effective approach for difficult-to-lyse organisms — gram-positive bacteria, fungi, spore-formers, and organisms with thick or unusual cell walls. The tradeoff is potential DNA shearing at high bead-beating intensities and co-extraction of more PCR inhibitors from the sample matrix.\nChemical and enzymatic lysis uses detergents, chaotropic salts, and enzymes (e.g., lysozyme, proteinase K) to dissolve membranes and digest cell walls. It is gentler and better suited to fragile organisms or samples where DNA integrity is a priority. It reliably lyses gram-negative bacteria but tends to underrepresent gram-positive taxa.\nFor gut microbiome studies, bead beating is standard. For other sample types — respiratory, skin, environmental — review the literature for your specific matrix. The key requirement is that whatever method you choose is applied identically across every sample in the study.\n\n\n\n\n\n\nNoteKit choice matters too\n\n\n\nCommercial kits vary in their lysis chemistry, bead type and size, binding conditions, and inhibitor removal capacity. Commonly used kits for microbiome work include the Qiagen DNeasy PowerSoil and PowerFecal kits and the ZymoBIOMICS DNA Miniprep Kit. Switching kits between samples or batches introduces a systematic bias — the same kit must be used from beginning to end of a study.",
+    "crumbs": [
+      "Home",
+      "Wet Lab",
+      "Sample Preparation"
+    ]
+  },
+  {
+    "objectID": "01-sample-prep.html#sample-collection-and-storage",
+    "href": "01-sample-prep.html#sample-collection-and-storage",
+    "title": "Sample Preparation",
+    "section": "Sample collection and storage",
+    "text": "Sample collection and storage\nThe time between sample collection and preservation is itself a biological variable. Microbial communities in biological samples begin changing immediately after collection — cells die, others proliferate, metabolic activity continues. Weinroth et al. (2022) note that the interval from collection to freezing can significantly alter 16S sequencing results. Best practices:\n\nSnap-freeze in liquid nitrogen and store at −80°C — gold standard for most sample types\nDNA stabilization buffers (RNAlater, OMNIgene·GUT) preserve community composition at room temperature for days to weeks when immediate freezing is not possible; validate for your specific matrix before relying on them\nRepeated freeze-thaw cycles degrade DNA quality and alter community profiles — aliquot samples before freezing so each tube is used only once\n\n\n\n\n\n\n\nImportantStorage conditions are a biological variable\n\n\n\nSamples stored at −80°C, −20°C, and room temperature will yield measurably different community profiles. Within a study, storage conditions must be identical across all samples. If some samples were handled differently — stored longer, frozen slower, thawed repeatedly — that difference must be documented and treated as a potential covariate in analysis.",
+    "crumbs": [
+      "Home",
+      "Wet Lab",
+      "Sample Preparation"
+    ]
+  },
+  {
+    "objectID": "01-sample-prep.html#controls",
+    "href": "01-sample-prep.html#controls",
+    "title": "Sample Preparation",
+    "section": "Controls",
+    "text": "Controls\nControls are not optional — they are the mechanism by which you distinguish biology from contamination and verify that your protocol is working.\nNegative extraction controls (reagents only, no sample) should be run with every extraction batch. If sequences appear in your negative control after sequencing, you have contamination somewhere in your workflow — the kit reagents, the water, the bench surface, or the tubes. This is especially critical for low-biomass samples, where kit contaminants can represent a substantial fraction of the detected signal. This background contamination is sometimes called the “kitome.”\nPCR negative controls (water instead of template) catch contamination introduced during the amplification step, separate from extraction.\nPositive controls (a mock community of known composition, such as the ZymoBIOMICS Microbial Community Standard) let you verify that your extraction and amplification are performing consistently across batches and that your downstream pipeline correctly identifies known taxa at expected proportions.",
+    "crumbs": [
+      "Home",
+      "Wet Lab",
+      "Sample Preparation"
+    ]
+  },
+  {
+    "objectID": "01-sample-prep.html#common-failure-modes",
+    "href": "01-sample-prep.html#common-failure-modes",
+    "title": "Sample Preparation",
+    "section": "Common failure modes",
+    "text": "Common failure modes\nInhibitor carryover — humic acids (soil, stool), heme (blood, tissue), polysaccharides (plant material), and bile salts can co-purify with DNA and inhibit PCR. Signs: poor or absent amplification despite adequate Qubit concentration. Additional clean-up steps (PowerClean Pro, 1:10 dilution series) can help identify and address inhibition.\nLow-biomass samples — skin swabs, bronchoalveolar lavage, and many environmental samples contain so little microbial DNA that kit and reagent contamination becomes a meaningful fraction of the detected signal. Standard extraction volumes and protocols designed for high-biomass gut samples may not be appropriate. Negative controls become especially important.\nHost DNA dominance — biopsies and mucosal samples may consist overwhelmingly of host (human or animal) DNA. The 16S primers are bacteria- and archaea-specific and will not amplify host sequences directly, but host DNA can compete for binding on silica columns and reduce microbial DNA yield during extraction.\nInconsistent technique — variation in homogenization thoroughness, bead-beating duration, or elution volume between operators or batches introduces technical noise that downstream statistics will interpret as biological signal. Written SOPs and training runs with reference samples reduce this source of error.",
+    "crumbs": [
+      "Home",
+      "Wet Lab",
+      "Sample Preparation"
+    ]
+  },
+  {
+    "objectID": "kumc-resources.html#sequencing",
+    "href": "kumc-resources.html#sequencing",
+    "title": "University of Kansas Medical Center and External Resources",
+    "section": "Sequencing",
+    "text": "Sequencing\nUniversity of Kansas Medical Center Genome Sequencing Facility\nUniversity of Kansas Genome Sequencing Core",
+    "crumbs": [
+      "Home",
+      "KUMC Resources"
+    ]
+  },
+  {
+    "objectID": "01-sample-prep.html#a-not-comprehensive-list-of-potential-variation",
+    "href": "01-sample-prep.html#a-not-comprehensive-list-of-potential-variation",
+    "title": "Sample Preparation",
+    "section": "A (not comprehensive list) of potential variation",
+    "text": "A (not comprehensive list) of potential variation\n\nExtraction kit\nUnlike single-species extractions, you are not targeting one known organism with a known lysis protocol. You are asking one protocol to work across all players all present in the same tube. No extraction kit is equally efficient for all of these, which means your results will always reflect, in part, which organisms your protocol lyses most efficiently.\nThis is not a flaw to be eliminated, just it is a reality to be understood. If every sample in your study is extracted the same way, the bias is systematic and consistent. If extraction method varies across samples or groups, the bias becomes a confounder.\n\n\nCell lysis\nThe lysis step determines which organisms actually contribute DNA to your extract. Two broad strategies are used:\nMechanical lysis (bead beating) uses high-speed agitation with small beads to physically shear cell walls. It is the most effective approach for difficult-to-lyse organisms — gram-positive bacteria, fungi, spore-formers, and organisms with thick or unusual cell walls. The tradeoff is potential DNA shearing at high bead-beating intensities and co-extraction of more PCR inhibitors from the sample matrix.\nChemical and enzymatic lysis uses detergents, chaotropic salts, and enzymes (e.g., lysozyme, proteinase K) to dissolve membranes and digest cell walls. It is gentler and better suited to fragile organisms or samples where DNA integrity is a priority. It reliably lyses gram-negative bacteria but tends to underrepresent gram-positive taxa.\n\n\n\n\n\n\nNoteConsistent kit choice\n\n\n\nCommercial kits vary in their lysis chemistry, bead type and size, binding conditions, and inhibitor removal capacity. Switching kits between samples or batches introduces a systematic bias. The same kit should be used from beginning to end of a study to mitigate unwanted variation.\n\n\n\n\nSample collection and storage\nThe time between sample collection and preservation is itself a biological variable. Microbial communities in biological samples begin changing immediately after collection — cells die, others proliferate, metabolic activity continues. Weinroth et al. (2022) note that the interval from collection to freezing can significantly alter 16S sequencing results. Best practices:\n\nSnap-freeze in liquid nitrogen and store at −80°C — gold standard for most sample types\nDNA stabilization buffers (RNAlater, OMNIgene·GUT) preserve community composition at room temperature for days to weeks when immediate freezing is not possible; validate for your specific matrix before relying on them\nRepeated freeze-thaw cycles degrade DNA quality and alter community profiles — aliquot samples before freezing so each tube is used only once\n\n\n\n\n\n\n\nImportantStorage conditions are a biological variable\n\n\n\nSamples stored at −80°C, −20°C, and room temperature will yield measurably different community profiles. Within a study, storage conditions must be identical across all samples. If some samples were handled differently — stored longer, frozen slower, thawed repeatedly — that difference must be documented and treated as a potential covariate in analysis.",
+    "crumbs": [
+      "Home",
+      "Wet Lab",
+      "Sample Preparation"
+    ]
+  },
+  {
+    "objectID": "06-quality-control.html#looking-at-a-quality-report",
+    "href": "06-quality-control.html#looking-at-a-quality-report",
+    "title": "Quality Control",
+    "section": "Looking at a quality report",
+    "text": "Looking at a quality report\nFastQC is one standard tool for a quick sanity check on raw reads. It produces plots of:\n\nPer-base quality scores across the read length\nPer-sequence quality distribution\nSequence length distribution\nAdapter content\nOverrepresented sequences (primers should appear here)\n\nQIIME2’s demux plugin produces similar quality plots and is often the first thing you look at after importing your data within the QIIME2 framework.\n\n\n\n\n\n\nTipFastQC\n\n\n\n\n\nFor more information about FastQC, check out this site.\n# to run the analysis on all files in a folder ending in .fastq.gz\nfastqc *.fastq.gz\n\n\n\n\n\n\n\n\n\nTipQIIME2 Demux Summarize\n\n\n\n\n\nFor more information about QIIME2 demux-summarize, check out this site.\nqiime2 demux-summarize \\\n  --i-data demux.qza\n  --o-visualization.qzv",
+    "crumbs": [
+      "Home",
+      "Data Processing",
+      "Quality Control"
     ]
   }
 ]

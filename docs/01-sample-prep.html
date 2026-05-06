@@ -20,6 +20,41 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -42,9 +77,9 @@ ul.task-list li input[type="checkbox"] {
 <link href="site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-dec5d4009982995cbac9a5d81cafe446.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="site_libs/bootstrap/bootstrap-dark-ceb3d77152dd93828f67ef2be16df8ff.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="site_libs/bootstrap/bootstrap-dec5d4009982995cbac9a5d81cafe446.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-72be8382eaa325d6a0089fca006bb000.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark-746cf2f3b7df649972bea76384bf8222.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="site_libs/bootstrap/bootstrap-72be8382eaa325d6a0089fca006bb000.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -73,6 +108,8 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 <style>html{ scroll-behavior: smooth; }</style>
+<script type="module" src="site_libs/quarto-ojs/quarto-ojs-runtime.js"></script>
+<link href="site_libs/quarto-ojs/quarto-ojs.css" rel="stylesheet">
 
 
 <link rel="stylesheet" href="styles.css">
@@ -356,6 +393,12 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./public-data.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Public Sequencing Data</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./04-fastq.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">FASTQ Files</span></a>
   </div>
@@ -410,6 +453,12 @@ ul.task-list li input[type="checkbox"] {
  <span class="menu-text">KUMC Resources</span></a>
   </div>
 </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./citations.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Citations</span></a>
+  </div>
+</li>
     </ul>
     </div>
 </nav>
@@ -420,16 +469,14 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#what-you-are-actually-extracting" id="toc-what-you-are-actually-extracting" class="nav-link active" data-scroll-target="#what-you-are-actually-extracting">What you are actually extracting</a></li>
-  <li><a href="#key-decisions" id="toc-key-decisions" class="nav-link" data-scroll-target="#key-decisions">Key decisions</a>
+  <li><a href="#a-not-comprehensive-list-of-potential-variation" id="toc-a-not-comprehensive-list-of-potential-variation" class="nav-link active" data-scroll-target="#a-not-comprehensive-list-of-potential-variation">A (not comprehensive list) of potential variation</a>
   <ul class="collapse">
-  <li><a href="#extraction-method" id="toc-extraction-method" class="nav-link" data-scroll-target="#extraction-method">Extraction method</a></li>
-  <li><a href="#sample-storage" id="toc-sample-storage" class="nav-link" data-scroll-target="#sample-storage">Sample storage</a></li>
-  <li><a href="#kit-choice" id="toc-kit-choice" class="nav-link" data-scroll-target="#kit-choice">Kit choice</a></li>
+  <li><a href="#extraction-kit" id="toc-extraction-kit" class="nav-link" data-scroll-target="#extraction-kit">Extraction kit</a></li>
+  <li><a href="#cell-lysis" id="toc-cell-lysis" class="nav-link" data-scroll-target="#cell-lysis">Cell lysis</a></li>
+  <li><a href="#sample-collection-and-storage" id="toc-sample-collection-and-storage" class="nav-link" data-scroll-target="#sample-collection-and-storage">Sample collection and storage</a></li>
   </ul></li>
-  <li><a href="#assessing-dna-quality" id="toc-assessing-dna-quality" class="nav-link" data-scroll-target="#assessing-dna-quality">Assessing DNA quality</a></li>
-  <li><a href="#what-can-go-wrong" id="toc-what-can-go-wrong" class="nav-link" data-scroll-target="#what-can-go-wrong">What can go wrong</a></li>
-  <li><a href="#negative-and-positive-controls" id="toc-negative-and-positive-controls" class="nav-link" data-scroll-target="#negative-and-positive-controls">Negative and positive controls</a></li>
+  <li><a href="#controls" id="toc-controls" class="nav-link" data-scroll-target="#controls">Controls</a></li>
+  <li><a href="#common-failure-modes" id="toc-common-failure-modes" class="nav-link" data-scroll-target="#common-failure-modes">Common failure modes</a></li>
   </ul>
 </nav>
     </div>
@@ -461,41 +508,154 @@ ul.task-list li input[type="checkbox"] {
 <p><img src="assets/sample-preparation.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:60.0%"></p>
 </figure>
 </div>
-<p>Before any sequencing happens, you need DNA — and the quality of that DNA shapes everything downstream. Microbiome studies add complications that standard molecular biology workflows don’t always account for: microbial communities are physically diverse, and extraction efficiency varies dramatically across taxa.</p>
-<div class="callout callout-style-default callout-important callout-titled">
+<p>16S rRNA gene sequencing is a culture-independent method, meaning you are characterizing an entire microbial community directly from a biological sample without growing anything in a lab. This power comes with a fundamental constraint: every organism present must yield its DNA through the same extraction protocol, regardless of how different its cell wall or membrane structure may be. The choices made before a single read is sequenced such as how the sample was collected, stored, lysed, and quantified will determine what biology you can detect and how much technical noise will propagate through every step that follows (Weinroth et al., 2022).</p>
+<div class="callout callout-style-default callout-warning callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Important</span>Batch effects start here
+<span class="screen-reader-only">Warning</span>Mitigating batch effects
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Every decision in sample preparation — extraction kit, bead-beating duration, storage conditions, PCR cycle number, who runs the extraction — introduces technical variation. When that variation is <strong>systematic</strong> (e.g., all your cases were extracted in one batch and all your controls in another), it becomes a batch effect that is statistically indistinguishable from biology.</p>
-<p>The most common and damaging mistake in microbiome study design is confounding experimental groups with batches. Distribute cases and controls across extraction batches from the beginning, and include the same reference sample (e.g., a mock community or pooled aliquot) in every batch so you can detect and measure batch-to-batch drift.</p>
+<p>Every decision in sample preparation introduces technical variation: extraction kit, bead-beating duration, storage conditions, PCR cycle number, who runs the extraction and when it is run. When that variation is <strong>systematic</strong> (e.g., all your cases were extracted in one batch and all your controls in another), it becomes a batch effect that is now indistinguishable from biology.</p>
+<p>Here, you can see visualization of what a set of samples run in two batches look like when the researcher does and does not confound the treatment group with batch.</p>
+<div class="cell">
+<details class="code-fold hidden">
+<summary>Show example</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb1" data-startfrom="17" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 16;"><span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>viewof design <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">radio</span>([<span class="st">"Confounded"</span><span class="op">,</span> <span class="st">"Balanced"</span>]<span class="op">,</span> {</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>  <span class="dt">value</span><span class="op">:</span> <span class="st">"Confounded"</span><span class="op">,</span></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>  <span class="dt">label</span><span class="op">:</span> <span class="st">"Study design"</span></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display">
+<div id="ojs-cell-1" data-nodetype="declaration">
+
 </div>
 </div>
-<section id="what-you-are-actually-extracting" class="level2">
-<h2 class="anchored" data-anchor-id="what-you-are-actually-extracting">What you are actually extracting</h2>
-<p>The goal is total community DNA: a mixture of genomic material from every organism present in your sample. Unlike culturing, you are not selecting for any particular microbe. That is the power of culture-independent sequencing — but it also means your extraction protocol needs to work reasonably well across a wide range of cell wall architectures (gram-positive bacteria with thick peptidoglycan, gram-negative bacteria, fungi, archaea).</p>
-<p>No extraction kit is equally efficient for all of these.</p>
+</div>
+<div class="cell">
+<details class="code-fold hidden">
+<summary>Show example</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb2" data-startfrom="25" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 24;"><span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>{</span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>  <span class="kw">function</span> <span class="fu">makeRng</span>(seed) {</span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> s <span class="op">=</span> seed <span class="op">&gt;&gt;&gt;</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> () <span class="kw">=&gt;</span> { s <span class="op">=</span> (<span class="bu">Math</span><span class="op">.</span><span class="fu">imul</span>(s<span class="op">,</span> <span class="dv">1664525</span>) <span class="op">+</span> <span class="dv">1013904223</span>) <span class="op">&gt;&gt;&gt;</span> <span class="dv">0</span><span class="op">;</span> <span class="cf">return</span> s <span class="op">/</span> <span class="dv">4294967296</span><span class="op">;</span> }<span class="op">;</span></span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a>  <span class="kw">function</span> <span class="fu">randn</span>(rng) {</span>
+<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">sqrt</span>(<span class="op">-</span><span class="dv">2</span> <span class="op">*</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">log</span>(<span class="fu">rng</span>() <span class="op">+</span> <span class="fl">1e-10</span>)) <span class="op">*</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">cos</span>(<span class="dv">2</span> <span class="op">*</span> <span class="bu">Math</span><span class="op">.</span><span class="cn">PI</span> <span class="op">*</span> <span class="fu">rng</span>())<span class="op">;</span></span>
+<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> rng   <span class="op">=</span> <span class="fu">makeRng</span>(<span class="dv">7</span>)<span class="op">;</span></span>
+<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> noise <span class="op">=</span> <span class="bu">Array</span><span class="op">.</span><span class="fu">from</span>({<span class="dt">length</span><span class="op">:</span> <span class="dv">40</span>}<span class="op">,</span> () <span class="kw">=&gt;</span> ({ <span class="dt">nx</span><span class="op">:</span> <span class="fu">randn</span>(rng)<span class="op">,</span> <span class="dt">ny</span><span class="op">:</span> <span class="fu">randn</span>(rng) }))<span class="op">;</span></span>
+<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> samples <span class="op">=</span> noise<span class="op">.</span><span class="fu">map</span>((n<span class="op">,</span> i) <span class="kw">=&gt;</span> {</span>
+<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> batch <span class="op">=</span> i <span class="op">&lt;</span> <span class="dv">20</span> <span class="op">?</span> <span class="st">"Batch 1"</span> <span class="op">:</span> <span class="st">"Batch 2"</span><span class="op">;</span></span>
+<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> group <span class="op">=</span> design <span class="op">===</span> <span class="st">"Confounded"</span></span>
+<span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a>      <span class="op">?</span> (batch <span class="op">===</span> <span class="st">"Batch 1"</span> <span class="op">?</span> <span class="st">"Case"</span> <span class="op">:</span> <span class="st">"Control"</span>)</span>
+<span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a>      <span class="op">:</span> (i <span class="op">%</span> <span class="dv">4</span> <span class="op">&lt;</span> <span class="dv">2</span> <span class="op">?</span> <span class="st">"Case"</span> <span class="op">:</span> <span class="st">"Control"</span>)<span class="op">;</span></span>
+<span id="cb2-42"><a href="#cb2-42" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> {</span>
+<span id="cb2-43"><a href="#cb2-43" aria-hidden="true" tabindex="-1"></a>      batch<span class="op">,</span> group<span class="op">,</span></span>
+<span id="cb2-44"><a href="#cb2-44" aria-hidden="true" tabindex="-1"></a>      <span class="dt">x</span><span class="op">:</span> (batch <span class="op">===</span> <span class="st">"Batch 1"</span> <span class="op">?</span> <span class="op">-</span><span class="fl">2.5</span> <span class="op">:</span> <span class="fl">2.5</span>) <span class="op">+</span> n<span class="op">.</span><span class="at">nx</span> <span class="op">*</span> <span class="fl">0.85</span><span class="op">,</span></span>
+<span id="cb2-45"><a href="#cb2-45" aria-hidden="true" tabindex="-1"></a>      <span class="dt">y</span><span class="op">:</span> (group <span class="op">===</span> <span class="st">"Case"</span>    <span class="op">?</span>  <span class="fl">0.45</span> <span class="op">:</span> <span class="op">-</span><span class="fl">0.45</span>) <span class="op">+</span> n<span class="op">.</span><span class="at">ny</span> <span class="op">*</span> <span class="fl">0.85</span></span>
+<span id="cb2-46"><a href="#cb2-46" aria-hidden="true" tabindex="-1"></a>    }<span class="op">;</span></span>
+<span id="cb2-47"><a href="#cb2-47" aria-hidden="true" tabindex="-1"></a>  })<span class="op">;</span></span>
+<span id="cb2-48"><a href="#cb2-48" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-49"><a href="#cb2-49" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> plotW <span class="op">=</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">floor</span>((<span class="bu">Math</span><span class="op">.</span><span class="fu">min</span>(width<span class="op">,</span> <span class="dv">720</span>) <span class="op">-</span> <span class="dv">56</span>) <span class="op">/</span> <span class="dv">2</span>)<span class="op">;</span></span>
+<span id="cb2-50"><a href="#cb2-50" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-51"><a href="#cb2-51" aria-hidden="true" tabindex="-1"></a>  <span class="kw">function</span> <span class="fu">makePlot</span>(field<span class="op">,</span> domain<span class="op">,</span> range) {</span>
+<span id="cb2-52"><a href="#cb2-52" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> Plot<span class="op">.</span><span class="fu">plot</span>({</span>
+<span id="cb2-53"><a href="#cb2-53" aria-hidden="true" tabindex="-1"></a>      <span class="dt">width</span><span class="op">:</span> plotW<span class="op">,</span></span>
+<span id="cb2-54"><a href="#cb2-54" aria-hidden="true" tabindex="-1"></a>      <span class="dt">height</span><span class="op">:</span> <span class="dv">300</span><span class="op">,</span></span>
+<span id="cb2-55"><a href="#cb2-55" aria-hidden="true" tabindex="-1"></a>      <span class="dt">x</span><span class="op">:</span> { <span class="dt">label</span><span class="op">:</span> <span class="st">"PC1"</span><span class="op">,</span> <span class="dt">grid</span><span class="op">:</span> <span class="kw">true</span><span class="op">,</span> <span class="dt">tickFormat</span><span class="op">:</span> d <span class="kw">=&gt;</span> d<span class="op">.</span><span class="fu">toFixed</span>(<span class="dv">1</span>) }<span class="op">,</span></span>
+<span id="cb2-56"><a href="#cb2-56" aria-hidden="true" tabindex="-1"></a>      <span class="dt">y</span><span class="op">:</span> { <span class="dt">label</span><span class="op">:</span> <span class="st">"PC2"</span><span class="op">,</span> <span class="dt">grid</span><span class="op">:</span> <span class="kw">true</span><span class="op">,</span> <span class="dt">tickFormat</span><span class="op">:</span> d <span class="kw">=&gt;</span> d<span class="op">.</span><span class="fu">toFixed</span>(<span class="dv">1</span>) }<span class="op">,</span></span>
+<span id="cb2-57"><a href="#cb2-57" aria-hidden="true" tabindex="-1"></a>      <span class="dt">color</span><span class="op">:</span> { domain<span class="op">,</span> range<span class="op">,</span> <span class="dt">legend</span><span class="op">:</span> <span class="kw">true</span> }<span class="op">,</span></span>
+<span id="cb2-58"><a href="#cb2-58" aria-hidden="true" tabindex="-1"></a>      <span class="dt">marks</span><span class="op">:</span> [</span>
+<span id="cb2-59"><a href="#cb2-59" aria-hidden="true" tabindex="-1"></a>        Plot<span class="op">.</span><span class="fu">dot</span>(samples<span class="op">,</span> {</span>
+<span id="cb2-60"><a href="#cb2-60" aria-hidden="true" tabindex="-1"></a>          <span class="dt">x</span><span class="op">:</span> <span class="st">"x"</span><span class="op">,</span> <span class="dt">y</span><span class="op">:</span> <span class="st">"y"</span><span class="op">,</span> <span class="dt">fill</span><span class="op">:</span> field<span class="op">,</span></span>
+<span id="cb2-61"><a href="#cb2-61" aria-hidden="true" tabindex="-1"></a>          <span class="dt">r</span><span class="op">:</span> <span class="dv">6</span><span class="op">,</span> <span class="dt">stroke</span><span class="op">:</span> <span class="st">"white"</span><span class="op">,</span> <span class="dt">strokeWidth</span><span class="op">:</span> <span class="fl">1.5</span><span class="op">,</span></span>
+<span id="cb2-62"><a href="#cb2-62" aria-hidden="true" tabindex="-1"></a>          <span class="dt">title</span><span class="op">:</span> d <span class="kw">=&gt;</span> <span class="vs">`</span><span class="sc">${</span>d<span class="op">.</span><span class="at">group</span><span class="sc">}</span><span class="vs"> — </span><span class="sc">${</span>d<span class="op">.</span><span class="at">batch</span><span class="sc">}</span><span class="vs">`</span></span>
+<span id="cb2-63"><a href="#cb2-63" aria-hidden="true" tabindex="-1"></a>        })</span>
+<span id="cb2-64"><a href="#cb2-64" aria-hidden="true" tabindex="-1"></a>      ]</span>
+<span id="cb2-65"><a href="#cb2-65" aria-hidden="true" tabindex="-1"></a>    })<span class="op">;</span></span>
+<span id="cb2-66"><a href="#cb2-66" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb2-67"><a href="#cb2-67" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-68"><a href="#cb2-68" aria-hidden="true" tabindex="-1"></a>  <span class="kw">function</span> <span class="fu">labeled</span>(plot<span class="op">,</span> titleText) {</span>
+<span id="cb2-69"><a href="#cb2-69" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> wrap <span class="op">=</span> <span class="bu">Object</span><span class="op">.</span><span class="fu">assign</span>(<span class="bu">document</span><span class="op">.</span><span class="fu">createElement</span>(<span class="st">"div"</span>)<span class="op">,</span> {</span>
+<span id="cb2-70"><a href="#cb2-70" aria-hidden="true" tabindex="-1"></a>      <span class="dt">style</span><span class="op">:</span> <span class="st">"display:flex; flex-direction:column; align-items:center; flex:1; min-width:180px;"</span></span>
+<span id="cb2-71"><a href="#cb2-71" aria-hidden="true" tabindex="-1"></a>    })<span class="op">;</span></span>
+<span id="cb2-72"><a href="#cb2-72" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> h <span class="op">=</span> <span class="bu">Object</span><span class="op">.</span><span class="fu">assign</span>(<span class="bu">document</span><span class="op">.</span><span class="fu">createElement</span>(<span class="st">"div"</span>)<span class="op">,</span> {</span>
+<span id="cb2-73"><a href="#cb2-73" aria-hidden="true" tabindex="-1"></a>      <span class="dt">textContent</span><span class="op">:</span> titleText<span class="op">,</span></span>
+<span id="cb2-74"><a href="#cb2-74" aria-hidden="true" tabindex="-1"></a>      <span class="dt">style</span><span class="op">:</span> <span class="st">"font-weight:600; font-size:0.95rem; text-align:center; margin-bottom:0.35rem; color:#2a1a2e;"</span></span>
+<span id="cb2-75"><a href="#cb2-75" aria-hidden="true" tabindex="-1"></a>    })<span class="op">;</span></span>
+<span id="cb2-76"><a href="#cb2-76" aria-hidden="true" tabindex="-1"></a>    wrap<span class="op">.</span><span class="fu">append</span>(h<span class="op">,</span> plot)<span class="op">;</span></span>
+<span id="cb2-77"><a href="#cb2-77" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> wrap<span class="op">;</span></span>
+<span id="cb2-78"><a href="#cb2-78" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb2-79"><a href="#cb2-79" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-80"><a href="#cb2-80" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> caption <span class="op">=</span> design <span class="op">===</span> <span class="st">"Confounded"</span></span>
+<span id="cb2-81"><a href="#cb2-81" aria-hidden="true" tabindex="-1"></a>    <span class="op">?</span> <span class="st">"Confounded design: the two plots are mirror images — batch and biology cannot be separated."</span></span>
+<span id="cb2-82"><a href="#cb2-82" aria-hidden="true" tabindex="-1"></a>    <span class="op">:</span> <span class="st">"Balanced design: the batch effect is visible on the left, but cases and controls are mixed within each batch on the right."</span><span class="op">;</span></span>
+<span id="cb2-83"><a href="#cb2-83" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-84"><a href="#cb2-84" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> left  <span class="op">=</span> <span class="fu">labeled</span>(<span class="fu">makePlot</span>(<span class="st">"batch"</span><span class="op">,</span> [<span class="st">"Batch 1"</span><span class="op">,</span> <span class="st">"Batch 2"</span>]<span class="op">,</span> [<span class="st">"#1565C0"</span><span class="op">,</span> <span class="st">"#C62828"</span>])<span class="op">,</span> <span class="st">"Batch"</span>)<span class="op">;</span></span>
+<span id="cb2-85"><a href="#cb2-85" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> right <span class="op">=</span> <span class="fu">labeled</span>(<span class="fu">makePlot</span>(<span class="st">"group"</span><span class="op">,</span> [<span class="st">"Case"</span><span class="op">,</span> <span class="st">"Control"</span>]<span class="op">,</span>    [<span class="st">"#752f7d"</span><span class="op">,</span> <span class="st">"#2E7D32"</span>])<span class="op">,</span> <span class="st">"Treatment Group"</span>)<span class="op">;</span></span>
+<span id="cb2-86"><a href="#cb2-86" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-87"><a href="#cb2-87" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> capEl <span class="op">=</span> <span class="bu">Object</span><span class="op">.</span><span class="fu">assign</span>(<span class="bu">document</span><span class="op">.</span><span class="fu">createElement</span>(<span class="st">"p"</span>)<span class="op">,</span> {</span>
+<span id="cb2-88"><a href="#cb2-88" aria-hidden="true" tabindex="-1"></a>    <span class="dt">textContent</span><span class="op">:</span> caption<span class="op">,</span></span>
+<span id="cb2-89"><a href="#cb2-89" aria-hidden="true" tabindex="-1"></a>    <span class="dt">style</span><span class="op">:</span> <span class="st">"width:100%; margin:0.6rem 0 0; font-size:0.875rem; color:#555; font-style:italic;"</span></span>
+<span id="cb2-90"><a href="#cb2-90" aria-hidden="true" tabindex="-1"></a>  })<span class="op">;</span></span>
+<span id="cb2-91"><a href="#cb2-91" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-92"><a href="#cb2-92" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> container <span class="op">=</span> <span class="bu">Object</span><span class="op">.</span><span class="fu">assign</span>(<span class="bu">document</span><span class="op">.</span><span class="fu">createElement</span>(<span class="st">"div"</span>)<span class="op">,</span> {</span>
+<span id="cb2-93"><a href="#cb2-93" aria-hidden="true" tabindex="-1"></a>    <span class="dt">style</span><span class="op">:</span> <span class="vs">`</span></span>
+<span id="cb2-94"><a href="#cb2-94" aria-hidden="true" tabindex="-1"></a><span class="vs">      display: flex; flex-wrap: wrap; gap: 1rem; align-items: flex-start;</span></span>
+<span id="cb2-95"><a href="#cb2-95" aria-hidden="true" tabindex="-1"></a><span class="vs">      border: 1.5px solid #d4b8d8; border-radius: 8px; padding: 1.25rem;</span></span>
+<span id="cb2-96"><a href="#cb2-96" aria-hidden="true" tabindex="-1"></a><span class="vs">    `</span></span>
+<span id="cb2-97"><a href="#cb2-97" aria-hidden="true" tabindex="-1"></a>  })<span class="op">;</span></span>
+<span id="cb2-98"><a href="#cb2-98" aria-hidden="true" tabindex="-1"></a>  container<span class="op">.</span><span class="fu">append</span>(left<span class="op">,</span> right<span class="op">,</span> capEl)<span class="op">;</span></span>
+<span id="cb2-99"><a href="#cb2-99" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> container<span class="op">;</span></span>
+<span id="cb2-100"><a href="#cb2-100" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display">
+<div id="ojs-cell-2" data-nodetype="expression">
+
+</div>
+</div>
+</div>
+</div>
+</div>
+<section id="a-not-comprehensive-list-of-potential-variation" class="level2">
+<h2 class="anchored" data-anchor-id="a-not-comprehensive-list-of-potential-variation">A (not comprehensive list) of potential variation</h2>
+<section id="extraction-kit" class="level3">
+<h3 class="anchored" data-anchor-id="extraction-kit">Extraction kit</h3>
+<p>Unlike single-species extractions, you are not targeting one known organism with a known lysis protocol. You are asking one protocol to work across all players all present in the same tube. No extraction kit is equally efficient for all of these, which means your results will always reflect, in part, which organisms your protocol lyses most efficiently.</p>
+<p>This is not a flaw to be eliminated, just it is a reality to be understood. If every sample in your study is extracted the same way, the bias is systematic and consistent. If extraction method varies across samples or groups, the bias becomes a confounder.</p>
 </section>
-<section id="key-decisions" class="level2">
-<h2 class="anchored" data-anchor-id="key-decisions">Key decisions</h2>
-<section id="extraction-method" class="level3">
-<h3 class="anchored" data-anchor-id="extraction-method">Extraction method</h3>
-<p><strong>Bead beating</strong> physically disrupts cells through mechanical agitation with small beads. It is more aggressive and tends to give higher yield from difficult-to-lyse organisms (e.g., <em>Lactobacillus</em>, fungi, spore-formers). The tradeoff is potential DNA shearing and co-extraction of more inhibitors.</p>
-<p><strong>Chemical/enzymatic lysis</strong> (e.g., detergent-based kits without bead beating) is gentler and better suited to fragile organisms or samples where you want to preserve DNA integrity. It may underrepresent gram-positive taxa.</p>
-<p>For gut microbiome work, bead beating is standard. For other sample types, review the literature for your matrix.</p>
+<section id="cell-lysis" class="level3">
+<h3 class="anchored" data-anchor-id="cell-lysis">Cell lysis</h3>
+<p>The lysis step determines which organisms actually contribute DNA to your extract. Two broad strategies are used:</p>
+<p><strong>Mechanical lysis (bead beating)</strong> uses high-speed agitation with small beads to physically shear cell walls. It is the most effective approach for difficult-to-lyse organisms — gram-positive bacteria, fungi, spore-formers, and organisms with thick or unusual cell walls. The tradeoff is potential DNA shearing at high bead-beating intensities and co-extraction of more PCR inhibitors from the sample matrix.</p>
+<p><strong>Chemical and enzymatic lysis</strong> uses detergents, chaotropic salts, and enzymes (e.g., lysozyme, proteinase K) to dissolve membranes and digest cell walls. It is gentler and better suited to fragile organisms or samples where DNA integrity is a priority. It reliably lyses gram-negative bacteria but tends to underrepresent gram-positive taxa.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Consistent kit choice
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Commercial kits vary in their lysis chemistry, bead type and size, binding conditions, and inhibitor removal capacity. Switching kits between samples or batches introduces a systematic bias. The same kit should be used from beginning to end of a study to mitigate unwanted variation.</p>
+</div>
+</div>
 </section>
-<section id="sample-storage" class="level3">
-<h3 class="anchored" data-anchor-id="sample-storage">Sample storage</h3>
-<p>DNA degrades rapidly at room temperature. For field-collected samples:</p>
+<section id="sample-collection-and-storage" class="level3">
+<h3 class="anchored" data-anchor-id="sample-collection-and-storage">Sample collection and storage</h3>
+<p>The time between sample collection and preservation is itself a biological variable. Microbial communities in biological samples begin changing immediately after collection — cells die, others proliferate, metabolic activity continues. Weinroth et al.&nbsp;(2022) note that the interval from collection to freezing can significantly alter 16S sequencing results. Best practices:</p>
 <ul>
-<li>Snap-freeze in liquid nitrogen and store at -80°C is the gold standard</li>
-<li>DNA stabilization buffers (e.g., RNAlater, OMNIgene) allow room-temperature storage for short periods</li>
-<li>Repeated freeze-thaw cycles degrade both DNA quality and community composition — aliquot samples before freezing</li>
+<li><strong>Snap-freeze in liquid nitrogen and store at −80°C</strong> — gold standard for most sample types</li>
+<li><strong>DNA stabilization buffers</strong> (RNAlater, OMNIgene·GUT) preserve community composition at room temperature for days to weeks when immediate freezing is not possible; validate for your specific matrix before relying on them</li>
+<li><strong>Repeated freeze-thaw cycles</strong> degrade DNA quality and alter community profiles — aliquot samples before freezing so each tube is used only once</li>
 </ul>
 <div class="callout callout-style-default callout-important callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -507,79 +667,40 @@ ul.task-list li input[type="checkbox"] {
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Samples stored at -80°C vs.&nbsp;-20°C vs.&nbsp;room temperature will yield different community profiles. Within a study, storage conditions must be consistent across all samples.</p>
+<p>Samples stored at −80°C, −20°C, and room temperature will yield measurably different community profiles. Within a study, storage conditions must be identical across all samples. If some samples were handled differently — stored longer, frozen slower, thawed repeatedly — that difference must be documented and treated as a potential covariate in analysis.</p>
 </div>
 </div>
 </section>
-<section id="kit-choice" class="level3">
-<h3 class="anchored" data-anchor-id="kit-choice">Kit choice</h3>
-<p>Commercial kits vary in their lysis chemistry, binding conditions, and inhibitor removal. The most commonly used for microbiome work include the Qiagen DNeasy PowerSoil (soil, stool), PowerFecal (stool), and ZymoBIOMICS kits. Using the same kit across all samples in a study is critical — switching kits mid-study introduces a systematic batch effect.</p>
 </section>
+<section id="controls" class="level2">
+<h2 class="anchored" data-anchor-id="controls">Controls</h2>
+<p>Controls are not optional — they are the mechanism by which you distinguish biology from contamination and verify that your protocol is working.</p>
+<p><strong>Negative extraction controls</strong> (reagents only, no sample) should be run with every extraction batch. If sequences appear in your negative control after sequencing, you have contamination somewhere in your workflow — the kit reagents, the water, the bench surface, or the tubes. This is especially critical for low-biomass samples, where kit contaminants can represent a substantial fraction of the detected signal. This background contamination is sometimes called the <strong>“kitome.”</strong></p>
+<p><strong>PCR negative controls</strong> (water instead of template) catch contamination introduced during the amplification step, separate from extraction.</p>
+<p><strong>Positive controls</strong> (a mock community of known composition, such as the ZymoBIOMICS Microbial Community Standard) let you verify that your extraction and amplification are performing consistently across batches and that your downstream pipeline correctly identifies known taxa at expected proportions.</p>
 </section>
-<section id="assessing-dna-quality" class="level2">
-<h2 class="anchored" data-anchor-id="assessing-dna-quality">Assessing DNA quality</h2>
-<p>After extraction, you need to assess whether you have enough usable DNA.</p>
-<table class="caption-top table">
-<colgroup>
-<col style="width: 33%">
-<col style="width: 33%">
-<col style="width: 33%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>Measurement</th>
-<th>Tool</th>
-<th>What to look for</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>Concentration</td>
-<td>Qubit (fluorometric)</td>
-<td>More accurate than NanoDrop for dilute samples</td>
-</tr>
-<tr class="even">
-<td>Purity</td>
-<td>NanoDrop</td>
-<td>A260/280 ≈ 1.8; A260/230 ≈ 2.0–2.2</td>
-</tr>
-<tr class="odd">
-<td>Integrity</td>
-<td>Agarose gel or TapeStation</td>
-<td>High molecular weight band, minimal smearing</td>
-</tr>
-</tbody>
-</table>
-<div class="callout callout-style-default callout-warning callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Warning</span>NanoDrop overestimates concentration
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>NanoDrop measures all UV-absorbing material, including RNA, free nucleotides, and carryover reagents. Qubit measures double-stranded DNA specifically. For low-biomass samples, this difference can be substantial. Always use Qubit for input quantification to the library prep.</p>
-</div>
-</div>
-</section>
-<section id="what-can-go-wrong" class="level2">
-<h2 class="anchored" data-anchor-id="what-can-go-wrong">What can go wrong</h2>
-<p><strong>Inhibitor carryover</strong> — humic acids (soil, stool), heme (blood, tissue), polysaccharides (plant material), and bile salts can co-purify with DNA and inhibit PCR. Signs include poor or no amplification despite adequate DNA concentration. Additional purification steps (e.g., PowerClean Pro, dilution series) can help.</p>
-<p><strong>Low-biomass samples</strong> — skin swabs, BAL, and some environmental samples may have so little microbial DNA that reagent and kit contamination becomes a meaningful fraction of your signal. Negative extraction controls are not optional for low-biomass work.</p>
-<p><strong>Host DNA dominance</strong> — tissue biopsies and some mucosal samples may be overwhelmingly human DNA. This does not usually prevent 16S amplification (primers are bacteria/archaea specific) but can complicate shotgun approaches and may affect some kits’ binding efficiency.</p>
-<p><strong>Inconsistent extraction</strong> — variation in how thoroughly samples are homogenized, bead-beating duration, or elution volume introduces technical noise that gets interpreted as biological signal.</p>
-</section>
-<section id="negative-and-positive-controls" class="level2">
-<h2 class="anchored" data-anchor-id="negative-and-positive-controls">Negative and positive controls</h2>
-<p>Run a negative extraction control (reagents only, no sample) with every batch. If sequences appear in your negative control, you have contamination — in the kit, the water, the bench, or the tubes. This is especially important for low-biomass samples.</p>
-<p>A positive control (a mock community of known composition, e.g., ZymoBIOMICS Microbial Community Standard) lets you verify your extraction and downstream workflow are performing consistently across batches.</p>
+<section id="common-failure-modes" class="level2">
+<h2 class="anchored" data-anchor-id="common-failure-modes">Common failure modes</h2>
+<p><strong>Inhibitor carryover</strong> — humic acids (soil, stool), heme (blood, tissue), polysaccharides (plant material), and bile salts can co-purify with DNA and inhibit PCR. Signs: poor or absent amplification despite adequate Qubit concentration. Additional clean-up steps (PowerClean Pro, 1:10 dilution series) can help identify and address inhibition.</p>
+<p><strong>Low-biomass samples</strong> — skin swabs, bronchoalveolar lavage, and many environmental samples contain so little microbial DNA that kit and reagent contamination becomes a meaningful fraction of the detected signal. Standard extraction volumes and protocols designed for high-biomass gut samples may not be appropriate. Negative controls become especially important.</p>
+<p><strong>Host DNA dominance</strong> — biopsies and mucosal samples may consist overwhelmingly of host (human or animal) DNA. The 16S primers are bacteria- and archaea-specific and will not amplify host sequences directly, but host DNA can compete for binding on silica columns and reduce microbial DNA yield during extraction.</p>
+<p><strong>Inconsistent technique</strong> — variation in homogenization thoroughness, bead-beating duration, or elution volume between operators or batches introduces technical noise that downstream statistics will interpret as biological signal. Written SOPs and training runs with reference samples reduce this source of error.</p>
 
 
 </section>
 
 </main> <!-- /main -->
+<script type="ojs-module-contents">
+eyJjb250ZW50cyI6W3sibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtMSIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6InZpZXdvZiBkZXNpZ24gPSBJbnB1dHMucmFkaW8oW1wiQ29uZm91bmRlZFwiLCBcIkJhbGFuY2VkXCJdLCB7XG4gIHZhbHVlOiBcIkNvbmZvdW5kZWRcIixcbiAgbGFiZWw6IFwiU3R1ZHkgZGVzaWduXCJcbn0pXG4ifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJjZWxsTmFtZSI6Im9qcy1jZWxsLTIiLCJpbmxpbmUiOmZhbHNlLCJzb3VyY2UiOiJ7XG4gIGZ1bmN0aW9uIG1ha2VSbmcoc2VlZCkge1xuICAgIGxldCBzID0gc2VlZCA+Pj4gMDtcbiAgICByZXR1cm4gKCkgPT4geyBzID0gKE1hdGguaW11bChzLCAxNjY0NTI1KSArIDEwMTM5MDQyMjMpID4+PiAwOyByZXR1cm4gcyAvIDQyOTQ5NjcyOTY7IH07XG4gIH1cbiAgZnVuY3Rpb24gcmFuZG4ocm5nKSB7XG4gICAgcmV0dXJuIE1hdGguc3FydCgtMiAqIE1hdGgubG9nKHJuZygpICsgMWUtMTApKSAqIE1hdGguY29zKDIgKiBNYXRoLlBJICogcm5nKCkpO1xuICB9XG5cbiAgY29uc3Qgcm5nICAgPSBtYWtlUm5nKDcpO1xuICBjb25zdCBub2lzZSA9IEFycmF5LmZyb20oe2xlbmd0aDogNDB9LCAoKSA9PiAoeyBueDogcmFuZG4ocm5nKSwgbnk6IHJhbmRuKHJuZykgfSkpO1xuXG4gIGNvbnN0IHNhbXBsZXMgPSBub2lzZS5tYXAoKG4sIGkpID0+IHtcbiAgICBjb25zdCBiYXRjaCA9IGkgPCAyMCA/IFwiQmF0Y2ggMVwiIDogXCJCYXRjaCAyXCI7XG4gICAgY29uc3QgZ3JvdXAgPSBkZXNpZ24gPT09IFwiQ29uZm91bmRlZFwiXG4gICAgICA/IChiYXRjaCA9PT0gXCJCYXRjaCAxXCIgPyBcIkNhc2VcIiA6IFwiQ29udHJvbFwiKVxuICAgICAgOiAoaSAlIDQgPCAyID8gXCJDYXNlXCIgOiBcIkNvbnRyb2xcIik7XG4gICAgcmV0dXJuIHtcbiAgICAgIGJhdGNoLCBncm91cCxcbiAgICAgIHg6IChiYXRjaCA9PT0gXCJCYXRjaCAxXCIgPyAtMi41IDogMi41KSArIG4ubnggKiAwLjg1LFxuICAgICAgeTogKGdyb3VwID09PSBcIkNhc2VcIiAgICA/ICAwLjQ1IDogLTAuNDUpICsgbi5ueSAqIDAuODVcbiAgICB9O1xuICB9KTtcblxuICBjb25zdCBwbG90VyA9IE1hdGguZmxvb3IoKE1hdGgubWluKHdpZHRoLCA3MjApIC0gNTYpIC8gMik7XG5cbiAgZnVuY3Rpb24gbWFrZVBsb3QoZmllbGQsIGRvbWFpbiwgcmFuZ2UpIHtcbiAgICByZXR1cm4gUGxvdC5wbG90KHtcbiAgICAgIHdpZHRoOiBwbG90VyxcbiAgICAgIGhlaWdodDogMzAwLFxuICAgICAgeDogeyBsYWJlbDogXCJQQzFcIiwgZ3JpZDogdHJ1ZSwgdGlja0Zvcm1hdDogZCA9PiBkLnRvRml4ZWQoMSkgfSxcbiAgICAgIHk6IHsgbGFiZWw6IFwiUEMyXCIsIGdyaWQ6IHRydWUsIHRpY2tGb3JtYXQ6IGQgPT4gZC50b0ZpeGVkKDEpIH0sXG4gICAgICBjb2xvcjogeyBkb21haW4sIHJhbmdlLCBsZWdlbmQ6IHRydWUgfSxcbiAgICAgIG1hcmtzOiBbXG4gICAgICAgIFBsb3QuZG90KHNhbXBsZXMsIHtcbiAgICAgICAgICB4OiBcInhcIiwgeTogXCJ5XCIsIGZpbGw6IGZpZWxkLFxuICAgICAgICAgIHI6IDYsIHN0cm9rZTogXCJ3aGl0ZVwiLCBzdHJva2VXaWR0aDogMS41LFxuICAgICAgICAgIHRpdGxlOiBkID0+IGAke2QuZ3JvdXB9IOKAlCAke2QuYmF0Y2h9YFxuICAgICAgICB9KVxuICAgICAgXVxuICAgIH0pO1xuICB9XG5cbiAgZnVuY3Rpb24gbGFiZWxlZChwbG90LCB0aXRsZVRleHQpIHtcbiAgICBjb25zdCB3cmFwID0gT2JqZWN0LmFzc2lnbihkb2N1bWVudC5jcmVhdGVFbGVtZW50KFwiZGl2XCIpLCB7XG4gICAgICBzdHlsZTogXCJkaXNwbGF5OmZsZXg7IGZsZXgtZGlyZWN0aW9uOmNvbHVtbjsgYWxpZ24taXRlbXM6Y2VudGVyOyBmbGV4OjE7IG1pbi13aWR0aDoxODBweDtcIlxuICAgIH0pO1xuICAgIGNvbnN0IGggPSBPYmplY3QuYXNzaWduKGRvY3VtZW50LmNyZWF0ZUVsZW1lbnQoXCJkaXZcIiksIHtcbiAgICAgIHRleHRDb250ZW50OiB0aXRsZVRleHQsXG4gICAgICBzdHlsZTogXCJmb250LXdlaWdodDo2MDA7IGZvbnQtc2l6ZTowLjk1cmVtOyB0ZXh0LWFsaWduOmNlbnRlcjsgbWFyZ2luLWJvdHRvbTowLjM1cmVtOyBjb2xvcjojMmExYTJlO1wiXG4gICAgfSk7XG4gICAgd3JhcC5hcHBlbmQoaCwgcGxvdCk7XG4gICAgcmV0dXJuIHdyYXA7XG4gIH1cblxuICBjb25zdCBjYXB0aW9uID0gZGVzaWduID09PSBcIkNvbmZvdW5kZWRcIlxuICAgID8gXCJDb25mb3VuZGVkIGRlc2lnbjogdGhlIHR3byBwbG90cyBhcmUgbWlycm9yIGltYWdlcyDigJQgYmF0Y2ggYW5kIGJpb2xvZ3kgY2Fubm90IGJlIHNlcGFyYXRlZC5cIlxuICAgIDogXCJCYWxhbmNlZCBkZXNpZ246IHRoZSBiYXRjaCBlZmZlY3QgaXMgdmlzaWJsZSBvbiB0aGUgbGVmdCwgYnV0IGNhc2VzIGFuZCBjb250cm9scyBhcmUgbWl4ZWQgd2l0aGluIGVhY2ggYmF0Y2ggb24gdGhlIHJpZ2h0LlwiO1xuXG4gIGNvbnN0IGxlZnQgID0gbGFiZWxlZChtYWtlUGxvdChcImJhdGNoXCIsIFtcIkJhdGNoIDFcIiwgXCJCYXRjaCAyXCJdLCBbXCIjMTU2NUMwXCIsIFwiI0M2MjgyOFwiXSksIFwiQmF0Y2hcIik7XG4gIGNvbnN0IHJpZ2h0ID0gbGFiZWxlZChtYWtlUGxvdChcImdyb3VwXCIsIFtcIkNhc2VcIiwgXCJDb250cm9sXCJdLCAgICBbXCIjNzUyZjdkXCIsIFwiIzJFN0QzMlwiXSksIFwiVHJlYXRtZW50IEdyb3VwXCIpO1xuXG4gIGNvbnN0IGNhcEVsID0gT2JqZWN0LmFzc2lnbihkb2N1bWVudC5jcmVhdGVFbGVtZW50KFwicFwiKSwge1xuICAgIHRleHRDb250ZW50OiBjYXB0aW9uLFxuICAgIHN0eWxlOiBcIndpZHRoOjEwMCU7IG1hcmdpbjowLjZyZW0gMCAwOyBmb250LXNpemU6MC44NzVyZW07IGNvbG9yOiM1NTU7IGZvbnQtc3R5bGU6aXRhbGljO1wiXG4gIH0pO1xuXG4gIGNvbnN0IGNvbnRhaW5lciA9IE9iamVjdC5hc3NpZ24oZG9jdW1lbnQuY3JlYXRlRWxlbWVudChcImRpdlwiKSwge1xuICAgIHN0eWxlOiBgXG4gICAgICBkaXNwbGF5OiBmbGV4OyBmbGV4LXdyYXA6IHdyYXA7IGdhcDogMXJlbTsgYWxpZ24taXRlbXM6IGZsZXgtc3RhcnQ7XG4gICAgICBib3JkZXI6IDEuNXB4IHNvbGlkICNkNGI4ZDg7IGJvcmRlci1yYWRpdXM6IDhweDsgcGFkZGluZzogMS4yNXJlbTtcbiAgICBgXG4gIH0pO1xuICBjb250YWluZXIuYXBwZW5kKGxlZnQsIHJpZ2h0LCBjYXBFbCk7XG4gIHJldHVybiBjb250YWluZXI7XG59XG4ifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXRRdWlldCIsInNvdXJjZSI6InNoaW55SW5wdXQoJ2Rlc2lnbicpIn1dfQ==
+</script>
+<script type="module">
+if (window.location.protocol === "file:") { alert("The OJS runtime does not work with file:// URLs. Please use a web server to view this document."); }
+window._ojs.paths.runtimeToDoc = "../..";
+window._ojs.paths.runtimeToRoot = "../..";
+window._ojs.paths.docToRoot = "";
+window._ojs.selfContained = false;
+window._ojs.runtime.interpretFromScriptTags();
+</script>
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     // Ensure there is a toggle, if there isn't float one in the top right

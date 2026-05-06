@@ -4,34 +4,34 @@ title: "Amplification (PCR)"
 
 ![](assets/amplification.png){fig-align="center" width="60%"}
 
-16S rRNA amplicon sequencing works by selectively amplifying a portion of the 16S rRNA gene — a gene present in virtually all bacteria and archaea, with conserved regions (where your primers bind) flanking hypervariable regions (where the sequence differs enough to distinguish taxa). The amplification step is where you define the slice of microbial diversity you will be able to see.
+16S rRNA amplicon sequencing works by selectively amplifying a conserved portion or portions of the 16S rRNA gene a gene present in virtually all bacteria and archaea, with conserved regions flanking hypervariable regions where the sequence differs enough to distinguish taxa.
 
 ## The 16S rRNA gene structure
 
-Bacterial DNA is built from a sequence of nucleotide base pairs (A-T and C-G). The total length of a DNA fragment is measured in base pairs (bp). The 16S rRNA gene is approximately 1,500 bp long and contains alternating conserved regions (similar across all bacteria, used as primer binding sites) and nine hypervariable regions (V1–V9) whose sequence diversity distinguishes taxa — functioning like genetic barcodes. No single variable region resolves all taxa equally well, and short-read sequencing (150–300 bp per read) means you are targeting one or two regions at a time.
+The 16S rRNA gene is approximately 1,500 bp long and contains alternating conserved regions and nine hypervariable regions (V1–V9) whose sequence diversity distinguishes taxa — functioning like genetic barcodes. No single variable region resolves all taxa equally well, and short-read sequencing (150–300 bp per read) means you are targeting one or two regions at a time.
 
-Your choice of target region is one of the most consequential decisions in study design.
+Your choice of target region is a consequential decision in your study design.
 
 ## Variable region selection
 
 | Region | Forward / Reverse Primers | Amplicon Size | Sequencing Mode | Notes |
-|---|---|---|---|---|
-| V4 | 515F `GTGYCAGCMGCCGCGGTAA` / 806R `GGACTACHVGGGTWTCTAAT` | ~250 bp | 2×150 or 2×250 bp | Earth Microbiome Project standard; short, fits Illumina read lengths well; broad coverage |
-| V3–V4 | 341F `CCTACGGGNGGCWGCAG` / 805R `GACTACHVGGGTATCTAATCC` | ~460 bp | 2×250 or 2×300 bp | Most common in clinical microbiome studies; better taxonomic resolution; requires good paired-end overlap |
-| V4–V5 | 515F `GTGYCAGCMGCCGCGGTAA` / 926R `CCGYCAATTYMTTTRAGTTT` | ~380–415 bp | 2×250 bp | Better archaeal coverage; less standardized than V4 |
-| V1–V2 | 27F `AGAGTTTGATCMTGGCTCAG` / 338R `TGCTGCCTCCCGTAGGAGT` | ~310 bp | 2×250 bp | Better gram-positive resolution; less reference data |
+|---------------|---------------|---------------|---------------|---------------|
+| V4 | 515F `GTGYCAGCMGCCGCGGTAA` / 806R `GGACTACHVGGGTWTCTAAT` | \~250 bp | 2×150 or 2×250 bp | Earth Microbiome Project standard; short, fits Illumina read lengths well; broad coverage |
+| V3–V4 | 341F `CCTACGGGNGGCWGCAG` / 805R `GACTACHVGGGTATCTAATCC` | \~460 bp | 2×250 or 2×300 bp | Most common in clinical microbiome studies; better taxonomic resolution; requires good paired-end overlap |
+| V4–V5 | 515F `GTGYCAGCMGCCGCGGTAA` / 926R `CCGYCAATTYMTTTRAGTTT` | \~380–415 bp | 2×250 bp | Better archaeal coverage |
+| V1–V2 | 27F `AGAGTTTGATCMTGGCTCAG` / 338R `TGCTGCCTCCCGTAGGAGT` | \~310 bp | 2×250 bp | Better gram-positive resolution; less reference data |
 
 ::: callout-important
-## Mixing studies with different primers is not straightforward
+## Mixing samples with different primers: I wouldn't!
 
-Community composition estimates are not directly comparable across studies that used different primer pairs. Even within the same region, primer mismatches create systematic biases toward certain taxa. If you are comparing to published data or a reference cohort, use the same primer pair.
+Community composition estimates are not directly comparable across studies that used different primer pairs. Even within the same region, primer mismatches can create systematic biases toward certain taxa. If you are comparing to published data or a reference cohort, you are best off using the same primer pair.
 :::
 
 ## Primer design
 
-Universal primers target the conserved flanking sequences. "Universal" is a relative term — primers vary in how well they match across the full breadth of bacterial diversity. Some lineages (e.g., *Verrucomicrobia*, *Tenericutes*, Archaea) are systematically underamplified by common primer sets.
+Universal primers target the conserved region sequences. "Universal" is a relative term — primers vary in how well they match across the full breadth of bacterial diversity. Some lineages (e.g., *Verrucomicrobia*, *Tenericutes*, Archaea) can be systematically underamplified by common primer sets.
 
-Primers for Illumina sequencing are ordered with adapter sequences attached (often Nextera XT or a custom adapter) so the amplicon can be directly sequenced without additional ligation. Some protocols use a two-step PCR: first to amplify the target, second to add the full sequencing adapters and barcodes. Know which approach your core facility uses.
+Primers for Illumina sequencing are ordered with adapter sequences attached so the amplicon can be directly sequenced without additional ligation. Some protocols use a two-step PCR: first to amplify the target, second to add the full sequencing adapters and barcodes.
 
 ## PCR conditions
 
@@ -45,9 +45,7 @@ Primers for Illumina sequencing are ordered with adapter sequences attached (oft
 
 **Chimera formation** — during PCR, a partially-extended strand can anneal to a different template and be extended, creating a hybrid sequence that doesn't exist in nature. Chimeras are filtered computationally downstream, but they are introduced here. Minimizing cycle number and using high-fidelity polymerase reduces chimera rate.
 
-**Primer dimers** — primers annealing to each other instead of template. Produces a small product (\~60–80 bp) that can dominate the library. Usually resolved with a bead cleanup (AMPure) after PCR.
-
-**Failed amplification** — no product despite good DNA. Possible causes: inhibitors (see sample prep), primer-template mismatch for unusual taxa, degraded DNA, pipetting error. Run on a gel to diagnose before sending for sequencing.
+**Primer dimers** — primers annealing to each other instead of template. Produces a small product (\~60–80 bp) that can dominate the library. Usually resolved with a bead cleanup after PCR.
 
 **Differential amplification efficiency** — some taxa amplify more efficiently than others under your conditions. This introduces a systematic bias in relative abundance estimates that is inherent to amplicon sequencing and cannot be fully corrected.
 

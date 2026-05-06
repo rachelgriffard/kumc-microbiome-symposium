@@ -42,9 +42,9 @@ ul.task-list li input[type="checkbox"] {
 <link href="site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-dec5d4009982995cbac9a5d81cafe446.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="site_libs/bootstrap/bootstrap-dark-ceb3d77152dd93828f67ef2be16df8ff.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="site_libs/bootstrap/bootstrap-dec5d4009982995cbac9a5d81cafe446.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-72be8382eaa325d6a0089fca006bb000.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark-746cf2f3b7df649972bea76384bf8222.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="site_libs/bootstrap/bootstrap-72be8382eaa325d6a0089fca006bb000.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -286,7 +286,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./04-fastq.html">Data Processing</a></li><li class="breadcrumb-item"><a href="./04-fastq.html">FASTQ Files</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./public-data.html">Data Processing</a></li><li class="breadcrumb-item"><a href="./04-fastq.html">FASTQ Files</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -356,6 +356,12 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./public-data.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Public Sequencing Data</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./04-fastq.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">FASTQ Files</span></a>
   </div>
@@ -410,6 +416,12 @@ ul.task-list li input[type="checkbox"] {
  <span class="menu-text">KUMC Resources</span></a>
   </div>
 </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./citations.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Citations</span></a>
+  </div>
+</li>
     </ul>
     </div>
 </nav>
@@ -423,7 +435,6 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#the-fastq-format" id="toc-the-fastq-format" class="nav-link active" data-scroll-target="#the-fastq-format">The FASTQ format</a></li>
   <li><a href="#phred-quality-scores" id="toc-phred-quality-scores" class="nav-link" data-scroll-target="#phred-quality-scores">Phred quality scores</a></li>
   <li><a href="#what-you-actually-receive-from-the-core" id="toc-what-you-actually-receive-from-the-core" class="nav-link" data-scroll-target="#what-you-actually-receive-from-the-core">What you actually receive from the core</a></li>
-  <li><a href="#looking-at-a-quality-report" id="toc-looking-at-a-quality-report" class="nav-link" data-scroll-target="#looking-at-a-quality-report">Looking at a quality report</a></li>
   <li><a href="#what-can-go-wrong" id="toc-what-can-go-wrong" class="nav-link" data-scroll-target="#what-can-go-wrong">What can go wrong</a></li>
   </ul>
 </nav>
@@ -432,7 +443,7 @@ ul.task-list li input[type="checkbox"] {
 <main class="content" id="quarto-document-content">
 
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./04-fastq.html">Data Processing</a></li><li class="breadcrumb-item"><a href="./04-fastq.html">FASTQ Files</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./public-data.html">Data Processing</a></li><li class="breadcrumb-item"><a href="./04-fastq.html">FASTQ Files</a></li></ol></nav>
 <div class="quarto-title">
 <h1 class="title">FASTQ Files</h1>
 </div>
@@ -456,14 +467,14 @@ ul.task-list li input[type="checkbox"] {
 <p><img src="assets/fastq.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:60.0%"></p>
 </figure>
 </div>
-<p>After sequencing, you receive your data as FASTQ files — a plain text format that stores both the sequence and the sequencer’s confidence estimate for each base. Understanding this format helps you interpret quality reports and make sense of what the downstream tools are doing.</p>
+<p>After sequencing, you receive your data as FASTQ files. FASTQ files are a plain text format that stores both the sequence and the sequencer’s confidence estimate for each base. Understanding this format helps you interpret quality reports and make sense of what the downstream tools are doing.</p>
 <section id="the-fastq-format" class="level2">
 <h2 class="anchored" data-anchor-id="the-fastq-format">The FASTQ format</h2>
 <p>Each read in a FASTQ file is represented by four lines:</p>
-<pre><code>@M05891:42:000000000-K9P2L:1:1101:15473:1364 1:N:0:ATCGATCG
-TACGGAGGATCCGAGCGTTATCCGGATTTATTGGGTTTAAAGGGAGCGCAG...
+<pre><code>@SEQ_ID
+GATTTGGGGTTCAAAGCAGTATCGATCAAATAGTAAATCCATTTGTTCAACTCACAGTTT
 +
-BBBBBFFFFFFFGGGGGGGGGGHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH...</code></pre>
+!''*((((***+))%%%++)(%%%%).1***-+*'))**55CCF&gt;&gt;&gt;&gt;&gt;&gt;CCCCCCC65</code></pre>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 50%">
@@ -494,6 +505,24 @@ BBBBBFFFFFFFGGGGGGGGGGHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH...</code></pre>
 </tr>
 </tbody>
 </table>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Four lines per read
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The nature of each read having four lines means that there is a simple command line function we can use to get the amount of reads in a sample, included here below. This simply counts the lines in a file and then divides by four.</p>
+<pre><code># if unzipped file
+echo $(($(wc -l &lt; input.fastq) / 4))
+
+# if zipped
+echo $(($(zcat input.fastq.gz | wc -l) / 4))</code></pre>
+</div>
+</div>
 </section>
 <section id="phred-quality-scores" class="level2">
 <h2 class="anchored" data-anchor-id="phred-quality-scores">Phred quality scores</h2>
@@ -543,10 +572,28 @@ BBBBBFFFFFFFGGGGGGGGGGHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH...</code></pre>
 <p>Illumina sequencing reads the template base-by-base as a fluorescent cluster. As sequencing cycles progress, clusters lose synchrony (phasing) — some copies in a cluster get one base ahead or behind, blurring the signal. This accumulates over the run, causing quality to degrade toward the 3’ end of every read. This is normal and expected. It is why trimming the 3’ ends of reads is standard practice.</p>
 </div>
 </div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>More information on PHRED scores
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-3" class="callout-3-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>In case you are interested to learn more about these scores, these are a few resources to learn more:</p>
+<p><a href="https://gatk.broadinstitute.org/hc/en-us/articles/360035531872-Phred-scaled-quality-scores">GATK PHRED score overview</a></p>
+<p><a href="https://www.illumina.com/documents/products/technotes/technote_Q-Scores.pdf">Illumina Quality Scorres for Next-Generation Sequencing</a></p>
+</div>
+</div>
+</div>
 </section>
 <section id="what-you-actually-receive-from-the-core" class="level2">
 <h2 class="anchored" data-anchor-id="what-you-actually-receive-from-the-core">What you actually receive from the core</h2>
-<p>For a paired-end run, expect:</p>
+<p>For a paired-end run, you should expect to receive:</p>
 <ul>
 <li><code>sample_R1.fastq.gz</code> — forward reads (the primer end)</li>
 <li><code>sample_R2.fastq.gz</code> — reverse reads (sequenced from the other end)</li>
@@ -554,36 +601,10 @@ BBBBBFFFFFFFGGGGGGGGGGHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH...</code></pre>
 <p>Files are usually gzip-compressed (<code>.fastq.gz</code> or <code>.fq.gz</code>). They can be very large — a MiSeq run produces ~8 GB of compressed data.</p>
 <p>Some cores deliver a single multiplexed file with all samples mixed together, with barcodes embedded in the sequence or the read header. In that case, demultiplexing is your first computational step.</p>
 </section>
-<section id="looking-at-a-quality-report" class="level2">
-<h2 class="anchored" data-anchor-id="looking-at-a-quality-report">Looking at a quality report</h2>
-<p><strong>FastQC</strong> is the standard tool for a quick sanity check on raw reads. It produces plots of:</p>
-<ul>
-<li>Per-base quality scores across the read length</li>
-<li>Per-sequence quality distribution</li>
-<li>Sequence length distribution</li>
-<li>Adapter content</li>
-<li>Overrepresented sequences (primers should appear here)</li>
-</ul>
-<p>QIIME2’s demux plugin produces similar quality plots and is often the first thing you look at after importing your data.</p>
-<details>
-<summary>
-Example: what a FastQC quality profile looks like for 16S data
-</summary>
-<pre><code>Forward reads (R1):
-- Bases 1-240: Q &gt; 30 (good)
-- Bases 240-250: Q drops to 20-25 (normal end-of-read degradation)
-- Adapter content: clean (adapter sequences removed by core)
-- Overrepresented sequences: primer sequence (expected)
-
-Reverse reads (R2):
-- Quality drops earlier (~base 200) — also normal
-- More aggressive trimming will be needed on R2</code></pre>
-</details>
-</section>
 <section id="what-can-go-wrong" class="level2">
 <h2 class="anchored" data-anchor-id="what-can-go-wrong">What can go wrong</h2>
 <p><strong>Truncated files</strong> — an incomplete sequencing run or data transfer error can produce files that end mid-read. Most tools will throw an error, but some will silently discard the truncated read. Always verify file sizes are consistent with expected read counts.</p>
-<p><strong>Encoding issues</strong> — older FASTQ files used a different quality score encoding (Illumina 1.3+, Illumina 1.5+) that shifts the ASCII offset. Modern Illumina platforms use Phred+33 (Sanger encoding). Rarely an issue now, but worth knowing if you are working with older published data.</p>
+<p><strong>Encoding issues</strong> — older FASTQ files used a different quality score encoding (Illumina 1.3+, Illumina 1.5+) that shifts the ASCII offset. Modern Illumina platforms use Phred+33 (Sanger encoding). Rarely an issue now, but worth knowing if you are working with older archival data.</p>
 <p><strong>Swapped R1/R2</strong> — accidentally providing the reverse read as the forward read will cause primer trimming and demultiplexing to fail silently or produce nonsense results. Check that R1 begins with your forward primer sequence.</p>
 
 

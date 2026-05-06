@@ -32,6 +32,9 @@ $headings-color:    #f6e5f8;
 // Links hover
 $link-hover-color:  #dda8e4;
 
+// Code callout (tip) — lighter blue for dark background
+$callout-color-tip:     #64B5F6;
+
 /*-- scss:rules --*/
 
 // Active sidebar items
@@ -78,13 +81,20 @@ $link-hover-color:  #dda8e4;
   box-shadow: 0 0 0 0.2rem rgba(196, 126, 202, 0.25);
 }
 
-// Code-fold dropdown — dark mode override
-details.code-fold > summary {
-  background-color: rgba(196, 126, 202, 0.12);
-  border-left-color: #c47eca;
-  color: #c47eca;
+// Code dropdowns — dark mode override
+details.code-fold > summary,
+details:not(.code-fold) > summary {
+  background-color: rgba(100, 181, 246, 0.10);
+  border-left-color: #64B5F6;
+  color: #64B5F6;
 }
 
-details.code-fold > summary:hover {
-  background-color: rgba(196, 126, 202, 0.22);
+details.code-fold > summary:hover,
+details:not(.code-fold) > summary:hover {
+  background-color: rgba(100, 181, 246, 0.20);
+}
+
+details.code-fold > summary::before,
+details:not(.code-fold) > summary::before {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%2364B5F6' viewBox='0 0 16 16'%3E%3Cpath d='M14.082 2.182a.5.5 0 0 1 .103.557L8.528 15.467a.5.5 0 0 1-.917-.007L5.57 10.694.803 8.652a.5.5 0 0 1-.006-.916l12.728-5.657a.5.5 0 0 1 .556.103z'/%3E%3C/svg%3E");
 }

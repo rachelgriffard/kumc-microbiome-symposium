@@ -1,7 +1,8 @@
 ---
-fer the---
 title: "Count Table (ASVs / OTUs)"
 ---
+
+![](assets/count-table.png){fig-align="center" width="60%"}
 
 The count table is the central data object in a microbiome study: a matrix of taxa (rows) × samples (columns), where each cell contains the number of sequencing reads assigned to that taxon in that sample. Every diversity analysis, differential abundance test, and visualization works from this table. The decisions made in building it affect everything that follows.
 

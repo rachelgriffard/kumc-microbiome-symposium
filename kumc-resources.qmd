@@ -4,38 +4,19 @@ title: "University of Kansas Medical Center and External Resources"
 
 ## Bioinformatics support
 
-<!-- Add: name of bioinformatics core, contact info, services offered, how to request a consult, pricing model -->
+## Sequencing
 
-## Genomics core / sequencing
+[University of Kansas Medical Center Genome Sequencing Facility](https://www.kumc.edu/research/genome-sequencing-facility/services/illumina-services-x18557.html)
 
-<!-- Add: name of sequencing core, contact info, accepted sample types, turnaround time, submission portal, data delivery method -->
+[University of Kansas Genome Sequencing Core](https://gsc.ku.edu/)
 
 ## High-performance computing
 
-<!-- Add: KUMC HPC cluster name and access, how to request an account, available software modules (QIIME2, R, etc.), storage quotas, who to contact for support -->
-
 ## Data management and storage
-
-<!-- Add: policies on where to store raw sequencing data, IRB/data security requirements for human microbiome samples, backup procedures -->
 
 ## Software available on HPC
 
-<!-- Add: list of pre-installed tools relevant to microbiome analysis — QIIME2, DADA2, R/Bioconductor, FastQC, Cutadapt, etc. — with version information and how to load them -->
-
-## Training and workshops
-
-<!-- Add: links to past and upcoming bioinformatics training events at KUMC, KU Biostatistics collaboration, external resources recommended by the core -->
-
-## Contacts
-
-```{=html}
-<!-- Add: a simple table or list of who to reach out to for what:
-- Sequencing library prep questions
-- Bioinformatics analysis support
-- HPC access and troubleshooting
-- Data management questions
--->
-```
+## 
 
 ## External resources
 

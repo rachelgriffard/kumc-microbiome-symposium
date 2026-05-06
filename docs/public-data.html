@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>16S rRNA Microbiome Analysis</title>
+<title>Public Sequencing Data – 16S rRNA Microbiome Analysis</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -321,7 +321,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./index.html">Overview</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./public-data.html">Data Processing</a></li><li class="breadcrumb-item"><a href="./public-data.html">Public Sequencing Data</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -347,7 +347,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link active">
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Overview</span></a>
   </div>
 </li>
@@ -391,7 +391,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./public-data.html" class="sidebar-item-text sidebar-link">
+  <a href="./public-data.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Public Sequencing Data</span></a>
   </div>
 </li>
@@ -467,9 +467,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#the-pipeline-at-a-glance" id="toc-the-pipeline-at-a-glance" class="nav-link active" data-scroll-target="#the-pipeline-at-a-glance">The pipeline at a glance</a></li>
-  <li><a href="#how-to-read-this-guide" id="toc-how-to-read-this-guide" class="nav-link" data-scroll-target="#how-to-read-this-guide">How to read this guide</a></li>
-  <li><a href="#a-note-on-reproducibility" id="toc-a-note-on-reproducibility" class="nav-link" data-scroll-target="#a-note-on-reproducibility">A note on reproducibility</a></li>
+  <li><a href="#repositories" id="toc-repositories" class="nav-link active" data-scroll-target="#repositories">Repositories</a>
+  <ul class="collapse">
+  <li><a href="#ncbi-sequence-read-archive-sra" id="toc-ncbi-sequence-read-archive-sra" class="nav-link" data-scroll-target="#ncbi-sequence-read-archive-sra">NCBI Sequence Read Archive (SRA)</a></li>
+  <li><a href="#ena-european-nucleotide-archive" id="toc-ena-european-nucleotide-archive" class="nav-link" data-scroll-target="#ena-european-nucleotide-archive">ENA — European Nucleotide Archive</a></li>
+  <li><a href="#qiita" id="toc-qiita" class="nav-link" data-scroll-target="#qiita">QIITA</a></li>
+  <li><a href="#earth-microbiome-project-emp" id="toc-earth-microbiome-project-emp" class="nav-link" data-scroll-target="#earth-microbiome-project-emp">Earth Microbiome Project (EMP)</a></li>
+  <li><a href="#human-microbiome-project-hmp" id="toc-human-microbiome-project-hmp" class="nav-link" data-scroll-target="#human-microbiome-project-hmp">Human Microbiome Project (HMP)</a></li>
+  <li><a href="#mgnify" id="toc-mgnify" class="nav-link" data-scroll-target="#mgnify">MGnify</a></li>
+  </ul></li>
+  <li><a href="#downloading-data-from-sra" id="toc-downloading-data-from-sra" class="nav-link" data-scroll-target="#downloading-data-from-sra">Downloading data from SRA</a></li>
+  <li><a href="#what-to-check-before-using-public-data" id="toc-what-to-check-before-using-public-data" class="nav-link" data-scroll-target="#what-to-check-before-using-public-data">What to check before using public data</a></li>
   </ul>
 </nav>
     </div>
@@ -477,10 +485,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <main class="content" id="quarto-document-content">
 
 
-<header id="title-block-header" class="quarto-title-block default">
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./public-data.html">Data Processing</a></li><li class="breadcrumb-item"><a href="./public-data.html">Public Sequencing Data</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">16S rRNA Microbiome Analysis</h1>
-<p class="subtitle lead">KUMC Microbiome Symposium Workshop</p>
+<h1 class="title">Public Sequencing Data</h1>
 </div>
 
 
@@ -497,153 +504,120 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p>The human body is home to trillions of microorganisms — bacteria, archaea, viruses, and fungi — collectively called the microbiome. These communities play documented roles in immune development, metabolism, and susceptibility to disease. Understanding which microbes are present, in what proportions, and how those communities differ across individuals or conditions is now a central question across many areas of biomedical research.</p>
-<p>One primary tool for profiling bacterial communities is <strong>16S rRNA gene sequencing</strong>. The 16S rRNA gene is present in all bacteria and archaea. Within its ~1,500 base pairs, some regions are highly conserved across species (light gray) — useful for designing universal primers — while others are variable (dark gray and labelled) enough to act as genetic barcodes that distinguish taxa. By amplifying and sequencing these variable regions, researchers can profile entire bacterial communities directly from a biological sample, without culturing a single organism.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="assets/16Sgene_transparent.png" class="img-fluid figure-img" alt="16S gene visualization"></p>
-<figcaption>16S gene with variable regions (dark gray and labelled) and conserved regions (light gray)</figcaption>
-</figure>
-</div>
-<p>This workshop walks through a typical analysis pipeline, from sample collection through diversity analysis. The emphasis is on understanding <em>why</em> each step exists, what decisions you are making along the way, and how those decisions shape other choices and results downstream.</p>
-<p>The goal for today is enough conceptual grounding to critically evaluate published microbiome analyses and make informed decisions when you design your own studies.</p>
-<section id="the-pipeline-at-a-glance" class="level2">
-<h2 class="anchored" data-anchor-id="the-pipeline-at-a-glance">The pipeline at a glance</h2>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="assets/pipeline-square.gif" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:65.0%"></p>
-</figure>
-</div>
-<table class="caption-top table">
-<thead>
-<tr class="header">
-<th>Stage</th>
-<th>What happens</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><a href="./01-sample-prep.html">Sample preparation</a></td>
-<td>DNA extraction from your biological material</td>
-</tr>
-<tr class="even">
-<td><a href="./02-amplification.html">Amplification</a></td>
-<td>PCR to enrich the 16S rRNA gene</td>
-</tr>
-<tr class="odd">
-<td><a href="./03-sequencing.html">Sequencing</a></td>
-<td>Short-read sequencing of the amplicons</td>
-</tr>
-<tr class="even">
-<td><a href="./04-fastq.html">FASTQ files</a></td>
-<td>Raw data files from the sequencer</td>
-</tr>
-<tr class="odd">
-<td><a href="./05-demultiplexing.html">Demultiplexing</a></td>
-<td>Sorting reads back to individual samples</td>
-</tr>
-<tr class="even">
-<td><a href="./06-quality-control.html">Quality control</a></td>
-<td>Filtering and trimming low-quality reads</td>
-</tr>
-<tr class="odd">
-<td><a href="./07-count-table.html">Count table</a></td>
-<td>Building a table of taxa × samples</td>
-</tr>
-<tr class="even">
-<td><a href="./08-dimension-reduction.html">Normalization &amp; ordination</a></td>
-<td>Accounting for sequencing depth differences</td>
-</tr>
-<tr class="odd">
-<td><a href="./09-diversity-analysis.html">Diversity analysis</a></td>
-<td>Alpha and beta diversity, statistical testing</td>
-</tr>
-</tbody>
-</table>
-</section>
-<section id="how-to-read-this-guide" class="level2">
-<h2 class="anchored" data-anchor-id="how-to-read-this-guide">How to read this guide</h2>
-<p>Each page uses four types of callout boxes to signal different kinds of content. Click any box below to see an example.</p>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Further information
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-1" class="callout-1-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<p>These boxes provide additional context, background, or elaboration that deepens understanding without being required reading. They typically explain <em>why</em> something works the way it does, or offer an analogy to make an abstract concept more concrete.</p>
-<p><strong>Example of when you’ll see this:</strong> An explanation of why quality scores degrade toward the 3′ end of a read, or what a rarefaction curve is measuring conceptually.</p>
-</div>
-</div>
-</div>
-<div class="callout callout-style-default callout-warning callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Warning</span>Warnings
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-2" class="callout-2-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<p>These boxes flag common mistakes, easy-to-overlook pitfalls, or steps where errors are frequently introduced. Pay close attention — skipping or mis-applying the flagged step often causes silent failures that are difficult to diagnose later.</p>
-<p><strong>Example of when you’ll see this:</strong> Reminders to use Qubit instead of NanoDrop for quantification, or that primer trimming cannot be skipped before DADA2.</p>
-</div>
-</div>
-</div>
-<div class="callout callout-style-default callout-important callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Important</span>Reproducibility reminders
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-3" class="callout-3-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<p>These boxes highlight decisions that must be documented and held consistent across all samples. They represent the choices that most often introduce batch effects or make results impossible to reproduce or compare — whether across batches, runs, or publications.</p>
-<p><strong>Example of when you’ll see this:</strong> The requirement that truncation parameters, extraction kits, and rarefaction depth be identical across all samples in a study.</p>
-</div>
-</div>
-</div>
+<p>Not every microbiome project starts with your own sequencing run. A growing number of well-characterized datasets are publicly available through open repositories. These can be great resources for pilot analyses, comparative studies, replication, and methods development. Once you have downloaded FASTQ files from a repository, the analysis pipeline is identical to what you would run on your own data.</p>
+<p>Below we list some of the most common repositories for microbiome data, but this is far from a complete list.</p>
+<section id="repositories" class="level2">
+<h2 class="anchored" data-anchor-id="repositories">Repositories</h2>
+<section id="ncbi-sequence-read-archive-sra" class="level3">
+<h3 class="anchored" data-anchor-id="ncbi-sequence-read-archive-sra">NCBI Sequence Read Archive (SRA)</h3>
+<p>The SRA is the largest publicly available repository of high-throughput sequencing data. Most data associated with published microbiome papers in U.S.-funded journals is archived here.</p>
+<ul>
+<li>Search by condition, body site, organism, or keyword at <a href="https://www.ncbi.nlm.nih.gov/sra">https://www.ncbi.nlm.nih.gov/sra</a></li>
+<li>Each dataset has a <strong>BioProject</strong> accession (e.g., PRJNA######) linking all samples from a study</li>
+<li>Individual samples have <strong>SRR</strong> accessions (SRR#######) for download</li>
+<li>Download via the <strong>SRA Toolkit</strong> (<code>fastq-dump</code> or <code>fasterq-dump</code>) or through NCBI’s cloud interface</li>
+</ul>
 <div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Tip</span>Code and pseudocode examples
+<span class="screen-reader-only">Tip</span>Finding data efficiently
 </div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-4" class="callout-4-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p>These expandable blocks contain example commands, R code, or pseudocode illustrating how a pipeline step is implemented in practice. They are collapsed by default so they don’t interrupt the conceptual flow — open them when you want to see the mechanics behind a step.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Example: primer trimming with Cutadapt</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="ex">cutadapt</span> <span class="dt">\</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">-g</span> GTGYCAGCMGCCGCGGTAA <span class="dt">\</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">-G</span> GGACTACNVGGGTWTCTAAT <span class="dt">\</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">--discard-untrimmed</span> <span class="dt">\</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">-o</span> sample_R1_trimmed.fastq.gz <span class="dt">\</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">-p</span> sample_R2_trimmed.fastq.gz <span class="dt">\</span></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  sample_R1.fastq.gz sample_R2.fastq.gz</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
+<p>Search SRA using BioProject accessions from papers you are trying to replicate. The BioProject page lists all associated SRR accessions, metadata, and links to the original publication.</p>
 </div>
 </div>
 </section>
-<section id="a-note-on-reproducibility" class="level2">
-<h2 class="anchored" data-anchor-id="a-note-on-reproducibility">A note on reproducibility</h2>
-<p>Every decision you make in this pipeline — extraction kit, primer pair, quality threshold, rarefaction depth — affects your results. Reporting those decisions completely is as important as the biology itself. If a collaborator cannot reproduce your count table from your raw reads, the analysis cannot be independently verified.</p>
-<p>Use this site alongside your own notes to build a record of the choices made in your study.</p>
+<section id="ena-european-nucleotide-archive" class="level3">
+<h3 class="anchored" data-anchor-id="ena-european-nucleotide-archive">ENA — European Nucleotide Archive</h3>
+<p>ENA mirrors most SRA content and is often faster to download from outside North America. It also accepts direct submissions from European-funded projects that may not appear in SRA.</p>
+<ul>
+<li>Browser interface at <a href="https://www.ebi.ac.uk/ena/browser">https://www.ebi.ac.uk/ena/browser</a></li>
+<li>ENA accessions begin with <strong>ERR</strong> (runs), <strong>ERS</strong> (samples), or <strong>PRJEB</strong> (projects)</li>
+<li>FASTQ files are available directly via FTP or the ENA browser — no toolkit required</li>
+</ul>
+</section>
+<section id="qiita" class="level3">
+<h3 class="anchored" data-anchor-id="qiita">QIITA</h3>
+<p>QIITA is a specialized platform for microbiome data hosting and reanalysis, developed by the QIIME2 team. It stores not just raw reads but processed artifacts (count tables, metadata) from large-scale studies, making it easier to access analysis-ready data.</p>
+<ul>
+<li>Browse at <a href="https://qiita.ucsd.edu">https://qiita.ucsd.edu</a></li>
+<li>Particularly useful for studies processed through QIIME2 — artifacts can be downloaded and used directly</li>
+<li>Hosts data from the Earth Microbiome Project and Human Microbiome Project</li>
+</ul>
+</section>
+<section id="earth-microbiome-project-emp" class="level3">
+<h3 class="anchored" data-anchor-id="earth-microbiome-project-emp">Earth Microbiome Project (EMP)</h3>
+<p>A collaborative effort to characterize microbial diversity across the planet’s environments. Standardized protocols and uniform processing make EMP data highly comparable across studies.</p>
+<ul>
+<li>Data and protocols at <a href="https://earthmicrobiome.org">https://earthmicrobiome.org</a></li>
+<li>Uses 515F/806R primers (V4 region) throughout — straightforward to integrate with your own V4 data</li>
+<li>EMP data is accessible through QIITA and SRA</li>
+</ul>
+</section>
+<section id="human-microbiome-project-hmp" class="level3">
+<h3 class="anchored" data-anchor-id="human-microbiome-project-hmp">Human Microbiome Project (HMP)</h3>
+<p>A foundational reference dataset for human-associated microbiome communities, covering gut, oral, skin, vaginal, and airway sites across healthy adults.</p>
+<ul>
+<li>Data portal at <a href="https://hmpdacc.org">https://hmpdacc.org</a></li>
+<li>Includes both 16S amplicon and shotgun metagenomic data</li>
+<li>Useful as a reference community or baseline for human studies</li>
+</ul>
+</section>
+<section id="mgnify" class="level3">
+<h3 class="anchored" data-anchor-id="mgnify">MGnify</h3>
+<p>EBI’s microbiome analysis portal that hosts raw data and provides pre-computed analyses (taxonomic profiles, functional annotations) for thousands of publicly available studies.</p>
+<ul>
+<li>Browse at <a href="https://www.ebi.ac.uk/metagenomics">https://www.ebi.ac.uk/metagenomics</a></li>
+<li>Useful when you want a quick look at a public dataset without re-running the full pipeline</li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="downloading-data-from-sra" class="level2">
+<h2 class="anchored" data-anchor-id="downloading-data-from-sra">Downloading data from SRA</h2>
+<p>The SRA Toolkit is the standard command-line tool for downloading reads. Modern workflows prefer <code>fasterq-dump</code> over the older <code>fastq-dump</code>.</p>
+<details>
+<summary>
+Example: downloading a paired-end run with fasterq-dump
+</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Install SRA Toolkit (if not already available via module load or conda)</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> install <span class="at">-c</span> bioconda sra-tools</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Download paired-end FASTQ files for a single run accession</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="ex">fasterq-dump</span> SRR12345678 <span class="dt">\</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">--split-files</span> <span class="dt">\ </span>         <span class="co"># produces _1.fastq and _2.fastq (R1 and R2)</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  <span class="ex">--outdir</span> ./raw_reads/ <span class="dt">\</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">--threads</span> 4</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Compress the output</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="fu">gzip</span> ./raw_reads/SRR12345678_1.fastq</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="fu">gzip</span> ./raw_reads/SRR12345678_2.fastq</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<details>
+<summary>
+Example: downloading all runs in a BioProject with a metadata table
+</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. Go to the BioProject page on NCBI and download the RunInfo table as a CSV</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="co">#    (SRA Run Selector &gt; "Metadata" button)</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. Extract the SRR accession column and loop over it</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="fu">cut</span> <span class="at">-d</span><span class="st">','</span> <span class="at">-f1</span> SraRunTable.txt <span class="kw">|</span> <span class="fu">tail</span> <span class="at">-n</span> +2 <span class="kw">|</span> <span class="cf">while</span> <span class="bu">read</span> <span class="va">SRR</span><span class="kw">;</span> <span class="cf">do</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  <span class="ex">fasterq-dump</span> <span class="st">"</span><span class="va">$SRR</span><span class="st">"</span> <span class="at">--split-files</span> <span class="at">--outdir</span> ./raw_reads/ <span class="at">--threads</span> 4</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gzip</span> ./raw_reads/<span class="st">"</span><span class="va">${SRR}</span><span class="st">"</span>_<span class="pp">*</span>.fastq</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="cf">done</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<hr>
+</section>
+<section id="what-to-check-before-using-public-data" class="level2">
+<h2 class="anchored" data-anchor-id="what-to-check-before-using-public-data">What to check before using public data</h2>
+<p>Public datasets vary widely in quality and comparability. Before beginning analysis, it is prudent to check the following:</p>
+<p><strong>Primer pair</strong> — confirm which variable region and primers were used. A study using V3–V4 (341F/805R) cannot be directly compared to one using V4 (515F/806R).</p>
+<p><strong>Sequencing platform and read length</strong> — Data from different sequencing runs should be processed separately.</p>
+<p><strong>Metadata completeness</strong> — public metadata can be incomplete or inconsistently coded. Before relying on a covariate (BMI, antibiotic use, disease status), check how it was collected and whether the coding is consistent across samples. Certain metadata may not be housed in the public repository and may require request to the corresponding author.</p>
 
 
 </section>
