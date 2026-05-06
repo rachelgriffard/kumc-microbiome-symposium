@@ -415,35 +415,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
       </ul>
   </li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
- <span class="menu-text">Analysis</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./07-count-table.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Count Table (ASVs / OTUs)</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./08-dimension-reduction.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Normalization &amp; Ordination</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./09-diversity-analysis.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Diversity Analysis</span></a>
-  </div>
-</li>
-      </ul>
-  </li>
         <li class="px-0"><hr class="sidebar-divider hi "></li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
@@ -469,7 +440,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul>
   <li><a href="#the-pipeline-at-a-glance" id="toc-the-pipeline-at-a-glance" class="nav-link active" data-scroll-target="#the-pipeline-at-a-glance">The pipeline at a glance</a></li>
   <li><a href="#how-to-read-this-guide" id="toc-how-to-read-this-guide" class="nav-link" data-scroll-target="#how-to-read-this-guide">How to read this guide</a></li>
-  <li><a href="#a-note-on-reproducibility" id="toc-a-note-on-reproducibility" class="nav-link" data-scroll-target="#a-note-on-reproducibility">A note on reproducibility</a></li>
   </ul>
 </nav>
     </div>
@@ -497,16 +467,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p>The human body is home to trillions of microorganisms — bacteria, archaea, viruses, and fungi — collectively called the microbiome. These communities play documented roles in immune development, metabolism, and susceptibility to disease. Understanding which microbes are present, in what proportions, and how those communities differ across individuals or conditions is now a central question across many areas of biomedical research.</p>
-<p>One primary tool for profiling bacterial communities is <strong>16S rRNA gene sequencing</strong>. The 16S rRNA gene is present in all bacteria and archaea. Within its ~1,500 base pairs, some regions are highly conserved across species (light gray) — useful for designing universal primers — while others are variable (dark gray and labelled) enough to act as genetic barcodes that distinguish taxa. By amplifying and sequencing these variable regions, researchers can profile entire bacterial communities directly from a biological sample, without culturing a single organism.</p>
+<p>The human body is home to trillions of bacteria, archaea, viruses, and fungi collectively called the microbiome. These communities play roles in immune development, metabolism, and susceptibility to disease. Understanding which microbes are present, in what proportions, and how those communities differ across individuals or conditions is now a central question across many areas of biomedical research.</p>
+<p>One primary tool for profiling bacterial communities is <strong>16S rRNA gene sequencing</strong>. The 16S rRNA gene is present in all bacteria and archaea. Within these gene that is around 1,500 base pairs, some regions are highly conserved across species (light gray) and are useful for designing universal primers, while others are variable (dark gray and labelled) enough to disgtinguish taxonomic units. By amplifying and sequencing these variable regions, researchers can profile bacterial communities directly from a biological sample.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="assets/16Sgene_transparent.png" class="img-fluid figure-img" alt="16S gene visualization"></p>
 <figcaption>16S gene with variable regions (dark gray and labelled) and conserved regions (light gray)</figcaption>
 </figure>
 </div>
-<p>This workshop walks through a typical analysis pipeline, from sample collection through diversity analysis. The emphasis is on understanding <em>why</em> each step exists, what decisions you are making along the way, and how those decisions shape other choices and results downstream.</p>
-<p>The goal for today is enough conceptual grounding to critically evaluate published microbiome analyses and make informed decisions when you design your own studies.</p>
+<p>This workshop walks through a typical analysis pipeline for 16S rRNA sequencing from sample collection through diversity analysis. The emphasis is on understanding <em>why</em> each step exists, what decisions you are making along the way, and how those decisions shape other choices and results downstream.</p>
 <section id="the-pipeline-at-a-glance" class="level2">
 <h2 class="anchored" data-anchor-id="the-pipeline-at-a-glance">The pipeline at a glance</h2>
 <div class="quarto-figure quarto-figure-center">
@@ -610,7 +579,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <div id="callout-3" class="callout-3-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p>These boxes highlight decisions that must be documented and held consistent across all samples. They represent the choices that most often introduce batch effects or make results impossible to reproduce or compare — whether across batches, runs, or publications.</p>
+<p>These boxes highlight decisions that must be documented for reproducibility of your analysis. The items that these point out should always be included in your documentation to ensure that you (and others) can replicate your analysis.</p>
 <p><strong>Example of when you’ll see this:</strong> The requirement that truncation parameters, extraction kits, and rarefaction depth be identical across all samples in a study.</p>
 </div>
 </div>
@@ -621,13 +590,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Tip</span>Code and pseudocode examples
+<span class="screen-reader-only">Tip</span>Code and tool examples
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
 <div id="callout-4" class="callout-4-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p>These expandable blocks contain example commands, R code, or pseudocode illustrating how a pipeline step is implemented in practice. They are collapsed by default so they don’t interrupt the conceptual flow — open them when you want to see the mechanics behind a step.</p>
+<p>These expandable blocks contain example code from different tools to illustrate how a pipeline step is implemented in practice. They are collapsed by default, but you can open them if you want to see more about the mechanics behind a step.</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Example: primer trimming with Cutadapt</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="ex">cutadapt</span> <span class="dt">\</span></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">-g</span> GTGYCAGCMGCCGCGGTAA <span class="dt">\</span></span>
@@ -639,11 +608,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-</section>
-<section id="a-note-on-reproducibility" class="level2">
-<h2 class="anchored" data-anchor-id="a-note-on-reproducibility">A note on reproducibility</h2>
-<p>Every decision you make in this pipeline — extraction kit, primer pair, quality threshold, rarefaction depth — affects your results. Reporting those decisions completely is as important as the biology itself. If a collaborator cannot reproduce your count table from your raw reads, the analysis cannot be independently verified.</p>
-<p>Use this site alongside your own notes to build a record of the choices made in your study.</p>
 
 
 </section>
