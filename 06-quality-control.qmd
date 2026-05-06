@@ -8,11 +8,44 @@ After demultiplexing and primer trimming, quality control filters and trims read
 
 ## What quality filtering does
 
-**Truncation** cuts reads at a fixed length. Reads shorter than the specified length after trimming are discarded. This is a blunt-instrument approach: it removes the low-quality 3' tails that all Illumina reads develop, at the cost of losing some read length.
+**Truncation** cuts reads at a fixed length. Reads shorter than the specified length after trimming are discarded. This approach removes the low-quality 3' tails that all Illumina reads develop, at the cost of losing some read length.
 
-**Quality filtering** discards reads (or bases) below a quality threshold. Common approaches: - Remove any read with more than N expected errors (DADA2's approach — more principled than a simple Q threshold) - Sliding window trimming: cut when the average quality in a window drops below a threshold (Trimmomatic) - Simple per-base Q score cutoff
+**Quality filtering** discard reads (or bases) below a quality threshold.
 
-**Paired-end joining** (if not done later in denoising): after truncation, forward and reverse reads must overlap to be merged. If truncation is too aggressive, you may eliminate the overlap region and reads cannot be merged.
+## Looking at a quality report
+
+**FastQC** is one standard tool for a quick sanity check on raw reads. It produces plots of:
+
+-   Per-base quality scores across the read length
+-   Per-sequence quality distribution
+-   Sequence length distribution
+-   Adapter content
+-   Overrepresented sequences (primers should appear here)
+
+QIIME2's demux plugin produces similar quality plots and is often the first thing you look at after importing your data within the QIIME2 framework.
+
+::: {.callout-tip collapse="true"}
+## FastQC
+
+For more information about FastQC, check out [this site](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/).
+
+``` bash
+# to run the analysis on all files in a folder ending in .fastq.gz
+fastqc *.fastq.gz
+```
+:::
+
+::: {.callout-tip collapse="true"}
+## QIIME2 Demux Summarize
+
+For more information about QIIME2 demux-summarize, check out [this site](https://docs.qiime2.org/2024.10/plugins/available/demux/summarize/).
+
+``` bash
+qiime2 demux-summarize \
+  --i-data demux.qza
+  --o-visualization.qzv
+```
+:::
 
 ## The truncation decision
 
@@ -27,15 +60,122 @@ Two constraints must be balanced:
 
 The overlap available is: `overlap = (R1 truncated length + R2 truncated length) − amplicon length`. For V3–V4 (\~460 bp) with 2×250 reads, truncating R1 to 230 and R2 to 200 leaves 30 bp of overlap — workable. Truncating R2 to 180 leaves only 10 bp — marginal and likely to cause most pairs to fail merging. Quality cannot be the only consideration.
 
+::: callout-warning
+## They must have overlap!
+
+If truncation is too aggressive, you may eliminate the overlap region and reads cannot be merged. To retain around 20-50 overlap that is necessary, you have to ensure that you do not trim the sequences too short.
+:::
+
 ::: callout-important
 ## These parameters must be the same for all samples in a study
 
 Changing truncation lengths between samples is not valid — it would affect error rates differently across samples and make them incomparable. Choose one set of parameters for the entire dataset based on the median quality profile across all samples.
 :::
 
-<details>
+A common diagnostic plot is the **per-base quality score distribution**. These are often a box plot or line plot showing, at each read position, the spread of quality scores across all reads. For this example below, the shaded band is the interquartile range (middle 50% of reads), the solid line is the median, and the thin lines are the whiskers. Toggle between R1 and R2 to see how the quality degrades over the length of the read.
 
-<summary>Example: DADA2 filterAndTrim parameters</summary>
+``` bash
+{ojs}
+//| echo: false
+viewof selectedRead = Inputs.radio(["R1", "R2", "Both"], {
+  value: "Both",
+  label: "Read direction"
+})
+```
+
+```{ojs}
+//| echo: false
+{
+  function qualityStats(readType, nPos) {
+    return Array.from({length: nPos}, (_, i) => {
+      const pos = i + 1;
+      const t = i / (nPos - 1);
+      let median, spread;
+      if (readType === "R1") {
+        median = t < 0.08 ? 33 + t * 50
+               : t < 0.80 ? 37 - t * 2
+               : 37 - t * 2 - Math.pow((t - 0.80) / 0.20, 2) * 14;
+        spread = t < 0.80 ? 2 : 2 + (t - 0.80) * 15;
+      } else {
+        median = t < 0.08 ? 31 + t * 45
+               : t < 0.60 ? 36 - t * 3
+               : 36 - t * 3 - Math.pow((t - 0.60) / 0.40, 1.5) * 16;
+        spread = t < 0.60 ? 2.5 : 2.5 + (t - 0.60) * 20;
+      }
+      median = Math.max(5, median);
+      return {
+        pos,
+        read: readType,
+        median: +median.toFixed(1),
+        q1:     +Math.max(2,  median - spread * 0.7).toFixed(1),
+        q3:     +Math.min(40, median + spread * 0.4).toFixed(1),
+        wLow:   +Math.max(0,  median - spread * 1.5).toFixed(1),
+        wHigh:  +Math.min(40, median + spread * 0.9).toFixed(1)
+      };
+    });
+  }
+
+  const nPos = 250;
+  const reads = selectedRead === "Both" ? ["R1", "R2"] : [selectedRead];
+  const data  = reads.flatMap(r => qualityStats(r, nPos));
+  const clr   = { R1: "#1565C0", R2: "#C62828" };
+  const w     = Math.min(width, 720);
+
+  return Plot.plot({
+    width: w,
+    height: 340,
+    marginRight: selectedRead === "Both" ? 50 : 20,
+    x: { label: "Position in read (bp) →", domain: [1, nPos] },
+    y: { label: "↑ Phred quality score", domain: [0, 42], grid: true },
+    marks: [
+      Plot.rect(
+        [{y1: 0, y2: 20}, {y1: 20, y2: 28}, {y1: 28, y2: 42}],
+        { x1: 1, x2: nPos, y1: "y1", y2: "y2",
+          fill: ["#ffebee", "#fff9c4", "#e8f5e9"], fillOpacity: 0.6 }
+      ),
+      ...reads.flatMap(r => [
+        Plot.areaY(data.filter(d => d.read === r),
+          { x: "pos", y1: "q1", y2: "q3",
+            fill: clr[r], fillOpacity: 0.22 }),
+        Plot.lineY(data.filter(d => d.read === r),
+          { x: "pos", y: "wLow",  stroke: clr[r], strokeWidth: 0.8, strokeOpacity: 0.45 }),
+        Plot.lineY(data.filter(d => d.read === r),
+          { x: "pos", y: "wHigh", stroke: clr[r], strokeWidth: 0.8, strokeOpacity: 0.45 }),
+        Plot.lineY(data.filter(d => d.read === r),
+          { x: "pos", y: "median", stroke: clr[r], strokeWidth: 2.5 })
+      ]),
+      Plot.ruleY([30], { stroke: "#666", strokeDasharray: "6,3", strokeWidth: 1.5 }),
+      Plot.text([{ pos: 8, q: 30 }],
+        { x: "pos", y: "q", text: ["Q30"], dy: -8,
+          fontSize: 11, fill: "#666", fontWeight: "600" }),
+      ...(selectedRead === "Both" ? reads.map(r =>
+        Plot.text(
+          [{ pos: nPos, y: data.filter(d => d.read === r).at(-1).median }],
+          { x: "pos", y: "y", text: [r], dx: 8,
+            fill: clr[r], fontWeight: "700", fontSize: 12 }
+        )
+      ) : [])
+    ]
+  });
+}
+```
+
+::: callout-note
+## Reading the plot
+
+The **green zone** (Q ≥ 28) is good quality. The **yellow zone** (Q 20–28) is acceptable but worth watching. The **red zone** (Q \< 20) should be trimmed before analysis. Notice that R2 dips into the yellow zone well before position 250 — this is normal and is why DADA2 truncation lengths for R1 and R2 are set independently.
+:::
+
+::: callout-important
+## Reproducibility in truncation
+
+Make sure that you carefully note the selection of where to truncate based on quality scores for both the forward and reverse reads. This is necessary for others to reproduce your results.
+:::
+
+::: {.callout-tip collapse="true"}
+## DADA2 filterAndTrim
+
+DADA2 is a package that can be run using R.
 
 ``` r
 # In R using the dada2 package:
@@ -52,8 +192,27 @@ filtered <- filterAndTrim(
   multithread = TRUE
 )
 ```
+:::
 
-</details>
+::: {.callout-tip collapse="true"}
+## QIIME2 denoise-paired
+
+The same analysis can be run using the QIIME2 framework in the command line.
+
+``` bash
+# In command line using the QIIME2 framework:
+qiime dada2 denoise-paired \
+  --i-demultiplexed-seqs demultiplexed-sequences.qza \
+  --p-trunc-len-f 230 \
+  --p-trunc-len-r 200 \
+  --p-max-ee-f 2 \
+  --p-max-ee-r 2 \
+  --p-n-threads N \
+  --o-representative-sequences asv-sequences-0.qza \
+  --o-table feature-table-0.qza \
+  --o-denoising-stats dada2-stats.qza
+```
+:::
 
 ## Expected errors vs. quality score cutoffs
 
@@ -66,13 +225,3 @@ This is more principled than "discard reads with any base below Q20" because it 
 After filtering, check how many reads were retained per sample. Typical retention rates: - 70–90% is normal - \<50% suggests something went wrong: poor run quality, very long amplicon with insufficient overlap, or parameters that are too aggressive
 
 A sample that loses \>80% of its reads may not have enough depth for reliable analysis and may need to be excluded.
-
-## What can go wrong
-
-**Overlap failure** — if truncation removes too much of the read, R1 and R2 no longer overlap enough to merge. The result is very few or no merged reads, and the sample appears to have failed. The fix is to increase the truncation lengths (or accept some reduction in 3' quality).
-
-**Overly aggressive filtering** — setting `maxEE = 0` or very short truncation lengths produces very clean reads, but discards so much data that rare taxa are no longer detectable and diversity estimates become unreliable.
-
-**Too permissive filtering** — retaining low-quality reads introduces errors that appear as spurious taxa (sequence variants that don't exist in nature). The error model in DADA2 is designed to handle some error rate, but it is not unlimited.
-
-**Batch effects from re-runs** — if some samples were re-sequenced on a different run (e.g., due to low read counts), those reads will have a different error profile. Quality filtering parameters chosen for the original run may not be appropriate for the re-run batch. Consider analyzing them separately and merging at the count table level.

@@ -2,78 +2,158 @@
 title: "Sample Preparation"
 ---
 
-Before any sequencing happens, you need DNA — and the quality of that DNA shapes everything downstream. Microbiome studies add complications that standard molecular biology workflows don't always account for: microbial communities are physically diverse, and extraction efficiency varies dramatically across taxa.
+![](assets/sample-preparation.png){fig-align="center" width="60%"}
 
-::: callout-important
-## Batch effects start here
+16S rRNA gene sequencing is a culture-independent method, meaning you are characterizing an entire microbial community directly from a biological sample without growing anything in a lab. This power comes with a fundamental constraint: every organism present must yield its DNA through the same extraction protocol, regardless of how different its cell wall or membrane structure may be. The choices made before a single read is sequenced such as how the sample was collected, stored, lysed, and quantified will determine what biology you can detect and how much technical noise will propagate through every step that follows (Weinroth et al., 2022).
 
-Every decision in sample preparation — extraction kit, bead-beating duration, storage conditions, PCR cycle number, who runs the extraction — introduces technical variation. When that variation is **systematic** (e.g., all your cases were extracted in one batch and all your controls in another), it becomes a batch effect that is statistically indistinguishable from biology.
+::: callout-warning
+## Mitigating batch effects
 
-The most common and damaging mistake in microbiome study design is confounding experimental groups with batches. Distribute cases and controls across extraction batches from the beginning, and include the same reference sample (e.g., a mock community or pooled aliquot) in every batch so you can detect and measure batch-to-batch drift.
+Every decision in sample preparation introduces technical variation: extraction kit, bead-beating duration, storage conditions, PCR cycle number, who runs the extraction and when it is run. When that variation is **systematic** (e.g., all your cases were extracted in one batch and all your controls in another), it becomes a batch effect that is now indistinguishable from biology.
+
+Here, you can see visualization of what a set of samples run in two batches look like when the researcher does and does not confound the treatment group with batch.
+
+```{ojs}
+//| echo: false
+viewof design = Inputs.radio(["Confounded", "Balanced"], {
+  value: "Confounded",
+  label: "Study design"
+})
+```
+
+```{ojs}
+//| echo: false
+{
+  function makeRng(seed) {
+    let s = seed >>> 0;
+    return () => { s = (Math.imul(s, 1664525) + 1013904223) >>> 0; return s / 4294967296; };
+  }
+  function randn(rng) {
+    return Math.sqrt(-2 * Math.log(rng() + 1e-10)) * Math.cos(2 * Math.PI * rng());
+  }
+
+  const rng   = makeRng(7);
+  const noise = Array.from({length: 40}, () => ({ nx: randn(rng), ny: randn(rng) }));
+
+  const samples = noise.map((n, i) => {
+    const batch = i < 20 ? "Batch 1" : "Batch 2";
+    const group = design === "Confounded"
+      ? (batch === "Batch 1" ? "Case" : "Control")
+      : (i % 4 < 2 ? "Case" : "Control");
+    return {
+      batch, group,
+      x: (batch === "Batch 1" ? -2.5 : 2.5) + n.nx * 0.85,
+      y: (group === "Case"    ?  0.45 : -0.45) + n.ny * 0.85
+    };
+  });
+
+  const plotW = Math.floor((Math.min(width, 720) - 56) / 2);
+
+  function makePlot(field, domain, range) {
+    return Plot.plot({
+      width: plotW,
+      height: 300,
+      x: { label: "PC1", grid: true, tickFormat: d => d.toFixed(1) },
+      y: { label: "PC2", grid: true, tickFormat: d => d.toFixed(1) },
+      color: { domain, range, legend: true },
+      marks: [
+        Plot.dot(samples, {
+          x: "x", y: "y", fill: field,
+          r: 6, stroke: "white", strokeWidth: 1.5,
+          title: d => `${d.group} — ${d.batch}`
+        })
+      ]
+    });
+  }
+
+  function labeled(plot, titleText) {
+    const wrap = Object.assign(document.createElement("div"), {
+      style: "display:flex; flex-direction:column; align-items:center; flex:1; min-width:180px;"
+    });
+    const h = Object.assign(document.createElement("div"), {
+      textContent: titleText,
+      style: "font-weight:600; font-size:0.95rem; text-align:center; margin-bottom:0.35rem; color:#2a1a2e;"
+    });
+    wrap.append(h, plot);
+    return wrap;
+  }
+
+  const caption = design === "Confounded"
+    ? "Confounded design: the two plots are mirror images — batch and biology cannot be separated."
+    : "Balanced design: the batch effect is visible on the left, but cases and controls are mixed within each batch on the right.";
+
+  const left  = labeled(makePlot("batch", ["Batch 1", "Batch 2"], ["#1565C0", "#C62828"]), "Batch");
+  const right = labeled(makePlot("group", ["Case", "Control"],    ["#752f7d", "#2E7D32"]), "Treatment Group");
+
+  const capEl = Object.assign(document.createElement("p"), {
+    textContent: caption,
+    style: "width:100%; margin:0.6rem 0 0; font-size:0.875rem; color:#555; font-style:italic;"
+  });
+
+  const container = Object.assign(document.createElement("div"), {
+    style: `
+      display: flex; flex-wrap: wrap; gap: 1rem; align-items: flex-start;
+      border: 1.5px solid #d4b8d8; border-radius: 8px; padding: 1.25rem;
+    `
+  });
+  container.append(left, right, capEl);
+  return container;
+}
+```
 :::
 
-## What you are actually extracting
+## A (not comprehensive list) of potential variation
 
-The goal is total community DNA: a mixture of genomic material from every organism present in your sample. Unlike culturing, you are not selecting for any particular microbe. That is the power of culture-independent sequencing — but it also means your extraction protocol needs to work reasonably well across a wide range of cell wall architectures (gram-positive bacteria with thick peptidoglycan, gram-negative bacteria, fungi, archaea).
+### Extraction kit
 
-No extraction kit is equally efficient for all of these.
+Unlike single-species extractions, you are not targeting one known organism with a known lysis protocol. You are asking one protocol to work across all players all present in the same tube. No extraction kit is equally efficient for all of these, which means your results will always reflect, in part, which organisms your protocol lyses most efficiently.
 
-## Key decisions
+This is not a flaw to be eliminated, just it is a reality to be understood. If every sample in your study is extracted the same way, the bias is systematic and consistent. If extraction method varies across samples or groups, the bias becomes a confounder.
 
-### Extraction method
+### Cell lysis
 
-**Bead beating** physically disrupts cells through mechanical agitation with small beads. It is more aggressive and tends to give higher yield from difficult-to-lyse organisms (e.g., *Lactobacillus*, fungi, spore-formers). The tradeoff is potential DNA shearing and co-extraction of more inhibitors.
+The lysis step determines which organisms actually contribute DNA to your extract. Two broad strategies are used:
 
-**Chemical/enzymatic lysis** (e.g., detergent-based kits without bead beating) is gentler and better suited to fragile organisms or samples where you want to preserve DNA integrity. It may underrepresent gram-positive taxa.
+**Mechanical lysis (bead beating)** uses high-speed agitation with small beads to physically shear cell walls. It is the most effective approach for difficult-to-lyse organisms — gram-positive bacteria, fungi, spore-formers, and organisms with thick or unusual cell walls. The tradeoff is potential DNA shearing at high bead-beating intensities and co-extraction of more PCR inhibitors from the sample matrix.
 
-For gut microbiome work, bead beating is standard. For other sample types, review the literature for your matrix.
+**Chemical and enzymatic lysis** uses detergents, chaotropic salts, and enzymes (e.g., lysozyme, proteinase K) to dissolve membranes and digest cell walls. It is gentler and better suited to fragile organisms or samples where DNA integrity is a priority. It reliably lyses gram-negative bacteria but tends to underrepresent gram-positive taxa.
 
-### Sample storage
+::: callout-note
+## Consistent kit choice
 
-DNA degrades rapidly at room temperature. For field-collected samples:
+Commercial kits vary in their lysis chemistry, bead type and size, binding conditions, and inhibitor removal capacity. Switching kits between samples or batches introduces a systematic bias. The same kit should be used from beginning to end of a study to mitigate unwanted variation.
+:::
 
--   Snap-freeze in liquid nitrogen and store at -80°C is the gold standard
--   DNA stabilization buffers (e.g., RNAlater, OMNIgene) allow room-temperature storage for short periods
--   Repeated freeze-thaw cycles degrade both DNA quality and community composition — aliquot samples before freezing
+### Sample collection and storage
+
+The time between sample collection and preservation is itself a biological variable. Microbial communities in biological samples begin changing immediately after collection — cells die, others proliferate, metabolic activity continues. Weinroth et al. (2022) note that the interval from collection to freezing can significantly alter 16S sequencing results. Best practices:
+
+-   **Snap-freeze in liquid nitrogen and store at −80°C** — gold standard for most sample types
+-   **DNA stabilization buffers** (RNAlater, OMNIgene·GUT) preserve community composition at room temperature for days to weeks when immediate freezing is not possible; validate for your specific matrix before relying on them
+-   **Repeated freeze-thaw cycles** degrade DNA quality and alter community profiles — aliquot samples before freezing so each tube is used only once
 
 ::: callout-important
 ## Storage conditions are a biological variable
 
-Samples stored at -80°C vs. -20°C vs. room temperature will yield different community profiles. Within a study, storage conditions must be consistent across all samples.
+Samples stored at −80°C, −20°C, and room temperature will yield measurably different community profiles. Within a study, storage conditions must be identical across all samples. If some samples were handled differently — stored longer, frozen slower, thawed repeatedly — that difference must be documented and treated as a potential covariate in analysis.
 :::
 
-### Kit choice
+## Controls
 
-Commercial kits vary in their lysis chemistry, binding conditions, and inhibitor removal. The most commonly used for microbiome work include the Qiagen DNeasy PowerSoil (soil, stool), PowerFecal (stool), and ZymoBIOMICS kits. Using the same kit across all samples in a study is critical — switching kits mid-study introduces a systematic batch effect.
+Controls are not optional — they are the mechanism by which you distinguish biology from contamination and verify that your protocol is working.
 
-## Assessing DNA quality
+**Negative extraction controls** (reagents only, no sample) should be run with every extraction batch. If sequences appear in your negative control after sequencing, you have contamination somewhere in your workflow — the kit reagents, the water, the bench surface, or the tubes. This is especially critical for low-biomass samples, where kit contaminants can represent a substantial fraction of the detected signal. This background contamination is sometimes called the **"kitome."**
 
-After extraction, you need to assess whether you have enough usable DNA.
+**PCR negative controls** (water instead of template) catch contamination introduced during the amplification step, separate from extraction.
 
-| Measurement | Tool | What to look for |
-|------------------------|------------------------|------------------------|
-| Concentration | Qubit (fluorometric) | More accurate than NanoDrop for dilute samples |
-| Purity | NanoDrop | A260/280 ≈ 1.8; A260/230 ≈ 2.0–2.2 |
-| Integrity | Agarose gel or TapeStation | High molecular weight band, minimal smearing |
+**Positive controls** (a mock community of known composition, such as the ZymoBIOMICS Microbial Community Standard) let you verify that your extraction and amplification are performing consistently across batches and that your downstream pipeline correctly identifies known taxa at expected proportions.
 
-::: callout-warning
-## NanoDrop overestimates concentration
+## Common failure modes
 
-NanoDrop measures all UV-absorbing material, including RNA, free nucleotides, and carryover reagents. Qubit measures double-stranded DNA specifically. For low-biomass samples, this difference can be substantial. Always use Qubit for input quantification to the library prep.
-:::
+**Inhibitor carryover** — humic acids (soil, stool), heme (blood, tissue), polysaccharides (plant material), and bile salts can co-purify with DNA and inhibit PCR. Signs: poor or absent amplification despite adequate Qubit concentration. Additional clean-up steps (PowerClean Pro, 1:10 dilution series) can help identify and address inhibition.
 
-## What can go wrong
+**Low-biomass samples** — skin swabs, bronchoalveolar lavage, and many environmental samples contain so little microbial DNA that kit and reagent contamination becomes a meaningful fraction of the detected signal. Standard extraction volumes and protocols designed for high-biomass gut samples may not be appropriate. Negative controls become especially important.
 
-**Inhibitor carryover** — humic acids (soil, stool), heme (blood, tissue), polysaccharides (plant material), and bile salts can co-purify with DNA and inhibit PCR. Signs include poor or no amplification despite adequate DNA concentration. Additional purification steps (e.g., PowerClean Pro, dilution series) can help.
+**Host DNA dominance** — biopsies and mucosal samples may consist overwhelmingly of host (human or animal) DNA. The 16S primers are bacteria- and archaea-specific and will not amplify host sequences directly, but host DNA can compete for binding on silica columns and reduce microbial DNA yield during extraction.
 
-**Low-biomass samples** — skin swabs, BAL, and some environmental samples may have so little microbial DNA that reagent and kit contamination becomes a meaningful fraction of your signal. Negative extraction controls are not optional for low-biomass work.
-
-**Host DNA dominance** — tissue biopsies and some mucosal samples may be overwhelmingly human DNA. This does not usually prevent 16S amplification (primers are bacteria/archaea specific) but can complicate shotgun approaches and may affect some kits' binding efficiency.
-
-**Inconsistent extraction** — variation in how thoroughly samples are homogenized, bead-beating duration, or elution volume introduces technical noise that gets interpreted as biological signal.
-
-## Negative and positive controls
-
-Run a negative extraction control (reagents only, no sample) with every batch. If sequences appear in your negative control, you have contamination — in the kit, the water, the bench, or the tubes. This is especially important for low-biomass samples.
-
-A positive control (a mock community of known composition, e.g., ZymoBIOMICS Microbial Community Standard) lets you verify your extraction and downstream workflow are performing consistently across batches.
+**Inconsistent technique** — variation in homogenization thoroughness, bead-beating duration, or elution volume between operators or batches introduces technical noise that downstream statistics will interpret as biological signal. Written SOPs and training runs with reference samples reduce this source of error.

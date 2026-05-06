@@ -15,14 +15,15 @@
   margin-bottom: 1.5rem;
 }
 
-/* Code-fold dropdown — styled like a callout toggle */
-details.code-fold > summary {
+/* Code dropdowns (both code-fold and plain <details> example blocks) */
+details.code-fold > summary,
+details:not(.code-fold) > summary {
   display: inline-flex;
   align-items: center;
-  gap: 0.4rem;
-  background-color: rgba(117, 47, 125, 0.10);
-  border-left: 4px solid #752f7d;
-  color: #752f7d;
+  gap: 0.5rem;
+  background-color: rgba(21, 101, 192, 0.08);
+  border-left: 4px solid #1565C0;
+  color: #1565C0;
   font-weight: 600;
   font-size: 0.85rem;
   padding: 0.35rem 0.85rem 0.35rem 0.65rem;
@@ -33,20 +34,29 @@ details.code-fold > summary {
   transition: background-color 0.15s ease;
 }
 
-details.code-fold > summary:hover {
-  background-color: rgba(117, 47, 125, 0.20);
+details.code-fold > summary:hover,
+details:not(.code-fold) > summary:hover {
+  background-color: rgba(21, 101, 192, 0.18);
 }
 
-details.code-fold > summary::-webkit-details-marker {
+details.code-fold > summary::-webkit-details-marker,
+details:not(.code-fold) > summary::-webkit-details-marker {
   display: none;
 }
 
-details.code-fold > summary::before {
-  content: "▶";
-  font-size: 0.65rem;
-  transition: transform 0.15s ease;
+details.code-fold > summary::before,
+details:not(.code-fold) > summary::before {
+  content: "";
+  display: inline-block;
+  width: 0.85rem;
+  height: 0.85rem;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%231565C0' viewBox='0 0 16 16'%3E%3Cpath d='M14.082 2.182a.5.5 0 0 1 .103.557L8.528 15.467a.5.5 0 0 1-.917-.007L5.57 10.694.803 8.652a.5.5 0 0 1-.006-.916l12.728-5.657a.5.5 0 0 1 .556.103z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-size: 0.85rem 0.85rem;
+  flex-shrink: 0;
 }
 
-details.code-fold[open] > summary::before {
-  transform: rotate(90deg);
+/* Code callout (tip) — code-slash icon */
+.callout-tip .callout-icon::before {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%231565C0' viewBox='0 0 16 16'%3E%3Cpath d='M14.082 2.182a.5.5 0 0 1 .103.557L8.528 15.467a.5.5 0 0 1-.917-.007L5.57 10.694.803 8.652a.5.5 0 0 1-.006-.916l12.728-5.657a.5.5 0 0 1 .556.103z'/%3E%3C/svg%3E");
 }

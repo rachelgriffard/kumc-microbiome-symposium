@@ -32,6 +32,8 @@ website:
             href: 03-sequencing.qmd
       - section: "Data Processing"
         contents:
+          - text: "Public Sequencing Data"
+            href: public-data.qmd
           - text: "FASTQ Files"
             href: 04-fastq.qmd
           - text: "Demultiplexing"
@@ -49,6 +51,8 @@ website:
       - text: "---"
       - text: "KUMC Resources"
         href: kumc-resources.qmd
+      - text: "Citations"
+        href: citations.qmd
 
 format:
   html:

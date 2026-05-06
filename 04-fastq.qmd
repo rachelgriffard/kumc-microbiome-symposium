@@ -4,87 +4,84 @@ title: "FASTQ Files"
 
 ![](assets/fastq.png){fig-align="center" width="60%"}
 
-After sequencing, you receive your data as FASTQ files — a plain text format that stores both the sequence and the sequencer's confidence estimate for each base. Understanding this format helps you interpret quality reports and make sense of what the downstream tools are doing.
+After sequencing, you receive your data as FASTQ files. FASTQ files are a plain text format that stores both the sequence and the sequencer's confidence estimate for each base. Understanding this format helps you interpret quality reports and make sense of what the downstream tools are doing.
 
 ## The FASTQ format
 
 Each read in a FASTQ file is represented by four lines:
 
-```
-@M05891:42:000000000-K9P2L:1:1101:15473:1364 1:N:0:ATCGATCG
-TACGGAGGATCCGAGCGTTATCCGGATTTATTGGGTTTAAAGGGAGCGCAG...
+```         
+@SEQ_ID
+GATTTGGGGTTCAAAGCAGTATCGATCAAATAGTAAATCCATTTGTTCAACTCACAGTTT
 +
-BBBBBFFFFFFFGGGGGGGGGGHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH...
+!''*((((***+))%%%++)(%%%%).1***-+*'))**55CCF>>>>>>CCCCCCC65
 ```
 
-| Line | Contains |
-|---|---|
+| Line   | Contains                                                           |
+|------------------------------------|------------------------------------|
 | Line 1 | Read identifier (instrument, run, flow cell, coordinates, barcode) |
-| Line 2 | DNA sequence |
-| Line 3 | `+` (separator, sometimes repeats the identifier) |
-| Line 4 | Quality scores, one character per base |
+| Line 2 | DNA sequence                                                       |
+| Line 3 | `+` (separator, sometimes repeats the identifier)                  |
+| Line 4 | Quality scores, one character per base                             |
+
+::: callout-tip
+## Four lines per read
+
+The nature of each read having four lines means that there is a simple command line function we can use to get the amount of reads in a sample, included here below. This simply counts the lines in a file and then divides by four.
+
+```         
+# if unzipped file
+echo $(($(wc -l < input.fastq) / 4))
+
+# if zipped
+echo $(($(zcat input.fastq.gz | wc -l) / 4))
+```
+:::
 
 ## Phred quality scores
 
 The quality score for each base is encoded as a single ASCII character. The underlying value (called a Q score or Phred score) represents the sequencer's estimate of the probability that the base call is wrong:
 
 | Q score | Error probability | Accuracy |
-|---|---|---|
-| Q10 | 1 in 10 | 90% |
-| Q20 | 1 in 100 | 99% |
-| Q30 | 1 in 1000 | 99.9% |
-| Q40 | 1 in 10,000 | 99.99% |
+|---------|-------------------|----------|
+| Q10     | 1 in 10           | 90%      |
+| Q20     | 1 in 100          | 99%      |
+| Q30     | 1 in 1000         | 99.9%    |
+| Q40     | 1 in 10,000       | 99.99%   |
 
 A Q30 score is generally the minimum acceptable threshold. Run reports from Illumina sequencers report the percentage of bases at or above Q30 as a key quality metric.
 
-::: {.callout-note}
+::: callout-note
 ## Why do quality scores drop at the 3' end?
+
 Illumina sequencing reads the template base-by-base as a fluorescent cluster. As sequencing cycles progress, clusters lose synchrony (phasing) — some copies in a cluster get one base ahead or behind, blurring the signal. This accumulates over the run, causing quality to degrade toward the 3' end of every read. This is normal and expected. It is why trimming the 3' ends of reads is standard practice.
+:::
+
+::: {.callout-note collapse="true"}
+## More information on PHRED scores
+
+In case you are interested to learn more about these scores, these are a few resources to learn more:
+
+[GATK PHRED score overview](https://gatk.broadinstitute.org/hc/en-us/articles/360035531872-Phred-scaled-quality-scores)
+
+[Illumina Quality Scorres for Next-Generation Sequencing](https://www.illumina.com/documents/products/technotes/technote_Q-Scores.pdf)
 :::
 
 ## What you actually receive from the core
 
-For a paired-end run, expect:
+For a paired-end run, you should expect to receive:
 
-- `sample_R1.fastq.gz` — forward reads (the primer end)
-- `sample_R2.fastq.gz` — reverse reads (sequenced from the other end)
+-   `sample_R1.fastq.gz` — forward reads (the primer end)
+-   `sample_R2.fastq.gz` — reverse reads (sequenced from the other end)
 
-Files are usually gzip-compressed (`.fastq.gz` or `.fq.gz`). They can be very large — a MiSeq run produces ~8 GB of compressed data.
+Files are usually gzip-compressed (`.fastq.gz` or `.fq.gz`). They can be very large — a MiSeq run produces \~8 GB of compressed data.
 
 Some cores deliver a single multiplexed file with all samples mixed together, with barcodes embedded in the sequence or the read header. In that case, demultiplexing is your first computational step.
-
-## Looking at a quality report
-
-**FastQC** is the standard tool for a quick sanity check on raw reads. It produces plots of:
-
-- Per-base quality scores across the read length
-- Per-sequence quality distribution
-- Sequence length distribution
-- Adapter content
-- Overrepresented sequences (primers should appear here)
-
-QIIME2's demux plugin produces similar quality plots and is often the first thing you look at after importing your data.
-
-<details>
-<summary>Example: what a FastQC quality profile looks like for 16S data</summary>
-
-```
-Forward reads (R1):
-- Bases 1-240: Q > 30 (good)
-- Bases 240-250: Q drops to 20-25 (normal end-of-read degradation)
-- Adapter content: clean (adapter sequences removed by core)
-- Overrepresented sequences: primer sequence (expected)
-
-Reverse reads (R2):
-- Quality drops earlier (~base 200) — also normal
-- More aggressive trimming will be needed on R2
-```
-</details>
 
 ## What can go wrong
 
 **Truncated files** — an incomplete sequencing run or data transfer error can produce files that end mid-read. Most tools will throw an error, but some will silently discard the truncated read. Always verify file sizes are consistent with expected read counts.
 
-**Encoding issues** — older FASTQ files used a different quality score encoding (Illumina 1.3+, Illumina 1.5+) that shifts the ASCII offset. Modern Illumina platforms use Phred+33 (Sanger encoding). Rarely an issue now, but worth knowing if you are working with older published data.
+**Encoding issues** — older FASTQ files used a different quality score encoding (Illumina 1.3+, Illumina 1.5+) that shifts the ASCII offset. Modern Illumina platforms use Phred+33 (Sanger encoding). Rarely an issue now, but worth knowing if you are working with older archival data.
 
 **Swapped R1/R2** — accidentally providing the reverse read as the forward read will cause primer trimming and demultiplexing to fail silently or produce nonsense results. Check that R1 begins with your forward primer sequence.

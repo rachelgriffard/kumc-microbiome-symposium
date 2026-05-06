@@ -1,0 +1,117 @@
+---
+title: "Public Sequencing Data"
+---
+
+Not every microbiome project starts with your own sequencing run. A growing number of well-characterized datasets are publicly available through open repositories. These can be great resources for pilot analyses, comparative studies, replication, and methods development. Once you have downloaded FASTQ files from a repository, the analysis pipeline is identical to what you would run on your own data.
+
+Below we list some of the most common repositories for microbiome data, but this is far from a complete list.
+
+## Repositories
+
+### NCBI Sequence Read Archive (SRA)
+
+The SRA is the largest publicly available repository of high-throughput sequencing data. Most data associated with published microbiome papers in U.S.-funded journals is archived here.
+
+- Search by condition, body site, organism, or keyword at [https://www.ncbi.nlm.nih.gov/sra](https://www.ncbi.nlm.nih.gov/sra)
+- Each dataset has a **BioProject** accession (e.g., PRJNA######) linking all samples from a study
+- Individual samples have **SRR** accessions (SRR#######) for download
+- Download via the **SRA Toolkit** (`fastq-dump` or `fasterq-dump`) or through NCBI's cloud interface
+
+::: {.callout-tip}
+## Finding data efficiently
+
+Search SRA using BioProject accessions from papers you are trying to replicate. The BioProject page lists all associated SRR accessions, metadata, and links to the original publication.
+:::
+
+### ENA — European Nucleotide Archive
+
+ENA mirrors most SRA content and is often faster to download from outside North America. It also accepts direct submissions from European-funded projects that may not appear in SRA.
+
+- Browser interface at [https://www.ebi.ac.uk/ena/browser](https://www.ebi.ac.uk/ena/browser)
+- ENA accessions begin with **ERR** (runs), **ERS** (samples), or **PRJEB** (projects)
+- FASTQ files are available directly via FTP or the ENA browser — no toolkit required
+
+### QIITA
+
+QIITA is a specialized platform for microbiome data hosting and reanalysis, developed by the QIIME2 team. It stores not just raw reads but processed artifacts (count tables, metadata) from large-scale studies, making it easier to access analysis-ready data.
+
+- Browse at [https://qiita.ucsd.edu](https://qiita.ucsd.edu)
+- Particularly useful for studies processed through QIIME2 — artifacts can be downloaded and used directly
+- Hosts data from the Earth Microbiome Project and Human Microbiome Project
+
+### Earth Microbiome Project (EMP)
+
+A collaborative effort to characterize microbial diversity across the planet's environments. Standardized protocols and uniform processing make EMP data highly comparable across studies.
+
+- Data and protocols at [https://earthmicrobiome.org](https://earthmicrobiome.org)
+- Uses 515F/806R primers (V4 region) throughout — straightforward to integrate with your own V4 data
+- EMP data is accessible through QIITA and SRA
+
+### Human Microbiome Project (HMP)
+
+A foundational reference dataset for human-associated microbiome communities, covering gut, oral, skin, vaginal, and airway sites across healthy adults.
+
+- Data portal at [https://hmpdacc.org](https://hmpdacc.org)
+- Includes both 16S amplicon and shotgun metagenomic data
+- Useful as a reference community or baseline for human studies
+
+### MGnify
+
+EBI's microbiome analysis portal that hosts raw data and provides pre-computed analyses (taxonomic profiles, functional annotations) for thousands of publicly available studies.
+
+- Browse at [https://www.ebi.ac.uk/metagenomics](https://www.ebi.ac.uk/metagenomics)
+- Useful when you want a quick look at a public dataset without re-running the full pipeline
+
+---
+
+## Downloading data from SRA
+
+The SRA Toolkit is the standard command-line tool for downloading reads. Modern workflows prefer `fasterq-dump` over the older `fastq-dump`.
+
+<details>
+<summary>Example: downloading a paired-end run with fasterq-dump</summary>
+
+```bash
+# Install SRA Toolkit (if not already available via module load or conda)
+conda install -c bioconda sra-tools
+
+# Download paired-end FASTQ files for a single run accession
+fasterq-dump SRR12345678 \
+  --split-files \          # produces _1.fastq and _2.fastq (R1 and R2)
+  --outdir ./raw_reads/ \
+  --threads 4
+
+# Compress the output
+gzip ./raw_reads/SRR12345678_1.fastq
+gzip ./raw_reads/SRR12345678_2.fastq
+```
+
+</details>
+
+<details>
+<summary>Example: downloading all runs in a BioProject with a metadata table</summary>
+
+```bash
+# 1. Go to the BioProject page on NCBI and download the RunInfo table as a CSV
+#    (SRA Run Selector > "Metadata" button)
+
+# 2. Extract the SRR accession column and loop over it
+cut -d',' -f1 SraRunTable.txt | tail -n +2 | while read SRR; do
+  fasterq-dump "$SRR" --split-files --outdir ./raw_reads/ --threads 4
+  gzip ./raw_reads/"${SRR}"_*.fastq
+done
+```
+
+</details>
+
+---
+
+## What to check before using public data
+
+Public datasets vary widely in quality and comparability. Before beginning analysis, it is prudent to check the following:
+
+**Primer pair** — confirm which variable region and primers were used. A study using V3–V4 (341F/805R) cannot be directly compared to one using V4 (515F/806R).
+
+**Sequencing platform and read length** — Data from different sequencing runs should be processed separately.
+
+**Metadata completeness** — public metadata can be incomplete or inconsistently coded. Before relying on a covariate (BMI, antibiotic use, disease status), check how it was collected and whether the coding is consistent across samples. Certain metadata may not be housed in the public repository and may require request to the corresponding author.
