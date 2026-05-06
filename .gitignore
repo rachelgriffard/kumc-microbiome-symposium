@@ -26,3 +26,6 @@ Thumbs.db
 
 /.quarto/
 **/*.quarto_ipynb
+
+# Quarto site_libs at project root (should only live in docs/)
+/site_libs/

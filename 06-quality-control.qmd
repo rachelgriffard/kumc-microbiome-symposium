@@ -24,8 +24,9 @@ After demultiplexing and primer trimming, quality control filters and trims read
 
 QIIME2's demux plugin produces similar quality plots and is often the first thing you look at after importing your data within the QIIME2 framework.
 
-::: {.callout-tip collapse="true"}
-## FastQC
+<details>
+
+<summary>FastQC</summary>
 
 For more information about FastQC, check out [this site](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/).
 
@@ -33,10 +34,12 @@ For more information about FastQC, check out [this site](https://www.bioinformat
 # to run the analysis on all files in a folder ending in .fastq.gz
 fastqc *.fastq.gz
 ```
-:::
 
-::: {.callout-tip collapse="true"}
-## QIIME2 Demux Summarize
+</details>
+
+<details>
+
+<summary>QIIME2 Demux Summarize</summary>
 
 For more information about QIIME2 demux-summarize, check out [this site](https://docs.qiime2.org/2024.10/plugins/available/demux/summarize/).
 
@@ -45,7 +48,8 @@ qiime2 demux-summarize \
   --i-data demux.qza
   --o-visualization.qzv
 ```
-:::
+
+</details>
 
 ## The truncation decision
 
@@ -172,8 +176,9 @@ The **green zone** (Q ≥ 28) is good quality. The **yellow zone** (Q 20–28) i
 Make sure that you carefully note the selection of where to truncate based on quality scores for both the forward and reverse reads. This is necessary for others to reproduce your results.
 :::
 
-::: {.callout-tip collapse="true"}
-## DADA2 filterAndTrim
+<details>
+
+<summary>DADA2 filterAndTrim</summary>
 
 DADA2 is a package that can be run using R.
 
@@ -192,10 +197,12 @@ filtered <- filterAndTrim(
   multithread = TRUE
 )
 ```
-:::
 
-::: {.callout-tip collapse="true"}
-## QIIME2 denoise-paired
+</details>
+
+<details>
+
+<summary>QIIME2 denoise-paired</summary>
 
 The same analysis can be run using the QIIME2 framework in the command line.
 
@@ -212,7 +219,8 @@ qiime dada2 denoise-paired \
   --o-table feature-table-0.qza \
   --o-denoising-stats dada2-stats.qza
 ```
-:::
+
+</details>
 
 ## Expected errors vs. quality score cutoffs
 

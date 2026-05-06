@@ -3,15 +3,13 @@ title: "16S rRNA Microbiome Analysis"
 subtitle: "KUMC Microbiome Symposium Workshop"
 ---
 
-The human body is home to trillions of microorganisms — bacteria, archaea, viruses, and fungi — collectively called the microbiome. These communities play documented roles in immune development, metabolism, and susceptibility to disease. Understanding which microbes are present, in what proportions, and how those communities differ across individuals or conditions is now a central question across many areas of biomedical research.
+The human body is home to trillions of bacteria, archaea, viruses, and fungi collectively called the microbiome. These communities play roles in immune development, metabolism, and susceptibility to disease. Understanding which microbes are present, in what proportions, and how those communities differ across individuals or conditions is now a central question across many areas of biomedical research.
 
-One primary tool for profiling bacterial communities is **16S rRNA gene sequencing**. The 16S rRNA gene is present in all bacteria and archaea. Within its \~1,500 base pairs, some regions are highly conserved across species (light gray) — useful for designing universal primers — while others are variable (dark gray and labelled) enough to act as genetic barcodes that distinguish taxa. By amplifying and sequencing these variable regions, researchers can profile entire bacterial communities directly from a biological sample, without culturing a single organism.
+One primary tool for profiling bacterial communities is **16S rRNA gene sequencing**. The 16S rRNA gene is present in all bacteria and archaea. Within these gene that is around 1,500 base pairs, some regions are highly conserved across species (light gray) and are useful for designing universal primers, while others are variable (dark gray and labelled) enough to disgtinguish taxonomic units. By amplifying and sequencing these variable regions, researchers can profile bacterial communities directly from a biological sample.
 
 ![16S gene with variable regions (dark gray and labelled) and conserved regions (light gray)](assets/16Sgene_transparent.png){fig-alt="16S gene visualization" fig-align="center"}
 
-This workshop walks through a typical analysis pipeline, from sample collection through diversity analysis. The emphasis is on understanding *why* each step exists, what decisions you are making along the way, and how those decisions shape other choices and results downstream.
-
-The goal for today is enough conceptual grounding to critically evaluate published microbiome analyses and make informed decisions when you design your own studies.
+This workshop walks through a typical analysis pipeline for 16S rRNA sequencing from sample collection through diversity analysis. The emphasis is on understanding *why* each step exists, what decisions you are making along the way, and how those decisions shape other choices and results downstream.
 
 ## The pipeline at a glance
 
@@ -52,15 +50,15 @@ These boxes flag common mistakes, easy-to-overlook pitfalls, or steps where erro
 ::: {.callout-important collapse="true"}
 ## Reproducibility reminders
 
-These boxes highlight decisions that must be documented and held consistent across all samples. They represent the choices that most often introduce batch effects or make results impossible to reproduce or compare — whether across batches, runs, or publications.
+These boxes highlight decisions that must be documented for reproducibility of your analysis. The items that these point out should always be included in your documentation to ensure that you (and others) can replicate your analysis.
 
 **Example of when you'll see this:** The requirement that truncation parameters, extraction kits, and rarefaction depth be identical across all samples in a study.
 :::
 
 ::: {.callout-tip collapse="true"}
-## Code and pseudocode examples
+## Code and tool examples
 
-These expandable blocks contain example commands, R code, or pseudocode illustrating how a pipeline step is implemented in practice. They are collapsed by default so they don't interrupt the conceptual flow — open them when you want to see the mechanics behind a step.
+These expandable blocks contain example code from different tools to illustrate how a pipeline step is implemented in practice. They are collapsed by default, but you can open them if you want to see more about the mechanics behind a step.
 
 ``` bash
 # Example: primer trimming with Cutadapt
@@ -73,9 +71,3 @@ cutadapt \
   sample_R1.fastq.gz sample_R2.fastq.gz
 ```
 :::
-
-## A note on reproducibility
-
-Every decision you make in this pipeline — extraction kit, primer pair, quality threshold, rarefaction depth — affects your results. Reporting those decisions completely is as important as the biology itself. If a collaborator cannot reproduce your count table from your raw reads, the analysis cannot be independently verified.
-
-Use this site alongside your own notes to build a record of the choices made in your study.

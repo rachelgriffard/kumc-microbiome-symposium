@@ -17,7 +17,9 @@ Here, you can see visualization of what a set of samples run in two batches look
 //| echo: false
 viewof design = Inputs.radio(["Confounded", "Balanced"], {
   value: "Confounded",
-  label: "Study design"
+  label: html`<div style="font-size: 24px; font-weight: bold; text-align: center;">
+    Study design
+  </div>`
 })
 ```
 
@@ -40,21 +42,25 @@ viewof design = Inputs.radio(["Confounded", "Balanced"], {
     const group = design === "Confounded"
       ? (batch === "Batch 1" ? "Case" : "Control")
       : (i % 4 < 2 ? "Case" : "Control");
+    const yOffset = design === "Balanced"
+      ? (group === "Case" ? 1.1 : -1.1)
+      : 0;
     return {
       batch, group,
-      x: (batch === "Batch 1" ? -2.5 : 2.5) + n.nx * 0.85,
-      y: (group === "Case"    ?  0.45 : -0.45) + n.ny * 0.85
+      x: (batch === "Batch 1" ? -2.5 : 2.5) + n.nx * 1.2,
+      y: yOffset + n.ny * 1.2
     };
   });
 
   const plotW = Math.floor((Math.min(width, 720) - 56) / 2);
+  const yDomain = [-5, 5];
 
   function makePlot(field, domain, range) {
     return Plot.plot({
       width: plotW,
       height: 300,
       x: { label: "PC1", grid: true, tickFormat: d => d.toFixed(1) },
-      y: { label: "PC2", grid: true, tickFormat: d => d.toFixed(1) },
+      y: { label: "PC2", grid: true, domain: yDomain, tickFormat: d => d.toFixed(1) },
       color: { domain, range, legend: true },
       marks: [
         Plot.dot(samples, {
@@ -79,8 +85,8 @@ viewof design = Inputs.radio(["Confounded", "Balanced"], {
   }
 
   const caption = design === "Confounded"
-    ? "Confounded design: the two plots are mirror images — batch and biology cannot be separated."
-    : "Balanced design: the batch effect is visible on the left, but cases and controls are mixed within each batch on the right.";
+    ? "Confounded design: cases and controls occupy separate batches. The two plots are mirror images — you cannot tell whether separation on any axis reflects biology or batch processing."
+    : "Balanced design: batch drives the left/right separation on PC1. Within each batch, cases sit higher and controls lower — the case/control difference on PC2 is only detectable here because both groups appear in every batch.";
 
   const left  = labeled(makePlot("batch", ["Batch 1", "Batch 2"], ["#1565C0", "#C62828"]), "Batch");
   const right = labeled(makePlot("group", ["Case", "Control"],    ["#752f7d", "#2E7D32"]), "Treatment Group");
