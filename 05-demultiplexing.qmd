@@ -42,7 +42,7 @@ Leaving primers in reads is a common mistake. In DADA2, primers extend into the 
 
 <details>
 
-<summary>Example: Cutadapt primer trimming command</summary>
+<summary>Cutadapt primer trimming command</summary>
 
 ``` bash
 # Trim 515F/806R primers from paired-end reads
