@@ -40,7 +40,7 @@ website:
             href: 05-demultiplexing.qmd
           - text: "Quality Control"
             href: 06-quality-control.qmd
-      - section: "Analysis"
+      # - section: "Analysis"
       #   contents:
       #     - text: "Count Table (ASVs / OTUs)"
       #       href: 07-count-table.qmd
