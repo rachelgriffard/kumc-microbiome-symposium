@@ -2,6 +2,8 @@
 title: "Sequencing"
 ---
 
+![](assets/sequencing.png){fig-align="center" width="60%"}
+
 The amplicon library is loaded onto a sequencer, which reads the nucleotide sequence of millions of DNA fragments simultaneously. For 16S rRNA studies, Illumina short-read sequencing on MiSeq or NovaSeq is standard. The sequencer produces a FASTQ file per sample (or per run, if not yet demultiplexed) — your first encounter with the actual data.
 
 ## How samples become reads

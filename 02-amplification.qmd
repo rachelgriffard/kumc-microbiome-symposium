@@ -2,6 +2,8 @@
 title: "Amplification (PCR)"
 ---
 
+![](assets/amplification.png){fig-align="center" width="60%"}
+
 16S rRNA amplicon sequencing works by selectively amplifying a portion of the 16S rRNA gene — a gene present in virtually all bacteria and archaea, with conserved regions (where your primers bind) flanking hypervariable regions (where the sequence differs enough to distinguish taxa). The amplification step is where you define the slice of microbial diversity you will be able to see.
 
 ## The 16S rRNA gene structure

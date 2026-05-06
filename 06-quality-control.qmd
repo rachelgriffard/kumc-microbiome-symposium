@@ -2,16 +2,15 @@
 title: "Quality Control"
 ---
 
+![](assets/quality-control.png){fig-align="center" width="60%"}
+
 After demultiplexing and primer trimming, quality control filters and trims reads to remove low-quality sequence before the reads are used to infer microbial taxa. The goal is to remove noise introduced by the sequencer while retaining as much real biological signal as possible. This is a step where the decisions you make have downstream consequences that are not always obvious.
 
 ## What quality filtering does
 
 **Truncation** cuts reads at a fixed length. Reads shorter than the specified length after trimming are discarded. This is a blunt-instrument approach: it removes the low-quality 3' tails that all Illumina reads develop, at the cost of losing some read length.
 
-**Quality filtering** discards reads (or bases) below a quality threshold. Common approaches:
-- Remove any read with more than N expected errors (DADA2's approach — more principled than a simple Q threshold)
-- Sliding window trimming: cut when the average quality in a window drops below a threshold (Trimmomatic)
-- Simple per-base Q score cutoff
+**Quality filtering** discards reads (or bases) below a quality threshold. Common approaches: - Remove any read with more than N expected errors (DADA2's approach — more principled than a simple Q threshold) - Sliding window trimming: cut when the average quality in a window drops below a threshold (Trimmomatic) - Simple per-base Q score cutoff
 
 **Paired-end joining** (if not done later in denoising): after truncation, forward and reverse reads must overlap to be merged. If truncation is too aggressive, you may eliminate the overlap region and reads cannot be merged.
 
@@ -23,20 +22,22 @@ Illumina quality profiles typically show a characteristic pattern: high-quality 
 
 Two constraints must be balanced:
 
-1. **Quality**: truncate where quality drops, to remove unreliable bases.
-2. **Overlap**: for paired-end data, after truncation the forward and reverse reads must still overlap enough to merge — typically at least 20–30 bp.
+1.  **Quality**: truncate where quality drops, to remove unreliable bases.
+2.  **Overlap**: for paired-end data, after truncation the forward and reverse reads must still overlap enough to merge — typically at least 20–30 bp.
 
-The overlap available is: `overlap = (R1 truncated length + R2 truncated length) − amplicon length`. For V3–V4 (~460 bp) with 2×250 reads, truncating R1 to 230 and R2 to 200 leaves 30 bp of overlap — workable. Truncating R2 to 180 leaves only 10 bp — marginal and likely to cause most pairs to fail merging. Quality cannot be the only consideration.
+The overlap available is: `overlap = (R1 truncated length + R2 truncated length) − amplicon length`. For V3–V4 (\~460 bp) with 2×250 reads, truncating R1 to 230 and R2 to 200 leaves 30 bp of overlap — workable. Truncating R2 to 180 leaves only 10 bp — marginal and likely to cause most pairs to fail merging. Quality cannot be the only consideration.
 
-::: {.callout-important}
+::: callout-important
 ## These parameters must be the same for all samples in a study
+
 Changing truncation lengths between samples is not valid — it would affect error rates differently across samples and make them incomparable. Choose one set of parameters for the entire dataset based on the median quality profile across all samples.
 :::
 
 <details>
+
 <summary>Example: DADA2 filterAndTrim parameters</summary>
 
-```r
+``` r
 # In R using the dada2 package:
 filtered <- filterAndTrim(
   fwd = forward_reads,
@@ -51,6 +52,7 @@ filtered <- filterAndTrim(
   multithread = TRUE
 )
 ```
+
 </details>
 
 ## Expected errors vs. quality score cutoffs
@@ -61,11 +63,9 @@ This is more principled than "discard reads with any base below Q20" because it 
 
 ## What gets discarded
 
-After filtering, check how many reads were retained per sample. Typical retention rates:
-- 70–90% is normal
-- <50% suggests something went wrong: poor run quality, very long amplicon with insufficient overlap, or parameters that are too aggressive
+After filtering, check how many reads were retained per sample. Typical retention rates: - 70–90% is normal - \<50% suggests something went wrong: poor run quality, very long amplicon with insufficient overlap, or parameters that are too aggressive
 
-A sample that loses >80% of its reads may not have enough depth for reliable analysis and may need to be excluded.
+A sample that loses \>80% of its reads may not have enough depth for reliable analysis and may need to be excluded.
 
 ## What can go wrong
 

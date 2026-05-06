@@ -2,6 +2,8 @@
 title: "Diversity Analysis"
 ---
 
+![](assets/diversity-analysis.png){fig-align="center" width="60%"}
+
 Diversity analysis is where sequencing data becomes biological insight — or where analytical choices obscure it. This section covers the two main branches of diversity analysis (alpha and beta), the statistical methods used to test them, and the interpretive traps that are common in published microbiome literature.
 
 ## Alpha diversity: within-sample diversity

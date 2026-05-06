@@ -2,6 +2,8 @@
 title: "FASTQ Files"
 ---
 
+![](assets/fastq.png){fig-align="center" width="60%"}
+
 After sequencing, you receive your data as FASTQ files — a plain text format that stores both the sequence and the sequencer's confidence estimate for each base. Understanding this format helps you interpret quality reports and make sense of what the downstream tools are doing.
 
 ## The FASTQ format

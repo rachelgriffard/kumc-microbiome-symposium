@@ -99,7 +99,7 @@
     "href": "index.html#the-pipeline-at-a-glance",
     "title": "16S rRNA Microbiome Analysis",
     "section": "The pipeline at a glance",
-    "text": "The pipeline at a glance\n\n\n\nStage\nWhat happens\n\n\n\n\nSample preparation\nDNA extraction from your biological material\n\n\nAmplification\nPCR to enrich the 16S rRNA gene\n\n\nSequencing\nShort-read sequencing of the amplicons\n\n\nFASTQ files\nRaw data files from the sequencer\n\n\nDemultiplexing\nSorting reads back to individual samples\n\n\nQuality control\nFiltering and trimming low-quality reads\n\n\nCount table\nBuilding a table of taxa × samples\n\n\nNormalization & ordination\nAccounting for sequencing depth differences\n\n\nDiversity analysis\nAlpha and beta diversity, statistical testing",
+    "text": "The pipeline at a glance\n\n\n\n\n\n\n\n\nStage\nWhat happens\n\n\n\n\nSample preparation\nDNA extraction from your biological material\n\n\nAmplification\nPCR to enrich the 16S rRNA gene\n\n\nSequencing\nShort-read sequencing of the amplicons\n\n\nFASTQ files\nRaw data files from the sequencer\n\n\nDemultiplexing\nSorting reads back to individual samples\n\n\nQuality control\nFiltering and trimming low-quality reads\n\n\nCount table\nBuilding a table of taxa × samples\n\n\nNormalization & ordination\nAccounting for sequencing depth differences\n\n\nDiversity analysis\nAlpha and beta diversity, statistical testing",
     "crumbs": [
       "Home",
       "Overview"

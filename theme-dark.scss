@@ -1,0 +1,90 @@
+/*-- scss:defaults --*/
+
+// Primary purple palette (dark mode)
+$primary:           #c47eca;   // lighter purple for dark bg visibility
+$link-color:        #c47eca;
+
+// Navbar — deep purple header
+$navbar-bg:         #3d1542;
+$navbar-fg:         #f6e5f8;
+$navbar-hl:         #f6e5f8;
+
+// Sidebar — slightly lighter dark purple
+$sidebar-bg:        #2a0d2e;
+$sidebar-fg:        #f0d8f4;
+$sidebar-border-color: #4a2050;
+
+// Body
+$body-bg:           #1a0a1e;
+$body-color:        #f0d8f4;
+
+// Code blocks
+$code-bg:           #2e1033;
+$code-color:        #f6e5f8;
+
+// Inline code
+$code-inline-color: #f0d8f4;
+$code-inline-bg:    #3d1a42;
+
+// Headings
+$headings-color:    #f6e5f8;
+
+// Links hover
+$link-hover-color:  #dda8e4;
+
+/*-- scss:rules --*/
+
+// Active sidebar items
+.sidebar-item-container .active {
+  color: #c47eca !important;
+  font-weight: 600;
+}
+
+// Section headers in sidebar
+.sidebar-section > .sidebar-section-item {
+  color: #dda8e4;
+  font-weight: 700;
+}
+
+// TOC active
+#TOC a.active {
+  color: #c47eca !important;
+  border-left-color: #c47eca !important;
+}
+
+// Callout note border
+.callout-note {
+  border-left-color: #c47eca !important;
+}
+
+// Buttons
+.btn-primary {
+  background-color: #752f7d;
+  border-color: #752f7d;
+}
+.btn-primary:hover {
+  background-color: #9e3fa8;
+  border-color: #9e3fa8;
+}
+
+// Table striping on dark bg
+.table-striped > tbody > tr:nth-of-type(odd) {
+  background-color: rgba(117, 47, 125, 0.15);
+}
+
+// Search box focus
+.form-control:focus {
+  border-color: #c47eca;
+  box-shadow: 0 0 0 0.2rem rgba(196, 126, 202, 0.25);
+}
+
+// Code-fold dropdown — dark mode override
+details.code-fold > summary {
+  background-color: rgba(196, 126, 202, 0.12);
+  border-left-color: #c47eca;
+  color: #c47eca;
+}
+
+details.code-fold > summary:hover {
+  background-color: rgba(196, 126, 202, 0.22);
+}
