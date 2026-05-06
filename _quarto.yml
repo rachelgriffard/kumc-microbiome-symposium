@@ -40,14 +40,14 @@ website:
             href: 05-demultiplexing.qmd
           - text: "Quality Control"
             href: 06-quality-control.qmd
-      - section: "Analysis"
-        contents:
-          - text: "Count Table (ASVs / OTUs)"
-            href: 07-count-table.qmd
-          - text: "Normalization & Ordination"
-            href: 08-dimension-reduction.qmd
-          - text: "Diversity Analysis"
-            href: 09-diversity-analysis.qmd
+      # - section: "Analysis"
+      #   contents:
+      #     - text: "Count Table (ASVs / OTUs)"
+      #       href: 07-count-table.qmd
+      #     - text: "Normalization & Ordination"
+      #       href: 08-dimension-reduction.qmd
+      #     - text: "Diversity Analysis"
+      #       href: 09-diversity-analysis.qmd
       - text: "---"
       - text: "KUMC Resources"
         href: kumc-resources.qmd
