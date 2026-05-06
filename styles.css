@@ -10,7 +10,43 @@
 
 /* Pipeline step headers */
 .pipeline-step {
-  border-left: 4px solid #0d6efd;
+  border-left: 4px solid #752f7d;
   padding-left: 1rem;
   margin-bottom: 1.5rem;
+}
+
+/* Code-fold dropdown — styled like a callout toggle */
+details.code-fold > summary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  background-color: rgba(117, 47, 125, 0.10);
+  border-left: 4px solid #752f7d;
+  color: #752f7d;
+  font-weight: 600;
+  font-size: 0.85rem;
+  padding: 0.35rem 0.85rem 0.35rem 0.65rem;
+  border-radius: 0 6px 6px 0;
+  cursor: pointer;
+  list-style: none;
+  margin-bottom: 0.5rem;
+  transition: background-color 0.15s ease;
+}
+
+details.code-fold > summary:hover {
+  background-color: rgba(117, 47, 125, 0.20);
+}
+
+details.code-fold > summary::-webkit-details-marker {
+  display: none;
+}
+
+details.code-fold > summary::before {
+  content: "▶";
+  font-size: 0.65rem;
+  transition: transform 0.15s ease;
+}
+
+details.code-fold[open] > summary::before {
+  transform: rotate(90deg);
 }

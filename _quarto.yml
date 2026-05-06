@@ -53,8 +53,8 @@ website:
 format:
   html:
     theme:
-      light: sandstone
-      dark: darkly
+      light: [sandstone, theme-light.scss]
+      dark: [darkly, theme-dark.scss]
     css: styles.css
     toc: true
     toc-depth: 3

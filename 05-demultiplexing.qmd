@@ -2,6 +2,8 @@
 title: "Demultiplexing"
 ---
 
+![](assets/demultiplex.png){fig-align="center" width="60%"}
+
 When multiple samples are sequenced together on a single run (which is almost always the case — it would be prohibitively expensive to run one sample per sequencer lane), the reads from all samples are mixed together in the raw output. Demultiplexing is the process of sorting those reads back to the correct sample using the unique barcode or index sequence attached to each sample's library.
 
 ## What you receive from the core: multiplexed vs. demultiplexed

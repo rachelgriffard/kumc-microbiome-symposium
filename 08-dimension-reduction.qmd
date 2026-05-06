@@ -2,6 +2,8 @@
 title: "Normalization & Ordination"
 ---
 
+![](assets/dimension-reduction.gif){fig-align="center" width="60%"}
+
 The count table from the previous step contains raw read counts, but those counts are not directly comparable across samples. Different samples received different numbers of sequencing reads — some may have 50,000, others 8,000 — and that technical variation has nothing to do with biology. Before comparing community composition across samples, you need to account for these differences. This is the normalization problem, and it is one of the most actively debated methodological areas in microbiome analysis.
 
 ## Why sequencing depth varies

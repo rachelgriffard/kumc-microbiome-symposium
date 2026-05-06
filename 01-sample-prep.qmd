@@ -4,7 +4,7 @@ title: "Sample Preparation"
 
 Before any sequencing happens, you need DNA — and the quality of that DNA shapes everything downstream. Microbiome studies add complications that standard molecular biology workflows don't always account for: microbial communities are physically diverse, and extraction efficiency varies dramatically across taxa.
 
-::: {.callout-important}
+::: callout-important
 ## Batch effects start here
 
 Every decision in sample preparation — extraction kit, bead-beating duration, storage conditions, PCR cycle number, who runs the extraction — introduces technical variation. When that variation is **systematic** (e.g., all your cases were extracted in one batch and all your controls in another), it becomes a batch effect that is statistically indistinguishable from biology.

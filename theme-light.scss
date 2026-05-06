@@ -1,0 +1,93 @@
+/*-- scss:defaults --*/
+
+// Primary purple palette
+$primary:           #752f7d;
+$link-color:        #752f7d;
+
+// Navbar
+$navbar-bg:         #752f7d;
+$navbar-fg:         #f6e5f8;
+$navbar-hl:         #ffffff;
+
+// Sidebar
+$sidebar-bg:        #f6e5f8;
+$sidebar-fg:        #3a1a3e;
+$sidebar-border-color: #d4b8d8;
+
+// Body
+$body-bg:           #ffffff;
+$body-color:        #2a1a2e;
+
+// Code blocks
+$code-bg:           #f6e5f8;
+$code-color:        #4a1a52;
+
+// Inline code
+$code-inline-color: #752f7d;
+$code-inline-bg:    #f6e5f8;
+
+// Callouts
+$callout-color-note:    #752f7d;
+$callout-color-tip:     #5a9a6f;
+$callout-color-warning: #c97c2e;
+
+// Table of contents
+$toc-color:         #752f7d;
+$toc-active-border: #752f7d;
+
+// Footer
+$footer-bg:         #f6e5f8;
+$footer-fg:         #3a1a3e;
+
+// Headings
+$headings-color:    #4a1a52;
+
+// Selection highlight
+$link-hover-color:  #9e3fa8;
+
+/*-- scss:rules --*/
+
+// Active sidebar items
+.sidebar-item-container .active {
+  color: #752f7d !important;
+  font-weight: 600;
+}
+
+// Section headers in sidebar
+.sidebar-section > .sidebar-section-item {
+  color: #4a1a52;
+  font-weight: 700;
+}
+
+// TOC active
+#TOC a.active {
+  color: #752f7d !important;
+  border-left-color: #752f7d !important;
+}
+
+// Callout note border
+.callout-note {
+  border-left-color: #752f7d !important;
+}
+
+// Buttons
+.btn-primary {
+  background-color: #752f7d;
+  border-color: #752f7d;
+}
+.btn-primary:hover {
+  background-color: #5e2564;
+  border-color: #5e2564;
+}
+
+// Tab active state
+.nav-tabs .nav-link.active {
+  color: #752f7d !important;
+  border-bottom-color: #752f7d !important;
+}
+
+// Search box focus
+.form-control:focus {
+  border-color: #752f7d;
+  box-shadow: 0 0 0 0.2rem rgba(117, 47, 125, 0.25);
+}
