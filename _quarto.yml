@@ -1,6 +1,11 @@
 project:
   type: website
   output-dir: docs
+  render:
+    - "*.qmd"
+    - "!07-count-table.qmd"
+    - "!08-dimension-reduction.qmd"
+    - "!09-diversity-analysis.qmd"
 
 website:
   title: "16S rRNA Microbiome Analysis"
