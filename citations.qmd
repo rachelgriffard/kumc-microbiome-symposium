@@ -2,17 +2,7 @@
 title: "Citations & Image Credits"
 ---
 
-## Figures and diagrams
-
-**16S rRNA gene structure** (variable and conserved regions, V1–V9, with 515F/806R primer locations)
-
-:   Figure used on the Overview page. Source: ResearchGate. Retrieved from <https://www.researchgate.net/figure/S-rRNA-gene-showing-the-V1-V9-varaibale-regions-and-conserved-regions-The-515F-806R_fig1_340622946>
-
-## Reviews and methods papers
-
-Weinroth, M.D., Belk, A.D., Dean, C., et al. (2022). Considerations and best practices in animal science 16S ribosomal RNA gene sequencing microbiome studies. *Journal of Animal Science*, 100(2), skab346. <https://doi.org/10.1093/jas/skab346>
-
-## Software and pipelines
+## Methods, software, pipeline papers
 
 Callahan, B.J., McMurdie, P.J., Rosen, M.J., Han, A.W., Johnson, A.J.A., & Holmes, S.P. (2016). DADA2: High-resolution sample inference from Illumina amplicon data. *Nature Methods*, 13, 581–583. <https://doi.org/10.1038/nmeth.3869>
 
@@ -22,10 +12,27 @@ Martin, M. (2011). Cutadapt removes adapter sequences from high-throughput seque
 
 McMurdie, P.J., & Holmes, S. (2013). phyloseq: An R package for reproducible interactive analysis and graphics of microbiome census data. *PLOS ONE*, 8(4), e61217. <https://doi.org/10.1371/journal.pone.0061217>
 
+McMurdie, P. J., & Holmes, S. (2014). Waste not, want not: why rarefying microbiome data is inadmissible. *PLoS computational biology*, *10*(4), e1003531. https://doi.org/10.1371/journal.pcbi.1003531
+
 Oksanen, J., et al. (2022). vegan: Community Ecology Package. R package version 2.6-2. <https://CRAN.R-project.org/package=vegan>
+
+Weinroth, M.D., Belk, A.D., Dean, C., et al. (2022). Considerations and best practices in animal science 16S ribosomal RNA gene sequencing microbiome studies. *Journal of Animal Science*, 100(2), skab346. <https://doi.org/10.1093/jas/skab346>
 
 ## Reference databases
 
 Quast, C., Pruesse, E., Yilmaz, P., et al. (2013). The SILVA ribosomal RNA gene database project: improved data processing and web-based tools. *Nucleic Acids Research*, 41(D1), D590–D596. <https://doi.org/10.1093/nar/gks1219>
 
 McDonald, D., Jiang, Y., Balaban, M., et al. (2023). Greengenes2 unifies microbial data in a single reference tree. *Nature Biotechnology*, 41, 1630–1633. <https://doi.org/10.1038/s41587-023-01845-1>
+
+## Images and visualizations
+
+All stock imagery licensed via [Adobe Stock](https://stock.adobe.com?utm_source=chatgpt.com).
+Asset IDs used on this site include: 1920368934, 252259825, 254265838, 254272392, 138554024, 228279263
+
+Plots created using ggplot2 (version 4.0.2), gganimate (version 1.0.11) in R (version 4.5.3)
+
+Google. (2026). *List of census names in handwritten script* \[AI image generator\]. Google Gemini.
+
+**16S rRNA gene structure** (variable and conserved regions, V1–V9, with 515F/806R primer locations)
+
+:   Figure used on the Overview page. Source: ResearchGate. Retrieved from <https://www.researchgate.net/figure/S-rRNA-gene-showing-the-V1-V9-varaibale-regions-and-conserved-regions-The-515F-806R_fig1_340622946>
