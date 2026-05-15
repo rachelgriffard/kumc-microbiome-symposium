@@ -16,7 +16,7 @@ website:
   page-footer:
     left: |
       <img src="assets/landlocked-city-1.png" height="52" style="vertical-align:middle; opacity:0.85;" alt="">
-    center: "The Microbial City · KUMC Microbiome Symposium"
+    center: "The Microbial City · KUMC Microbiome Symposium 2026 · Created by Rachel Griffard-Smith rachelgriffardsmith.github.io"
     right: |
       <img src="assets/beach-city.png" height="52" style="vertical-align:middle; opacity:0.85;" alt="">
     background: "#1B3A58"
