@@ -26,8 +26,7 @@ McDonald, D., Jiang, Y., Balaban, M., et al. (2023). Greengenes2 unifies microbi
 
 ## Images and visualizations
 
-All stock imagery licensed via [Adobe Stock](https://stock.adobe.com?utm_source=chatgpt.com).
-Asset IDs used on this site include: 1920368934, 252259825, 254265838, 254272392, 138554024, 228279263
+All stock imagery licensed via [Adobe Stock](https://stock.adobe.com?utm_source=chatgpt.com). Asset IDs used on this site include: 1920368934, 252259825, 254265838, 254272392, 138554024, 228279263
 
 Plots created using ggplot2 (version 4.0.2), gganimate (version 1.0.11) in R (version 4.5.3)
 

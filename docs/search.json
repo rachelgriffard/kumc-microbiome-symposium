@@ -762,7 +762,7 @@
     "href": "citations.html",
     "title": "Citations & Image Credits",
     "section": "",
-    "text": "16S rRNA gene structure (variable and conserved regions, V1–V9, with 515F/806R primer locations)\n\nFigure used on the Overview page. Source: ResearchGate. Retrieved from https://www.researchgate.net/figure/S-rRNA-gene-showing-the-V1-V9-varaibale-regions-and-conserved-regions-The-515F-806R_fig1_340622946",
+    "text": "Callahan, B.J., McMurdie, P.J., Rosen, M.J., Han, A.W., Johnson, A.J.A., & Holmes, S.P. (2016). DADA2: High-resolution sample inference from Illumina amplicon data. Nature Methods, 13, 581–583. https://doi.org/10.1038/nmeth.3869\nBolyen, E., Rideout, J.R., Dillon, M.R., et al. (2019). Reproducible, interactive, scalable and extensible microbiome data science using QIIME 2. Nature Biotechnology, 37, 852–857. https://doi.org/10.1038/s41587-019-0209-9\nMartin, M. (2011). Cutadapt removes adapter sequences from high-throughput sequencing reads. EMBnet.journal, 17(1), 10–12. https://doi.org/10.14806/ej.17.1.200\nMcMurdie, P.J., & Holmes, S. (2013). phyloseq: An R package for reproducible interactive analysis and graphics of microbiome census data. PLOS ONE, 8(4), e61217. https://doi.org/10.1371/journal.pone.0061217\nMcMurdie, P. J., & Holmes, S. (2014). Waste not, want not: why rarefying microbiome data is inadmissible. PLoS computational biology, 10(4), e1003531. https://doi.org/10.1371/journal.pcbi.1003531\nOksanen, J., et al. (2022). vegan: Community Ecology Package. R package version 2.6-2. https://CRAN.R-project.org/package=vegan\nWeinroth, M.D., Belk, A.D., Dean, C., et al. (2022). Considerations and best practices in animal science 16S ribosomal RNA gene sequencing microbiome studies. Journal of Animal Science, 100(2), skab346. https://doi.org/10.1093/jas/skab346",
     "crumbs": [
       "Home",
       "Further Resources",
@@ -770,35 +770,11 @@
     ]
   },
   {
-    "objectID": "citations.html#figures-and-diagrams",
-    "href": "citations.html#figures-and-diagrams",
+    "objectID": "citations.html#methods-software-pipeline-papers",
+    "href": "citations.html#methods-software-pipeline-papers",
     "title": "Citations & Image Credits",
     "section": "",
-    "text": "16S rRNA gene structure (variable and conserved regions, V1–V9, with 515F/806R primer locations)\n\nFigure used on the Overview page. Source: ResearchGate. Retrieved from https://www.researchgate.net/figure/S-rRNA-gene-showing-the-V1-V9-varaibale-regions-and-conserved-regions-The-515F-806R_fig1_340622946",
-    "crumbs": [
-      "Home",
-      "Further Resources",
-      "Citations"
-    ]
-  },
-  {
-    "objectID": "citations.html#reviews-and-methods-papers",
-    "href": "citations.html#reviews-and-methods-papers",
-    "title": "Citations & Image Credits",
-    "section": "Reviews and methods papers",
-    "text": "Reviews and methods papers\nWeinroth, M.D., Belk, A.D., Dean, C., et al. (2022). Considerations and best practices in animal science 16S ribosomal RNA gene sequencing microbiome studies. Journal of Animal Science, 100(2), skab346. https://doi.org/10.1093/jas/skab346",
-    "crumbs": [
-      "Home",
-      "Further Resources",
-      "Citations"
-    ]
-  },
-  {
-    "objectID": "citations.html#software-and-pipelines",
-    "href": "citations.html#software-and-pipelines",
-    "title": "Citations & Image Credits",
-    "section": "Software and pipelines",
-    "text": "Software and pipelines\nCallahan, B.J., McMurdie, P.J., Rosen, M.J., Han, A.W., Johnson, A.J.A., & Holmes, S.P. (2016). DADA2: High-resolution sample inference from Illumina amplicon data. Nature Methods, 13, 581–583. https://doi.org/10.1038/nmeth.3869\nBolyen, E., Rideout, J.R., Dillon, M.R., et al. (2019). Reproducible, interactive, scalable and extensible microbiome data science using QIIME 2. Nature Biotechnology, 37, 852–857. https://doi.org/10.1038/s41587-019-0209-9\nMartin, M. (2011). Cutadapt removes adapter sequences from high-throughput sequencing reads. EMBnet.journal, 17(1), 10–12. https://doi.org/10.14806/ej.17.1.200\nMcMurdie, P.J., & Holmes, S. (2013). phyloseq: An R package for reproducible interactive analysis and graphics of microbiome census data. PLOS ONE, 8(4), e61217. https://doi.org/10.1371/journal.pone.0061217\nOksanen, J., et al. (2022). vegan: Community Ecology Package. R package version 2.6-2. https://CRAN.R-project.org/package=vegan",
+    "text": "Callahan, B.J., McMurdie, P.J., Rosen, M.J., Han, A.W., Johnson, A.J.A., & Holmes, S.P. (2016). DADA2: High-resolution sample inference from Illumina amplicon data. Nature Methods, 13, 581–583. https://doi.org/10.1038/nmeth.3869\nBolyen, E., Rideout, J.R., Dillon, M.R., et al. (2019). Reproducible, interactive, scalable and extensible microbiome data science using QIIME 2. Nature Biotechnology, 37, 852–857. https://doi.org/10.1038/s41587-019-0209-9\nMartin, M. (2011). Cutadapt removes adapter sequences from high-throughput sequencing reads. EMBnet.journal, 17(1), 10–12. https://doi.org/10.14806/ej.17.1.200\nMcMurdie, P.J., & Holmes, S. (2013). phyloseq: An R package for reproducible interactive analysis and graphics of microbiome census data. PLOS ONE, 8(4), e61217. https://doi.org/10.1371/journal.pone.0061217\nMcMurdie, P. J., & Holmes, S. (2014). Waste not, want not: why rarefying microbiome data is inadmissible. PLoS computational biology, 10(4), e1003531. https://doi.org/10.1371/journal.pcbi.1003531\nOksanen, J., et al. (2022). vegan: Community Ecology Package. R package version 2.6-2. https://CRAN.R-project.org/package=vegan\nWeinroth, M.D., Belk, A.D., Dean, C., et al. (2022). Considerations and best practices in animal science 16S ribosomal RNA gene sequencing microbiome studies. Journal of Animal Science, 100(2), skab346. https://doi.org/10.1093/jas/skab346",
     "crumbs": [
       "Home",
       "Further Resources",
@@ -811,6 +787,18 @@
     "title": "Citations & Image Credits",
     "section": "Reference databases",
     "text": "Reference databases\nQuast, C., Pruesse, E., Yilmaz, P., et al. (2013). The SILVA ribosomal RNA gene database project: improved data processing and web-based tools. Nucleic Acids Research, 41(D1), D590–D596. https://doi.org/10.1093/nar/gks1219\nMcDonald, D., Jiang, Y., Balaban, M., et al. (2023). Greengenes2 unifies microbial data in a single reference tree. Nature Biotechnology, 41, 1630–1633. https://doi.org/10.1038/s41587-023-01845-1",
+    "crumbs": [
+      "Home",
+      "Further Resources",
+      "Citations"
+    ]
+  },
+  {
+    "objectID": "citations.html#images-and-visualizations",
+    "href": "citations.html#images-and-visualizations",
+    "title": "Citations & Image Credits",
+    "section": "Images and visualizations",
+    "text": "Images and visualizations\nAll stock imagery licensed via Adobe Stock. Asset IDs used on this site include: 1920368934, 252259825, 254265838, 254272392, 138554024, 228279263\nPlots created using ggplot2 (version 4.0.2), gganimate (version 1.0.11) in R (version 4.5.3)\nGoogle. (2026). List of census names in handwritten script [AI image generator]. Google Gemini.\n\n16S rRNA gene structure (variable and conserved regions, V1–V9, with 515F/806R primer locations)\n\nFigure used on the Overview page. Source: ResearchGate. Retrieved from https://www.researchgate.net/figure/S-rRNA-gene-showing-the-V1-V9-varaibale-regions-and-conserved-regions-The-515F-806R_fig1_340622946",
     "crumbs": [
       "Home",
       "Further Resources",
