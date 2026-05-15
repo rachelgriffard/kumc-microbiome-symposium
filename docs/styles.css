@@ -1,5 +1,6 @@
 /* Navbar logo size */
-.navbar-brand img {
+.navbar-brand img,
+.navbar-brand .navbar-logo {
   height: 56px;
   max-height: 56px;
 }
