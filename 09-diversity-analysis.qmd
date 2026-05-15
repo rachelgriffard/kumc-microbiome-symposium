@@ -2,8 +2,6 @@
 title: "Diversity Analysis"
 ---
 
-![](assets/diversity-analysis.png){fig-align="center" width="60%"}
-
 Diversity analysis is where sequencing data becomes biological insight — or where analytical choices obscure it. This section covers the two main branches of diversity analysis (alpha and beta), the statistical methods used to test them, and the interpretive traps that are common in published microbiome literature.
 
 ## Alpha diversity: within-sample diversity
@@ -36,7 +34,54 @@ Alpha diversity is affected by sample quality, extraction efficiency, sequencing
 
 ## Beta diversity: between-sample diversity
 
-Beta diversity (covered in more detail in [Normalization & Ordination](08-dimension-reduction.qmd)) compares community composition across samples. The statistical test for beta diversity is PERMANOVA.
+Beta diversity describes how different community composition is between samples. It requires a distance (or dissimilarity) metric — a number between 0 (identical communities) and some maximum (completely different communities).
+
+| Metric | What it measures | Considers |
+|------------------------|------------------------|------------------------|
+| **Bray-Curtis** | Shared taxa and their abundances | Abundances; ignores phylogeny |
+| **Jaccard** | Shared presence/absence | Presence/absence only |
+| **UniFrac (unweighted)** | Phylogenetic distance, presence/absence | Phylogeny; ignores abundances |
+| **UniFrac (weighted)** | Phylogenetic distance with abundance weighting | Phylogeny + abundances |
+| **Aitchison** | Euclidean distance in CLR space | Compositionally aware |
+
+Choice of distance metric is a scientific decision — different metrics emphasize different aspects of community structure. Run multiple metrics and look for consistent patterns.
+
+## Ordination: visualizing beta diversity
+
+With a distance matrix in hand, ordination techniques reduce the high-dimensional distance information to 2 or 3 dimensions for visualization.
+
+**PCoA** (Principal Coordinates Analysis) — the most common approach. Produces a scatter plot where samples that are more similar in community composition cluster together. The axes represent the major sources of variation in the distance matrix. The first axis explains the most variance, and so on.
+
+**NMDS** (Non-metric Multidimensional Scaling) — better at preserving rank order of distances rather than actual distances. A stress value \<0.2 indicates an acceptable fit.
+
+**PCA** — works on the abundance matrix directly (not a distance matrix). Used with CLR-transformed data (Aitchison-PCA).
+
+::: callout-warning
+## Ordination plots show patterns, not statistics
+
+A PCoA plot that looks like two groups are separating is suggestive but not conclusive. Statistical significance requires a permutational test (PERMANOVA). And PERMANOVA is sensitive to differences in dispersion between groups (one group may be more variable than the other), which should be tested separately with PERMDISP.
+:::
+
+<details>
+
+<summary>Example: generating a PCoA from a distance matrix in R</summary>
+
+``` r
+library(vegan)
+library(phyloseq)
+
+# Compute Bray-Curtis distance matrix
+dist_bc <- distance(physeq, method = "bray")
+
+# Ordinate (PCoA)
+ord <- ordinate(physeq, method = "PCoA", distance = dist_bc)
+
+# Plot, colored by metadata variable
+plot_ordination(physeq, ord, color = "treatment_group") +
+  theme_bw()
+```
+
+</details>
 
 ### PERMANOVA
 
@@ -73,42 +118,3 @@ permutest(disp)
 
 </details>
 
-## Differential abundance: which taxa differ between groups?
-
-Identifying individual taxa that are more or less abundant between groups is one of the most requested analyses — and one of the most statistically fraught.
-
-Because the count table is compositional (relative abundances sum to 1), standard statistical tests assume independence that is not present. An increase in one taxon's abundance necessarily decreases others' relative abundance.
-
-Current recommended tools: - **ANCOM-BC2** — compositionally aware; controls false discovery rate - **DESeq2** — borrowed from RNA-seq; performs well in practice but assumptions may not strictly hold - **ALDEx2** — Dirichlet-multinomial model; robust but conservative - **Maaslin2** — handles multivariable models and mixed effects
-
-Avoid naive t-tests or Wilcoxon tests on raw relative abundances — they do not account for compositionality.
-
-### Why ANCOM works: the log-ratio approach
-
-ANCOM and ANCOM-BC are widely used because they are built around the compositional nature of microbiome data from the start. Instead of asking "is taxon A more abundant in group 1 vs. group 2?" — a question that is confounded by the fact that relative abundances are not independent — ANCOM asks "is the *ratio* of taxon A to every other taxon different between groups?" For each taxon, it counts how many of these pairwise log-ratio tests come back significant (the W statistic). A taxon is called differentially abundant only if it shows consistent differences across the majority of its comparisons.
-
-This "majority-wins" design means random noise is extremely unlikely to produce a false positive: noise might make a few ratios look significant, but it would have to affect most of them simultaneously to trigger a call. The tradeoff is lower sensitivity — ANCOM may miss real differences, especially for rare taxa — but it almost never produces false positives.
-
-ANCOM-BC extends this by explicitly modeling and correcting for library size (the total reads per sample) and providing interpretable log-fold changes with confidence intervals, similar to what you would see in an RNA-seq differential expression report.
-
-::: callout-note
-## Analogy: proving one student is taller than the class
-
-A standard t-test is like comparing one student to a single classmate — easy to get a false positive if the classmate happens to slouch. ANCOM compares that student to *everyone* in the class, and only declares them "significantly taller" if they are taller than the majority of classmates. This majority-vote safeguard is why ANCOM's false positive rate is near zero.
-:::
-
-### Multiple testing
-
-A typical microbiome study tests hundreds to thousands of taxa simultaneously. Apply a false discovery rate correction (Benjamini-Hochberg is standard). Report both uncorrected p-values and FDR-adjusted q-values.
-
-## Common interpretive traps
-
-**Correlation ≠ causation** — a taxon associated with a disease state may be a cause, a consequence, or correlated with a third variable (e.g., diet, medication, age). 16S data alone cannot distinguish these.
-
-**Relative abundance artifacts** — if an antibiotic kills one dominant taxon, all other taxa will appear to increase in relative abundance even if their absolute counts did not change. This is particularly important in intervention studies.
-
-**Confounders** — diet, BMI, antibiotic history, proton pump inhibitor use, and laxative use all have large effects on gut microbiome composition. Studies that do not account for these will attribute their effects to the variable of interest.
-
-**Low sample sizes** — microbiome studies are highly variable. Small cohorts (n \< 20 per group) are underpowered for most analyses. Effect sizes in published literature are frequently inflated due to small-sample bias.
-
-**Taxonomy gaps** — a large fraction of "unclassified" reads in a sample may represent true biology (novel taxa) or analytical failure (poor DNA quality, wrong reference database). Do not ignore them.

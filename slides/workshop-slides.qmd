@@ -14,116 +14,385 @@ format:
     scrollable: true
 ---
 
-## The pipeline
-
-| Stage              | What happens                        |
-|--------------------|-------------------------------------|
-| Sample preparation | DNA extraction                      |
-| Amplification      | PCR enrichment of 16S               |
-| Sequencing         | Short-read sequencing               |
-| FASTQ              | Raw data                            |
-| Demultiplexing     | Sort reads to samples               |
-| Quality control    | Filter and trim                     |
-| Count table        | ASVs × samples                      |
-| Ordination         | Account for depth, visualize        |
-| Diversity analysis | Alpha, beta, differential abundance |
+# Introduction
 
 ------------------------------------------------------------------------
 
-## Sample preparation
+## What is the microbiome?
 
--   Goal: total community DNA from every organism in your sample
--   Bead beating vs. chemical lysis — gram-positive bias matters
--   Storage conditions are a biological variable
--   Negative extraction controls are not optional
+-   Trillions of bacteria, archaea, viruses, and fungi inhabiting the body
+-   Each body site has a distinct community: gut, skin, oral, vaginal, lung
+-   Roles in immune development, metabolism, and disease susceptibility
 
-::: callout-warning
-NanoDrop overestimates concentration. Use Qubit for input quantification.
+------------------------------------------------------------------------
+
+## Variability: across people and over time
+
+**Between individuals**
+
+-   Driven by diet, genetics, geography, early-life exposures, medications
+-   "Normal" is difficult to define — variation is large even among healthy adults
+
+**Within an individual**
+
+-   Day-to-day fluctuations from diet, travel, illness, stress
+-   Antibiotics can reshape the community within days; recovery takes weeks to months
+-   Longitudinal within-person variation is often as large as between-person variation
+
+::: callout-note
+Variability is not noise — understanding what drives it is the central question of the field.
 :::
 
 ------------------------------------------------------------------------
 
-## Amplification
+# Types of Microbiome Data
 
--   You are selecting a slice of microbial diversity with your primer choice
--   V3–V4 (341F/805R) and V4 (515F/806R) are most common
--   Mixing primer pairs across studies is not valid
--   Relative abundance ≠ absolute abundance — PCR is exponential
+------------------------------------------------------------------------
+
+## Choosing the right technology
+
+-   Not all microbiome questions require the same data
+-   Think of the microbiome as a **city** — different technologies give different views of that city
+-   The question you want to answer should drive your technology choice
+-   Each method captures a different layer of information about the same community
+
+------------------------------------------------------------------------
+
+## Targeted Amplicon Sequencing — The Census
+
+**Big Question:** Who is present in this community, and in what proportion?
+
+-   Targets a conserved marker gene (16S rRNA for bacteria/archaea; ITS for fungi)
+-   Knocking on every door and asking for the **last name** — broad identity, not fine detail
+-   Resolves to **genus level** in most cases; species-level calls are unreliable
+-   Cannot directly infer function from taxonomy alone
+
+::: callout-note
+Good for: community composition, diversity comparisons, clinical screening studies
+:::
+
+------------------------------------------------------------------------
+
+## Shotgun Metagenomics — The Architectural Blueprints
+
+**Big Question:** Who is present, and what is their potential function?
+
+-   Sequences all DNA in the sample — not limited to one marker gene
+-   Like reading the **blueprints of every building** in the city — you see what equipment each organism has
+-   Recovers large portions of genomes; reveals gene content and metabolic potential
+-   Higher resolution than amplicon sequencing; higher cost and computational demand
+
+::: callout-note
+Good for: antibiotic resistance genes, strain-level resolution, functional capacity
+:::
+
+------------------------------------------------------------------------
+
+## Metatranscriptomics — The Conversations
+
+**Big Question:** What is the community actively doing right now?
+
+-   Sequences RNA (gene expression), not DNA
+-   Like recording all **conversations in the room** at a specific moment in time
+-   Shows which genes are being expressed at the moment of sampling
+-   Results are highly time-dependent — a 2 AM sample looks very different from a 3 PM sample
+
+::: callout-note
+Good for: active gene expression, response to treatment, time-sensitive biological questions
+:::
+
+------------------------------------------------------------------------
+
+## Metabolomics — The City Output
+
+**Big Question:** What is the chemical fingerprint of what this community produces?
+
+-   Measures small molecules (metabolites) in the sample
+-   Like checking the **air quality monitor and drainage water** — you see the outputs, not the producers directly
+-   Captures chemicals that are hard to attribute to specific organisms
+-   Many metabolites remain chemically unidentified
+
+::: callout-note
+Good for: functional outputs, host-microbiome interaction signals, treatment response markers
+:::
+
+------------------------------------------------------------------------
+
+# What is 16S rRNA Sequencing?
+
+------------------------------------------------------------------------
+
+## The 16S rRNA gene
+
+-   Present in virtually all bacteria and archaea — a universal marker
+-   \~1,500 bp long with alternating **conserved** and **hypervariable** regions (V1–V9)
+-   Conserved regions → primer binding sites
+-   Variable regions → distinguish taxa (like a genetic barcode)
+-   Short-read sequencing targets one or two variable regions at a time
+
+------------------------------------------------------------------------
+
+## Variable region selection
+
+| Region | Primers     | Amplicon     | Notes                             |
+|--------|-------------|--------------|-----------------------------------|
+| V4     | 515F / 806R | \~250 bp     | Earth Microbiome Project standard |
+| V3–V4  | 341F / 805R | \~460 bp     | Most common in clinical studies   |
+| V4–V5  | 515F / 926R | \~380–415 bp | Better archaeal coverage          |
+| V1–V2  | 27F / 338R  | \~310 bp     | Better gram-positive resolution   |
+
+::: callout-important
+Mixing primer pairs across studies is not valid — do not combine datasets from different primer sets.
+:::
+
+------------------------------------------------------------------------
+
+## Amplicons
+
+-   The PCR product spanning the targeted variable region is called an **amplicon**
+-   After sequencing, identical (or near-identical) amplicons are grouped into **ASVs** or **OTUs**
+-   These serve as the working units of diversity in all downstream analysis
+
+------------------------------------------------------------------------
+
+# Where Data Comes From
 
 ------------------------------------------------------------------------
 
 ## Sequencing
 
--   MiSeq 2×250 or 2×300 is standard for 16S
--   Paired-end reads overlap in the middle of the amplicon — that overlap corrects errors
--   Check the run report: % passing filter, Q30 score
--   PhiX spike-in is needed for amplicon libraries — low-complexity sequence
+-   MiSeq 2×250 or 2×300 bp is standard for 16S amplicon work
+-   **Paired-end**: forward (R1) and reverse (R2) reads overlap in the amplicon middle — overlap corrects errors
+-   Samples are pooled onto a single flow cell; reads are stochastically sampled → uneven depth across samples
+-   Check the run report: % clusters passing filter, Q30 score
+
+------------------------------------------------------------------------
+
+## Confounders and batch effects
+
+-   Technical variation accumulates at every step: extraction kit, lysis method, PCR cycles, who runs it, when
+-   When that variation is **systematic** (e.g., all cases in batch 1, all controls in batch 2) it becomes a batch effect indistinguishable from biology
+-   Design principle: **balance treatment groups across batches**
+
+::: callout-warning
+A confounded study design cannot be rescued in analysis. Balance must be built in at the design stage.
+:::
+
+------------------------------------------------------------------------
+
+## Amplification and pooling
+
+-   Primer design determines which taxa you can detect — no primer set is universal
+-   PCR amplifies exponentially: **relative abundance ≠ absolute abundance**
+-   Chimera formation increases with cycle number — use high-fidelity polymerase and minimize cycles
+-   After amplification, samples are normalized and pooled; pipetting error here creates depth variation
+
+------------------------------------------------------------------------
+
+## Public sequencing data
+
+Major repositories for 16S rRNA data:
+
+-   **SRA** (NCBI Sequence Read Archive) — largest archive
+-   **ENA** (European Nucleotide Archive) — mirrors SRA with API access
+-   **QIITA** — microbiome-specific, rich metadata
+-   **EMP** (Earth Microbiome Project) — standardized protocols across environments
+-   **HMP** (Human Microbiome Project) — reference human body site data
+
+::: callout-important
+When using public data: match primer pair, platform, and sequencing depth to your study. Metadata quality varies widely.
+:::
+
+------------------------------------------------------------------------
+
+# What Data Looks Like
 
 ------------------------------------------------------------------------
 
 ## FASTQ files
 
--   Four lines per read: ID, sequence, `+`, quality scores
--   Quality scores degrade toward the 3' end — expected, not a problem
--   Q30 = 1 error per 1,000 bases
--   Forward and reverse reads arrive as separate files (R1, R2)
+Four lines per read:
+
+```         
+@SampleID_read1
+GTGYCAGCMGCCGCGGTAA...
++
+IIIIIIIIIIIIHHHGGG...
+```
+
+-   Line 1: read identifier
+-   Line 2: nucleotide sequence
+-   Line 3: `+` separator
+-   Line 4: Phred quality scores (ASCII-encoded)
+
+Q30 = 1 error per 1,000 bases · Quality degrades toward the 3′ end — expected
 
 ------------------------------------------------------------------------
 
-## Demultiplexing
+## QC reports
 
--   Barcodes/indices match reads to samples
--   Primer trimming is not optional
--   Check: read counts per sample, % unassigned reads
--   A sample with \<1,000 reads after demultiplexing may need to be excluded
+**FastQC** and **QIIME2 demux summarize** show:
 
-------------------------------------------------------------------------
+-   Per-base quality score distribution across the read length
+-   Per-sample read counts after demultiplexing
+-   Adapter/primer content
 
-## Quality control
+What to look for:
 
--   Truncate reads before quality drops
--   Truncation length must allow R1 and R2 to still overlap after merging
--   Use the same parameters for all samples
--   Track read retention at every step
+-   The "elbow" where quality drops — this guides your truncation length
+-   Outlier samples with dramatically fewer reads
+-   \>20% unassigned reads signals a demultiplexing problem
 
 ------------------------------------------------------------------------
 
-## Count table: ASVs vs. OTUs
-
--   **OTUs**: reads clustered at 97% similarity — fast, tolerant of errors, but imprecise
--   **ASVs**: exact sequences after error correction — reproducible, higher resolution
--   The field has largely moved to ASVs (DADA2, QIIME2)
--   Taxonomy assignment is only as good as the reference database
+# Preprocessing
 
 ------------------------------------------------------------------------
 
-## Normalization & ordination
+## Trimming
 
--   Raw counts are not comparable across samples (different sequencing depth)
--   Rarefaction: subsample all samples to the same depth — simple, loses data
--   CLR transformation: compositionally aware, recommended for statistics
--   PCoA: visualize beta diversity in 2D — patterns suggest differences, don't prove them
+**Primer trimming** (Cutadapt)
+
+-   Remove primer sequences before any analysis — they are not biological sequence
+-   Untrimmed primers will corrupt error modeling in DADA2 and produce spurious ASVs
+
+**Truncation**
+
+-   Cut reads at the quality "elbow" (where median quality drops below Q25–30)
+-   R1 and R2 must still overlap after truncation — typically need ≥20–30 bp overlap
+-   `overlap = R1 length + R2 length − amplicon length`
+-   Use the same truncation parameters for all samples in the study
 
 ------------------------------------------------------------------------
 
-## Diversity analysis
+## Denoising and merging
 
-**Alpha diversity** — within-sample diversity (Shannon, Faith's PD)
+DADA2 pipeline:
 
-**Beta diversity** — between-sample similarity (Bray-Curtis, UniFrac)
+1.  **Learn error rates** — model how often each base is miscalled at each quality score
+2.  **Denoise** — correct reads using the error model; identify unique true sequences (ASVs)
+3.  **Merge pairs** — align R1 and R2 in the overlap; non-overlapping pairs are discarded
+4.  **Remove chimeras** — filter PCR-hybrid sequences
 
--   Test with PERMANOVA; check dispersion with PERMDISP
--   Differential abundance: use ANCOM-BC2, DESeq2, or ALDEx2 — not t-tests
--   Correct for multiple comparisons (FDR / Benjamini-Hochberg)
+**ASVs vs. OTUs**
+
+-   OTUs cluster at 97% similarity — arbitrary, not reproducible across datasets
+-   ASVs are exact sequences — reproducible, higher resolution, can resolve single-base differences
+-   The field has moved to ASVs
+
+------------------------------------------------------------------------
+
+## Normalization
+
+Raw read counts are not comparable across samples — sequencing depth varies.
+
+| Method | How | Tradeoff |
+|------------------------|------------------|------------------------------|
+| **Rarefaction** | Subsample all samples to the same depth | Simple; discards data |
+| **Relative abundance** | Divide by total reads | Simple; compositional |
+| **CLR** | Log-ratio to geometric mean | Statistically sound; requires care with zeros |
+| **DESeq2 / CSS** | RNA-seq-derived normalization | Preferred for differential abundance |
+
+Check alpha rarefaction curves before choosing a depth — curves should plateau.
+
+------------------------------------------------------------------------
+
+# Dimension Reduction
+
+------------------------------------------------------------------------
+
+## Taxonomy assignment
+
+-   Each ASV is compared to a reference database (SILVA, Greengenes2, NCBI)
+-   QIIME2 uses a trained Naïve Bayes classifier; returns deepest confident level + probability score
+-   **Species-level calls are unreliable** from the V4 region — genus is the practical limit
+
+Taxonomic hierarchy:
+
+**Domain → Phylum → Class → Order → Family → Genus → Species**
+
+::: callout-note
+"Unclassified" is a real biological result — do not discard these ASVs.
+:::
+
+------------------------------------------------------------------------
+
+## Phylogenetic tree
+
+-   Built from aligned ASV sequences using an evolutionary model
+-   Required for **Faith's PD** (phylogenetic alpha diversity) and **UniFrac** (phylogenetic beta diversity)
+-   A community spanning diverse phyla scores higher than one with the same number of closely related ASVs
+
+------------------------------------------------------------------------
+
+## Guilds
+
+-   Ecologically or functionally relevant groupings of taxa
+-   Allows community-level interpretation beyond taxonomy
+
+*Content in development*
+
+------------------------------------------------------------------------
+
+# Downstream Analysis
+
+------------------------------------------------------------------------
+
+## Alpha diversity: within-sample diversity
+
+| Metric | What it captures |
+|----|----|
+| Observed features | Raw ASV count — depth-sensitive |
+| Shannon | Richness + evenness |
+| Simpson | Evenness-weighted — less sensitive to rare taxa |
+| Faith's PD | Evolutionary distinctness of the community |
+| Chao1 | Estimated true richness accounting for undetected rare taxa |
+
+-   Use non-parametric tests (Kruskal-Wallis, Wilcoxon)
+-   Control for technical confounders (sequencing depth, extraction batch) before interpreting biologically
+
+------------------------------------------------------------------------
+
+## Beta diversity: between-sample diversity
+
+| Metric               | Considers                         |
+|----------------------|-----------------------------------|
+| Bray-Curtis          | Abundances; no phylogeny          |
+| Jaccard              | Presence/absence only             |
+| UniFrac (unweighted) | Phylogeny; presence/absence       |
+| UniFrac (weighted)   | Phylogeny + abundances            |
+| Aitchison            | Compositionally aware (CLR space) |
+
+**Ordination** (PCoA, NMDS, PCA) reduces the distance matrix to 2–3D for visualization.
+
+::: callout-warning
+Ordination plots suggest patterns — they do not prove them. Test with PERMANOVA; check dispersion with PERMDISP.
+:::
+
+------------------------------------------------------------------------
+
+## Differential abundance
+
+Because relative abundances are **compositional** (sum to 1), standard tests fail.
+
+Recommended tools:
+
+-   **ANCOM-BC2** — log-ratio approach; near-zero false positive rate; preferred
+-   **DESeq2** — borrowed from RNA-seq; performs well in practice
+-   **ALDEx2** — robust but conservative
+-   **Maaslin2** — handles multivariable models and mixed effects
+
+Always apply FDR correction (Benjamini-Hochberg). Report q-values, not just p-values.
 
 ------------------------------------------------------------------------
 
 ## Common traps
 
--   Relative abundance artifacts: if one taxon disappears, all others look like they increased
--   Confounders: diet, antibiotics, BMI can drive microbiome differences
--   Low n: microbiome studies are highly variable — small cohorts are underpowered
--   Correlation ≠ causation
+-   **Relative abundance artifacts** — killing one taxon inflates all others' relative abundance
+-   **Confounders** — diet, antibiotics, BMI, PPI use can dominate microbiome variation
+-   **Low n** — microbiome studies are highly variable; \<20 per group is underpowered
+-   **Correlation ≠ causation** — 16S data alone cannot establish mechanism
+-   **Taxonomy gaps** — "unclassified" may be real biology, not analytical failure
 
 ------------------------------------------------------------------------
 

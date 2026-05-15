@@ -1,8 +1,6 @@
 ---
-title: "Sequencing"
+title: "Sequencing & Confounders"
 ---
-
-![](assets/sequencing.png){fig-align="center" width="60%"}
 
 The amplicon library is loaded onto a sequencer, which reads the nucleotide sequence of millions of DNA fragments simultaneously. For 16S rRNA studies, Illumina short-read sequencing on MiSeq or NovaSeq is standard. The sequencer produces a FASTQ file per sample (or per run, if not yet demultiplexed).
 
@@ -141,6 +139,112 @@ viewof seqDepth = Inputs.range([2000, 80000], {
 
 Notice that the environmental sample (Sample C) requires far more reads to plateau than the gut or vaginal samples. Different sample types have very different depth requirements. This is why "10,000 reads" is not a universal standard.
 :::
+
+## Technical variation and confounders
+
+Every step from sample collection to sequencing introduces technical variation: extraction kit, bead-beating duration, storage conditions, PCR cycle number, who ran the extraction and when. When that variation is **systematic** — for example, all your cases were extracted in one batch and all your controls in another — it becomes a **batch effect** that is indistinguishable from biology in your data.
+
+::: callout-warning
+## Mitigating batch effects
+
+Here you can see what a set of samples run in two batches looks like when the researcher does and does not confound the treatment group with batch.
+
+```{ojs}
+//| echo: false
+viewof design = Inputs.radio(["Confounded", "Balanced"], {
+  value: "Confounded",
+  label: html`<div style="font-size: 24px; font-weight: bold; text-align: center;">
+    Study design
+  </div>`
+})
+```
+
+```{ojs}
+//| echo: false
+{
+  function makeRng(seed) {
+    let s = seed >>> 0;
+    return () => { s = (Math.imul(s, 1664525) + 1013904223) >>> 0; return s / 4294967296; };
+  }
+  function randn(rng) {
+    return Math.sqrt(-2 * Math.log(rng() + 1e-10)) * Math.cos(2 * Math.PI * rng());
+  }
+
+  const rng   = makeRng(7);
+  const noise = Array.from({length: 40}, () => ({ nx: randn(rng), ny: randn(rng) }));
+
+  const samples = noise.map((n, i) => {
+    const batch = i < 20 ? "Batch 1" : "Batch 2";
+    const group = design === "Confounded"
+      ? (batch === "Batch 1" ? "Case" : "Control")
+      : (i % 4 < 2 ? "Case" : "Control");
+    const yOffset = design === "Balanced"
+      ? (group === "Case" ? 1.1 : -1.1)
+      : 0;
+    return {
+      batch, group,
+      x: (batch === "Batch 1" ? -2.5 : 2.5) + n.nx * 1.2,
+      y: yOffset + n.ny * 1.2
+    };
+  });
+
+  const plotW = Math.floor((Math.min(width, 720) - 56) / 2);
+  const yDomain = [-5, 5];
+
+  function makePlot(field, domain, range) {
+    return Plot.plot({
+      width: plotW,
+      height: 300,
+      x: { label: "PC1", grid: true, tickFormat: d => d.toFixed(1) },
+      y: { label: "PC2", grid: true, domain: yDomain, tickFormat: d => d.toFixed(1) },
+      color: { domain, range, legend: true },
+      marks: [
+        Plot.dot(samples, {
+          x: "x", y: "y", fill: field,
+          r: 6, stroke: "white", strokeWidth: 1.5,
+          title: d => `${d.group} — ${d.batch}`
+        })
+      ]
+    });
+  }
+
+  function labeled(plot, titleText) {
+    const wrap = Object.assign(document.createElement("div"), {
+      style: "display:flex; flex-direction:column; align-items:center; flex:1; min-width:180px;"
+    });
+    const h = Object.assign(document.createElement("div"), {
+      textContent: titleText,
+      style: "font-weight:600; font-size:0.95rem; text-align:center; margin-bottom:0.35rem; color:#2a1a2e;"
+    });
+    wrap.append(h, plot);
+    return wrap;
+  }
+
+  const caption = design === "Confounded"
+    ? "Confounded design: cases and controls occupy separate batches. The two plots are mirror images — you cannot tell whether separation on any axis reflects biology or batch processing."
+    : "Balanced design: batch drives the left/right separation on PC1. Within each batch, cases sit higher and controls lower — the case/control difference on PC2 is only detectable here because both groups appear in every batch.";
+
+  const left  = labeled(makePlot("batch", ["Batch 1", "Batch 2"], ["#1565C0", "#C62828"]), "Batch");
+  const right = labeled(makePlot("group", ["Case", "Control"],    ["#752f7d", "#2E7D32"]), "Treatment Group");
+
+  const capEl = Object.assign(document.createElement("p"), {
+    textContent: caption,
+    style: "width:100%; margin:0.6rem 0 0; font-size:0.875rem; color:#555; font-style:italic;"
+  });
+
+  const container = Object.assign(document.createElement("div"), {
+    style: `
+      display: flex; flex-wrap: wrap; gap: 1rem; align-items: flex-start;
+      border: 1.5px solid #d4b8d8; border-radius: 8px; padding: 1.25rem;
+    `
+  });
+  container.append(left, right, capEl);
+  return container;
+}
+```
+:::
+
+The key principle: **balance your treatment groups across batches**. If every case is extracted in January and every control in February, you will never be able to separate the effect of your treatment from the effect of processing date.
 
 ## What the sequencing core delivers
 

@@ -1,0 +1,132 @@
+---
+title: "Trimming & Truncation"
+---
+
+Before reads can be used to infer microbial taxa, two cleaning steps are applied: **primer trimming** removes the artificial primer sequences you added during library prep, and **truncation/quality filtering** removes low-quality sequence at the 3′ end of reads. The decisions made here propagate through the entire analysis.
+
+## Primer trimming
+
+Regardless of the demultiplexing approach, the primer sequences need to be removed before analysis. Primers are not part of the 16S sequence you want to analyze — they are artificial sequences that were added. If they are not removed, they will interfere with error modeling and alignment to the reference database.
+
+**Cutadapt** is the standard tool for primer trimming. It searches for the primer sequence at the start of each read and removes it, along with any adapter content that may appear at the read ends.
+
+::: callout-warning
+## Primer trimming is not optional
+
+Leaving primers in reads is a common mistake. In DADA2, primers extend into the region used for error modeling and denoising. In QIIME2, untrimmed reads will fail or produce spurious ASVs. Always verify primers are removed by checking that the per-base sequence composition in FastQC no longer shows a conserved sequence at position 1.
+:::
+
+<details>
+
+<summary>Example: Cutadapt primer trimming command</summary>
+
+``` bash
+# Trim 515F/806R primers from paired-end reads
+cutadapt \
+  -g GTGYCAGCMGCCGCGGTAA \   # forward primer
+  -G GGACTACNVGGGTWTCTAAT \  # reverse primer (reverse complement)
+  --discard-untrimmed \       # drop reads where primer was not found
+  --minimum-length 100 \
+  -o sample_R1_trimmed.fastq.gz \
+  -p sample_R2_trimmed.fastq.gz \
+  sample_R1.fastq.gz \
+  sample_R2.fastq.gz
+```
+
+</details>
+
+## What quality filtering does
+
+**Truncation** cuts reads at a fixed length. Reads shorter than the specified length after trimming are discarded. This approach removes the low-quality 3′ tails that all Illumina reads develop, at the cost of losing some read length.
+
+**Quality filtering** discards reads (or bases) below a quality threshold.
+
+## The truncation decision
+
+This is one of the most impactful parameters in the pipeline. Illumina quality profiles typically show a characteristic pattern: high-quality bases at the start of the read (Q ≥ 30), followed by a gradual or sharp drop toward the 3′ end. This drop-off point — often called the **"elbow"** — is a natural guide for where to truncate. A Q30 score means a 1-in-1,000 chance of a base call error; Q25 means roughly 1-in-300. Truncation is generally recommended when quality consistently falls below Q25–30 across the majority of reads.
+
+Two constraints must be balanced:
+
+1.  **Quality**: truncate where quality drops, to remove unreliable bases.
+2.  **Overlap**: for paired-end data, after truncation the forward and reverse reads must still overlap enough to merge — typically at least 20–30 bp.
+
+The overlap available is: `overlap = (R1 truncated length + R2 truncated length) − amplicon length`. For V3–V4 (\~460 bp) with 2×250 reads, truncating R1 to 230 and R2 to 200 leaves 30 bp of overlap — workable. Truncating R2 to 180 leaves only 10 bp — marginal and likely to cause most pairs to fail merging. Quality cannot be the only consideration.
+
+::: callout-warning
+## They must have overlap!
+
+If truncation is too aggressive, you may eliminate the overlap region and reads cannot be merged. To retain around 20–50 bp of overlap, ensure that you do not trim the sequences too short.
+:::
+
+::: callout-important
+## These parameters must be the same for all samples in a study
+
+Changing truncation lengths between samples is not valid — it would affect error rates differently across samples and make them incomparable. Choose one set of parameters for the entire dataset based on the median quality profile across all samples.
+:::
+
+## Expected errors vs. quality score cutoffs
+
+DADA2 uses the **expected errors** framework: rather than filtering on per-base quality scores directly, it computes the expected number of errors in an entire read as the sum of the error probabilities at each position. `maxEE = 2` means: discard any read where the expected number of errors exceeds 2.
+
+This is more principled than "discard reads with any base below Q20" because it considers the whole read rather than being thrown off by a single low-quality base.
+
+::: callout-important
+## Reproducibility in truncation
+
+Make sure that you carefully note the selection of where to truncate based on quality scores for both the forward and reverse reads. This is necessary for others to reproduce your results.
+:::
+
+<details>
+
+<summary>DADA2 filterAndTrim</summary>
+
+DADA2 is a package that can be run using R.
+
+``` r
+# In R using the dada2 package:
+filtered <- filterAndTrim(
+  fwd = forward_reads,
+  filt = forward_filtered,
+  rev = reverse_reads,
+  filt.rev = reverse_filtered,
+  truncLen = c(230, 200),      # truncate R1 at 230 bp, R2 at 200 bp
+  maxEE = c(2, 2),             # maximum expected errors per read
+  truncQ = 2,                  # truncate at quality score 2 or below
+  rm.phix = TRUE,              # remove PhiX reads if present
+  compress = TRUE,
+  multithread = TRUE
+)
+```
+
+</details>
+
+<details>
+
+<summary>QIIME2 denoise-paired</summary>
+
+The same analysis can be run using the QIIME2 framework in the command line.
+
+``` bash
+# In command line using the QIIME2 framework:
+qiime dada2 denoise-paired \
+  --i-demultiplexed-seqs demultiplexed-sequences.qza \
+  --p-trunc-len-f 230 \
+  --p-trunc-len-r 200 \
+  --p-max-ee-f 2 \
+  --p-max-ee-r 2 \
+  --p-n-threads N \
+  --o-representative-sequences asv-sequences-0.qza \
+  --o-table feature-table-0.qza \
+  --o-denoising-stats dada2-stats.qza
+```
+
+</details>
+
+## What gets discarded
+
+After filtering, check how many reads were retained per sample. Typical retention rates:
+
+-   70–90% is normal
+-   \<50% suggests something went wrong: poor run quality, very long amplicon with insufficient overlap, or parameters that are too aggressive
+
+A sample that loses \>80% of its reads may not have enough depth for reliable analysis and may need to be excluded.

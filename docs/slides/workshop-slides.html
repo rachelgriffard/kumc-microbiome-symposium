@@ -135,62 +135,257 @@
 </div>
 
 </section>
-<section id="the-pipeline" class="slide level2">
-<h2>The pipeline</h2>
+<section>
+<section id="introduction" class="title-slide slide level1 center">
+<h1>Introduction</h1>
+
+</section>
+<section id="what-is-the-microbiome" class="slide level2">
+<h2>What is the microbiome?</h2>
+<ul>
+<li>Trillions of bacteria, archaea, viruses, and fungi inhabiting the body</li>
+<li>Each body site has a distinct community: gut, skin, oral, vaginal, lung</li>
+<li>Roles in immune development, metabolism, and disease susceptibility</li>
+<li>The gut microbiome is dominated by <em>Firmicutes</em> and <em>Bacteroidetes</em></li>
+</ul>
+</section>
+<section id="variability-across-people-and-over-time" class="slide level2">
+<h2>Variability: across people and over time</h2>
+<p><strong>Between individuals</strong></p>
+<ul>
+<li>Driven by diet, genetics, geography, early-life exposures, medications</li>
+<li>“Normal” is difficult to define — variation is large even among healthy adults</li>
+</ul>
+<p><strong>Within an individual</strong></p>
+<ul>
+<li>Day-to-day fluctuations from diet, travel, illness, stress</li>
+<li>Antibiotics can reshape the community within days; recovery takes weeks to months</li>
+<li>Longitudinal within-person variation is often as large as between-person variation</li>
+</ul>
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Note</strong></p>
+</div>
+<div class="callout-content">
+<p>Variability is not noise — understanding what drives it is the central question of the field.</p>
+</div>
+</div>
+</div>
+</section>
+<section class="slide level2">
+
+</section></section>
+<section>
+<section id="types-of-microbiome-data" class="title-slide slide level1 center">
+<h1>Types of Microbiome Data</h1>
+
+</section>
+<section id="choosing-the-right-technology" class="slide level2">
+<h2>Choosing the right technology</h2>
+<ul>
+<li>Not all microbiome questions require the same data</li>
+<li>Think of the microbiome as a <strong>city</strong> — different technologies give different views of that city</li>
+<li>The question you want to answer should drive your technology choice</li>
+<li>Each method captures a different layer of information about the same community</li>
+</ul>
+</section>
+<section id="targeted-amplicon-sequencing-the-census" class="slide level2">
+<h2>Targeted Amplicon Sequencing — The Census</h2>
+<p><strong>Big Question:</strong> Who is present in this community, and in what proportion?</p>
+<ul>
+<li>Targets a conserved marker gene (16S rRNA for bacteria/archaea; ITS for fungi)</li>
+<li>Knocking on every door and asking for the <strong>last name</strong> — broad identity, not fine detail</li>
+<li>Resolves to <strong>genus level</strong> in most cases; species-level calls are unreliable</li>
+<li>Cannot directly infer function from taxonomy alone</li>
+</ul>
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Note</strong></p>
+</div>
+<div class="callout-content">
+<p>Good for: community composition, diversity comparisons, clinical screening studies</p>
+</div>
+</div>
+</div>
+</section>
+<section id="shotgun-metagenomics-the-architectural-blueprints" class="slide level2">
+<h2>Shotgun Metagenomics — The Architectural Blueprints</h2>
+<p><strong>Big Question:</strong> Who is present, and what is their potential function?</p>
+<ul>
+<li>Sequences all DNA in the sample — not limited to one marker gene</li>
+<li>Like reading the <strong>blueprints of every building</strong> in the city — you see what equipment each organism has</li>
+<li>Recovers large portions of genomes; reveals gene content and metabolic potential</li>
+<li>Higher resolution than amplicon sequencing; higher cost and computational demand</li>
+</ul>
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Note</strong></p>
+</div>
+<div class="callout-content">
+<p>Good for: antibiotic resistance genes, strain-level resolution, functional capacity</p>
+</div>
+</div>
+</div>
+</section>
+<section id="metatranscriptomics-the-conversations" class="slide level2">
+<h2>Metatranscriptomics — The Conversations</h2>
+<p><strong>Big Question:</strong> What is the community actively doing right now?</p>
+<ul>
+<li>Sequences RNA (gene expression), not DNA</li>
+<li>Like recording all <strong>conversations in the room</strong> at a specific moment in time</li>
+<li>Shows which genes are being expressed at the moment of sampling</li>
+<li>Results are highly time-dependent — a 2 AM sample looks very different from a 3 PM sample</li>
+</ul>
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Note</strong></p>
+</div>
+<div class="callout-content">
+<p>Good for: active gene expression, response to treatment, time-sensitive biological questions</p>
+</div>
+</div>
+</div>
+</section>
+<section id="metabolomics-the-city-output" class="slide level2">
+<h2>Metabolomics — The City Output</h2>
+<p><strong>Big Question:</strong> What is the chemical fingerprint of what this community produces?</p>
+<ul>
+<li>Measures small molecules (metabolites) in the sample</li>
+<li>Like checking the <strong>air quality monitor and drainage water</strong> — you see the outputs, not the producers directly</li>
+<li>Captures chemicals that are hard to attribute to specific organisms</li>
+<li>Many metabolites remain chemically unidentified</li>
+</ul>
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Note</strong></p>
+</div>
+<div class="callout-content">
+<p>Good for: functional outputs, host-microbiome interaction signals, treatment response markers</p>
+</div>
+</div>
+</div>
+</section>
+<section class="slide level2">
+
+</section></section>
+<section>
+<section id="what-is-16s-rrna-sequencing" class="title-slide slide level1 center">
+<h1>What is 16S rRNA Sequencing?</h1>
+
+</section>
+<section id="the-16s-rrna-gene" class="slide level2">
+<h2>The 16S rRNA gene</h2>
+<ul>
+<li>Present in virtually all bacteria and archaea — a universal marker</li>
+<li>~1,500 bp long with alternating <strong>conserved</strong> and <strong>hypervariable</strong> regions (V1–V9)</li>
+<li>Conserved regions → primer binding sites</li>
+<li>Variable regions → distinguish taxa (like a genetic barcode)</li>
+<li>Short-read sequencing targets one or two variable regions at a time</li>
+</ul>
+</section>
+<section id="variable-region-selection" class="slide level2">
+<h2>Variable region selection</h2>
 <table class="caption-top">
 <thead>
 <tr class="header">
-<th>Stage</th>
-<th>What happens</th>
+<th>Region</th>
+<th>Primers</th>
+<th>Amplicon</th>
+<th>Notes</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td>Sample preparation</td>
-<td>DNA extraction</td>
+<td>V4</td>
+<td>515F / 806R</td>
+<td>~250 bp</td>
+<td>Earth Microbiome Project standard</td>
 </tr>
 <tr class="even">
-<td>Amplification</td>
-<td>PCR enrichment of 16S</td>
+<td>V3–V4</td>
+<td>341F / 805R</td>
+<td>~460 bp</td>
+<td>Most common in clinical studies</td>
 </tr>
 <tr class="odd">
-<td>Sequencing</td>
-<td>Short-read sequencing</td>
+<td>V4–V5</td>
+<td>515F / 926R</td>
+<td>~380–415 bp</td>
+<td>Better archaeal coverage</td>
 </tr>
 <tr class="even">
-<td>FASTQ</td>
-<td>Raw data</td>
-</tr>
-<tr class="odd">
-<td>Demultiplexing</td>
-<td>Sort reads to samples</td>
-</tr>
-<tr class="even">
-<td>Quality control</td>
-<td>Filter and trim</td>
-</tr>
-<tr class="odd">
-<td>Count table</td>
-<td>ASVs × samples</td>
-</tr>
-<tr class="even">
-<td>Ordination</td>
-<td>Account for depth, visualize</td>
-</tr>
-<tr class="odd">
-<td>Diversity analysis</td>
-<td>Alpha, beta, differential abundance</td>
+<td>V1–V2</td>
+<td>27F / 338R</td>
+<td>~310 bp</td>
+<td>Better gram-positive resolution</td>
 </tr>
 </tbody>
 </table>
+<div class="callout callout-important callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Important</strong></p>
+</div>
+<div class="callout-content">
+<p>Mixing primer pairs across studies is not valid — do not combine datasets from different primer sets.</p>
+</div>
+</div>
+</div>
 </section>
-<section id="sample-preparation" class="slide level2">
-<h2>Sample preparation</h2>
+<section id="amplicons" class="slide level2">
+<h2>Amplicons</h2>
 <ul>
-<li>Goal: total community DNA from every organism in your sample</li>
-<li>Bead beating vs.&nbsp;chemical lysis — gram-positive bias matters</li>
-<li>Storage conditions are a biological variable</li>
-<li>Negative extraction controls are not optional</li>
+<li>The PCR product spanning the targeted variable region is called an <strong>amplicon</strong></li>
+<li>After sequencing, identical (or near-identical) amplicons are grouped into <strong>ASVs</strong> or <strong>OTUs</strong></li>
+<li>These serve as the working units of diversity in all downstream analysis</li>
+</ul>
+</section>
+<section class="slide level2">
+
+</section></section>
+<section>
+<section id="where-data-comes-from" class="title-slide slide level1 center">
+<h1>Where Data Comes From</h1>
+
+</section>
+<section id="sequencing" class="slide level2">
+<h2>Sequencing</h2>
+<ul>
+<li>MiSeq 2×250 or 2×300 bp is standard for 16S amplicon work</li>
+<li><strong>Paired-end</strong>: forward (R1) and reverse (R2) reads overlap in the amplicon middle — overlap corrects errors</li>
+<li>Samples are pooled onto a single flow cell; reads are stochastically sampled → uneven depth across samples</li>
+<li>Check the run report: % clusters passing filter, Q30 score</li>
+</ul>
+</section>
+<section id="confounders-and-batch-effects" class="slide level2">
+<h2>Confounders and batch effects</h2>
+<ul>
+<li>Technical variation accumulates at every step: extraction kit, lysis method, PCR cycles, who runs it, when</li>
+<li>When that variation is <strong>systematic</strong> (e.g., all cases in batch 1, all controls in batch 2) it becomes a batch effect indistinguishable from biology</li>
+<li>Design principle: <strong>balance treatment groups across batches</strong></li>
 </ul>
 <div class="callout callout-warning callout-titled callout-style-default">
 <div class="callout-body">
@@ -201,91 +396,321 @@
 <p><strong>Warning</strong></p>
 </div>
 <div class="callout-content">
-<p>NanoDrop overestimates concentration. Use Qubit for input quantification.</p>
+<p>A confounded study design cannot be rescued in analysis. Balance must be built in at the design stage.</p>
 </div>
 </div>
 </div>
 </section>
-<section id="amplification" class="slide level2">
-<h2>Amplification</h2>
+<section id="amplification-and-pooling" class="slide level2">
+<h2>Amplification and pooling</h2>
 <ul>
-<li>You are selecting a slice of microbial diversity with your primer choice</li>
-<li>V3–V4 (341F/805R) and V4 (515F/806R) are most common</li>
-<li>Mixing primer pairs across studies is not valid</li>
-<li>Relative abundance ≠ absolute abundance — PCR is exponential</li>
+<li>Primer design determines which taxa you can detect — no primer set is universal</li>
+<li>PCR amplifies exponentially: <strong>relative abundance ≠ absolute abundance</strong></li>
+<li>Chimera formation increases with cycle number — use high-fidelity polymerase and minimize cycles</li>
+<li>After amplification, samples are normalized and pooled; pipetting error here creates depth variation</li>
 </ul>
 </section>
-<section id="sequencing" class="slide level2">
-<h2>Sequencing</h2>
+<section id="public-sequencing-data" class="slide level2">
+<h2>Public sequencing data</h2>
+<p>Major repositories for 16S rRNA data:</p>
 <ul>
-<li>MiSeq 2×250 or 2×300 is standard for 16S</li>
-<li>Paired-end reads overlap in the middle of the amplicon — that overlap corrects errors</li>
-<li>Check the run report: % passing filter, Q30 score</li>
-<li>PhiX spike-in is needed for amplicon libraries — low-complexity sequence</li>
+<li><strong>SRA</strong> (NCBI Sequence Read Archive) — largest archive</li>
+<li><strong>ENA</strong> (European Nucleotide Archive) — mirrors SRA with API access</li>
+<li><strong>QIITA</strong> — microbiome-specific, rich metadata</li>
+<li><strong>EMP</strong> (Earth Microbiome Project) — standardized protocols across environments</li>
+<li><strong>HMP</strong> (Human Microbiome Project) — reference human body site data</li>
 </ul>
+<div class="callout callout-important callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Important</strong></p>
+</div>
+<div class="callout-content">
+<p>When using public data: match primer pair, platform, and sequencing depth to your study. Metadata quality varies widely.</p>
+</div>
+</div>
+</div>
+</section>
+<section class="slide level2">
+
+</section></section>
+<section>
+<section id="what-data-looks-like" class="title-slide slide level1 center">
+<h1>What Data Looks Like</h1>
+
 </section>
 <section id="fastq-files" class="slide level2">
 <h2>FASTQ files</h2>
+<p>Four lines per read:</p>
+<pre><code>@SampleID_read1
+GTGYCAGCMGCCGCGGTAA...
++
+IIIIIIIIIIIIHHHGGG...</code></pre>
 <ul>
-<li>Four lines per read: ID, sequence, <code>+</code>, quality scores</li>
-<li>Quality scores degrade toward the 3’ end — expected, not a problem</li>
-<li>Q30 = 1 error per 1,000 bases</li>
-<li>Forward and reverse reads arrive as separate files (R1, R2)</li>
+<li>Line 1: read identifier</li>
+<li>Line 2: nucleotide sequence</li>
+<li>Line 3: <code>+</code> separator</li>
+<li>Line 4: Phred quality scores (ASCII-encoded)</li>
+</ul>
+<p>Q30 = 1 error per 1,000 bases · Quality degrades toward the 3′ end — expected</p>
+</section>
+<section id="qc-reports" class="slide level2">
+<h2>QC reports</h2>
+<p><strong>FastQC</strong> and <strong>QIIME2 demux summarize</strong> show:</p>
+<ul>
+<li>Per-base quality score distribution across the read length</li>
+<li>Per-sample read counts after demultiplexing</li>
+<li>Adapter/primer content</li>
+</ul>
+<p>What to look for:</p>
+<ul>
+<li>The “elbow” where quality drops — this guides your truncation length</li>
+<li>Outlier samples with dramatically fewer reads</li>
+<li>&gt;20% unassigned reads signals a demultiplexing problem</li>
 </ul>
 </section>
-<section id="demultiplexing" class="slide level2">
-<h2>Demultiplexing</h2>
+<section class="slide level2">
+
+</section></section>
+<section>
+<section id="preprocessing" class="title-slide slide level1 center">
+<h1>Preprocessing</h1>
+
+</section>
+<section id="trimming" class="slide level2">
+<h2>Trimming</h2>
+<p><strong>Primer trimming</strong> (Cutadapt)</p>
 <ul>
-<li>Barcodes/indices match reads to samples</li>
-<li>Primer trimming is not optional</li>
-<li>Check: read counts per sample, % unassigned reads</li>
-<li>A sample with &lt;1,000 reads after demultiplexing may need to be excluded</li>
+<li>Remove primer sequences before any analysis — they are not biological sequence</li>
+<li>Untrimmed primers will corrupt error modeling in DADA2 and produce spurious ASVs</li>
+</ul>
+<p><strong>Truncation</strong></p>
+<ul>
+<li>Cut reads at the quality “elbow” (where median quality drops below Q25–30)</li>
+<li>R1 and R2 must still overlap after truncation — typically need ≥20–30 bp overlap</li>
+<li><code>overlap = R1 length + R2 length − amplicon length</code></li>
+<li>Use the same truncation parameters for all samples in the study</li>
 </ul>
 </section>
-<section id="quality-control" class="slide level2">
-<h2>Quality control</h2>
+<section id="denoising-and-merging" class="slide level2 scrollable">
+<h2>Denoising and merging</h2>
+<p>DADA2 pipeline:</p>
+<ol type="1">
+<li><strong>Learn error rates</strong> — model how often each base is miscalled at each quality score</li>
+<li><strong>Denoise</strong> — correct reads using the error model; identify unique true sequences (ASVs)</li>
+<li><strong>Merge pairs</strong> — align R1 and R2 in the overlap; non-overlapping pairs are discarded</li>
+<li><strong>Remove chimeras</strong> — filter PCR-hybrid sequences</li>
+</ol>
+<p><strong>ASVs vs.&nbsp;OTUs</strong></p>
 <ul>
-<li>Truncate reads before quality drops</li>
-<li>Truncation length must allow R1 and R2 to still overlap after merging</li>
-<li>Use the same parameters for all samples</li>
-<li>Track read retention at every step</li>
+<li>OTUs cluster at 97% similarity — arbitrary, not reproducible across datasets</li>
+<li>ASVs are exact sequences — reproducible, higher resolution, can resolve single-base differences</li>
+<li>The field has moved to ASVs</li>
 </ul>
 </section>
-<section id="count-table-asvs-vs.-otus" class="slide level2">
-<h2>Count table: ASVs vs.&nbsp;OTUs</h2>
+<section id="normalization" class="slide level2">
+<h2>Normalization</h2>
+<p>Raw read counts are not comparable across samples — sequencing depth varies.</p>
+<table class="caption-top">
+<colgroup>
+<col style="width: 34%">
+<col style="width: 21%">
+<col style="width: 43%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Method</th>
+<th>How</th>
+<th>Tradeoff</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Rarefaction</strong></td>
+<td>Subsample all samples to the same depth</td>
+<td>Simple; discards data</td>
+</tr>
+<tr class="even">
+<td><strong>Relative abundance</strong></td>
+<td>Divide by total reads</td>
+<td>Simple; compositional</td>
+</tr>
+<tr class="odd">
+<td><strong>CLR</strong></td>
+<td>Log-ratio to geometric mean</td>
+<td>Statistically sound; requires care with zeros</td>
+</tr>
+<tr class="even">
+<td><strong>DESeq2 / CSS</strong></td>
+<td>RNA-seq-derived normalization</td>
+<td>Preferred for differential abundance</td>
+</tr>
+</tbody>
+</table>
+<p>Check alpha rarefaction curves before choosing a depth — curves should plateau.</p>
+</section>
+<section class="slide level2">
+
+</section></section>
+<section>
+<section id="dimension-reduction" class="title-slide slide level1 center">
+<h1>Dimension Reduction</h1>
+
+</section>
+<section id="taxonomy-assignment" class="slide level2">
+<h2>Taxonomy assignment</h2>
 <ul>
-<li><strong>OTUs</strong>: reads clustered at 97% similarity — fast, tolerant of errors, but imprecise</li>
-<li><strong>ASVs</strong>: exact sequences after error correction — reproducible, higher resolution</li>
-<li>The field has largely moved to ASVs (DADA2, QIIME2)</li>
-<li>Taxonomy assignment is only as good as the reference database</li>
+<li>Each ASV is compared to a reference database (SILVA, Greengenes2, NCBI)</li>
+<li>QIIME2 uses a trained Naïve Bayes classifier; returns deepest confident level + probability score</li>
+<li><strong>Species-level calls are unreliable</strong> from the V4 region — genus is the practical limit</li>
+</ul>
+<p>Taxonomic hierarchy:</p>
+<p><strong>Domain → Phylum → Class → Order → Family → Genus → Species</strong></p>
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Note</strong></p>
+</div>
+<div class="callout-content">
+<p>“Unclassified” is a real biological result — do not discard these ASVs.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="phylogenetic-tree" class="slide level2">
+<h2>Phylogenetic tree</h2>
+<ul>
+<li>Built from aligned ASV sequences using an evolutionary model</li>
+<li>Required for <strong>Faith’s PD</strong> (phylogenetic alpha diversity) and <strong>UniFrac</strong> (phylogenetic beta diversity)</li>
+<li>A community spanning diverse phyla scores higher than one with the same number of closely related ASVs</li>
 </ul>
 </section>
-<section id="normalization-ordination" class="slide level2">
-<h2>Normalization &amp; ordination</h2>
+<section id="guilds" class="slide level2">
+<h2>Guilds</h2>
 <ul>
-<li>Raw counts are not comparable across samples (different sequencing depth)</li>
-<li>Rarefaction: subsample all samples to the same depth — simple, loses data</li>
-<li>CLR transformation: compositionally aware, recommended for statistics</li>
-<li>PCoA: visualize beta diversity in 2D — patterns suggest differences, don’t prove them</li>
+<li>Ecologically or functionally relevant groupings of taxa</li>
+<li>Allows community-level interpretation beyond taxonomy</li>
+</ul>
+<p><em>Content in development</em></p>
+</section>
+<section class="slide level2">
+
+</section></section>
+<section>
+<section id="downstream-analysis" class="title-slide slide level1 center">
+<h1>Downstream Analysis</h1>
+
+</section>
+<section id="alpha-diversity-within-sample-diversity" class="slide level2">
+<h2>Alpha diversity: within-sample diversity</h2>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>Metric</th>
+<th>What it captures</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Observed features</td>
+<td>Raw ASV count — depth-sensitive</td>
+</tr>
+<tr class="even">
+<td>Shannon</td>
+<td>Richness + evenness</td>
+</tr>
+<tr class="odd">
+<td>Simpson</td>
+<td>Evenness-weighted — less sensitive to rare taxa</td>
+</tr>
+<tr class="even">
+<td>Faith’s PD</td>
+<td>Evolutionary distinctness of the community</td>
+</tr>
+<tr class="odd">
+<td>Chao1</td>
+<td>Estimated true richness accounting for undetected rare taxa</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>Use non-parametric tests (Kruskal-Wallis, Wilcoxon)</li>
+<li>Control for technical confounders (sequencing depth, extraction batch) before interpreting biologically</li>
 </ul>
 </section>
-<section id="diversity-analysis" class="slide level2">
-<h2>Diversity analysis</h2>
-<p><strong>Alpha diversity</strong> — within-sample diversity (Shannon, Faith’s PD)</p>
-<p><strong>Beta diversity</strong> — between-sample similarity (Bray-Curtis, UniFrac)</p>
+<section id="beta-diversity-between-sample-diversity" class="slide level2">
+<h2>Beta diversity: between-sample diversity</h2>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>Metric</th>
+<th>Considers</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Bray-Curtis</td>
+<td>Abundances; no phylogeny</td>
+</tr>
+<tr class="even">
+<td>Jaccard</td>
+<td>Presence/absence only</td>
+</tr>
+<tr class="odd">
+<td>UniFrac (unweighted)</td>
+<td>Phylogeny; presence/absence</td>
+</tr>
+<tr class="even">
+<td>UniFrac (weighted)</td>
+<td>Phylogeny + abundances</td>
+</tr>
+<tr class="odd">
+<td>Aitchison</td>
+<td>Compositionally aware (CLR space)</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Ordination</strong> (PCoA, NMDS, PCA) reduces the distance matrix to 2–3D for visualization.</p>
+<div class="callout callout-warning callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Warning</strong></p>
+</div>
+<div class="callout-content">
+<p>Ordination plots suggest patterns — they do not prove them. Test with PERMANOVA; check dispersion with PERMDISP.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="differential-abundance" class="slide level2">
+<h2>Differential abundance</h2>
+<p>Because relative abundances are <strong>compositional</strong> (sum to 1), standard tests fail.</p>
+<p>Recommended tools:</p>
 <ul>
-<li>Test with PERMANOVA; check dispersion with PERMDISP</li>
-<li>Differential abundance: use ANCOM-BC2, DESeq2, or ALDEx2 — not t-tests</li>
-<li>Correct for multiple comparisons (FDR / Benjamini-Hochberg)</li>
+<li><strong>ANCOM-BC2</strong> — log-ratio approach; near-zero false positive rate; preferred</li>
+<li><strong>DESeq2</strong> — borrowed from RNA-seq; performs well in practice</li>
+<li><strong>ALDEx2</strong> — robust but conservative</li>
+<li><strong>Maaslin2</strong> — handles multivariable models and mixed effects</li>
 </ul>
+<p>Always apply FDR correction (Benjamini-Hochberg). Report q-values, not just p-values.</p>
 </section>
 <section id="common-traps" class="slide level2">
 <h2>Common traps</h2>
 <ul>
-<li>Relative abundance artifacts: if one taxon disappears, all others look like they increased</li>
-<li>Confounders: diet, antibiotics, BMI can drive microbiome differences</li>
-<li>Low n: microbiome studies are highly variable — small cohorts are underpowered</li>
-<li>Correlation ≠ causation</li>
+<li><strong>Relative abundance artifacts</strong> — killing one taxon inflates all others’ relative abundance</li>
+<li><strong>Confounders</strong> — diet, antibiotics, BMI, PPI use can dominate microbiome variation</li>
+<li><strong>Low n</strong> — microbiome studies are highly variable; &lt;20 per group is underpowered</li>
+<li><strong>Correlation ≠ causation</strong> — 16S data alone cannot establish mechanism</li>
+<li><strong>Taxonomy gaps</strong> — “unclassified” may be real biology, not analytical failure</li>
 </ul>
 </section>
 <section id="questions" class="slide level2">
@@ -293,7 +718,7 @@
 <p><em>Workshop reference site and KUMC resources available at [link]</em></p>
 
 
-</section>
+</section></section>
     </div>
   <div class="quarto-auto-generated-content" style="display: none;">
 <div class="footer footer-default">

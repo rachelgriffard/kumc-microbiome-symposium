@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Amplification (PCR) – 16S rRNA Microbiome Analysis</title>
+<title>Amplification &amp; Pooling – 16S rRNA Microbiome Analysis</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -42,9 +42,9 @@ ul.task-list li input[type="checkbox"] {
 <link href="site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-72be8382eaa325d6a0089fca006bb000.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="site_libs/bootstrap/bootstrap-dark-746cf2f3b7df649972bea76384bf8222.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="site_libs/bootstrap/bootstrap-72be8382eaa325d6a0089fca006bb000.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-4231a31e2c69a1844b2804f51e72beb7.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark-0dc106fd94803a3ac66018cf8a0e24d0.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="site_libs/bootstrap/bootstrap-4231a31e2c69a1844b2804f51e72beb7.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -263,10 +263,6 @@ ul.task-list li input[type="checkbox"] {
     <a class="nav-link active" href="./index.html" aria-current="page"> 
 <span class="menu-text">Home</span></a>
   </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="./kumc-resources.html"> 
-<span class="menu-text">KUMC Resources</span></a>
-  </li>  
 </ul>
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item">
@@ -286,7 +282,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./01-sample-prep.html">Wet Lab</a></li><li class="breadcrumb-item"><a href="./02-amplification.html">Amplification (PCR)</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Targeted Amplicon Sequencing Analysis</li><li class="breadcrumb-item"><a href="./03-sequencing.html">Preprocessing</a></li><li class="breadcrumb-item"><a href="./02-amplification.html">Amplification &amp; Pooling</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -310,16 +306,10 @@ ul.task-list li input[type="checkbox"] {
         </div>
     <div class="sidebar-menu-container"> 
     <ul class="list-unstyled mt-1">
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Overview</span></a>
-  </div>
-</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
- <span class="menu-text">Wet Lab</span></a>
+ <span class="menu-text">Introduction to Microbiome Analysis</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -327,20 +317,20 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./01-sample-prep.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Sample Preparation</span></a>
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./02-amplification.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">Amplification (PCR)</span></a>
+  <a href="./types-of-microbiome-data.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Types of Microbiome Data</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./03-sequencing.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Sequencing</span></a>
+  <a href="./16s-overview.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">What is 16S rRNA seq?</span></a>
   </div>
 </li>
       </ul>
@@ -348,16 +338,31 @@ ul.task-list li input[type="checkbox"] {
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
- <span class="menu-text">Data Processing</span></a>
+ <span class="menu-text">Targeted Amplicon Sequencing Analysis</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Preprocessing</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth2 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./public-data.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Public Sequencing Data</span></a>
+  <a href="./03-sequencing.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Sequencing &amp; Confounders</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./02-amplification.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Amplification &amp; Pooling</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -368,37 +373,49 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./05-demultiplexing.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Demultiplexing</span></a>
+  <a href="./qc-reports.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">QC Reports</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./06-quality-control.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Quality Control</span></a>
+  <a href="./trimming.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Trimming &amp; Truncation</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./denoising.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Denoising &amp; Merging</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./normalization.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Normalization</span></a>
   </div>
 </li>
       </ul>
   </li>
-        <li class="sidebar-item sidebar-item-section">
+          <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
- <span class="menu-text">Analysis</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false">
+ <span class="menu-text">Downstream Analysis</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./07-count-table.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Count Table (ASVs / OTUs)</span></a>
+  <a href="./taxonomy.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Taxonomy Assignment</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./08-dimension-reduction.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Normalization &amp; Ordination</span></a>
+  <a href="./guilds.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Guilds</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -407,21 +424,51 @@ ul.task-list li input[type="checkbox"] {
  <span class="menu-text">Diversity Analysis</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./diff-abundance.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Differential Abundance</span></a>
+  </div>
+</li>
       </ul>
   </li>
-        <li class="px-0"><hr class="sidebar-divider hi "></li>
-        <li class="sidebar-item">
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
+ <span class="menu-text">Further Resources</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./public-data.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Public Sequencing Data</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./kumc-resources.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">KUMC Resources</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./external-resources.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">External Resources</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./citations.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Citations</span></a>
   </div>
 </li>
+      </ul>
+  </li>
     </ul>
     </div>
 </nav>
@@ -432,9 +479,7 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#the-16s-rrna-gene-structure" id="toc-the-16s-rrna-gene-structure" class="nav-link active" data-scroll-target="#the-16s-rrna-gene-structure">The 16S rRNA gene structure</a></li>
-  <li><a href="#variable-region-selection" id="toc-variable-region-selection" class="nav-link" data-scroll-target="#variable-region-selection">Variable region selection</a></li>
-  <li><a href="#primer-design" id="toc-primer-design" class="nav-link" data-scroll-target="#primer-design">Primer design</a></li>
+  <li><a href="#primer-design" id="toc-primer-design" class="nav-link active" data-scroll-target="#primer-design">Primer design</a></li>
   <li><a href="#pcr-conditions" id="toc-pcr-conditions" class="nav-link" data-scroll-target="#pcr-conditions">PCR conditions</a></li>
   <li><a href="#what-can-go-wrong" id="toc-what-can-go-wrong" class="nav-link" data-scroll-target="#what-can-go-wrong">What can go wrong</a></li>
   <li><a href="#pcr-duplicates-and-the-relative-abundance-problem" id="toc-pcr-duplicates-and-the-relative-abundance-problem" class="nav-link" data-scroll-target="#pcr-duplicates-and-the-relative-abundance-problem">PCR duplicates and the relative abundance problem</a></li>
@@ -445,9 +490,9 @@ ul.task-list li input[type="checkbox"] {
 <main class="content" id="quarto-document-content">
 
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./01-sample-prep.html">Wet Lab</a></li><li class="breadcrumb-item"><a href="./02-amplification.html">Amplification (PCR)</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Targeted Amplicon Sequencing Analysis</li><li class="breadcrumb-item"><a href="./03-sequencing.html">Preprocessing</a></li><li class="breadcrumb-item"><a href="./02-amplification.html">Amplification &amp; Pooling</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">Amplification (PCR)</h1>
+<h1 class="title">Amplification &amp; Pooling</h1>
 </div>
 
 
@@ -469,76 +514,7 @@ ul.task-list li input[type="checkbox"] {
 <p><img src="assets/amplification.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:60.0%"></p>
 </figure>
 </div>
-<p>16S rRNA amplicon sequencing works by selectively amplifying a conserved portion or portions of the 16S rRNA gene a gene present in virtually all bacteria and archaea, with conserved regions flanking hypervariable regions where the sequence differs enough to distinguish taxa.</p>
-<section id="the-16s-rrna-gene-structure" class="level2">
-<h2 class="anchored" data-anchor-id="the-16s-rrna-gene-structure">The 16S rRNA gene structure</h2>
-<p>The 16S rRNA gene is approximately 1,500 bp long and contains alternating conserved regions and nine hypervariable regions (V1–V9) whose sequence diversity distinguishes taxa — functioning like genetic barcodes. No single variable region resolves all taxa equally well, and short-read sequencing (150–300 bp per read) means you are targeting one or two regions at a time.</p>
-<p>Your choice of target region is a consequential decision in your study design.</p>
-</section>
-<section id="variable-region-selection" class="level2">
-<h2 class="anchored" data-anchor-id="variable-region-selection">Variable region selection</h2>
-<table class="caption-top table">
-<colgroup>
-<col style="width: 20%">
-<col style="width: 20%">
-<col style="width: 20%">
-<col style="width: 20%">
-<col style="width: 20%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>Region</th>
-<th>Forward / Reverse Primers</th>
-<th>Amplicon Size</th>
-<th>Sequencing Mode</th>
-<th>Notes</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>V4</td>
-<td>515F <code>GTGYCAGCMGCCGCGGTAA</code> / 806R <code>GGACTACHVGGGTWTCTAAT</code></td>
-<td>~250 bp</td>
-<td>2×150 or 2×250 bp</td>
-<td>Earth Microbiome Project standard; short, fits Illumina read lengths well; broad coverage</td>
-</tr>
-<tr class="even">
-<td>V3–V4</td>
-<td>341F <code>CCTACGGGNGGCWGCAG</code> / 805R <code>GACTACHVGGGTATCTAATCC</code></td>
-<td>~460 bp</td>
-<td>2×250 or 2×300 bp</td>
-<td>Most common in clinical microbiome studies; better taxonomic resolution; requires good paired-end overlap</td>
-</tr>
-<tr class="odd">
-<td>V4–V5</td>
-<td>515F <code>GTGYCAGCMGCCGCGGTAA</code> / 926R <code>CCGYCAATTYMTTTRAGTTT</code></td>
-<td>~380–415 bp</td>
-<td>2×250 bp</td>
-<td>Better archaeal coverage</td>
-</tr>
-<tr class="even">
-<td>V1–V2</td>
-<td>27F <code>AGAGTTTGATCMTGGCTCAG</code> / 338R <code>TGCTGCCTCCCGTAGGAGT</code></td>
-<td>~310 bp</td>
-<td>2×250 bp</td>
-<td>Better gram-positive resolution; less reference data</td>
-</tr>
-</tbody>
-</table>
-<div class="callout callout-style-default callout-important callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Important</span>Mixing samples with different primers: I wouldn’t!
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Community composition estimates are not directly comparable across studies that used different primer pairs. Even within the same region, primer mismatches can create systematic biases toward certain taxa. If you are comparing to published data or a reference cohort, you are best off using the same primer pair.</p>
-</div>
-</div>
-</section>
+<p>After DNA is extracted from a sample, the 16S variable region is selectively amplified using PCR. The specific primers used determine which portion of the gene is targeted and which taxa can be detected. Understanding what can go wrong during amplification — and what choices you made — is essential for interpreting your results.</p>
 <section id="primer-design" class="level2">
 <h2 class="anchored" data-anchor-id="primer-design">Primer design</h2>
 <p>Universal primers target the conserved region sequences. “Universal” is a relative term — primers vary in how well they match across the full breadth of bacterial diversity. Some lineages (e.g., <em>Verrucomicrobia</em>, <em>Tenericutes</em>, Archaea) can be systematically underamplified by common primer sets.</p>

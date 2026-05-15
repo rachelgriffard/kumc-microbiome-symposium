@@ -1,100 +1,92 @@
 /*-- scss:defaults --*/
 
-// Primary purple palette (dark mode)
-$primary:           #c47eca;   // lighter purple for dark bg visibility
-$link-color:        #c47eca;
+// Turquoise palette — beach city ocean water
+$primary:           #12BFB0;
+$link-color:        #12BFB0;
 
-// Navbar — deep purple header
-$navbar-bg:         #3d1542;
-$navbar-fg:         #f6e5f8;
-$navbar-hl:         #f6e5f8;
+// Navbar — deep ocean navy (dark building, far right)
+$navbar-bg:         #162840;
+$navbar-fg:         #F0E4CC;
+$navbar-hl:         #F0E4CC;
 
-// Sidebar — slightly lighter dark purple
-$sidebar-bg:        #2a0d2e;
-$sidebar-fg:        #f0d8f4;
-$sidebar-border-color: #4a2050;
+// Sidebar — deep ocean, slightly lighter than body
+$sidebar-bg:        #0D1F2D;
+$sidebar-fg:        #E8D9BC;
+$sidebar-border-color: #1E4A45;
 
 // Body
-$body-bg:           #1a0a1e;
-$body-color:        #f0d8f4;
+$body-bg:           #091827;
+$body-color:        #E8D9BC;
 
 // Code blocks
-$code-bg:           #2e1033;
-$code-color:        #f6e5f8;
+$code-bg:           #162840;
+$code-color:        #F0E4CC;
 
 // Inline code
-$code-inline-color: #f0d8f4;
-$code-inline-bg:    #3d1a42;
+$code-inline-color: #E8D9BC;
+$code-inline-bg:    #1E3548;
 
 // Headings
-$headings-color:    #f6e5f8;
+$headings-color:    #F0E4CC;
 
-// Links hover
-$link-hover-color:  #dda8e4;
+// Link hover — lighter turquoise
+$link-hover-color:  #3DD4C4;
 
-// Code callout (tip) — lighter blue for dark background
-$callout-color-tip:     #64B5F6;
+// Callout tip — turquoise
+$callout-color-tip: #12BFB0;
 
 /*-- scss:rules --*/
 
-// Active sidebar items
 .sidebar-item-container .active {
-  color: #c47eca !important;
+  color: #12BFB0 !important;
   font-weight: 600;
 }
 
-// Section headers in sidebar
 .sidebar-section > .sidebar-section-item {
-  color: #dda8e4;
+  color: #3DD4C4;
   font-weight: 700;
 }
 
-// TOC active
 #TOC a.active {
-  color: #c47eca !important;
-  border-left-color: #c47eca !important;
+  color: #12BFB0 !important;
+  border-left-color: #12BFB0 !important;
 }
 
-// Callout note border
 .callout-note {
-  border-left-color: #c47eca !important;
+  border-left-color: #12BFB0 !important;
 }
 
-// Buttons
 .btn-primary {
-  background-color: #752f7d;
-  border-color: #752f7d;
+  background-color: #12BFB0;
+  border-color: #12BFB0;
 }
 .btn-primary:hover {
-  background-color: #9e3fa8;
-  border-color: #9e3fa8;
+  background-color: #0DA090;
+  border-color: #0DA090;
 }
 
-// Table striping on dark bg
 .table-striped > tbody > tr:nth-of-type(odd) {
-  background-color: rgba(117, 47, 125, 0.15);
+  background-color: rgba(18, 191, 176, 0.12);
 }
 
-// Search box focus
 .form-control:focus {
-  border-color: #c47eca;
-  box-shadow: 0 0 0 0.2rem rgba(196, 126, 202, 0.25);
+  border-color: #12BFB0;
+  box-shadow: 0 0 0 0.2rem rgba(18, 191, 176, 0.25);
 }
 
-// Code dropdowns — dark mode override
 details.code-fold > summary,
 details:not(.code-fold) > summary {
-  background-color: rgba(100, 181, 246, 0.10);
-  border-left-color: #64B5F6;
-  color: #64B5F6;
+  background-color: rgba(18, 191, 176, 0.10);
+  border-left-color: #12BFB0;
+  color: #12BFB0;
 }
 
 details.code-fold > summary:hover,
 details:not(.code-fold) > summary:hover {
-  background-color: rgba(100, 181, 246, 0.20);
+  background-color: rgba(18, 191, 176, 0.20);
 }
 
 details.code-fold > summary::before,
 details:not(.code-fold) > summary::before {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%2364B5F6' viewBox='0 0 16 16'%3E%3Cpath d='M14.082 2.182a.5.5 0 0 1 .103.557L8.528 15.467a.5.5 0 0 1-.917-.007L5.57 10.694.803 8.652a.5.5 0 0 1-.006-.916l12.728-5.657a.5.5 0 0 1 .556.103z'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%2312BFB0' viewBox='0 0 16 16'%3E%3Cpath d='M14.082 2.182a.5.5 0 0 1 .103.557L8.528 15.467a.5.5 0 0 1-.917-.007L5.57 10.694.803 8.652a.5.5 0 0 1-.006-.916l12.728-5.657a.5.5 0 0 1 .556.103z'/%3E%3C/svg%3E");
 }

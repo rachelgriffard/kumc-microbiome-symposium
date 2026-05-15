@@ -1,0 +1,17 @@
+---
+title: "External Resources"
+---
+
+## Analysis pipelines and tutorials
+
+-   [QIIME2 documentation](https://docs.qiime2.org) — tutorials, plugin references, and a community forum for the most widely used microbiome analysis platform
+-   [nf-core/ampliseq](https://nf-co.re/ampliseq) — a Nextflow pipeline for amplicon sequencing analysis maintained by the nf-core community
+-   [DADA2 tutorial](https://benjjneb.github.io/dada2/tutorial.html) — R-based ASV pipeline
+-   [phyloseq tutorials](https://joey711.github.io/phyloseq/) — R package for microbiome data analysis and visualization
+-   [National Microbiome Data Collaborative Microbiome Scence Certificate Program](https://microbiomedata.org/certificate-program/) — Overarching, in-depth overview of microbiome analyses free for public
+
+## Reference databases and comparative datasets
+
+-   [Earth Microbiome Project](https://earthmicrobiome.org) — protocols, reference databases, and comparative datasets
+-   [Silva database](https://www.arb-silva.de) — rRNA reference database for taxonomy assignment
+-   [Greengenes2](https://greengenes2.ucsd.edu) — updated 16S reference database
