@@ -1,93 +1,86 @@
 /*-- scss:defaults --*/
 
-// Primary purple palette
-$primary:           #752f7d;
-$link-color:        #752f7d;
+// Steel blue palette — landlocked city glass buildings
+$primary:           #2D6EA0;
+$link-color:        #2D6EA0;
 
-// Navbar
-$navbar-bg:         #752f7d;
-$navbar-fg:         #f6e5f8;
+// Navbar — dark navy building tops
+$navbar-bg:         #1B3A58;
+$navbar-fg:         #EBF4FB;
 $navbar-hl:         #ffffff;
 
-// Sidebar
-$sidebar-bg:        #f6e5f8;
-$sidebar-fg:        #3a1a3e;
-$sidebar-border-color: #d4b8d8;
+// Sidebar — very light blue-white
+$sidebar-bg:        #EBF4FB;
+$sidebar-fg:        #1B3A58;
+$sidebar-border-color: #A8C8DF;
 
 // Body
 $body-bg:           #ffffff;
-$body-color:        #2a1a2e;
+$body-color:        #1A2E40;
 
 // Code blocks
-$code-bg:           #f6e5f8;
-$code-color:        #4a1a52;
+$code-bg:           #EBF4FB;
+$code-color:        #1B3A58;
 
 // Inline code
-$code-inline-color: #752f7d;
-$code-inline-bg:    #f6e5f8;
+$code-inline-color: #2D6EA0;
+$code-inline-bg:    #EBF4FB;
 
 // Callouts
-$callout-color-note:    #752f7d;
-$callout-color-tip:     #1565C0;
-$callout-color-warning: #c97c2e;
+$callout-color-note:    #2D6EA0;
+$callout-color-tip:     #1A7A6A;
+$callout-color-warning: #C97C2E;
 
 // Table of contents
-$toc-color:         #752f7d;
-$toc-active-border: #752f7d;
+$toc-color:         #2D6EA0;
+$toc-active-border: #2D6EA0;
 
 // Footer
-$footer-bg:         #f6e5f8;
-$footer-fg:         #3a1a3e;
+$footer-bg:         #EBF4FB;
+$footer-fg:         #1B3A58;
 
 // Headings
-$headings-color:    #4a1a52;
+$headings-color:    #1B3A58;
 
-// Selection highlight
-$link-hover-color:  #9e3fa8;
+// Link hover
+$link-hover-color:  #4A9BC4;
 
 /*-- scss:rules --*/
 
-// Active sidebar items
 .sidebar-item-container .active {
-  color: #752f7d !important;
+  color: #2D6EA0 !important;
   font-weight: 600;
 }
 
-// Section headers in sidebar
 .sidebar-section > .sidebar-section-item {
-  color: #4a1a52;
+  color: #1B3A58;
   font-weight: 700;
 }
 
-// TOC active
 #TOC a.active {
-  color: #752f7d !important;
-  border-left-color: #752f7d !important;
+  color: #2D6EA0 !important;
+  border-left-color: #2D6EA0 !important;
 }
 
-// Callout note border
 .callout-note {
-  border-left-color: #752f7d !important;
+  border-left-color: #2D6EA0 !important;
 }
 
-// Buttons
 .btn-primary {
-  background-color: #752f7d;
-  border-color: #752f7d;
+  background-color: #2D6EA0;
+  border-color: #2D6EA0;
 }
 .btn-primary:hover {
-  background-color: #5e2564;
-  border-color: #5e2564;
+  background-color: #1B5A8A;
+  border-color: #1B5A8A;
 }
 
-// Tab active state
 .nav-tabs .nav-link.active {
-  color: #752f7d !important;
-  border-bottom-color: #752f7d !important;
+  color: #2D6EA0 !important;
+  border-bottom-color: #2D6EA0 !important;
 }
 
-// Search box focus
 .form-control:focus {
-  border-color: #752f7d;
-  box-shadow: 0 0 0 0.2rem rgba(117, 47, 125, 0.25);
+  border-color: #2D6EA0;
+  box-shadow: 0 0 0 0.2rem rgba(45, 110, 160, 0.25);
 }

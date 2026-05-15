@@ -1,31 +1,8 @@
 ---
-title: "Amplification (PCR)"
+title: "Amplification & Pooling"
 ---
 
-![](assets/amplification.png){fig-align="center" width="60%"}
-
-16S rRNA amplicon sequencing works by selectively amplifying a conserved portion or portions of the 16S rRNA gene a gene present in virtually all bacteria and archaea, with conserved regions flanking hypervariable regions where the sequence differs enough to distinguish taxa.
-
-## The 16S rRNA gene structure
-
-The 16S rRNA gene is approximately 1,500 bp long and contains alternating conserved regions and nine hypervariable regions (V1–V9) whose sequence diversity distinguishes taxa — functioning like genetic barcodes. No single variable region resolves all taxa equally well, and short-read sequencing (150–300 bp per read) means you are targeting one or two regions at a time.
-
-Your choice of target region is a consequential decision in your study design.
-
-## Variable region selection
-
-| Region | Forward / Reverse Primers | Amplicon Size | Sequencing Mode | Notes |
-|---------------|---------------|---------------|---------------|---------------|
-| V4 | 515F `GTGYCAGCMGCCGCGGTAA` / 806R `GGACTACHVGGGTWTCTAAT` | \~250 bp | 2×150 or 2×250 bp | Earth Microbiome Project standard; short, fits Illumina read lengths well; broad coverage |
-| V3–V4 | 341F `CCTACGGGNGGCWGCAG` / 805R `GACTACHVGGGTATCTAATCC` | \~460 bp | 2×250 or 2×300 bp | Most common in clinical microbiome studies; better taxonomic resolution; requires good paired-end overlap |
-| V4–V5 | 515F `GTGYCAGCMGCCGCGGTAA` / 926R `CCGYCAATTYMTTTRAGTTT` | \~380–415 bp | 2×250 bp | Better archaeal coverage |
-| V1–V2 | 27F `AGAGTTTGATCMTGGCTCAG` / 338R `TGCTGCCTCCCGTAGGAGT` | \~310 bp | 2×250 bp | Better gram-positive resolution; less reference data |
-
-::: callout-important
-## Mixing samples with different primers: I wouldn't!
-
-Community composition estimates are not directly comparable across studies that used different primer pairs. Even within the same region, primer mismatches can create systematic biases toward certain taxa. If you are comparing to published data or a reference cohort, you are best off using the same primer pair.
-:::
+After DNA is extracted from a sample, the 16S variable region is selectively amplified using PCR. The specific primers used determine which portion of the gene is targeted and which taxa can be detected. Understanding what can go wrong during amplification — and what choices you made — is essential for interpreting your results.
 
 ## Primer design
 

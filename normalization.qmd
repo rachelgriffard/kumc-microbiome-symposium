@@ -1,0 +1,58 @@
+---
+title: "Normalization"
+---
+
+The count table contains raw read counts, but those counts are not directly comparable across samples. Different samples received different numbers of sequencing reads — some may have 50,000, others 8,000 — and that technical variation has nothing to do with biology. Before comparing community composition across samples, you need to account for these differences. This is the normalization problem, and it is one of the most actively debated methodological areas in microbiome analysis.
+
+## Why sequencing depth varies
+
+Even when you carefully normalize the pooled library before loading the sequencer, different samples end up with different read counts. This arises from:
+
+-   Slight differences in DNA concentration across samples before pooling
+-   Amplification efficiency differences (biological and technical)
+-   Random sampling variation in cluster formation on the flow cell
+
+The result is that a taxon observed in 100 reads in a sample with 10,000 total reads (1%) looks very different from the same taxon in 500 reads in a sample with 50,000 reads (also 1%), even though the relative abundance is identical.
+
+## Rarefaction (subsampling)
+
+The traditional approach is to subsample (rarefy) all samples down to the same read depth — the depth of the shallowest sample, or a chosen cutoff that retains most samples.
+
+-   **Pro**: simple to understand; many diversity metrics were developed with this approach in mind
+-   **Con**: discards real data from well-sequenced samples; samples with fewer reads than the cutoff are excluded entirely; results depend on the randomly chosen cutoff
+
+::: callout-important
+## Choosing a rarefaction depth
+
+This decision is often agonized over. A practical approach: look at a histogram of read counts across samples. Choose a depth that retains ≥80% of samples. Samples falling below the cutoff are excluded from subsequent analysis — document this clearly.
+
+There is no objectively correct rarefaction depth. Some researchers run the analysis at multiple depths to check whether conclusions are sensitive to the choice.
+:::
+
+## Alternatives to rarefaction
+
+**Relative abundance** — divide each cell by the sample's total reads. Simple, but proportional and therefore compositional: the relative abundance of one taxon affects all others.
+
+**CSS normalization** (cumulative sum scaling, metagenomeSeq) and **DESeq2 normalization** borrow from RNA-seq workflows and attempt to normalize without discarding data. These are preferred for differential abundance testing.
+
+**CLR transformation** (centered log-ratio) is the current statistical recommendation for compositional data. It converts relative abundances into log-ratios with respect to the geometric mean, making the data more amenable to standard statistical tests. Required for some downstream analyses (Aitchison distance).
+
+The field does not have a consensus. For diversity analysis, rarefaction or relative abundance is most common. For differential abundance, normalization-aware tools (DESeq2, ANCOM-BC, ALDEx2) are preferred.
+
+## Alpha rarefaction curves
+
+Before choosing a rarefaction depth, examine how diversity changes as a function of sequencing depth for each sample. An **alpha rarefaction curve** plots observed features (ASVs) on the y-axis against sequencing depth on the x-axis, starting from a small subsample and increasing to the full read count.
+
+At low depths, each additional read tends to reveal new taxa. As depth increases, the curve flattens — you are reading more sequences but finding fewer new organisms. This plateau indicates that most of the detectable diversity in that sample has been captured.
+
+How to use this to choose a rarefaction depth:
+
+-   Choose a depth where most samples' curves have plateaued. Sequencing deeper beyond this point yields diminishing returns.
+-   The depth must also be low enough to retain a sufficient number of samples — any sample with fewer reads than the cutoff is excluded from subsequent analysis.
+-   The goal is to maximize both completeness (plateau reached) and sample retention (enough samples kept).
+
+::: callout-note
+## Analogy: the candy jar
+
+Imagine estimating how many different types of candy are in a jar. Each handful you grab at first reveals new types. After enough handfuls, you mostly find the same candies and new types appear rarely — you have captured the true diversity of the jar. A rarefaction curve that has plateaued is telling you the same thing: additional sequencing depth would tell you little new about the community.
+:::

@@ -1,0 +1,170 @@
+---
+title: "QC Reports"
+---
+
+Before any preprocessing begins, you need to understand what your data looks like. Two tools are standard for inspecting the quality of your sequencing output: **FastQC** and **QIIME2's demux summarize**. Both give you a view of per-base quality scores across reads, which is the primary input for choosing truncation parameters.
+
+## What you receive from the core: multiplexed vs. demultiplexed
+
+Sequencing data from a core facility or commercial provider arrives in one of two states:
+
+-   **Demultiplexed** — one FASTQ file pair per sample (e.g., `Sample1_R1.fastq.gz`, `Sample1_R2.fastq.gz`). Sample identifiers are in the filenames. This is what most modern Illumina runs deliver.
+-   **Multiplexed** — one or two large FASTQ files containing reads from all samples mixed together, plus a separate index file or barcode map. You must run demultiplexing yourself before any other analysis.
+
+**How to tell which you have:** If you receive many files with recognizable sample names in the filenames, your data is already demultiplexed. If you receive one or two large files without sample identifiers, the data is still multiplexed. When in doubt, ask the core.
+
+## How samples are distinguished
+
+During library prep, each sample's amplicons are tagged with a unique short sequence called a barcode or index. This may be:
+
+-   **Inline barcodes** — embedded directly in the primer sequence, immediately adjacent to the primer
+-   **Illumina dual indices** — short sequences added as separate adapter sequences, read by the instrument in separate index-read cycles
+
+For most modern Illumina workflows, the instrument handles the initial demultiplexing before you ever see the data. You still need to remove the primer sequences (which are not part of the biological read).
+
+## Checking your results
+
+After demultiplexing, inspect:
+
+-   **Read counts per sample** — are they roughly balanced? An outlier with dramatically fewer reads may have had poor library prep, a failed PCR, or a barcode collision.
+-   **Unassigned reads** — what fraction of reads could not be assigned to any sample? Some unassigned reads are normal (reads from PhiX, primer dimers, index-hopping), but if \>20% are unassigned, something went wrong.
+
+## Looking at a quality report
+
+**FastQC** is one standard tool for a quick sanity check on raw reads. It produces plots of:
+
+-   Per-base quality scores across the read length
+-   Per-sequence quality distribution
+-   Sequence length distribution
+-   Adapter content
+-   Overrepresented sequences (primers should appear here)
+
+QIIME2's demux plugin produces similar quality plots and is often the first thing you look at after importing your data within the QIIME2 framework.
+
+<details>
+
+<summary>FastQC</summary>
+
+For more information about FastQC, check out [this site](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/).
+
+``` bash
+# to run the analysis on all files in a folder ending in .fastq.gz
+fastqc *.fastq.gz
+```
+
+</details>
+
+<details>
+
+<summary>QIIME2 Demux Summarize</summary>
+
+For more information about QIIME2 demux-summarize, check out [this site](https://docs.qiime2.org/2024.10/plugins/available/demux/summarize/).
+
+``` bash
+qiime2 demux-summarize \
+  --i-data demux.qza
+  --o-visualization.qzv
+```
+
+</details>
+
+A common diagnostic plot is the **per-base quality score distribution**. These are often a box plot or line plot showing, at each read position, the spread of quality scores across all reads. For this example below, the shaded band is the interquartile range (middle 50% of reads), the solid line is the median, and the thin lines are the whiskers. Toggle between R1 and R2 to see how the quality degrades over the length of the read.
+
+```{ojs}
+//| echo: false
+viewof selectedRead = Inputs.radio(["R1", "R2", "Both"], {
+  value: "Both",
+  label: "Read direction"
+})
+```
+
+```{ojs}
+//| echo: false
+{
+  function qualityStats(readType, nPos) {
+    return Array.from({length: nPos}, (_, i) => {
+      const pos = i + 1;
+      const t = i / (nPos - 1);
+      let median, spread;
+      if (readType === "R1") {
+        median = t < 0.08 ? 33 + t * 50
+               : t < 0.80 ? 37 - t * 2
+               : 37 - t * 2 - Math.pow((t - 0.80) / 0.20, 2) * 14;
+        spread = t < 0.80 ? 2 : 2 + (t - 0.80) * 15;
+      } else {
+        median = t < 0.08 ? 31 + t * 45
+               : t < 0.60 ? 36 - t * 3
+               : 36 - t * 3 - Math.pow((t - 0.60) / 0.40, 1.5) * 16;
+        spread = t < 0.60 ? 2.5 : 2.5 + (t - 0.60) * 20;
+      }
+      median = Math.max(5, median);
+      return {
+        pos,
+        read: readType,
+        median: +median.toFixed(1),
+        q1:     +Math.max(2,  median - spread * 0.7).toFixed(1),
+        q3:     +Math.min(40, median + spread * 0.4).toFixed(1),
+        wLow:   +Math.max(0,  median - spread * 1.5).toFixed(1),
+        wHigh:  +Math.min(40, median + spread * 0.9).toFixed(1)
+      };
+    });
+  }
+
+  const nPos = 250;
+  const reads = selectedRead === "Both" ? ["R1", "R2"] : [selectedRead];
+  const data  = reads.flatMap(r => qualityStats(r, nPos));
+  const clr   = { R1: "#1565C0", R2: "#C62828" };
+  const w     = Math.min(width, 720);
+
+  return Plot.plot({
+    width: w,
+    height: 340,
+    marginRight: selectedRead === "Both" ? 50 : 20,
+    x: { label: "Position in read (bp) →", domain: [1, nPos] },
+    y: { label: "↑ Phred quality score", domain: [0, 42], grid: true },
+    marks: [
+      Plot.rect(
+        [{y1: 0, y2: 20}, {y1: 20, y2: 28}, {y1: 28, y2: 42}],
+        { x1: 1, x2: nPos, y1: "y1", y2: "y2",
+          fill: ["#ffebee", "#fff9c4", "#e8f5e9"], fillOpacity: 0.6 }
+      ),
+      ...reads.flatMap(r => [
+        Plot.areaY(data.filter(d => d.read === r),
+          { x: "pos", y1: "q1", y2: "q3",
+            fill: clr[r], fillOpacity: 0.22 }),
+        Plot.lineY(data.filter(d => d.read === r),
+          { x: "pos", y: "wLow",  stroke: clr[r], strokeWidth: 0.8, strokeOpacity: 0.45 }),
+        Plot.lineY(data.filter(d => d.read === r),
+          { x: "pos", y: "wHigh", stroke: clr[r], strokeWidth: 0.8, strokeOpacity: 0.45 }),
+        Plot.lineY(data.filter(d => d.read === r),
+          { x: "pos", y: "median", stroke: clr[r], strokeWidth: 2.5 })
+      ]),
+      Plot.ruleY([30], { stroke: "#666", strokeDasharray: "6,3", strokeWidth: 1.5 }),
+      Plot.text([{ pos: 8, q: 30 }],
+        { x: "pos", y: "q", text: ["Q30"], dy: -8,
+          fontSize: 11, fill: "#666", fontWeight: "600" }),
+      ...(selectedRead === "Both" ? reads.map(r =>
+        Plot.text(
+          [{ pos: nPos, y: data.filter(d => d.read === r).at(-1).median }],
+          { x: "pos", y: "y", text: [r], dx: 8,
+            fill: clr[r], fontWeight: "700", fontSize: 12 }
+        )
+      ) : [])
+    ]
+  });
+}
+```
+
+::: callout-note
+## Reading the plot
+
+The **green zone** (Q ≥ 28) is good quality. The **yellow zone** (Q 20–28) is acceptable but worth watching. The **red zone** (Q \< 20) should be trimmed before analysis. Notice that R2 dips into the yellow zone well before position 250 — this is normal and is why DADA2 truncation lengths for R1 and R2 are set independently.
+:::
+
+## What can go wrong
+
+**Sample swaps** — if samples were loaded into the wrong wells during library prep, the barcodes will assign reads to the wrong samples. This is undetectable computationally without external metadata. Always maintain a physical sample tracking record.
+
+**Low read counts in specific samples** — often traces back to the wet lab (poor amplification, poor normalization in the pooling step). A sample with \<1,000 reads after demultiplexing may need to be excluded from analysis or re-run.
+
+**Contamination from a dominant sample** — if one sample has vastly more reads than others in the pool (because it was overloaded during pooling), index hopping can bleed a small number of its reads into neighboring wells. This is usually visible as unexpected taxa at low abundance in your negative controls.

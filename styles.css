@@ -1,3 +1,9 @@
+/* Navbar logo size */
+.navbar-brand img {
+  height: 56px;
+  max-height: 56px;
+}
+
 /* Pipeline stage callouts */
 .callout-warning .callout-title {
   font-weight: 600;

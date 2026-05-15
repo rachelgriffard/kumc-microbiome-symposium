@@ -1,0 +1,101 @@
+---
+title: "Denoising & Merging"
+---
+
+The count table is the central data object in a microbiome study: a matrix of taxa (rows) × samples (columns), where each cell contains the number of sequencing reads assigned to that taxon in that sample. Every diversity analysis, differential abundance test, and visualization works from this table. The decisions made in building it affect everything that follows.
+
+## ASVs vs. OTUs: a philosophical divide
+
+There are two main approaches to going from reads to taxa.
+
+### OTU clustering
+
+Operational Taxonomic Units (OTUs) group similar sequences together based on a percent identity threshold, typically 97% (the conventional proxy for a bacterial "species"). All reads within 97% of each other are collapsed into a single OTU represented by a consensus or centroid sequence.
+
+-   **Pro**: tolerant of sequencing errors (errors fall within the similarity threshold)
+-   **Con**: different taxa can be merged into the same OTU; the 97% threshold is arbitrary and varies in its biological meaning across lineages; results change depending on clustering order; not reproducible across datasets with different sample sets
+
+### ASV denoising (DADA2, Deblur)
+
+Amplicon Sequence Variants (ASVs) are exact sequences — the actual nucleotide sequence of each unique variant, after sequencing errors have been corrected by a statistical model. Instead of clustering, DADA2 models the error process of the sequencing run and uses that model to distinguish true biological variants from noise.
+
+-   **Pro**: exact sequences are reproducible across studies and databases; can resolve variants differing by a single base; exact sequences can be searched against any database
+-   **Con**: requires a good error model (poor quality data = poor error model); computationally more intensive
+
+::: callout-note
+## The field has largely moved to ASVs
+
+Most current publications and tools (DADA2, QIIME2's default, Deblur) use ASVs. If you are comparing to older literature or datasets that used OTU clustering, be aware that they are not directly comparable without re-analysis.
+:::
+
+## How DADA2 builds the count table
+
+1.  **Learn error rates** — the algorithm examines quality score profiles across all reads in the run to build a model of how often each nucleotide is substituted for another at each quality score. This is why all samples in a run should be processed together during error learning.
+
+2.  **Denoise** — reads are corrected based on the error model, and unique true sequences (ASVs) are identified.
+
+3.  **Merge paired reads** — corrected R1 and R2 reads are aligned and merged in the overlap region. Non-overlapping pairs are discarded.
+
+4.  **Remove chimeras** — sequences that appear to be PCR chimeras (composites of two real sequences) are identified and removed.
+
+<details>
+
+<summary>Example: DADA2 denoising pipeline</summary>
+
+``` r
+# Learn error rates (run once per sequencing run)
+err_forward <- learnErrors(filtered_forward, multithread = TRUE)
+err_reverse <- learnErrors(filtered_reverse, multithread = TRUE)
+
+# Denoise
+dada_forward <- dada(filtered_forward, err = err_forward, multithread = TRUE)
+dada_reverse <- dada(filtered_reverse, err = err_reverse, multithread = TRUE)
+
+# Merge
+merged <- mergePairs(dada_forward, filtered_forward,
+                     dada_reverse, filtered_reverse)
+
+# Build count table
+seqtab <- makeSequenceTable(merged)
+
+# Remove chimeras
+seqtab_nochim <- removeBimeraDenovo(seqtab, method = "consensus")
+```
+
+</details>
+
+## What the ASV table looks like
+
+The output is a matrix where rows are ASVs (each identified by its exact nucleotide sequence or a short hash) and columns are samples. Each cell is an integer count.
+
+| ASV | Sample_1 | Sample_2 | Sample_3 | Sample_4 |
+|-----|----------|----------|----------|----------|
+| ASV_001 | 1284 | 0 | 532 | 891 |
+| ASV_002 | 0 | 4471 | 213 | 0 |
+| ASV_003 | 62 | 88 | 0 | 1104 |
+| ASV_004 | 3100 | 2850 | 2901 | 3200 |
+| … | … | … | … | … |
+
+This table will have thousands of rows (one per unique ASV) and one column per sample. Most cells will be zero — ASVs are typically present in only a subset of samples.
+
+## Tracking read counts through the pipeline
+
+Most pipelines produce a summary table of read counts at each step (input → filtered → denoised → merged → chimeras removed). This is essential for diagnosing where reads are being lost. A healthy pipeline looks like:
+
+| Step                  | Reads        |
+|-----------------------|--------------|
+| Input                 | 50,000       |
+| After filtering       | 42,000 (84%) |
+| After denoising       | 41,500 (99%) |
+| After merging         | 39,000 (94%) |
+| After chimera removal | 38,000 (97%) |
+
+Large drops at any single step indicate a problem at that stage.
+
+## What can go wrong
+
+**Poor error model** — if the run had poor quality or very low read counts, DADA2's error model will be poorly estimated. Signs: very few ASVs recovered, or implausibly large numbers of ASVs. Running with pooling (`pool = TRUE`) or pseudo-pooling can help for low-abundance samples.
+
+**Merge failures** — if too few reads merge (check the DADA2 step summary), the truncation lengths are likely the culprit. Some pipelines accept single-end reads as a fallback.
+
+**Chimera over-removal** — the chimera removal step is aggressive. Rare legitimate ASVs can be incorrectly flagged as chimeras if they resemble combinations of two more abundant sequences. This is an inherent limitation and not fully controllable.
