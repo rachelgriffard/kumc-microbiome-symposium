@@ -2,15 +2,15 @@
 title: "Types of Microbiome Data"
 ---
 
-In order to understand the broad types of microbiome data there are, we are going to consider the microbiome as a city that we are trying to characterize. This characterization can mean different things. For example, do we want to know roughly how many people have the last name Johnson? Or are we more interested in how many people have the occupation of carpenter? Or are we interested in understanding how many bird houses are being produced by those carpenters? Each of these looks to understand this city deeper, but they are unique in their approach. Similarly, we have to consider the types of questions we want to answer about our microbiome community of interest before we select the appropriate technology for our experiment. Each of these microbiome technologies provide a different layer of information about the same community.
+To understand some of the types microbiome data there are, we are going to consider the microbiome as a city that we are trying to characterize. This characterization can mean different things. For example, do we want to know roughly how many people have the last name Johnson? Or are we more interested in how many people have the occupation of carpenter? Or are we interested in understanding how many bird houses are being produced by those carpenters? Each of these looks to understand this city deeper, but they are unique in their approach. Similarly, we have to consider the types of questions we want to answer about our microbiome before we select the appropriate technology for our experiment. Each of these microbiome technologies provide a different layer of information about the same community. This is not a comprehensive list, but aimed at giving you an idea of the various ways you can look at these little microbial cities.
 
-# The Census - Targeted Amplicon Sequencing
+# ![](assets/census-targetedamplicon.png){height="24px"} The Census - Targeted Amplicon Sequencing
 
 **Big Question:** Who is present in this community and in what proportion?
 
 When we use [targeted amplicon sequencing]{.underline} of the 16S or ITS gene, we are essentially knocking on every door of the city and asking for the last name of those present. You are able to understand that there is a larger proportion of Smiths in the city than Andersons. However, you will not know the first names of the Smiths, Andersons, or any other city members–this technology is not that specific. You also are not able to know whether the Smiths are bakers and the Andersons are bankers. We cannot directly determine what these people in the city are doing from this data alone, only their general identity.
 
-Similarly, with this technology we can predict generally to a genus level resolution who is in the microbial community of interest. An experimental question that would be well answered by this data would be: What is the difference in microbiome compositions in patients before and after antibiotics?
+Similarly, with this technology we can predict usually to a genus level resolution who is in the microbial community of interest. An experimental question that would be well answered by this data would be: What is the difference in microbiome compositions in patients before and after antibiotics?
 
 ::: {.callout-note collapse="true"}
 ## More on targeted amplicon sequencing
@@ -22,11 +22,11 @@ Here are a few resources if you want to read more about this data:
 -   Pollock, J., Glendinning, L., Wisedchanwet, T., & Watson, M. (2018). The Madness of Microbiome: Attempting To Find Consensus "Best Practice" for 16S Microbiome Studies. *Applied and environmental microbiology*, *84*(7), e02627-17. https://doi.org/10.1128/AEM.02627-17
 :::
 
-# The Full Background Checks - Shotgun Metagenomics
+# ![](assets/backgroundcheck-metagenomics.svg){height="24"} The Full Background Checks - Shotgun Metagenomics
 
 **Big Question:** Who is present in this community and what is the potential function?
 
-[Shotgun metagenomics]{.underline} is like running a full background check on every resident in the city. We now have access to each person's complete history: their education, skills, certifications, prior work experience, criminal records. We can now see that the Smith family has culinary degrees, and the Andersons have years as banking associates on their work history. From this, we can infer that the Smith family is likely the bakers and the Andersons are likely the bankers, though we have yet to see them in action. We know that they have the training to do so now.
+[Shotgun metagenomics]{.underline} is like running a full background check on every resident in the city. We now have access to each person's complete history: their education, skills, certifications, prior work experience, criminal records. We can now see that the Smith family has culinary degrees, and the Andersons have years as banking associates on their work history. From this, we can infer that the Smith family is likely the bakers and the Andersons are likely the bankers, though we have yet to see them in action. We know that they have the training to do so, though.
 
 Similar to this, this technology allows us to recover large portions of genomes of the members present in the microbial community. We can see what genes these members have and predict their potential activity, though we are not able to confidently say they are contributing in this way. A good example of a question for this type of data would be: Does this gut microbiome harbor antibiotic resistant genes, and, if so, which members are carrying them?
 
@@ -40,13 +40,13 @@ Here are a few resources if you want to read more about this data:
 -   Quince, C., Walker, A. W., Simpson, J. T., Loman, N. J., & Segata, N. (2017). Shotgun metagenomics, from sampling to analysis. *Nature biotechnology*, *35*(9), 833–844. https://doi.org/10.1038/nbt.3935
 :::
 
-# The Conversations - Metatranscriptomics
+# ![](assets/microphone-metatranscriptomics.png){height="24px"} The Conversations - Metatranscriptomics
 
 **Big Question:** What is happening in this city at this exact moment in time?
 
-When we use [metatranscriptomics]{.underline}, we are essentially recording all the conversations happening in a room over a short period of time. This allows us to see what topics are being talked about. Perhaps the Smiths are discussing the twenty loaves of bread they are about to start making, or the Andersons are talking about the large transaction at the bank they have to deal with soon. However, we can only know what conversations are happening in that short period of time, making the results of this heavily dependent on the time that we record these conversations. We will likely find a different conversation going on at 2AM on a Saturday versus 3PM on a workday.
+When we use [metatranscriptomics]{.underline}, we are essentially recording all the conversations happening in a the city over a short period of time. This allows us to see what topics are being talked about. Perhaps the Smiths are discussing the twenty loaves of bread they are about to start making, or the Andersons are talking about the large transaction at the bank they have to deal with soon. However, we can only know what conversations are happening in that short period of time, making the results of this heavily dependent on the time that we record these conversations. We will likely find a different conversation going on at 2AM on a Saturday versus 3PM on a workday.
 
-In practice, this technology can help us try to understand which genes in the microbial community are being expressed at the moment that the samples are taken. While using metagenomics tells us that the Smiths own a commercial oven, the metatranscriptomics tells us that they are actively discussing the bread they expect to be baking for the day. The data could be used to investigate a question like: Which microbial genes are actively being expressed in the gut during antibiotic treatment, and is this different than those being expressed in patients before treatment?
+In practice, this technology can help us try to understand which genes in the microbial community are being expressed at the moment that the samples are taken. While using metagenomics tells us that the Smiths have a lot of experience as bakers, the metatranscriptomics tells us that they are actively discussing the bread they expect to be baking for the day. The data could be used to investigate a question like: Which microbial genes are actively being expressed in the gut during antibiotic treatment, and is this different than those being expressed in patients before treatment?
 
 ::: {.callout-note collapse="true"}
 ## More on metatranscriptomics
@@ -58,11 +58,11 @@ Here are a few more resources if you want to read more about this kind of data:
 -   Ojala, T., Häkkinen, A. E., Kankuri, E., & Kankainen, M. (2023). Current concepts, advances, and challenges in deciphering the human microbiota with metatranscriptomics. *Trends in genetics : TIG*, *39*(9), 686–702. https://doi.org/10.1016/j.tig.2023.05.004
 :::
 
-# The City Output - Metabolomics
+# ![](assets/trash-metabolomics.png){height="24px"} The City Output - Metabolomics
 
 **Big Question:** What is the chemical fingerprint of what this city produces and consumes?
 
-Using [metabolomics]{.underline} allows us to get a picture of all of the products that are created in this city. We are going to look and see what the main drainage water looks like, the air quality monitor, and the loading dock that moves exports out of town. Here, we can see that the baker family we have seen previously, the Smiths, have potentially been around. We can see that there is CO2 and ethanol in the air, leaving the ovens while the bread is baking. Something has been actively baking in this city, and the chemistry of the city output is reflecting that. We have strong reason to suspect that the Smiths are hard at work, though we never see them. Only their outputs. We have to make a confident inference, though we cannot confirm without additional evidence, that this was that particular family hard at work.
+Using [metabolomics]{.underline} allows us to get a picture of all of the products that are created in this city. We are going to look and see what the main drainage water looks like, the air quality monitor, and the loading dock that moves exports out of town. Here, we can see that the baker family we have seen previously, the Smiths, have potentially been around. We can see that there is CO2 and ethanol in the air, leaving the ovens while the bread is baking. Something has been actively baking in this city, and the chemistry of the city output is reflecting that. We have strong reason to suspect that the Smiths are hard at work, though we never see them, only their outputs. We have to make a confident inference, though we cannot confirm without additional evidence, that this was that particular family hard at work.
 
 When in use, this technology can help us understand all small molecules present that make up the chemical outputs, inputs, and signals of the community. This can be hard to attribute to specific organisms and pathways, and many metabolites remain chemically unidentified. This approach might answer questions like: Do patients that receive antibiotics have different metabolic outputs than those who do not?
 

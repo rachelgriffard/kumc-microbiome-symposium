@@ -503,15 +503,18 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
+<p>While we have established that there are a multitude of different types of questions we can ask about our microbial city, we are going to pivot and focus in on only one of those in this particular page: targeted amplicon sequencing, or the census.</p>
+<p>This is targeted DNA sequencing data that is focused on the 16S, ITS, or 18S genes. These are genes that are highly conserved in members of the microbiome. In this case, we will focus in on the most common, <strong>16S rRNA sequencing</strong>.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="assets/16Sgene_transparent.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:60.0%"></p>
+<p><img src="images/paste-5.png" class="img-fluid figure-img"></p>
+<figcaption>Visualization of the 16S gene with the nine hypervariable regions labeled.</figcaption>
 </figure>
 </div>
-<p>16S rRNA amplicon sequencing works by selectively amplifying a conserved portion or portions of the 16S rRNA gene — a gene present in virtually all bacteria and archaea, with conserved regions flanking hypervariable regions where the sequence differs enough to distinguish taxa.</p>
+<p>16S rRNA amplicon sequencing works by selectively amplifying a conserved portion or portions of the 16S rRNA gene, a gene present in virtually all bacteria and archaea. The gene has conserved regions that can be targeted by primers that surround hypervariable regions where the sequence differs enough to distinguish taxa.</p>
 <section id="the-16s-rrna-gene-structure" class="level2">
 <h2 class="anchored" data-anchor-id="the-16s-rrna-gene-structure">The 16S rRNA gene structure</h2>
-<p>The 16S rRNA gene is approximately 1,500 bp long and contains alternating conserved regions and nine hypervariable regions (V1–V9) whose sequence diversity distinguishes taxa — functioning like genetic barcodes. No single variable region resolves all taxa equally well, and short-read sequencing (150–300 bp per read) means you are targeting one or two regions at a time.</p>
+<p>The 16S rRNA gene is approximately 1,500 bp long and contains alternating conserved regions and nine hypervariable regions (V1–V9) whose sequence diversity distinguishes taxa, functioning like genetic barcodes. No single variable region resolves all taxa equally well, and short-read sequencing (150–300 bp per read) means you are targeting one or two regions at a time.</p>
 <p>Your choice of target region is a consequential decision in your study design.</p>
 </section>
 <section id="variable-region-selection" class="level2">
@@ -560,7 +563,7 @@ ul.task-list li input[type="checkbox"] {
 <td>27F <code>AGAGTTTGATCMTGGCTCAG</code> / 338R <code>TGCTGCCTCCCGTAGGAGT</code></td>
 <td>~310 bp</td>
 <td>2×250 bp</td>
-<td>Better gram-positive resolution; less reference data</td>
+<td>Better gram-positive resolution; less reference data; less common in human microbiome studies</td>
 </tr>
 </tbody>
 </table>
@@ -581,7 +584,7 @@ ul.task-list li input[type="checkbox"] {
 <section id="amplicons" class="level2">
 <h2 class="anchored" data-anchor-id="amplicons">Amplicons</h2>
 <p>The product of PCR amplification using these primers is called an <strong>amplicon</strong> — the short DNA fragment spanning the targeted variable region. Because the same primers are used for every sample, every amplicon produced from a given study targets the same stretch of the 16S gene.</p>
-<p>After sequencing, each amplicon sequence is compared to a reference database to assign a taxonomic identity. Sequences that are identical (or nearly identical, depending on the pipeline) are grouped into <strong>Amplicon Sequence Variants (ASVs)</strong> or <strong>Operational Taxonomic Units (OTUs)</strong>, which serve as the working units of diversity in downstream analysis.</p>
+<p>After sequencing, each amplicon sequence is compared to a reference database to assign a taxonomic identity. Sequences that are identical (or nearly identical, depending on the pipeline) are grouped into <strong>Amplicon Sequence Variants (ASVs)</strong> which serve as the working units of diversity in downstream analysis.</p>
 
 
 </section>

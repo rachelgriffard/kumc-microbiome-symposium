@@ -1,27 +1,49 @@
 ---
-title: "16S rRNA Microbiome Analysis"
-subtitle: "KUMC Microbiome Symposium Workshop"
+title: "The Microbial City: An Introduction to Microbiome Analysis"
+subtitle: "2026 KUMC Microbiome Symposium Workshop"
 ---
 
-The human body is home to trillions of bacteria, archaea, viruses, and fungi — collectively called the **microbiome**. These communities play roles in immune development, metabolism, and susceptibility to disease. Understanding which microbes are present, in what proportions, and how those communities differ across individuals or conditions is now a central question across many areas of biomedical research.
+The human body is home to trillions of bacteria, archaea, viruses, and fungi that are collectively called the **microbiome**. These communities play roles in immune development, metabolism, and susceptibility to disease. Understanding which microbes are present, in what proportions, how they work together (or not), what they produce and consume, and how those communities differ across individuals or conditions is a common question in medical research.
 
 ## What is the microbiome?
 
-The term microbiome refers to the complete collection of microorganisms inhabiting a particular environment — and in humans, that environment can be the gut, skin, oral cavity, lung, vaginal tract, or any number of other niches. Each body site harbors a distinct community shaped by the local environment: temperature, pH, oxygen availability, and available nutrients.
+The term **microbiome** refers to the complete collection of microorganisms inhabiting a particular environment. In humans, that environment can be the gut, skin, oral cavity, lung, vaginal tract, or any number of other niches. Each body site harbors a distinct community shaped by the local environment: temperature, pH, oxygen availability, and available nutrients.
 
 The gut microbiome is the most studied. A healthy adult gut hosts hundreds to thousands of bacterial species, with the dominant phyla being *Firmicutes* and *Bacteroidetes*, followed by *Proteobacteria*, *Actinobacteria*, and *Verrucomicrobia*. But these proportions are not fixed — they vary substantially from person to person and within the same person over time.
 
-![](assets/variability.png){fig-align="center" width="65%"}
+## The microbial city
 
-## Variability: across people and over time
+Just like the microbiome, a city is a community made up of people who live, work, and play in the same geographic location. They interact with each other in different units, like families or friends, and, just like people, they have different roles in their environment that make them distinct.
 
-One of the most striking features of the human microbiome is how variable it is.
+## Variability in the microbiome
 
-**Between individuals** — two healthy adults can have dramatically different gut microbiomes. Factors that drive inter-individual variation include diet (especially fiber intake), genetics, geography, early-life exposures (delivery mode, breastfeeding), and medications — particularly antibiotics. This variability means that a "normal" microbiome is difficult to define, and that detecting a disease-associated signal requires careful control for these sources of variation.
+The human microbiome is variable in multiple ways, ranging from within the same person to across multiple people.
 
-**Within an individual over time** — the microbiome of a single person is also dynamic. The gut microbiome shows day-to-day fluctuations driven by diet, travel, illness, and stress. Perturbations such as antibiotics can dramatically alter composition within days, with recovery taking weeks to months. Longitudinal studies that measure the same individuals at multiple time points capture this within-person variability, which is often as large as the differences between individuals.
+### **Within individuals**
 
-This variability is not noise to be eliminated — it is signal. Understanding what drives it is the central scientific question of the field.
+When we consider two cities in the same state, one on a beach and one that is land-locked, we know that there are differences between them despite both being cities. For example, our beach city would more than likely have more surfers and life guards than our landlocked city would.
+
+![A landlocked city](assets/landlocked-city-1.png){alt="A landlocked city" fig-align="center" width="275" style="font-size: 12pt;"} ![A beach city](assets/beach-city.png){alt="A beach city" fig-align="center" width="275" style="font-size: 12pt;"}
+
+Similarly, the microbiome in one human has distinct compositions from one site to another. We see a difference between the oral cavity to the skin to the gut microbiome.
+
+![](assets/intra-variability.png){fig-align="center" width="766"}
+
+### **Between individuals**
+
+Similarly, if we consider a California beach town versus a New England beach town we would see differences despite both being beach towns. We know that the weather is different, and there might be more people in New England searching for some yummy lobster.
+
+In the microbiome, we see the same behavior. When we look at the same location in different people, we will see differences in their microbial communities.
+
+![](assets/inter-variability.png){fig-align="center" width="735"}
+
+### **Over time**
+
+Finally, we see variability over time. In the same city, we will see a difference in the makeup of the city depending on the time of year. For example, we will likely see in our landlocked city more snowplow drivers and less retiree snowbirds in the deep winter when compared to the middle of summer.
+
+Microbial communities also change over time and with different perturbations. Below, we can see that there is time on the x-axis and the relative frequency of the community on the y-axis. The height of each color bar indicates the proportion of the sample that is made of a singular feature, or species in this plot, at that particular timepoint. Here, we can see three different samples from the same host and location taken at three different time points, showing meaningful differences between the composition of those samples at the different times.
+
+![](assets/time-variability.png){background-color="white" fig-align="center" width="645"}
 
 ## 16S rRNA sequencing: a culture-independent approach
 
@@ -33,9 +55,9 @@ This workshop walks through a typical analysis pipeline for 16S rRNA sequencing 
 
 | Stage | What happens |
 |------------------------------------|------------------------------------|
-| **Introduction** | |
+| **Introduction** |  |
 | [What is 16S rRNA seq?](16s-overview.qmd) | The 16S gene, variable regions, and amplicons |
-| **Preprocessing** | |
+| **Preprocessing** |  |
 | [Sequencing & Confounders](03-sequencing.qmd) | How reads are generated and technical variation |
 | [Amplification & Pooling](02-amplification.qmd) | PCR to enrich the 16S rRNA gene |
 | [FASTQ Files](04-fastq.qmd) | Raw data files from the sequencer |
@@ -43,7 +65,7 @@ This workshop walks through a typical analysis pipeline for 16S rRNA sequencing 
 | [Trimming & Truncation](trimming.qmd) | Removing primers and low-quality bases |
 | [Denoising & Merging](denoising.qmd) | Building the ASV count table |
 | [Normalization](normalization.qmd) | Accounting for sequencing depth differences |
-| **Downstream Analysis** | |
+| **Downstream Analysis** |  |
 | [Taxonomy Assignment](taxonomy.qmd) | Naming ASVs and visualizing community structure |
 | [Guilds](guilds.qmd) | Ecologically relevant groupings |
 | [Diversity Analysis](09-diversity-analysis.qmd) | Alpha and beta diversity, statistical testing |
@@ -66,7 +88,7 @@ These boxes provide additional context, background, or elaboration that deepens 
 
 These boxes flag common mistakes, easy-to-overlook pitfalls, or steps where errors are frequently introduced. Pay close attention — skipping or mis-applying the flagged step often causes silent failures that are difficult to diagnose later.
 
-**Example of when you'll see this:** Reminders to use Qubit instead of NanoDrop for quantification, or that primer trimming cannot be skipped before DADA2.
+**Example of when you'll see this:** Reminders that you cannot easily compare studies that use different variable regions and primers.
 :::
 
 ::: {.callout-important collapse="true"}
@@ -80,7 +102,7 @@ These boxes highlight decisions that must be documented for reproducibility of y
 ::: {.callout-tip collapse="true"}
 ## Code and tool examples
 
-These expandable blocks contain example code from different tools to illustrate how a pipeline step is implemented in practice. They are collapsed by default, but you can open them if you want to see more about the mechanics behind a step.
+These expandable blocks contain example code from different tools to illustrate how a pipeline step is implemented in practice. They are collapsed by default, but you can open them if you want to see more about the mechanics behind a step. These are not comprehensive, but I will do my best to link the software documentation itself for further review.
 
 ``` bash
 # Example: primer trimming with Cutadapt
