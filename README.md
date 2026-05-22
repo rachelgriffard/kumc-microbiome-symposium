@@ -1,4 +1,6 @@
-# KUMC Microbiome Symposium 2026 : The Microbial City - An Introduction to Microbiome Analysis
+# The Microbial City - An Introduction to Microbiome Analysis
+
+## KUMC Microbiome Symposium 2026
 
 Companion site for an invited one-hour workshop delivered at the 
 [2nd Annual Microbiome Symposium](https://events.kucancercenter.org/2nd-annual-microbiome-symposium) 
