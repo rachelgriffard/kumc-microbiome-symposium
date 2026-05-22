@@ -2,23 +2,21 @@
 title: "Sequencing & Confounders"
 ---
 
-The amplicon library is loaded onto a sequencer, which reads the nucleotide sequence of millions of DNA fragments simultaneously. For 16S rRNA studies, Illumina short-read sequencing on MiSeq or NovaSeq is standard. The sequencer produces a FASTQ file per sample (or per run, if not yet demultiplexed).
+The amplicon library is loaded onto a sequencer, which reads the nucleotide sequence of millions of DNA fragments simultaneously. The sequencer produces a FASTQ file per sample (or per run, if not yet demultiplexed).
 
 ## How samples become reads
 
 Understanding the flow from plate to data file makes many downstream analytical decisions easier to interpret:
 
-1.  **Extraction and amplification** — DNA is extracted from each sample and the 16S region is amplified with barcoded primers. Each sample gets a unique barcode, so its reads can later be identified.
-2.  **Pooling** — Amplified libraries from all samples are combined into a single tube and loaded onto the sequencer together. All samples share the same flow cell.
-3.  **Sequencing** — The machine randomly samples from the mixed pool. It does not allocate reads equally across samples; it samples stochastically from whatever DNA is present.
-4.  **Demultiplexing output** — After sequencing, reads are sorted back to individual samples using their barcodes, producing one FASTQ file (or file pair) per sample.
-
-The stochastic nature of step 3 is why read counts vary across samples even when pooling was careful: differences in pipetting accuracy, PCR efficiency, DNA quality, and random cluster formation all contribute. This technical variation in sequencing depth is the reason normalization is required before comparing diversity across samples.
+1.  **Extraction and amplification**: DNA is extracted from each sample and the 16S region is amplified with barcoded primers. Each sample gets a unique barcode, so its reads can later be identified as belonging to that specific sample despite being pooled together.
+2.  **Pooling**: Amplified libraries from all samples are combined into a single tube and loaded onto the sequencer together. All samples share the same flow cell.
+3.  **Sequencing**: The machine randomly samples from the mixed pool. It does not allocate reads equally across samples; it samples stochastically from whatever DNA is present. This means that there is often largely different sampling depth across samples.
+4.  **Demultiplexing output**: After sequencing, reads are sorted back to individual samples using their barcodes, producing one FASTQ file (or file pair for paired-end sequencing) per sample.
 
 ::: callout-warning
 ## Always remember the pooling!
 
-During 16S rRNA library preparation, samples are pooled into a single sequencing library while maintaining identity through barcoding. However, because libraries are not always perfectly normalized before pooling, this can result in uneven sequencing depth across samples, which may affect downstream diversity estimates and the detection of low-abundance taxa.
+The stochastic nature of step 3 is why read counts vary across samples even when pooling was careful: differences in pipetting accuracy, PCR efficiency, DNA quality, and random cluster formation all contribute. This technical variation in sequencing depth is the reason normalization or rarefying is required before comparing diversity across samples. Without this, the largely different sequencing depths may affect downstream diversity estimates and the detection of low-abundance taxa.
 :::
 
 ## Single-end vs. paired-end sequencing
@@ -34,115 +32,50 @@ Illumina instruments can read each DNA fragment from one end only (**single-end*
 As it is generally the standard, the rest of this workshop will focus on paired-end data. However, the tools referenced in the coding examples can be adjusted with general ease to run on single-end data as required.
 :::
 
-## Platform choices
+## Sequencing platforms
 
 **MiSeq** is the most common platform for 16S work. It supports longer reads (2×250 bp or 2×300 bp paired-end) and has a well-established track record for amplicon sequencing. Throughput is lower (\~25M reads/run) and cost-per-run is higher than HiSeq/NovaSeq, but the read quality and length are well-suited to 16S amplicons (\~450 bp for V3–V4).
 
-**NovaSeq** produces vastly more reads but with shorter read lengths (2×150 bp standard). This is sufficient for V4-only studies and is increasingly used when large sample numbers or high depth are needed, but may not provide full overlap for longer amplicons.
-
-## Sequencing depth
-
-How many reads do you need per sample? There is no universal answer, but some common guidelines are listed here:
-
--   For gut microbiome (high biomass, high diversity): 10,000–50,000 reads/sample is common
--   For low-diversity samples (vaginal, skin): fewer reads may be sufficient
--   For low-biomass samples: deeper sequencing helps, but also amplifies contamination signal
-
-We can see below the impact of the level of diversity in a sample and how deep we need to sequence it in the example below.
-
-### What a rarefaction curve looks like
-
-Drag the slider below to change sequencing depth and watch how each sample's curve responds. A flattened curve means diversity is captured; a still-rising curve means additional reads would continue to reveal new taxa.
-
-```{ojs}
-//| echo: false
-viewof seqDepth = Inputs.range([2000, 80000], {
-  value: 30000,
-  step: 500,
-  label: "Sequencing depth (reads per sample)"
-})
-```
-
-```{ojs}
-//| echo: false
-{
-  function curve(richness, halfSat, group) {
-    return Array.from({length: 101}, (_, i) => {
-      const r = (i / 100) * seqDepth;
-      return { reads: r, asv: richness * r / (halfSat + r), group };
-    });
-  }
-
-  const samples = [
-    { richness: 200, halfSat: 3000,  label: "Sample A — moderate diversity (ex. gut)"           },
-    { richness:  80, halfSat: 2000,  label: "Sample B — low diversity (ex. skin)"             },
-    { richness: 500, halfSat: 80000, label: "Sample C — high diversity (ex. environmental)" }
-  ];
-
-  const data = samples.flatMap(s => curve(s.richness, s.halfSat, s.label));
-
-  const endpoints = samples.map(s => {
-    const asv = s.richness * seqDepth / (s.halfSat + seqDepth);
-    const pct  = asv / s.richness * 100;
-    return { reads: seqDepth, asv, pct, plateaued: pct >= 90, label: s.label };
-  });
-
-  const w = Math.min(width, 720);
-
-  return Plot.plot({
-    width: w,
-    height: 380,
-    marginRight: 205,
-    x: {
-      label: "Reads per sample →",
-      tickFormat: d => `${(d / 1000).toFixed(0)}k`,
-      grid: true
-    },
-    y: {
-      label: "↑ Observed ASVs",
-      domain: [0, 520],
-      grid: true
-    },
-    color: {
-      legend: true,
-      domain: samples.map(s => s.label),
-      range: ["#1565C0", "#2E7D32", "#C62828"]
-    },
-    marks: [
-      Plot.line(data, {
-        x: "reads", y: "asv", stroke: "group", strokeWidth: 2.5
-      }),
-      Plot.dot(endpoints, {
-        x: "reads", y: "asv", fill: "label", r: 7,
-        stroke: "white", strokeWidth: 1.5
-      }),
-      Plot.text(endpoints, {
-        x: "reads", y: "asv",
-        text: d => `${d.plateaued ? "✓" : "⚠"} ${d.pct.toFixed(0)}% captured`,
-        dx: 12,
-        fontSize: 12,
-        fill: d => d.plateaued ? "#2E7D32" : "#C62828",
-        fontWeight: "bold",
-        textAnchor: "start",
-        lineAnchor: "middle"
-      })
-    ]
-  });
-}
-```
-
-::: callout-tip
-## What to look for
-
--   **Plateau reached (✓)** — the curve has flattened. Additional reads would yield few new taxa; sequencing depth is adequate.
--   **Still rising (⚠)** — the curve has not flattened. Rare taxa are being missed and diversity estimates will be biased downward.
-
-Notice that the environmental sample (Sample C) requires far more reads to plateau than the gut or vaginal samples. Different sample types have very different depth requirements. This is why "10,000 reads" is not a universal standard.
-:::
+**NovaSeq** produces vastly more reads but with shorter read lengths (2×150 bp standard). This is sufficient for V4-only studies and can be used when large sample numbers or high depth are needed.
 
 ## Technical variation and confounders
 
-Every step from sample collection to sequencing introduces technical variation: extraction kit, bead-beating duration, storage conditions, PCR cycle number, who ran the extraction and when. When that variation is **systematic** — for example, all your cases were extracted in one batch and all your controls in another — it becomes a **batch effect** that is indistinguishable from biology in your data.
+Technical variation enters at every stage of the pipeline — long before any software is involved. The table below outlines common sources organized by where they occur.
+
+| Stage | Variable | Why it matters |
+|---|---|---|
+| **Collection** | Site / facility | Different hospital wings, clinics, or rooms have different ambient microbiomes, cleaning protocols, and personnel practices. Two "healthy controls" from different sites can differ for purely logistical reasons. |
+| **Collection** | Swab type | Affects how much biomass is recovered and which taxa adhere. |
+| **Collection** | Time of day | Oral and gut communities shift measurably across the day. |
+| **Collection** | Time to storage | A sample left at room temperature for 2 hours before freezing looks different from one frozen immediately. |
+| **Transport & Storage** | Temperature excursions | Differential cell lysis during shipping — some taxa are more fragile than others. A common hidden variable in multi-site studies. |
+| **Transport & Storage** | Storage duration | Communities degrade over time; longer storage selectively depletes fragile taxa. |
+| **DNA Extraction** | Kit manufacturer | Different kits lyse cells with different efficiency. Gram-positive bacteria are notoriously difficult to break open, so kit choice directly shapes which taxa appear in your data. |
+| **DNA Extraction** | Operator variability | Even the same kit in the same lab can produce different yields depending on who runs it and when. |
+| **Library Preparation** | Primer choice | Determines which region of the 16S gene is amplified, creating systematic biases toward certain taxa and blind spots for others. |
+| **Library Preparation** | PCR cycles | More cycles introduce more chimeric sequences and amplification artifacts. |
+| **Sequencing** | Sequencing depth | Total reads per sample varies across samples and runs, directly affecting detection of low-abundance taxa. |
+| **Sequencing** | Multiplexing | How many samples share a run affects per-sample depth. |
+| **Sequencing** | Read type | Short vs. long read and single vs. paired-end affect taxonomic resolution. |
+
+This is a non-comprehensive list. The key point: by the time data reaches your analysis pipeline, it carries the fingerprints of every decision made upstream.
+
+### Why systematic variation is the real problem
+
+Individual technical differences are often unavoidable. The danger is when technical variation is **correlated with your biological groups** — then it becomes indistinguishable from the signal you are trying to measure.
+
+::: callout-note
+## A census analogy
+
+Imagine two cities — similar geography, climate, and population size. Two census takers are each sent to one city to record occupants' last names by knocking on doors.
+
+-   **Census Taker A** goes out on a rainy, cold Monday morning.
+-   **Census Taker B** goes out on a clear 70°F evening.
+
+The data come back and City A appears to have more Johnsons than City B. But is that a real demographic difference — or does the Johnson family simply work outside the home and was not there to answer the door on a Monday morning?
+
+The same logic applies to microbiome studies. If control samples are processed in one batch and treated samples in another, if different primers are used for cases versus controls, or if pre-treatment samples are collected in one building and post-treatment samples in another, **there is no way to separate biological signal from technical variation**.
+:::
 
 ::: callout-warning
 ## Mitigating batch effects

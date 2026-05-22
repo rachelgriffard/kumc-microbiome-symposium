@@ -62,9 +62,8 @@ With a distance matrix in hand, ordination techniques reduce the high-dimensiona
 A PCoA plot that looks like two groups are separating is suggestive but not conclusive. Statistical significance requires a permutational test (PERMANOVA). And PERMANOVA is sensitive to differences in dispersion between groups (one group may be more variable than the other), which should be tested separately with PERMDISP.
 :::
 
-<details>
-
-<summary>Example: generating a PCoA from a distance matrix in R</summary>
+::: {.callout-tip collapse="true"}
+## Code and tool examples
 
 ``` r
 library(vegan)
@@ -80,8 +79,7 @@ ord <- ordinate(physeq, method = "PCoA", distance = dist_bc)
 plot_ordination(physeq, ord, color = "treatment_group") +
   theme_bw()
 ```
-
-</details>
+:::
 
 ### PERMANOVA
 
@@ -95,9 +93,8 @@ The key output is an R² value (proportion of variance explained) and a p-value.
 PERMANOVA tests whether group centroids differ. But if one group is more variable than another (different spread in ordination space), PERMANOVA can be significant due to dispersion differences, not true differences in composition. Always run PERMDISP (beta dispersion test) alongside PERMANOVA and report both.
 :::
 
-<details>
-
-<summary>Example: PERMANOVA in R</summary>
+::: {.callout-tip collapse="true"}
+## Code and tool examples
 
 ``` r
 library(vegan)
@@ -115,6 +112,5 @@ adonis2(dist_bc ~ treatment + age + sex,
 disp <- betadisper(dist_bc, metadata$treatment)
 permutest(disp)
 ```
-
-</details>
+:::
 

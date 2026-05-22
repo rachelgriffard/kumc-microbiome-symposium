@@ -68,10 +68,12 @@ EBI's microbiome analysis portal that hosts raw data and provides pre-computed a
 
 The SRA Toolkit is the standard command-line tool for downloading reads. Modern workflows prefer `fasterq-dump` over the older `fastq-dump`.
 
-<details>
-<summary>Example: downloading a paired-end run with fasterq-dump</summary>
+::: {.callout-tip collapse="true"}
+## Code and tool examples
 
-```bash
+**Single run download with fasterq-dump**
+
+``` bash
 # Install SRA Toolkit (if not already available via module load or conda)
 conda install -c bioconda sra-tools
 
@@ -86,12 +88,9 @@ gzip ./raw_reads/SRR12345678_1.fastq
 gzip ./raw_reads/SRR12345678_2.fastq
 ```
 
-</details>
+**All runs in a BioProject using a metadata table**
 
-<details>
-<summary>Example: downloading all runs in a BioProject with a metadata table</summary>
-
-```bash
+``` bash
 # 1. Go to the BioProject page on NCBI and download the RunInfo table as a CSV
 #    (SRA Run Selector > "Metadata" button)
 
@@ -101,8 +100,7 @@ cut -d',' -f1 SraRunTable.txt | tail -n +2 | while read SRR; do
   gzip ./raw_reads/"${SRR}"_*.fastq
 done
 ```
-
-</details>
+:::
 
 ---
 

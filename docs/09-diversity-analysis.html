@@ -685,10 +685,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>A PCoA plot that looks like two groups are separating is suggestive but not conclusive. Statistical significance requires a permutational test (PERMANOVA). And PERMANOVA is sensitive to differences in dispersion between groups (one group may be more variable than the other), which should be tested separately with PERMDISP.</p>
 </div>
 </div>
-<details>
-<summary>
-Example: generating a PCoA from a distance matrix in R
-</summary>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Code and tool examples
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-4" class="callout-4-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(vegan)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(phyloseq)</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -701,7 +709,9 @@ Example: generating a PCoA from a distance matrix in R
 <span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot, colored by metadata variable</span></span>
 <span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_ordination</span>(physeq, ord, <span class="at">color =</span> <span class="st">"treatment_group"</span>) <span class="sc">+</span></span>
 <span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
+</div>
+</div>
+</div>
 <section id="permanova" class="level3">
 <h3 class="anchored" data-anchor-id="permanova">PERMANOVA</h3>
 <p>PERMANOVA (Permutational Multivariate Analysis of Variance) tests whether groups of samples have significantly different community composition. It works directly on the distance matrix and makes no distributional assumptions.</p>
@@ -719,10 +729,18 @@ Example: generating a PCoA from a distance matrix in R
 <p>PERMANOVA tests whether group centroids differ. But if one group is more variable than another (different spread in ordination space), PERMANOVA can be significant due to dispersion differences, not true differences in composition. Always run PERMDISP (beta dispersion test) alongside PERMANOVA and report both.</p>
 </div>
 </div>
-<details>
-<summary>
-Example: PERMANOVA in R
-</summary>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Code and tool examples
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-6" class="callout-6-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(vegan)</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Bray-Curtis distance matrix</span></span>
@@ -737,7 +755,9 @@ Example: PERMANOVA in R
 <span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Test dispersion (PERMDISP)</span></span>
 <span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>disp <span class="ot">&lt;-</span> <span class="fu">betadisper</span>(dist_bc, metadata<span class="sc">$</span>treatment)</span>
 <span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="fu">permutest</span>(disp)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
+</div>
+</div>
+</div>
 
 
 </section>

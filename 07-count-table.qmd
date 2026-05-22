@@ -42,9 +42,8 @@ Most current publications and tools (DADA2, QIIME2's default, Deblur) use ASVs. 
 
 5.  **Assign taxonomy** — each ASV is compared against a reference database (Silva, Greengenes2, NCBI) to get a taxonomic classification.
 
-<details>
-
-<summary>Example: what the DADA2 output pipeline looks like</summary>
+::: {.callout-tip collapse="true"}
+## Code and tool examples
 
 ``` r
 # Learn error rates (run once per sequencing run)
@@ -68,8 +67,7 @@ seqtab_nochim <- removeBimeraDenovo(seqtab, method = "consensus")
 # Assign taxonomy (against Silva)
 taxa <- assignTaxonomy(seqtab_nochim, "silva_nr_v138_train_set.fa.gz")
 ```
-
-</details>
+:::
 
 ## Reference databases for taxonomy
 

@@ -31,16 +31,14 @@ The reference database you choose affects which taxa you can name and at what re
 | **NCBI RefSeq** | Broad coverage; useful for linking to NCBI records |
 | **UNITE** | Fungi-specific; required if your primers target ITS instead of 16S |
 
-<details>
-
-<summary>Example: taxonomy assignment in DADA2</summary>
+::: {.callout-tip collapse="true"}
+## Code and tool examples
 
 ``` r
 # Assign taxonomy (against Silva)
 taxa <- assignTaxonomy(seqtab_nochim, "silva_nr_v138_train_set.fa.gz")
 ```
-
-</details>
+:::
 
 ## Phylogenetic tree
 

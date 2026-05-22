@@ -41,32 +41,24 @@ After demultiplexing, inspect:
 
 QIIME2's demux plugin produces similar quality plots and is often the first thing you look at after importing your data within the QIIME2 framework.
 
-<details>
+::: {.callout-tip collapse="true"}
+## Code and tool examples
 
-<summary>FastQC</summary>
-
-For more information about FastQC, check out [this site](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/).
+**FastQC** — for more information, check out [this site](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/).
 
 ``` bash
 # to run the analysis on all files in a folder ending in .fastq.gz
 fastqc *.fastq.gz
 ```
 
-</details>
-
-<details>
-
-<summary>QIIME2 Demux Summarize</summary>
-
-For more information about QIIME2 demux-summarize, check out [this site](https://docs.qiime2.org/2024.10/plugins/available/demux/summarize/).
+**QIIME2 Demux Summarize** — for more information, check out [this site](https://docs.qiime2.org/2024.10/plugins/available/demux/summarize/).
 
 ``` bash
 qiime2 demux-summarize \
   --i-data demux.qza
   --o-visualization.qzv
 ```
-
-</details>
+:::
 
 A common diagnostic plot is the **per-base quality score distribution**. These are often a box plot or line plot showing, at each read position, the spread of quality scores across all reads. For this example below, the shaded band is the interquartile range (middle 50% of reads), the solid line is the median, and the thin lines are the whiskers. Toggle between R1 and R2 to see how the quality degrades over the length of the read.
 

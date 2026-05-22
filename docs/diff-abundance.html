@@ -573,10 +573,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>A standard t-test is like comparing one student to a single classmate — easy to get a false positive if the classmate happens to slouch. ANCOM compares that student to <em>everyone</em> in the class, and only declares them “significantly taller” if they are taller than the majority of classmates. This majority-vote safeguard is why ANCOM’s false positive rate is near zero.</p>
 </div>
 </div>
-<details>
-<summary>
-Example: ANCOM-BC2 in R
-</summary>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Code and tool examples
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ANCOMBC)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Run ANCOM-BC2</span></span>
@@ -598,7 +606,9 @@ Example: ANCOM-BC2 in R
 <span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Results</span></span>
 <span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>res <span class="ot">&lt;-</span> out<span class="sc">$</span>res</span>
 <span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="co"># Columns: lfc (log-fold change), se, W, p_val, q_val (FDR-adjusted), diff_abn</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
+</div>
+</div>
+</div>
 </section>
 <section id="multiple-testing" class="level2">
 <h2 class="anchored" data-anchor-id="multiple-testing">Multiple testing</h2>
