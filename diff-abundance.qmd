@@ -32,9 +32,8 @@ ANCOM-BC extends this by explicitly modeling and correcting for library size (th
 A standard t-test is like comparing one student to a single classmate — easy to get a false positive if the classmate happens to slouch. ANCOM compares that student to *everyone* in the class, and only declares them "significantly taller" if they are taller than the majority of classmates. This majority-vote safeguard is why ANCOM's false positive rate is near zero.
 :::
 
-<details>
-
-<summary>Example: ANCOM-BC2 in R</summary>
+::: {.callout-tip collapse="true"}
+## Code and tool examples
 
 ``` r
 library(ANCOMBC)
@@ -59,8 +58,7 @@ out <- ancombc2(
 res <- out$res
 # Columns: lfc (log-fold change), se, W, p_val, q_val (FDR-adjusted), diff_abn
 ```
-
-</details>
+:::
 
 ## Multiple testing
 

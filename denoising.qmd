@@ -38,9 +38,8 @@ Most current publications and tools (DADA2, QIIME2's default, Deblur) use ASVs. 
 
 4.  **Remove chimeras** — sequences that appear to be PCR chimeras (composites of two real sequences) are identified and removed.
 
-<details>
-
-<summary>Example: DADA2 denoising pipeline</summary>
+::: {.callout-tip collapse="true"}
+## Code and tool examples
 
 ``` r
 # Learn error rates (run once per sequencing run)
@@ -61,8 +60,7 @@ seqtab <- makeSequenceTable(merged)
 # Remove chimeras
 seqtab_nochim <- removeBimeraDenovo(seqtab, method = "consensus")
 ```
-
-</details>
+:::
 
 ## What the ASV table looks like
 

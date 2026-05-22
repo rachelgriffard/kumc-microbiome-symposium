@@ -22,21 +22,19 @@ GATTTGGGGTTCAAAGCAGTATCGATCAAATAGTAAATCCATTTGTTCAACTCACAGTTT
 | Line 3 | `+` (separator, sometimes repeats the identifier)                  |
 | Line 4 | Quality scores, one character per base                             |
 
-<details>
+::: {.callout-tip collapse="true"}
+## Code and tool examples
 
-<summary>Four lines per read</summary>
+Because each read is exactly four lines, counting reads is simple — divide the total line count by four.
 
-The nature of each read having four lines means that there is a simple command line function we can use to get the amount of reads in a sample, included here below. This simply counts the lines in a file and then divides by four.
-
-```         
+``` bash
 # if unzipped file
 echo $(($(wc -l < input.fastq) / 4))
 
 # if zipped
 echo $(($(zcat input.fastq.gz | wc -l) / 4))
 ```
-
-</details>
+:::
 
 ## Phred quality scores
 

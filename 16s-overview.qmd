@@ -33,6 +33,6 @@ Community composition estimates are not directly comparable across studies that 
 
 ## Amplicons
 
-The product of PCR amplification using these primers is called an **amplicon** — the short DNA fragment spanning the targeted variable region. Because the same primers are used for every sample, every amplicon produced from a given study targets the same stretch of the 16S gene.
+The product of PCR amplification using these primers is called an **amplicon**, the short DNA fragment spanning the targeted variable region. Because the same primers are used for every sample, every amplicon produced from a given study targets the same stretch of the 16S gene.
 
-After sequencing, each amplicon sequence is compared to a reference database to assign a taxonomic identity. Sequences that are identical (or nearly identical, depending on the pipeline) are grouped into **Amplicon Sequence Variants (ASVs)** which serve as the working units of diversity in downstream analysis.
+After sequencing, each amplicon sequence can be compared to a reference database to assign a taxonomic identity. Sequences that are identical are grouped into **Amplicon Sequence Variants (ASVs)** which serve as the highest resolution unit in downstream analysis.

@@ -28,29 +28,4 @@ Primers for Illumina sequencing are ordered with adapter sequences attached so t
 
 ## PCR duplicates and the relative abundance problem
 
-Because PCR is exponential, relative abundance in the final library does not equal relative abundance in the original sample. A taxon at 1% true abundance might represent 1% or 3% or 0.3% in your sequence data depending on how efficiently it amplified. This is why 16S results are *relative* abundances, not absolute counts — and why absolute quantification requires additional approaches (e.g., spike-in standards, qPCR).
-
-<details>
-
-<summary>Example: what a library prep protocol sheet looks like</summary>
-
-```         
-Step 1: PCR amplification
-  - Template: 10 ng extracted DNA
-  - Primers: 515F / 806R with Nextera adapters
-  - Polymerase: KAPA HiFi HotStart
-  - Cycling: 95°C 3 min; [95°C 30s, 55°C 30s, 72°C 30s] x 25 cycles; 72°C 5 min
-
-Step 2: Bead cleanup (0.8x AMPure XP)
-
-Step 3: Index PCR (adds sample barcodes)
-  - 8 cycles
-
-Step 4: Bead cleanup (0.8x AMPure XP)
-
-Step 5: Quantify (Qubit), check size (TapeStation, expected ~450 bp)
-
-Step 6: Normalize and pool
-```
-
-</details>
+Because PCR is exponential, relative abundance in the final library does not equal relative abundance in the original sample. A taxon at 1% true abundance might represent 1% or 3% or 0.3% in your sequence data depending on how efficiently it amplified. This is why 16S results are *relative* abundances, not absolute counts — and why absolute quantification requires additional approaches (e.g., spike-in standards, qPCR).q

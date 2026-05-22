@@ -16,9 +16,12 @@ Regardless of the demultiplexing approach, the primer sequences need to be remov
 Leaving primers in reads is a common mistake. In DADA2, primers extend into the region used for error modeling and denoising. In QIIME2, untrimmed reads will fail or produce spurious ASVs. Always verify primers are removed by checking that the per-base sequence composition in FastQC no longer shows a conserved sequence at position 1.
 :::
 
-<details>
+::: {.callout-tip collapse="true"}
+## Code and tool examples
 
-<summary>Example: Cutadapt primer trimming command</summary>
+**Cutadapt**
+
+See here for more information: [documentation](https://cutadapt.readthedocs.io/en/stable/guide.html)
 
 ``` bash
 # Trim 515F/806R primers from paired-end reads
@@ -33,7 +36,20 @@ cutadapt \
   sample_R2.fastq.gz
 ```
 
-</details>
+**QIIME2 cutadapt trim-paired**
+
+See here for more information: [documentation](https://docs.qiime2.org/2024.10/plugins/available/cutadapt/trim-paired/)
+
+``` bash
+qiime cutadapt trim-paired \
+  --i-demultiplexed-sequences demux.qza \
+  --p-front-f GTGYCAGCMGCCGCGGTAA \
+  --p-front-r GGACTACNVGGGTWTCTAAT \
+  --p-discard-untrimmed \
+  --p-minimum-length 100 \
+  --o-trimmed-sequences demux-trimmed.qza
+```
+:::
 
 ## What quality filtering does
 
@@ -76,11 +92,12 @@ This is more principled than "discard reads with any base below Q20" because it 
 Make sure that you carefully note the selection of where to truncate based on quality scores for both the forward and reverse reads. This is necessary for others to reproduce your results.
 :::
 
-<details>
+::: {.callout-tip collapse="true"}
+## Code and tool examples
 
-<summary>DADA2 filterAndTrim</summary>
+**DADA2 filterAndTrim (R)**
 
-DADA2 is a package that can be run using R.
+See here for more information: [documentation](https://benjjneb.github.io/dada2/tutorial.html)
 
 ``` r
 # In R using the dada2 package:
@@ -98,13 +115,9 @@ filtered <- filterAndTrim(
 )
 ```
 
-</details>
+**QIIME2 denoise-paired (command line)**
 
-<details>
-
-<summary>QIIME2 denoise-paired</summary>
-
-The same analysis can be run using the QIIME2 framework in the command line.
+See here for more information: [documentation](https://docs.qiime2.org/2024.10/plugins/available/dada2/denoise-paired/)
 
 ``` bash
 # In command line using the QIIME2 framework:
@@ -119,8 +132,7 @@ qiime dada2 denoise-paired \
   --o-table feature-table-0.qza \
   --o-denoising-stats dada2-stats.qza
 ```
-
-</details>
+:::
 
 ## What gets discarded
 
