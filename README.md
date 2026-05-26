@@ -19,7 +19,7 @@ steps to help drive their future research and analysis.
 
 This repository serves as a companion site with extended explanations, 
 code, and reference material for attendees to revisit after 
-the talk. A recording of the full presentation is also available.
+the talk. A recording of the full presentation will be made available after the workshop.
 
 ## Tools & Methods Covered
 
