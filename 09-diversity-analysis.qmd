@@ -26,7 +26,7 @@ Alpha diversity is often discussed as if "more diversity = healthier." This is t
 
 Use non-parametric tests (Kruskal-Wallis for multiple groups, Wilcoxon for two groups) when alpha diversity values are not normally distributed — which they often aren't. For more complex models (multiple covariates, longitudinal data), linear mixed models are appropriate.
 
-::: callout-warning
+::: callout-caution
 ## Confounding variables in alpha diversity
 
 Alpha diversity is affected by sample quality, extraction efficiency, sequencing depth, and the rarefaction cutoff — not just biology. A group difference in alpha diversity may reflect any of these. Always include negative controls and check whether outliers correlate with technical variables before interpreting biologically.
@@ -56,7 +56,7 @@ With a distance matrix in hand, ordination techniques reduce the high-dimensiona
 
 **PCA** — works on the abundance matrix directly (not a distance matrix). Used with CLR-transformed data (Aitchison-PCA).
 
-::: callout-warning
+::: callout-caution
 ## Ordination plots show patterns, not statistics
 
 A PCoA plot that looks like two groups are separating is suggestive but not conclusive. Statistical significance requires a permutational test (PERMANOVA). And PERMANOVA is sensitive to differences in dispersion between groups (one group may be more variable than the other), which should be tested separately with PERMDISP.

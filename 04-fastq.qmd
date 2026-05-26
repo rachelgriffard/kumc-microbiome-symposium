@@ -52,13 +52,13 @@ A Q30 score is generally the minimum acceptable threshold. Run reports from Illu
 ::: callout-note
 ## Why do quality scores drop at the 3' end?
 
-Illumina sequencing reads the template base-by-base as a fluorescent cluster. As sequencing cycles progress, clusters lose synchrony (phasing) — some copies in a cluster get one base ahead or behind, blurring the signal. This accumulates over the run, causing quality to degrade toward the 3' end of every read. This is normal and expected. It is why trimming the 3' ends of reads is standard practice.
+Illumina sequencing reads the template base-by-base as a fluorescent cluster. As sequencing cycles progress, clusters lose synchrony (phasing). Some copies in a cluster get one base ahead or behind, blurring the signal. This accumulates over the run, causing quality to degrade toward the 3' end of every read. This is normal and is why trimming the 3' ends of reads is standard practice.
 :::
 
 ::: {.callout-note collapse="true"}
 ## More information on PHRED scores
 
-In case you are interested to learn more about these scores, these are a few resources to learn more:
+In case you are interested to learn more about these scores, here are a few resources to learn more:
 
 [GATK PHRED score overview](https://gatk.broadinstitute.org/hc/en-us/articles/360035531872-Phred-scaled-quality-scores)
 
@@ -69,17 +69,9 @@ In case you are interested to learn more about these scores, these are a few res
 
 For a paired-end run, you should expect to receive:
 
--   `sample_R1.fastq.gz` — forward reads (the primer end)
--   `sample_R2.fastq.gz` — reverse reads (sequenced from the other end)
+-   `sample_R1.fastq.gz` - forward reads (the primer end)
+-   `sample_R2.fastq.gz` - reverse reads (sequenced from the other end)
 
-Files are usually gzip-compressed (`.fastq.gz` or `.fq.gz`). They can be very large — a MiSeq run produces \~8 GB of compressed data.
+Files are usually gzip-compressed (`.fastq.gz` or `.fq.gz`), as they can be large.
 
-Some cores deliver a single multiplexed file with all samples mixed together, with barcodes embedded in the sequence or the read header. In that case, demultiplexing is your first computational step.
-
-## What can go wrong
-
-**Truncated files** — an incomplete sequencing run or data transfer error can produce files that end mid-read. Most tools will throw an error, but some will silently discard the truncated read. Always verify file sizes are consistent with expected read counts.
-
-**Encoding issues** — older FASTQ files used a different quality score encoding (Illumina 1.3+, Illumina 1.5+) that shifts the ASCII offset. Modern Illumina platforms use Phred+33 (Sanger encoding). Rarely an issue now, but worth knowing if you are working with older archival data.
-
-**Swapped R1/R2** — accidentally providing the reverse read as the forward read will cause primer trimming and demultiplexing to fail silently or produce nonsense results. Check that R1 begins with your forward primer sequence.
+Some cores deliver a single multiplexed file with all samples mixed together. These reads have barcodes embedded in the sequence or the read header that allows the reads to be separated into samples. In that case, demultiplexing is your first computational step.

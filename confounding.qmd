@@ -1,0 +1,162 @@
+---
+title: "Technical Variation & Confounders"
+---
+
+Technical variation can enter at any point in the experimental design, often long before any software is involved. The table below outlines common sources organized by where they occur.
+
+### Why systematic variation is a real problem
+
+Individual technical differences are often unavoidable. The danger is when technical variation is **correlated with your biological groups**. When this happens, it becomes indistinguishable from the signal you are trying to measure.
+
+::: {.callout-note .city-analogy}
+## A census analogy
+
+Imagine two cities with similar geography, climate, and population size. Two census takers are each sent to one city to record occupants' last names by knocking on doors.
+
+-   **Census Taker A** goes out on a rainy, cold Monday morning.
+-   **Census Taker B** goes out on a clear 70°F evening.
+
+The data come back and City A appears to have more Johnsons than City B. But is that a real demographic difference, or does the Johnson family simply work outside the home and was not there to answer the door on a Monday morning?
+
+The same logic applies to microbiome studies. If control samples are processed in one batch and treated samples in another, if different primers are used for cases versus controls, or if pre-treatment samples are collected in one building and post-treatment samples in another, **there is no way to separate biological signal from technical variation**.
+
+To mitigate these issues, it is important that we stratify these variables, or spread them evenly across biological groups, when we can and at least keep record of them in cases in which we cannot. This allows us to check for their influence and, if necessary, adjust for them in our analyses downstream. While adjusting for every variable is not possible, we definitely cannot adjust for anything that was not recorded.
+:::
+
+### Common sources of technical variation
+
+| Stage | Variable | Why it matters |
+|------------------------|------------------------|------------------------|
+| **Collection** | Site / facility | Different hospital wings, clinics, or rooms have different ambient microbiomes, cleaning protocols, and personnel practices. Two "healthy controls" from different sites can differ for purely logistical reasons. |
+| **Collection** | Swab type | Affects how much biomass is recovered and which taxa adhere. |
+| **Collection** | Time of day | Oral and gut communities shift measurably across the day. |
+| **Collection** | Time to storage | A sample left at room temperature for 2 hours before freezing looks different from one frozen immediately. |
+| **Transport & Storage** | Temperature excursions | Differential cell lysis during shipping — some taxa are more fragile than others. A common hidden variable in multi-site studies. |
+| **Transport & Storage** | Storage duration | Communities degrade over time; longer storage selectively depletes fragile taxa. |
+| **DNA Extraction** | Kit manufacturer | Different kits lyse cells with different efficiency. Gram-positive bacteria are notoriously difficult to break open, so kit choice directly shapes which taxa appear in your data. |
+| **DNA Extraction** | Operator variability | Even the same kit in the same lab can produce different yields depending on who runs it and when. |
+| **Library Preparation** | Primer choice | Determines which region of the 16S gene is amplified, creating systematic biases toward certain taxa and blind spots for others. |
+| **Library Preparation** | PCR cycles | More cycles introduce more chimeric sequences and amplification artifacts. |
+| **Sequencing** | Sequencing depth | Total reads per sample varies across samples and runs, directly affecting detection of low-abundance taxa. |
+| **Sequencing** | Multiplexing | How many samples share a run affects per-sample depth. |
+| **Sequencing** | Read type | Short vs. long read and single vs. paired-end affect taxonomic resolution. |
+
+This is a non-comprehensive list. The key point: by the time data reaches your analysis pipeline, it carries the fingerprints of every decision made upstream.
+
+::: callout-caution
+## Mitigating batch effects
+
+Here you can see what a set of samples run in two batches looks like when the researcher does and does not confound the treatment group with batch. These are dimension reduction plots that indicate one sample per point. The closer the points are together, the more similar they are. Ideally, we see separation of points by their biological groups (second plot) but not by the batch they were run in (first plot). This indicates that there seems to be a biological difference between treatment and control samples that is not explained by batch processing differences.
+
+```{ojs}
+//| echo: false
+viewof design = Inputs.radio(["Confounded", "Balanced"], {
+  value: "Confounded",
+  label: html`<div style="font-size: 24px; font-weight: bold; text-align: center;">
+    Study design
+  </div>`
+})
+```
+
+```{ojs}
+//| echo: false
+{
+  function makeRng(seed) {
+    let s = seed >>> 0;
+    return () => { s = (Math.imul(s, 1664525) + 1013904223) >>> 0; return s / 4294967296; };
+  }
+  function randn(rng) {
+    return Math.sqrt(-2 * Math.log(rng() + 1e-10)) * Math.cos(2 * Math.PI * rng());
+  }
+
+  const rng   = makeRng(7);
+  const noise = Array.from({length: 40}, () => ({ nx: randn(rng), ny: randn(rng) }));
+
+  const samples = noise.map((n, i) => {
+    const batch = i < 20 ? "Batch 1" : "Batch 2";
+    const group = design === "Confounded"
+      ? (batch === "Batch 1" ? "Case" : "Control")
+      : (i % 4 < 2 ? "Case" : "Control");
+    const yOffset = design === "Balanced"
+      ? (group === "Case" ? 1.1 : -1.1)
+      : 0;
+    return {
+      batch, group,
+      x: (batch === "Batch 1" ? -2.5 : 2.5) + n.nx * 1.2,
+      y: yOffset + n.ny * 1.2
+    };
+  });
+
+  const plotW = Math.floor((Math.min(width, 720) - 56) / 2);
+  const yDomain = [-5, 5];
+
+  function makePlot(field, domain, range) {
+    return Plot.plot({
+      width: plotW,
+      height: 300,
+      x: { label: "PC1", grid: true, tickFormat: d => d.toFixed(1) },
+      y: { label: "PC2", grid: true, domain: yDomain, tickFormat: d => d.toFixed(1) },
+      color: { domain, range, legend: true },
+      marks: [
+        Plot.dot(samples, {
+          x: "x", y: "y", fill: field,
+          r: 6, stroke: "white", strokeWidth: 1.5,
+          title: d => `${d.group} — ${d.batch}`
+        })
+      ]
+    });
+  }
+
+  function labeled(plot, titleText) {
+    const wrap = Object.assign(document.createElement("div"), {
+      style: "display:flex; flex-direction:column; align-items:center; flex:1; min-width:180px;"
+    });
+    const h = Object.assign(document.createElement("div"), {
+      textContent: titleText,
+      style: "font-weight:600; font-size:0.95rem; text-align:center; margin-bottom:0.35rem; color:#2a1a2e;"
+    });
+    wrap.append(h, plot);
+    return wrap;
+  }
+
+  const caption = design === "Confounded"
+    ? "Confounded design: cases and controls occupy separate batches. The two plots are mirror images — you cannot tell whether separation on any axis reflects biology or batch processing."
+    : "Balanced design: batch drives the left/right separation on PC1. Within each batch, cases sit higher and controls lower — the case/control difference on PC2 is only detectable here because both groups appear in every batch.";
+
+  const left  = labeled(makePlot("batch", ["Batch 1", "Batch 2"], ["#1565C0", "#C62828"]), "Batch");
+  const right = labeled(makePlot("group", ["Case", "Control"],    ["#752f7d", "#2E7D32"]), "Treatment Group");
+
+  const capEl = Object.assign(document.createElement("p"), {
+    textContent: caption,
+    style: "width:100%; margin:0.6rem 0 0; font-size:0.875rem; color:#555; font-style:italic;"
+  });
+
+  const container = Object.assign(document.createElement("div"), {
+    style: `
+      display: flex; flex-wrap: wrap; gap: 1rem; align-items: flex-start;
+      border: 1.5px solid #d4b8d8; border-radius: 8px; padding: 1.25rem;
+    `
+  });
+  container.append(left, right, capEl);
+  return container;
+}
+```
+:::
+
+::: {.callout-tip collapse="true"}
+## Code and tool examples
+
+Here is a brief example of how to check for batch effects in R using the phyloseq package. This assumes you have a `phyloseq` object called `physeq` with sample metadata that includes a "batch" variable and a "treatment" variable.
+
+``` r
+library(phyloseq)
+
+ord <- ordinate(physeq, method = "PCoA", distance = "bray")
+
+plot_ordination(physeq, ord, color = "variable_of_interest")
+```
+
+See the [phyloseq ordination tutorial](https://joey711.github.io/phyloseq/plot_ordination-examples.html) for further options.
+:::
+
+The key principle: **balance your treatment groups across batches**. If every case is extracted in January and every control in February, you will never be able to separate the effect of your treatment from the effect of processing date.

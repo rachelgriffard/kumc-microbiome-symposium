@@ -25,7 +25,7 @@ Your choice of target region is a consequential decision in your study design.
 | V4–V5 | 515F `GTGYCAGCMGCCGCGGTAA` / 926R `CCGYCAATTYMTTTRAGTTT` | \~380–415 bp | 2×250 bp | Better archaeal coverage |
 | V1–V2 | 27F `AGAGTTTGATCMTGGCTCAG` / 338R `TGCTGCCTCCCGTAGGAGT` | \~310 bp | 2×250 bp | Better gram-positive resolution; less reference data; less common in human microbiome studies |
 
-::: callout-important
+::: callout-caution
 ## Mixing samples with different primers: I wouldn't!
 
 Community composition estimates are not directly comparable across studies that used different primer pairs. Even within the same region, primer mismatches can create systematic biases toward certain taxa. If you are comparing to published data or a reference cohort, you are best off using the same primer pair.

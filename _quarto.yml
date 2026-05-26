@@ -22,6 +22,8 @@ website:
     background: "#1B3A58"
     foreground: "#EBF4FB"
 
+  bread-crumbs: false # remove ugly yellow header bar
+
   sidebar:
     style: "docked"
     search: true
@@ -34,14 +36,14 @@ website:
             href: types-of-microbiome-data.qmd
           - text: "What is 16S rRNA seq?"
             href: 16s-overview.qmd
+          - text: "Technical Variation & Confounders"
+            href: confounding.qmd
       - section: "Targeted Amplicon Sequencing Analysis"
         contents:
           - section: "Preprocessing"
             contents:
-              - text: "Sequencing & Confounders"
+              - text: "Sequencing"
                 href: 03-sequencing.qmd
-              - text: "Amplification & Pooling"
-                href: 02-amplification.qmd
               - text: "FASTQ Files"
                 href: 04-fastq.qmd
               - text: "QC Reports"

@@ -15,6 +15,12 @@ The gut microbiome is the most studied. A healthy adult gut hosts hundreds to th
 
 Just like the microbiome, a city is a community made up of people who live, work, and play in the same geographic location. They interact with each other in different units, like families or friends, and, just like people, they have different roles in their environment that make them distinct. This site uses this comparison to help make the different steps of microbiome analysis more intuitive.
 
+::: {.callout-note .city-analogy}
+## How to use the city analogy
+
+Throughout this workshop, callouts like this one pair a city or census scenario with the concept being introduced on that page. The city's residents are its microbes; 16S sequencing is the census; the census takers are the reagents, instruments, and analysts — each with their own habits, biases, and occasionally sloppy handwriting. When you see this callout, you're getting the analogy version of what follows.
+:::
+
 ## Variability in the microbiome
 
 The human microbiome is variable in multiple ways, ranging from within the same person to across multiple people.
@@ -23,7 +29,87 @@ The human microbiome is variable in multiple ways, ranging from within the same 
 
 When we consider two cities in the same state, one on a beach and one that is land-locked, we know that there are differences between them despite both being cities. For example, our beach city would more than likely have more surfers and life guards than our landlocked city would.
 
-![A landlocked city](assets/landlocked-city-1.png){alt="A landlocked city" fig-align="center" width="275" style="font-size: 12pt;"} ![A beach city](assets/beach-city.png){alt="A beach city" fig-align="center" width="275" style="font-size: 12pt;"}
+```{ojs}
+//| echo: false
+{
+  const cities = {
+    landlocked: {
+      label: "Landlocked City",
+      img: "assets/landlocked-city-1.png",
+      color: "#1B3A58",
+      bullets: [
+        "Snowplow drivers and road crews are common in winter months",
+        "Coprorate workers make up a large share of the workforce",
+        "Stable year-round population with fewer seasonal visitors"
+      ]
+    },
+    beach: {
+      label: "Beach City",
+      img: "assets/beach-city.png",
+      color: "#1565C0",
+      bullets: [
+        "Lifeguards and surf instructors arrive every summer",
+        "Tourism and hospitality workers spike seasonally",
+        "Fishing and maritime industries are present year-round",
+        "High turnover of seasonal residents and vacationers"
+      ]
+    }
+  };
+
+  const wrap = html`<div></div>`;
+
+  const cards = html`<div style="display:flex; gap:1.5rem; justify-content:center; flex-wrap:wrap; margin-bottom:1rem;">
+    ${Object.entries(cities).map(([key, city]) => html`
+      <div data-key="${key}" style="cursor:pointer; text-align:center; padding:0.75rem 1.25rem;
+           border-radius:10px; border:2px solid #ddd; background:#fafafa;
+           transition:border 0.15s, background 0.15s; max-width:260px;">
+        <img src="${city.img}" width="220" alt="${city.label}" style="border-radius:6px; display:block; margin:0 auto;">
+        <div style="font-weight:600; margin-top:0.5rem; font-size:0.95rem;">${city.label}</div>
+        <div style="font-size:0.78rem; color:#888; margin-top:0.2rem;">Click to explore</div>
+      </div>
+    `)}
+  </div>`;
+
+  const info = html`<div style="min-height:8px; transition:all 0.2s;"></div>`;
+
+  let selected = null;
+
+  cards.querySelectorAll("[data-key]").forEach(card => {
+    card.addEventListener("click", () => {
+      const key = card.dataset.key;
+      const city = cities[key];
+      if (selected === key) {
+        selected = null;
+        cards.querySelectorAll("[data-key]").forEach(c => {
+          c.style.border = "2px solid #ddd";
+          c.style.background = "#fafafa";
+        });
+        info.innerHTML = "";
+      } else {
+        selected = key;
+        cards.querySelectorAll("[data-key]").forEach(c => {
+          c.style.border = "2px solid #ddd";
+          c.style.background = "#fafafa";
+        });
+        card.style.border = `2px solid ${city.color}`;
+        card.style.background = "#eef3fb";
+        info.innerHTML = `
+          <div style="border-left:4px solid ${city.color}; padding:0.75rem 1rem;
+               background:#f7f9fc; border-radius:0 6px 6px 0; margin-top:0.5rem;">
+            <strong>${city.label} — who lives here?</strong>
+            <ul style="margin:0.5rem 0 0; padding-left:1.25rem;">
+              ${city.bullets.map(b => `<li style="margin-bottom:0.3rem;">${b}</li>`).join("")}
+            </ul>
+          </div>`;
+      }
+    });
+  });
+
+  wrap.appendChild(cards);
+  wrap.appendChild(info);
+  return wrap;
+}
+```
 
 Similarly, the microbiome in one human has distinct compositions from one site to another. We see a difference between the oral cavity to the skin to the gut microbiome.
 
@@ -55,11 +141,12 @@ This workshop walks through a typical analysis pipeline for 16S rRNA sequencing 
 
 | Stage | What happens |
 |------------------------------------|------------------------------------|
-| **Introduction** |  |
+| **Introduction to Microbiome Analysis** |  |
+| [Types of Microbiome Data](types-of-microbiome-data.qmd) | Amplicon, metagenomic, transcriptomic, and metabolomic approaches |
 | [What is 16S rRNA seq?](16s-overview.qmd) | The 16S gene, variable regions, and amplicons |
+| [Technical Variation & Confounders](confounding.qmd) | Batch effects, study design, and sources of systematic error |
 | **Preprocessing** |  |
-| [Sequencing & Confounders](03-sequencing.qmd) | How reads are generated and technical variation |
-| [Amplification & Pooling](02-amplification.qmd) | PCR to enrich the 16S rRNA gene |
+| [Sequencing](03-sequencing.qmd) | How reads are generated, primer design, and PCR duplicates |
 | [FASTQ Files](04-fastq.qmd) | Raw data files from the sequencer |
 | [QC Reports](qc-reports.qmd) | Inspecting data quality before analysis |
 | [Trimming & Truncation](trimming.qmd) | Removing primers and low-quality bases |
@@ -70,6 +157,11 @@ This workshop walks through a typical analysis pipeline for 16S rRNA sequencing 
 | [Guilds](guilds.qmd) | Ecologically relevant groupings |
 | [Diversity Analysis](09-diversity-analysis.qmd) | Alpha and beta diversity, statistical testing |
 | [Differential Abundance](diff-abundance.qmd) | Identifying taxa that differ between groups |
+| **Further Resources** |  |
+| [Public Sequencing Data](public-data.qmd) | Repositories and how to access existing datasets |
+| [KUMC Resources](kumc-resources.qmd) | Local compute, storage, and support |
+| [External Resources](external-resources.qmd) | Tutorials, tools, and documentation |
+| [Citations](citations.qmd) | References and image credits |
 
 ## How to read this guide
 
@@ -83,7 +175,7 @@ These boxes provide additional context, background, or elaboration that deepens 
 **Example of when you'll see this:** An explanation of why quality scores degrade toward the 3′ end of a read, or what a rarefaction curve is measuring conceptually.
 :::
 
-::: {.callout-warning collapse="true"}
+::: {.callout-caution collapse="true"}
 ## Warnings
 
 These boxes flag common mistakes, easy-to-overlook pitfalls, or steps where errors are frequently introduced. Pay close attention — skipping or mis-applying the flagged step often causes silent failures that are difficult to diagnose later.

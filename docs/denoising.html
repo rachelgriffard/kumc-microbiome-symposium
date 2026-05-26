@@ -312,9 +312,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Targeted Amplicon Sequencing Analysis</li><li class="breadcrumb-item"><a href="./03-sequencing.html">Preprocessing</a></li><li class="breadcrumb-item"><a href="./denoising.html">Denoising &amp; Merging</a></li></ol></nav>
-        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
-        </a>
+        <a class="flex-grow-1 no-decor" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+          <h1 class="quarto-secondary-nav-title">Denoising &amp; Merging</h1>
+        </a>     
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
       </button>
@@ -363,6 +363,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="menu-text">What is 16S rRNA seq?</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./confounding.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Technical Variation &amp; Confounders</span></a>
+  </div>
+</li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
@@ -386,13 +392,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./03-sequencing.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Sequencing &amp; Confounders</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./02-amplification.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Amplification &amp; Pooling</span></a>
+ <span class="menu-text">Sequencing</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -512,12 +512,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#asvs-vs.-otus-a-philosophical-divide" id="toc-asvs-vs.-otus-a-philosophical-divide" class="nav-link active" data-scroll-target="#asvs-vs.-otus-a-philosophical-divide">ASVs vs.&nbsp;OTUs: a philosophical divide</a>
   <ul class="collapse">
   <li><a href="#otu-clustering" id="toc-otu-clustering" class="nav-link" data-scroll-target="#otu-clustering">OTU clustering</a></li>
-  <li><a href="#asv-denoising-dada2-deblur" id="toc-asv-denoising-dada2-deblur" class="nav-link" data-scroll-target="#asv-denoising-dada2-deblur">ASV denoising (DADA2, Deblur)</a></li>
+  <li><a href="#asv-denoising" id="toc-asv-denoising" class="nav-link" data-scroll-target="#asv-denoising">ASV denoising</a></li>
   </ul></li>
   <li><a href="#how-dada2-builds-the-count-table" id="toc-how-dada2-builds-the-count-table" class="nav-link" data-scroll-target="#how-dada2-builds-the-count-table">How DADA2 builds the count table</a></li>
   <li><a href="#what-the-asv-table-looks-like" id="toc-what-the-asv-table-looks-like" class="nav-link" data-scroll-target="#what-the-asv-table-looks-like">What the ASV table looks like</a></li>
   <li><a href="#tracking-read-counts-through-the-pipeline" id="toc-tracking-read-counts-through-the-pipeline" class="nav-link" data-scroll-target="#tracking-read-counts-through-the-pipeline">Tracking read counts through the pipeline</a></li>
-  <li><a href="#what-can-go-wrong" id="toc-what-can-go-wrong" class="nav-link" data-scroll-target="#what-can-go-wrong">What can go wrong</a></li>
   </ul>
 </nav>
     </div>
@@ -525,9 +524,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <main class="content" id="quarto-document-content">
 
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Targeted Amplicon Sequencing Analysis</li><li class="breadcrumb-item"><a href="./03-sequencing.html">Preprocessing</a></li><li class="breadcrumb-item"><a href="./denoising.html">Denoising &amp; Merging</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Denoising &amp; Merging</h1>
+<h1 class="title d-none d-lg-block">Denoising &amp; Merging</h1>
 </div>
 
 
@@ -544,10 +543,29 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p>The count table is the central data object in a microbiome study: a matrix of taxa (rows) × samples (columns), where each cell contains the number of sequencing reads assigned to that taxon in that sample. Every diversity analysis, differential abundance test, and visualization works from this table. The decisions made in building it affect everything that follows.</p>
+<p>The count table is the central data object in a microbiome study: a matrix of features, often taxa (rows) × samples (columns), where each cell contains the number of sequencing reads assigned to that taxon in that sample. Every diversity analysis, differential abundance test, and visualization works from this table.</p>
 <section id="asvs-vs.-otus-a-philosophical-divide" class="level2">
 <h2 class="anchored" data-anchor-id="asvs-vs.-otus-a-philosophical-divide">ASVs vs.&nbsp;OTUs: a philosophical divide</h2>
-<p>There are two main approaches to going from reads to taxa.</p>
+<p>There are two main approaches to going from reads to features. Operational Taxonomic Units are not often used in current analyses, but are worth reviewing to understand their impact in older studies.</p>
+<div class="city-analogy callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>The census taker’s notebook
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Imagine a census taker going door to door through the microbial city, recording every resident’s last name. Because they’re writing quickly, some entries come out a little garbled. A resident named <strong>Smith</strong> might appear as <strong>Smeth</strong> in a handful of entries, because the dot over the <em>i</em> was lost in a hurried pen stroke. It is worth noting, however, that there is truly a <strong>Smith</strong> family and a <strong>Smyth</strong> family that are distinct in this city.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="assets/denoising-smeth-example.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="600"></p>
+</figure>
+</div>
+<p>Now we can look at the methods to resolve this below.</p>
+</div>
+</div>
 <section id="otu-clustering" class="level3">
 <h3 class="anchored" data-anchor-id="otu-clustering">OTU clustering</h3>
 <p>Operational Taxonomic Units (OTUs) group similar sequences together based on a percent identity threshold, typically 97% (the conventional proxy for a bacterial “species”). All reads within 97% of each other are collapsed into a single OTU represented by a consensus or centroid sequence.</p>
@@ -555,25 +573,53 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><strong>Pro</strong>: tolerant of sequencing errors (errors fall within the similarity threshold)</li>
 <li><strong>Con</strong>: different taxa can be merged into the same OTU; the 97% threshold is arbitrary and varies in its biological meaning across lineages; results change depending on clustering order; not reproducible across datasets with different sample sets</li>
 </ul>
-</section>
-<section id="asv-denoising-dada2-deblur" class="level3">
-<h3 class="anchored" data-anchor-id="asv-denoising-dada2-deblur">ASV denoising (DADA2, Deblur)</h3>
-<p>Amplicon Sequence Variants (ASVs) are exact sequences — the actual nucleotide sequence of each unique variant, after sequencing errors have been corrected by a statistical model. Instead of clustering, DADA2 models the error process of the sequencing run and uses that model to distinguish true biological variants from noise.</p>
-<ul>
-<li><strong>Pro</strong>: exact sequences are reproducible across studies and databases; can resolve variants differing by a single base; exact sequences can be searched against any database</li>
-<li><strong>Con</strong>: requires a good error model (poor quality data = poor error model); computationally more intensive</li>
-</ul>
-<div class="callout callout-style-default callout-note callout-titled">
+<div class="city-analogy callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>The field has largely moved to ASVs
+<span class="screen-reader-only">Note</span>The census taker’s notebook
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>OTU clustering</strong> is like a supervisor who reviews the notebook and says: <em>“Smeth and Smith are close enough — I’ll put them in the same household.”</em> Anyone within a similarity threshold gets merged into one group. This is forgiving of sloppy handwriting, but it can also lump genuinely different residents together, such <strong>Smith</strong> and <strong>Smyth</strong>, just because their names look alike. The threshold is arbitrary, and you can no longer tell if the Smiths and the Smyths and the Smeths are genuinely distinct families or a writing error.</p>
+</div>
+</div>
+</section>
+<section id="asv-denoising" class="level3">
+<h3 class="anchored" data-anchor-id="asv-denoising">ASV denoising</h3>
+<p>Amplicon Sequence Variants (ASVs) are exact sequences — the actual nucleotide sequence of each unique variant, after sequencing errors have been corrected by a statistical model. Instead of clustering, DADA2 models the error process of the sequencing run and uses that model to distinguish true biological variants from noise.</p>
+<ul>
+<li><strong>Pro</strong>: exact sequences are reproducible across studies and databases; can resolve variants differing by a single base; exact sequences can be searched against any database</li>
+<li><strong>Con</strong>: requires a good error model (poor quality data = poor error model); computationally more intensive</li>
+</ul>
+<div class="city-analogy callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>The census taker’s notebook
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>ASV denoising</strong> takes a different approach. Instead of grouping by similarity, it studies the <em>census taker’s handwriting habits</em> across thousands of entries. It learns that this particular writer tends to skip <em>i</em> dots when rushing, and concludes that “Smeth” appearing a few times alongside a high-frequency “Smith” is almost certainly a transcription error and corrects it. But if someone truly named <strong>Smeth</strong> keeps showing up consistently at a rate that can’t be explained by handwriting error alone, the algorithm keeps them as a real, distinct resident.</p>
+<p>The result: ASVs give you exact, corrected sequences that are reproducible across studies. OTUs give you approximate groups that tolerate noise but sacrifice resolution.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-caution callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Caution</span>The field has largely moved to ASVs
 </div>
 </div>
 <div class="callout-body-container callout-body">
 <p>Most current publications and tools (DADA2, QIIME2’s default, Deblur) use ASVs. If you are comparing to older literature or datasets that used OTU clustering, be aware that they are not directly comparable without re-analysis.</p>
+<p>The coding examples here will focus on denoising for this reason.</p>
 </div>
 </div>
 </section>
@@ -581,13 +627,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="how-dada2-builds-the-count-table" class="level2">
 <h2 class="anchored" data-anchor-id="how-dada2-builds-the-count-table">How DADA2 builds the count table</h2>
 <ol type="1">
-<li><p><strong>Learn error rates</strong> — the algorithm examines quality score profiles across all reads in the run to build a model of how often each nucleotide is substituted for another at each quality score. This is why all samples in a run should be processed together during error learning.</p></li>
-<li><p><strong>Denoise</strong> — reads are corrected based on the error model, and unique true sequences (ASVs) are identified.</p></li>
-<li><p><strong>Merge paired reads</strong> — corrected R1 and R2 reads are aligned and merged in the overlap region. Non-overlapping pairs are discarded.</p></li>
-<li><p><strong>Remove chimeras</strong> — sequences that appear to be PCR chimeras (composites of two real sequences) are identified and removed.</p></li>
+<li><p><strong>Learn error rates</strong>: the algorithm examines quality score profiles across all reads in the run to build a model of how often each nucleotide is substituted for another at each quality score. This is why all samples in a run should be processed together during error learning.</p></li>
+<li><p><strong>Denoise</strong>: reads are corrected based on the error model, and unique true sequences (ASVs) are identified.</p></li>
+<li><p><strong>Merge paired reads</strong>: corrected R1 and R2 reads are aligned and merged in the overlap region. Non-overlapping pairs are discarded.</p></li>
+<li><p><strong>Remove chimeras</strong>: sequences that appear to be PCR chimeras (composites of two real sequences) are identified and removed.</p></li>
 </ol>
+<p>Once these steps have completed, the unique sequences are officially considered amplicon sequencing variants (ASVs).</p>
 <div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -596,8 +643,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div id="callout-5" class="callout-5-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
+<p><strong>DADA2 (R package)</strong></p>
+<p>For more information about DADA2, see the <a href="https://www.nature.com/articles/nmeth.3869">original Nature Methods paper</a> and the <a href="https://benjjneb.github.io/dada2/tutorial.html">R package tutorial</a>.</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Learn error rates (run once per sequencing run)</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>err_forward <span class="ot">&lt;-</span> <span class="fu">learnErrors</span>(filtered_forward, <span class="at">multithread =</span> <span class="cn">TRUE</span>)</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>err_reverse <span class="ot">&lt;-</span> <span class="fu">learnErrors</span>(filtered_reverse, <span class="at">multithread =</span> <span class="cn">TRUE</span>)</span>
@@ -615,13 +664,24 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Remove chimeras</span></span>
 <span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>seqtab_nochim <span class="ot">&lt;-</span> <span class="fu">removeBimeraDenovo</span>(seqtab, <span class="at">method =</span> <span class="st">"consensus"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>QIIME2 (dada2 plugin)</strong></p>
+<p>For more information, see the <a href="https://docs.qiime2.org/2024.10/plugins/available/dada2/">QIIME2 dada2 plugin documentation</a>.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">qiime</span> dada2 denoise-paired <span class="dt">\</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">--i-demultiplexed-seqs</span> demux-paired-end.qza <span class="dt">\</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">--p-trim-left-f</span> 0 <span class="dt">\</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">--p-trim-left-r</span> 0 <span class="dt">\</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">--p-trunc-len-f</span> 230 <span class="dt">\</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">--p-trunc-len-r</span> 180 <span class="dt">\</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">--o-table</span> table.qza <span class="dt">\</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">--o-representative-sequences</span> rep-seqs.qza <span class="dt">\</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">--o-denoising-stats</span> denoising-stats.qza</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div>
 </div>
 </section>
 <section id="what-the-asv-table-looks-like" class="level2">
 <h2 class="anchored" data-anchor-id="what-the-asv-table-looks-like">What the ASV table looks like</h2>
-<p>The output is a matrix where rows are ASVs (each identified by its exact nucleotide sequence or a short hash) and columns are samples. Each cell is an integer count.</p>
+<p>The output is a matrix where rows are ASVs (each identified by its exact nucleotide sequence or more commonly a short hash) and columns are samples. Each cell is an integer count.</p>
 <table class="caption-top table">
 <thead>
 <tr class="header">
@@ -670,11 +730,26 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tr>
 </tbody>
 </table>
-<p>This table will have thousands of rows (one per unique ASV) and one column per sample. Most cells will be zero — ASVs are typically present in only a subset of samples.</p>
+<p>This table will have thousands of rows (one per unique ASV) and one column per sample. Most cells will be zero, as ASVs are typically present in only a subset of samples.</p>
+<div class="callout callout-style-default callout-caution callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Caution</span>These counts are not directly comparable
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The integers in this table are absolute, raw read counts. A count of 1,284 for ASV_001 in Sample_1 means nothing on its own without knowing how many total reads that sample produced.</p>
+<p>Looking at the table above, Sample_1 has a total of 4,446 reads across these four ASVs, while Sample_2 has 7,409. If ASV_003 appears in Sample_1 at 62 reads and in Sample_2 at 88 reads, that does not mean it is more abundant in Sample_2. It may be that Sample_2 simply had more reads to begin with. Comparing raw counts is not possible without adjusting somehow for this difference in sequencing depth.</p>
+<p>This is addressed in the upcoming <a href="./normalization.html">Normalization</a> section, which discuses some of the methods to account for these depth differences before any downstream analysis.</p>
+</div>
+</div>
 </section>
 <section id="tracking-read-counts-through-the-pipeline" class="level2">
 <h2 class="anchored" data-anchor-id="tracking-read-counts-through-the-pipeline">Tracking read counts through the pipeline</h2>
-<p>Most pipelines produce a summary table of read counts at each step (input → filtered → denoised → merged → chimeras removed). This is essential for diagnosing where reads are being lost. A healthy pipeline looks like:</p>
+<p>Most pipelines produce a summary table of read counts at each step (input → filtered → denoised → merged → chimeras removed). This is a good method for diagnosing where reads are being lost. This may look something like this table:</p>
 <table class="caption-top table">
 <thead>
 <tr class="header">
@@ -706,12 +781,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tbody>
 </table>
 <p>Large drops at any single step indicate a problem at that stage.</p>
-</section>
-<section id="what-can-go-wrong" class="level2">
-<h2 class="anchored" data-anchor-id="what-can-go-wrong">What can go wrong</h2>
-<p><strong>Poor error model</strong> — if the run had poor quality or very low read counts, DADA2’s error model will be poorly estimated. Signs: very few ASVs recovered, or implausibly large numbers of ASVs. Running with pooling (<code>pool = TRUE</code>) or pseudo-pooling can help for low-abundance samples.</p>
-<p><strong>Merge failures</strong> — if too few reads merge (check the DADA2 step summary), the truncation lengths are likely the culprit. Some pipelines accept single-end reads as a fallback.</p>
-<p><strong>Chimera over-removal</strong> — the chimera removal step is aggressive. Rare legitimate ASVs can be incorrectly flagged as chimeras if they resemble combinations of two more abundant sequences. This is an inherent limitation and not fully controllable.</p>
 
 
 </section>

@@ -63,6 +63,29 @@ details:not(.code-fold) > summary::before {
   flex-shrink: 0;
 }
 
+/* City / census analogy callouts */
+div.callout.city-analogy {
+  border-left-color: #6941C6 !important;
+}
+
+div.callout.city-analogy > .callout-header {
+  background-color: rgba(105, 65, 198, 0.1);
+}
+
+div.callout.city-analogy .callout-icon::before {
+  content: "" !important;
+  display: inline-block !important;
+  background-image: url("assets/landlocked-city-1.png") !important;
+  background-size: contain !important;
+  background-repeat: no-repeat !important;
+  background-position: center !important;
+  background-color: transparent !important;
+  mask-image: none !important;
+  -webkit-mask-image: none !important;
+  width: 1rem !important;
+  height: 1rem !important;
+}
+
 /* Code callout (tip) — code-slash icon */
 .callout-tip .callout-icon::before {
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%231565C0' viewBox='0 0 16 16'%3E%3Cpath d='M14.082 2.182a.5.5 0 0 1 .103.557L8.528 15.467a.5.5 0 0 1-.917-.007L5.57 10.694.803 8.652a.5.5 0 0 1-.006-.916l12.728-5.657a.5.5 0 0 1 .556.103z'/%3E%3C/svg%3E");
