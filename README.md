@@ -2,7 +2,7 @@
 
 ## KUMC Microbiome Symposium 2026
 
-Companion site for an invited one-hour workshop delivered at the 
+Companion site for an invited workshop delivered at the 
 [2nd Annual Microbiome Symposium](https://events.kucancercenter.org/2nd-annual-microbiome-symposium) 
 at the University of Kansas Medical Center (June 25, 2026), hosted by the 
 KU Cancer Center and attended by researchers across cancer, immunology, 
