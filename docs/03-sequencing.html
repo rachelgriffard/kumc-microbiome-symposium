@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Sequencing &amp; Confounders – The Microbial City: An Introduction to Microbiome Analysis</title>
+<title>Sequencing – The Microbial City: An Introduction to Microbiome Analysis</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -19,41 +19,6 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
-}
-/* CSS for syntax highlighting */
-html { -webkit-text-size-adjust: 100%; }
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -108,8 +73,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   }
 }</script>
 <style>html{ scroll-behavior: smooth; }</style>
-<script type="module" src="site_libs/quarto-ojs/quarto-ojs-runtime.js"></script>
-<link href="site_libs/quarto-ojs/quarto-ojs.css" rel="stylesheet">
 
 
 <link rel="stylesheet" href="styles.css">
@@ -314,9 +277,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Targeted Amplicon Sequencing Analysis</li><li class="breadcrumb-item"><a href="./03-sequencing.html">Preprocessing</a></li><li class="breadcrumb-item"><a href="./03-sequencing.html">Sequencing &amp; Confounders</a></li></ol></nav>
-        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
-        </a>
+        <a class="flex-grow-1 no-decor" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+          <h1 class="quarto-secondary-nav-title">Sequencing</h1>
+        </a>     
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
       </button>
@@ -365,6 +328,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="menu-text">What is 16S rRNA seq?</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./confounding.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Technical Variation &amp; Confounders</span></a>
+  </div>
+</li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
@@ -388,13 +357,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./03-sequencing.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">Sequencing &amp; Confounders</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./02-amplification.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Amplification &amp; Pooling</span></a>
+ <span class="menu-text">Sequencing</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -511,13 +474,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#how-samples-become-reads" id="toc-how-samples-become-reads" class="nav-link active" data-scroll-target="#how-samples-become-reads">How samples become reads</a></li>
+  <li><a href="#primer-design" id="toc-primer-design" class="nav-link active" data-scroll-target="#primer-design">Primer design</a></li>
+  <li><a href="#how-samples-become-reads" id="toc-how-samples-become-reads" class="nav-link" data-scroll-target="#how-samples-become-reads">How samples become reads</a></li>
+  <li><a href="#pcr-duplicates-and-the-relative-abundance-problem" id="toc-pcr-duplicates-and-the-relative-abundance-problem" class="nav-link" data-scroll-target="#pcr-duplicates-and-the-relative-abundance-problem">PCR duplicates and the relative abundance problem</a></li>
   <li><a href="#single-end-vs.-paired-end-sequencing" id="toc-single-end-vs.-paired-end-sequencing" class="nav-link" data-scroll-target="#single-end-vs.-paired-end-sequencing">Single-end vs.&nbsp;paired-end sequencing</a></li>
   <li><a href="#sequencing-platforms" id="toc-sequencing-platforms" class="nav-link" data-scroll-target="#sequencing-platforms">Sequencing platforms</a></li>
-  <li><a href="#technical-variation-and-confounders" id="toc-technical-variation-and-confounders" class="nav-link" data-scroll-target="#technical-variation-and-confounders">Technical variation and confounders</a>
-  <ul class="collapse">
-  <li><a href="#why-systematic-variation-is-the-real-problem" id="toc-why-systematic-variation-is-the-real-problem" class="nav-link" data-scroll-target="#why-systematic-variation-is-the-real-problem">Why systematic variation is the real problem</a></li>
-  </ul></li>
   <li><a href="#what-the-sequencing-core-delivers" id="toc-what-the-sequencing-core-delivers" class="nav-link" data-scroll-target="#what-the-sequencing-core-delivers">What the sequencing core delivers</a></li>
   </ul>
 </nav>
@@ -526,9 +487,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <main class="content" id="quarto-document-content">
 
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Targeted Amplicon Sequencing Analysis</li><li class="breadcrumb-item"><a href="./03-sequencing.html">Preprocessing</a></li><li class="breadcrumb-item"><a href="./03-sequencing.html">Sequencing &amp; Confounders</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Sequencing &amp; Confounders</h1>
+<h1 class="title d-none d-lg-block">Sequencing</h1>
 </div>
 
 
@@ -546,6 +507,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 <p>The amplicon library is loaded onto a sequencer, which reads the nucleotide sequence of millions of DNA fragments simultaneously. The sequencer produces a FASTQ file per sample (or per run, if not yet demultiplexed).</p>
+<section id="primer-design" class="level2">
+<h2 class="anchored" data-anchor-id="primer-design">Primer design</h2>
+<p>Universal primers target the conserved region sequences. “Universal” is a relative term — primers vary in how well they match across the full breadth of bacterial diversity. Some lineages (e.g., <em>Verrucomicrobia</em>, <em>Tenericutes</em>, Archaea) can be systematically underamplified by common primer sets.</p>
+<p>Primers for Illumina sequencing are ordered with adapter sequences attached so the amplicon can be directly sequenced without additional ligation. Some protocols use a two-step PCR: first to amplify the target, second to add the full sequencing adapters and barcodes.</p>
+</section>
 <section id="how-samples-become-reads" class="level2">
 <h2 class="anchored" data-anchor-id="how-samples-become-reads">How samples become reads</h2>
 <p>Understanding the flow from plate to data file makes many downstream analytical decisions easier to interpret:</p>
@@ -555,19 +521,23 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><strong>Sequencing</strong>: The machine randomly samples from the mixed pool. It does not allocate reads equally across samples; it samples stochastically from whatever DNA is present. This means that there is often largely different sampling depth across samples.</li>
 <li><strong>Demultiplexing output</strong>: After sequencing, reads are sorted back to individual samples using their barcodes, producing one FASTQ file (or file pair for paired-end sequencing) per sample.</li>
 </ol>
-<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout callout-style-default callout-caution callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Warning</span>Always remember the pooling!
+<span class="screen-reader-only">Caution</span>Always remember the pooling!
 </div>
 </div>
 <div class="callout-body-container callout-body">
 <p>The stochastic nature of step 3 is why read counts vary across samples even when pooling was careful: differences in pipetting accuracy, PCR efficiency, DNA quality, and random cluster formation all contribute. This technical variation in sequencing depth is the reason normalization or rarefying is required before comparing diversity across samples. Without this, the largely different sequencing depths may affect downstream diversity estimates and the detection of low-abundance taxa.</p>
 </div>
 </div>
+</section>
+<section id="pcr-duplicates-and-the-relative-abundance-problem" class="level2">
+<h2 class="anchored" data-anchor-id="pcr-duplicates-and-the-relative-abundance-problem">PCR duplicates and the relative abundance problem</h2>
+<p>Because PCR is exponential, relative abundance in the final library does not equal relative abundance in the original sample. A taxon at 1% true abundance might represent 1% or 3% or 0.3% in your sequence data depending on how efficiently it amplified. This is why 16S results are <em>relative</em> abundances, not absolute counts — and why absolute quantification requires additional approaches (e.g., spike-in standards, qPCR).</p>
 </section>
 <section id="single-end-vs.-paired-end-sequencing" class="level2">
 <h2 class="anchored" data-anchor-id="single-end-vs.-paired-end-sequencing">Single-end vs.&nbsp;paired-end sequencing</h2>
@@ -595,235 +565,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><strong>MiSeq</strong> is the most common platform for 16S work. It supports longer reads (2×250 bp or 2×300 bp paired-end) and has a well-established track record for amplicon sequencing. Throughput is lower (~25M reads/run) and cost-per-run is higher than HiSeq/NovaSeq, but the read quality and length are well-suited to 16S amplicons (~450 bp for V3–V4).</p>
 <p><strong>NovaSeq</strong> produces vastly more reads but with shorter read lengths (2×150 bp standard). This is sufficient for V4-only studies and can be used when large sample numbers or high depth are needed.</p>
 </section>
-<section id="technical-variation-and-confounders" class="level2">
-<h2 class="anchored" data-anchor-id="technical-variation-and-confounders">Technical variation and confounders</h2>
-<p>Technical variation enters at every stage of the pipeline — long before any software is involved. The table below outlines common sources organized by where they occur.</p>
-<table class="caption-top table">
-<colgroup>
-<col style="width: 33%">
-<col style="width: 33%">
-<col style="width: 33%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>Stage</th>
-<th>Variable</th>
-<th>Why it matters</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><strong>Collection</strong></td>
-<td>Site / facility</td>
-<td>Different hospital wings, clinics, or rooms have different ambient microbiomes, cleaning protocols, and personnel practices. Two “healthy controls” from different sites can differ for purely logistical reasons.</td>
-</tr>
-<tr class="even">
-<td><strong>Collection</strong></td>
-<td>Swab type</td>
-<td>Affects how much biomass is recovered and which taxa adhere.</td>
-</tr>
-<tr class="odd">
-<td><strong>Collection</strong></td>
-<td>Time of day</td>
-<td>Oral and gut communities shift measurably across the day.</td>
-</tr>
-<tr class="even">
-<td><strong>Collection</strong></td>
-<td>Time to storage</td>
-<td>A sample left at room temperature for 2 hours before freezing looks different from one frozen immediately.</td>
-</tr>
-<tr class="odd">
-<td><strong>Transport &amp; Storage</strong></td>
-<td>Temperature excursions</td>
-<td>Differential cell lysis during shipping — some taxa are more fragile than others. A common hidden variable in multi-site studies.</td>
-</tr>
-<tr class="even">
-<td><strong>Transport &amp; Storage</strong></td>
-<td>Storage duration</td>
-<td>Communities degrade over time; longer storage selectively depletes fragile taxa.</td>
-</tr>
-<tr class="odd">
-<td><strong>DNA Extraction</strong></td>
-<td>Kit manufacturer</td>
-<td>Different kits lyse cells with different efficiency. Gram-positive bacteria are notoriously difficult to break open, so kit choice directly shapes which taxa appear in your data.</td>
-</tr>
-<tr class="even">
-<td><strong>DNA Extraction</strong></td>
-<td>Operator variability</td>
-<td>Even the same kit in the same lab can produce different yields depending on who runs it and when.</td>
-</tr>
-<tr class="odd">
-<td><strong>Library Preparation</strong></td>
-<td>Primer choice</td>
-<td>Determines which region of the 16S gene is amplified, creating systematic biases toward certain taxa and blind spots for others.</td>
-</tr>
-<tr class="even">
-<td><strong>Library Preparation</strong></td>
-<td>PCR cycles</td>
-<td>More cycles introduce more chimeric sequences and amplification artifacts.</td>
-</tr>
-<tr class="odd">
-<td><strong>Sequencing</strong></td>
-<td>Sequencing depth</td>
-<td>Total reads per sample varies across samples and runs, directly affecting detection of low-abundance taxa.</td>
-</tr>
-<tr class="even">
-<td><strong>Sequencing</strong></td>
-<td>Multiplexing</td>
-<td>How many samples share a run affects per-sample depth.</td>
-</tr>
-<tr class="odd">
-<td><strong>Sequencing</strong></td>
-<td>Read type</td>
-<td>Short vs.&nbsp;long read and single vs.&nbsp;paired-end affect taxonomic resolution.</td>
-</tr>
-</tbody>
-</table>
-<p>This is a non-comprehensive list. The key point: by the time data reaches your analysis pipeline, it carries the fingerprints of every decision made upstream.</p>
-<section id="why-systematic-variation-is-the-real-problem" class="level3">
-<h3 class="anchored" data-anchor-id="why-systematic-variation-is-the-real-problem">Why systematic variation is the real problem</h3>
-<p>Individual technical differences are often unavoidable. The danger is when technical variation is <strong>correlated with your biological groups</strong> — then it becomes indistinguishable from the signal you are trying to measure.</p>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>A census analogy
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Imagine two cities — similar geography, climate, and population size. Two census takers are each sent to one city to record occupants’ last names by knocking on doors.</p>
-<ul>
-<li><strong>Census Taker A</strong> goes out on a rainy, cold Monday morning.</li>
-<li><strong>Census Taker B</strong> goes out on a clear 70°F evening.</li>
-</ul>
-<p>The data come back and City A appears to have more Johnsons than City B. But is that a real demographic difference — or does the Johnson family simply work outside the home and was not there to answer the door on a Monday morning?</p>
-<p>The same logic applies to microbiome studies. If control samples are processed in one batch and treated samples in another, if different primers are used for cases versus controls, or if pre-treatment samples are collected in one building and post-treatment samples in another, <strong>there is no way to separate biological signal from technical variation</strong>.</p>
-</div>
-</div>
-<div class="callout callout-style-default callout-warning callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Warning</span>Mitigating batch effects
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Here you can see what a set of samples run in two batches looks like when the researcher does and does not confound the treatment group with batch.</p>
-<div class="cell">
-<details class="code-fold hidden">
-<summary>Show example</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb1" data-startfrom="86" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 85;"><span id="cb1-86"><a href="#cb1-86" aria-hidden="true" tabindex="-1"></a>viewof design <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">radio</span>([<span class="st">"Confounded"</span><span class="op">,</span> <span class="st">"Balanced"</span>]<span class="op">,</span> {</span>
-<span id="cb1-87"><a href="#cb1-87" aria-hidden="true" tabindex="-1"></a>  <span class="dt">value</span><span class="op">:</span> <span class="st">"Confounded"</span><span class="op">,</span></span>
-<span id="cb1-88"><a href="#cb1-88" aria-hidden="true" tabindex="-1"></a>  <span class="dt">label</span><span class="op">:</span> <span class="fu">html</span><span class="vs">`&lt;div style="font-size: 24px; font-weight: bold; text-align: center;"&gt;</span></span>
-<span id="cb1-89"><a href="#cb1-89" aria-hidden="true" tabindex="-1"></a><span class="vs">    Study design</span></span>
-<span id="cb1-90"><a href="#cb1-90" aria-hidden="true" tabindex="-1"></a><span class="vs">  &lt;/div&gt;`</span></span>
-<span id="cb1-91"><a href="#cb1-91" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
-<div class="cell-output cell-output-display">
-<div id="ojs-cell-1" data-nodetype="declaration">
-
-</div>
-</div>
-</div>
-<div class="cell">
-<details class="code-fold hidden">
-<summary>Show example</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb2" data-startfrom="96" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 95;"><span id="cb2-96"><a href="#cb2-96" aria-hidden="true" tabindex="-1"></a>{</span>
-<span id="cb2-97"><a href="#cb2-97" aria-hidden="true" tabindex="-1"></a>  <span class="kw">function</span> <span class="fu">makeRng</span>(seed) {</span>
-<span id="cb2-98"><a href="#cb2-98" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> s <span class="op">=</span> seed <span class="op">&gt;&gt;&gt;</span> <span class="dv">0</span><span class="op">;</span></span>
-<span id="cb2-99"><a href="#cb2-99" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> () <span class="kw">=&gt;</span> { s <span class="op">=</span> (<span class="bu">Math</span><span class="op">.</span><span class="fu">imul</span>(s<span class="op">,</span> <span class="dv">1664525</span>) <span class="op">+</span> <span class="dv">1013904223</span>) <span class="op">&gt;&gt;&gt;</span> <span class="dv">0</span><span class="op">;</span> <span class="cf">return</span> s <span class="op">/</span> <span class="dv">4294967296</span><span class="op">;</span> }<span class="op">;</span></span>
-<span id="cb2-100"><a href="#cb2-100" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb2-101"><a href="#cb2-101" aria-hidden="true" tabindex="-1"></a>  <span class="kw">function</span> <span class="fu">randn</span>(rng) {</span>
-<span id="cb2-102"><a href="#cb2-102" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">sqrt</span>(<span class="op">-</span><span class="dv">2</span> <span class="op">*</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">log</span>(<span class="fu">rng</span>() <span class="op">+</span> <span class="fl">1e-10</span>)) <span class="op">*</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">cos</span>(<span class="dv">2</span> <span class="op">*</span> <span class="bu">Math</span><span class="op">.</span><span class="cn">PI</span> <span class="op">*</span> <span class="fu">rng</span>())<span class="op">;</span></span>
-<span id="cb2-103"><a href="#cb2-103" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb2-104"><a href="#cb2-104" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-105"><a href="#cb2-105" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> rng   <span class="op">=</span> <span class="fu">makeRng</span>(<span class="dv">7</span>)<span class="op">;</span></span>
-<span id="cb2-106"><a href="#cb2-106" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> noise <span class="op">=</span> <span class="bu">Array</span><span class="op">.</span><span class="fu">from</span>({<span class="dt">length</span><span class="op">:</span> <span class="dv">40</span>}<span class="op">,</span> () <span class="kw">=&gt;</span> ({ <span class="dt">nx</span><span class="op">:</span> <span class="fu">randn</span>(rng)<span class="op">,</span> <span class="dt">ny</span><span class="op">:</span> <span class="fu">randn</span>(rng) }))<span class="op">;</span></span>
-<span id="cb2-107"><a href="#cb2-107" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-108"><a href="#cb2-108" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> samples <span class="op">=</span> noise<span class="op">.</span><span class="fu">map</span>((n<span class="op">,</span> i) <span class="kw">=&gt;</span> {</span>
-<span id="cb2-109"><a href="#cb2-109" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> batch <span class="op">=</span> i <span class="op">&lt;</span> <span class="dv">20</span> <span class="op">?</span> <span class="st">"Batch 1"</span> <span class="op">:</span> <span class="st">"Batch 2"</span><span class="op">;</span></span>
-<span id="cb2-110"><a href="#cb2-110" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> group <span class="op">=</span> design <span class="op">===</span> <span class="st">"Confounded"</span></span>
-<span id="cb2-111"><a href="#cb2-111" aria-hidden="true" tabindex="-1"></a>      <span class="op">?</span> (batch <span class="op">===</span> <span class="st">"Batch 1"</span> <span class="op">?</span> <span class="st">"Case"</span> <span class="op">:</span> <span class="st">"Control"</span>)</span>
-<span id="cb2-112"><a href="#cb2-112" aria-hidden="true" tabindex="-1"></a>      <span class="op">:</span> (i <span class="op">%</span> <span class="dv">4</span> <span class="op">&lt;</span> <span class="dv">2</span> <span class="op">?</span> <span class="st">"Case"</span> <span class="op">:</span> <span class="st">"Control"</span>)<span class="op">;</span></span>
-<span id="cb2-113"><a href="#cb2-113" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> yOffset <span class="op">=</span> design <span class="op">===</span> <span class="st">"Balanced"</span></span>
-<span id="cb2-114"><a href="#cb2-114" aria-hidden="true" tabindex="-1"></a>      <span class="op">?</span> (group <span class="op">===</span> <span class="st">"Case"</span> <span class="op">?</span> <span class="fl">1.1</span> <span class="op">:</span> <span class="op">-</span><span class="fl">1.1</span>)</span>
-<span id="cb2-115"><a href="#cb2-115" aria-hidden="true" tabindex="-1"></a>      <span class="op">:</span> <span class="dv">0</span><span class="op">;</span></span>
-<span id="cb2-116"><a href="#cb2-116" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> {</span>
-<span id="cb2-117"><a href="#cb2-117" aria-hidden="true" tabindex="-1"></a>      batch<span class="op">,</span> group<span class="op">,</span></span>
-<span id="cb2-118"><a href="#cb2-118" aria-hidden="true" tabindex="-1"></a>      <span class="dt">x</span><span class="op">:</span> (batch <span class="op">===</span> <span class="st">"Batch 1"</span> <span class="op">?</span> <span class="op">-</span><span class="fl">2.5</span> <span class="op">:</span> <span class="fl">2.5</span>) <span class="op">+</span> n<span class="op">.</span><span class="at">nx</span> <span class="op">*</span> <span class="fl">1.2</span><span class="op">,</span></span>
-<span id="cb2-119"><a href="#cb2-119" aria-hidden="true" tabindex="-1"></a>      <span class="dt">y</span><span class="op">:</span> yOffset <span class="op">+</span> n<span class="op">.</span><span class="at">ny</span> <span class="op">*</span> <span class="fl">1.2</span></span>
-<span id="cb2-120"><a href="#cb2-120" aria-hidden="true" tabindex="-1"></a>    }<span class="op">;</span></span>
-<span id="cb2-121"><a href="#cb2-121" aria-hidden="true" tabindex="-1"></a>  })<span class="op">;</span></span>
-<span id="cb2-122"><a href="#cb2-122" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-123"><a href="#cb2-123" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> plotW <span class="op">=</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">floor</span>((<span class="bu">Math</span><span class="op">.</span><span class="fu">min</span>(width<span class="op">,</span> <span class="dv">720</span>) <span class="op">-</span> <span class="dv">56</span>) <span class="op">/</span> <span class="dv">2</span>)<span class="op">;</span></span>
-<span id="cb2-124"><a href="#cb2-124" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> yDomain <span class="op">=</span> [<span class="op">-</span><span class="dv">5</span><span class="op">,</span> <span class="dv">5</span>]<span class="op">;</span></span>
-<span id="cb2-125"><a href="#cb2-125" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-126"><a href="#cb2-126" aria-hidden="true" tabindex="-1"></a>  <span class="kw">function</span> <span class="fu">makePlot</span>(field<span class="op">,</span> domain<span class="op">,</span> range) {</span>
-<span id="cb2-127"><a href="#cb2-127" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> Plot<span class="op">.</span><span class="fu">plot</span>({</span>
-<span id="cb2-128"><a href="#cb2-128" aria-hidden="true" tabindex="-1"></a>      <span class="dt">width</span><span class="op">:</span> plotW<span class="op">,</span></span>
-<span id="cb2-129"><a href="#cb2-129" aria-hidden="true" tabindex="-1"></a>      <span class="dt">height</span><span class="op">:</span> <span class="dv">300</span><span class="op">,</span></span>
-<span id="cb2-130"><a href="#cb2-130" aria-hidden="true" tabindex="-1"></a>      <span class="dt">x</span><span class="op">:</span> { <span class="dt">label</span><span class="op">:</span> <span class="st">"PC1"</span><span class="op">,</span> <span class="dt">grid</span><span class="op">:</span> <span class="kw">true</span><span class="op">,</span> <span class="dt">tickFormat</span><span class="op">:</span> d <span class="kw">=&gt;</span> d<span class="op">.</span><span class="fu">toFixed</span>(<span class="dv">1</span>) }<span class="op">,</span></span>
-<span id="cb2-131"><a href="#cb2-131" aria-hidden="true" tabindex="-1"></a>      <span class="dt">y</span><span class="op">:</span> { <span class="dt">label</span><span class="op">:</span> <span class="st">"PC2"</span><span class="op">,</span> <span class="dt">grid</span><span class="op">:</span> <span class="kw">true</span><span class="op">,</span> <span class="dt">domain</span><span class="op">:</span> yDomain<span class="op">,</span> <span class="dt">tickFormat</span><span class="op">:</span> d <span class="kw">=&gt;</span> d<span class="op">.</span><span class="fu">toFixed</span>(<span class="dv">1</span>) }<span class="op">,</span></span>
-<span id="cb2-132"><a href="#cb2-132" aria-hidden="true" tabindex="-1"></a>      <span class="dt">color</span><span class="op">:</span> { domain<span class="op">,</span> range<span class="op">,</span> <span class="dt">legend</span><span class="op">:</span> <span class="kw">true</span> }<span class="op">,</span></span>
-<span id="cb2-133"><a href="#cb2-133" aria-hidden="true" tabindex="-1"></a>      <span class="dt">marks</span><span class="op">:</span> [</span>
-<span id="cb2-134"><a href="#cb2-134" aria-hidden="true" tabindex="-1"></a>        Plot<span class="op">.</span><span class="fu">dot</span>(samples<span class="op">,</span> {</span>
-<span id="cb2-135"><a href="#cb2-135" aria-hidden="true" tabindex="-1"></a>          <span class="dt">x</span><span class="op">:</span> <span class="st">"x"</span><span class="op">,</span> <span class="dt">y</span><span class="op">:</span> <span class="st">"y"</span><span class="op">,</span> <span class="dt">fill</span><span class="op">:</span> field<span class="op">,</span></span>
-<span id="cb2-136"><a href="#cb2-136" aria-hidden="true" tabindex="-1"></a>          <span class="dt">r</span><span class="op">:</span> <span class="dv">6</span><span class="op">,</span> <span class="dt">stroke</span><span class="op">:</span> <span class="st">"white"</span><span class="op">,</span> <span class="dt">strokeWidth</span><span class="op">:</span> <span class="fl">1.5</span><span class="op">,</span></span>
-<span id="cb2-137"><a href="#cb2-137" aria-hidden="true" tabindex="-1"></a>          <span class="dt">title</span><span class="op">:</span> d <span class="kw">=&gt;</span> <span class="vs">`</span><span class="sc">${</span>d<span class="op">.</span><span class="at">group</span><span class="sc">}</span><span class="vs"> — </span><span class="sc">${</span>d<span class="op">.</span><span class="at">batch</span><span class="sc">}</span><span class="vs">`</span></span>
-<span id="cb2-138"><a href="#cb2-138" aria-hidden="true" tabindex="-1"></a>        })</span>
-<span id="cb2-139"><a href="#cb2-139" aria-hidden="true" tabindex="-1"></a>      ]</span>
-<span id="cb2-140"><a href="#cb2-140" aria-hidden="true" tabindex="-1"></a>    })<span class="op">;</span></span>
-<span id="cb2-141"><a href="#cb2-141" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb2-142"><a href="#cb2-142" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-143"><a href="#cb2-143" aria-hidden="true" tabindex="-1"></a>  <span class="kw">function</span> <span class="fu">labeled</span>(plot<span class="op">,</span> titleText) {</span>
-<span id="cb2-144"><a href="#cb2-144" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> wrap <span class="op">=</span> <span class="bu">Object</span><span class="op">.</span><span class="fu">assign</span>(<span class="bu">document</span><span class="op">.</span><span class="fu">createElement</span>(<span class="st">"div"</span>)<span class="op">,</span> {</span>
-<span id="cb2-145"><a href="#cb2-145" aria-hidden="true" tabindex="-1"></a>      <span class="dt">style</span><span class="op">:</span> <span class="st">"display:flex; flex-direction:column; align-items:center; flex:1; min-width:180px;"</span></span>
-<span id="cb2-146"><a href="#cb2-146" aria-hidden="true" tabindex="-1"></a>    })<span class="op">;</span></span>
-<span id="cb2-147"><a href="#cb2-147" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> h <span class="op">=</span> <span class="bu">Object</span><span class="op">.</span><span class="fu">assign</span>(<span class="bu">document</span><span class="op">.</span><span class="fu">createElement</span>(<span class="st">"div"</span>)<span class="op">,</span> {</span>
-<span id="cb2-148"><a href="#cb2-148" aria-hidden="true" tabindex="-1"></a>      <span class="dt">textContent</span><span class="op">:</span> titleText<span class="op">,</span></span>
-<span id="cb2-149"><a href="#cb2-149" aria-hidden="true" tabindex="-1"></a>      <span class="dt">style</span><span class="op">:</span> <span class="st">"font-weight:600; font-size:0.95rem; text-align:center; margin-bottom:0.35rem; color:#2a1a2e;"</span></span>
-<span id="cb2-150"><a href="#cb2-150" aria-hidden="true" tabindex="-1"></a>    })<span class="op">;</span></span>
-<span id="cb2-151"><a href="#cb2-151" aria-hidden="true" tabindex="-1"></a>    wrap<span class="op">.</span><span class="fu">append</span>(h<span class="op">,</span> plot)<span class="op">;</span></span>
-<span id="cb2-152"><a href="#cb2-152" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> wrap<span class="op">;</span></span>
-<span id="cb2-153"><a href="#cb2-153" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb2-154"><a href="#cb2-154" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-155"><a href="#cb2-155" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> caption <span class="op">=</span> design <span class="op">===</span> <span class="st">"Confounded"</span></span>
-<span id="cb2-156"><a href="#cb2-156" aria-hidden="true" tabindex="-1"></a>    <span class="op">?</span> <span class="st">"Confounded design: cases and controls occupy separate batches. The two plots are mirror images — you cannot tell whether separation on any axis reflects biology or batch processing."</span></span>
-<span id="cb2-157"><a href="#cb2-157" aria-hidden="true" tabindex="-1"></a>    <span class="op">:</span> <span class="st">"Balanced design: batch drives the left/right separation on PC1. Within each batch, cases sit higher and controls lower — the case/control difference on PC2 is only detectable here because both groups appear in every batch."</span><span class="op">;</span></span>
-<span id="cb2-158"><a href="#cb2-158" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-159"><a href="#cb2-159" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> left  <span class="op">=</span> <span class="fu">labeled</span>(<span class="fu">makePlot</span>(<span class="st">"batch"</span><span class="op">,</span> [<span class="st">"Batch 1"</span><span class="op">,</span> <span class="st">"Batch 2"</span>]<span class="op">,</span> [<span class="st">"#1565C0"</span><span class="op">,</span> <span class="st">"#C62828"</span>])<span class="op">,</span> <span class="st">"Batch"</span>)<span class="op">;</span></span>
-<span id="cb2-160"><a href="#cb2-160" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> right <span class="op">=</span> <span class="fu">labeled</span>(<span class="fu">makePlot</span>(<span class="st">"group"</span><span class="op">,</span> [<span class="st">"Case"</span><span class="op">,</span> <span class="st">"Control"</span>]<span class="op">,</span>    [<span class="st">"#752f7d"</span><span class="op">,</span> <span class="st">"#2E7D32"</span>])<span class="op">,</span> <span class="st">"Treatment Group"</span>)<span class="op">;</span></span>
-<span id="cb2-161"><a href="#cb2-161" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-162"><a href="#cb2-162" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> capEl <span class="op">=</span> <span class="bu">Object</span><span class="op">.</span><span class="fu">assign</span>(<span class="bu">document</span><span class="op">.</span><span class="fu">createElement</span>(<span class="st">"p"</span>)<span class="op">,</span> {</span>
-<span id="cb2-163"><a href="#cb2-163" aria-hidden="true" tabindex="-1"></a>    <span class="dt">textContent</span><span class="op">:</span> caption<span class="op">,</span></span>
-<span id="cb2-164"><a href="#cb2-164" aria-hidden="true" tabindex="-1"></a>    <span class="dt">style</span><span class="op">:</span> <span class="st">"width:100%; margin:0.6rem 0 0; font-size:0.875rem; color:#555; font-style:italic;"</span></span>
-<span id="cb2-165"><a href="#cb2-165" aria-hidden="true" tabindex="-1"></a>  })<span class="op">;</span></span>
-<span id="cb2-166"><a href="#cb2-166" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-167"><a href="#cb2-167" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> container <span class="op">=</span> <span class="bu">Object</span><span class="op">.</span><span class="fu">assign</span>(<span class="bu">document</span><span class="op">.</span><span class="fu">createElement</span>(<span class="st">"div"</span>)<span class="op">,</span> {</span>
-<span id="cb2-168"><a href="#cb2-168" aria-hidden="true" tabindex="-1"></a>    <span class="dt">style</span><span class="op">:</span> <span class="vs">`</span></span>
-<span id="cb2-169"><a href="#cb2-169" aria-hidden="true" tabindex="-1"></a><span class="vs">      display: flex; flex-wrap: wrap; gap: 1rem; align-items: flex-start;</span></span>
-<span id="cb2-170"><a href="#cb2-170" aria-hidden="true" tabindex="-1"></a><span class="vs">      border: 1.5px solid #d4b8d8; border-radius: 8px; padding: 1.25rem;</span></span>
-<span id="cb2-171"><a href="#cb2-171" aria-hidden="true" tabindex="-1"></a><span class="vs">    `</span></span>
-<span id="cb2-172"><a href="#cb2-172" aria-hidden="true" tabindex="-1"></a>  })<span class="op">;</span></span>
-<span id="cb2-173"><a href="#cb2-173" aria-hidden="true" tabindex="-1"></a>  container<span class="op">.</span><span class="fu">append</span>(left<span class="op">,</span> right<span class="op">,</span> capEl)<span class="op">;</span></span>
-<span id="cb2-174"><a href="#cb2-174" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> container<span class="op">;</span></span>
-<span id="cb2-175"><a href="#cb2-175" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
-<div class="cell-output cell-output-display">
-<div id="ojs-cell-2" data-nodetype="expression">
-
-</div>
-</div>
-</div>
-</div>
-</div>
-<p>The key principle: <strong>balance your treatment groups across batches</strong>. If every case is extracted in January and every control in February, you will never be able to separate the effect of your treatment from the effect of processing date.</p>
-</section>
-</section>
 <section id="what-the-sequencing-core-delivers" class="level2">
 <h2 class="anchored" data-anchor-id="what-the-sequencing-core-delivers">What the sequencing core delivers</h2>
 <p>You will typically receive:</p>
@@ -838,17 +579,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 
 </main> <!-- /main -->
-<script type="ojs-module-contents">
-eyJjb250ZW50cyI6W3sibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtMSIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6InZpZXdvZiBkZXNpZ24gPSBJbnB1dHMucmFkaW8oW1wiQ29uZm91bmRlZFwiLCBcIkJhbGFuY2VkXCJdLCB7XHJcbiAgdmFsdWU6IFwiQ29uZm91bmRlZFwiLFxyXG4gIGxhYmVsOiBodG1sYDxkaXYgc3R5bGU9XCJmb250LXNpemU6IDI0cHg7IGZvbnQtd2VpZ2h0OiBib2xkOyB0ZXh0LWFsaWduOiBjZW50ZXI7XCI+XHJcbiAgICBTdHVkeSBkZXNpZ25cclxuICA8L2Rpdj5gXHJcbn0pXHJcbiJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtMiIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6IntcclxuICBmdW5jdGlvbiBtYWtlUm5nKHNlZWQpIHtcclxuICAgIGxldCBzID0gc2VlZCA+Pj4gMDtcclxuICAgIHJldHVybiAoKSA9PiB7IHMgPSAoTWF0aC5pbXVsKHMsIDE2NjQ1MjUpICsgMTAxMzkwNDIyMykgPj4+IDA7IHJldHVybiBzIC8gNDI5NDk2NzI5NjsgfTtcclxuICB9XHJcbiAgZnVuY3Rpb24gcmFuZG4ocm5nKSB7XHJcbiAgICByZXR1cm4gTWF0aC5zcXJ0KC0yICogTWF0aC5sb2cocm5nKCkgKyAxZS0xMCkpICogTWF0aC5jb3MoMiAqIE1hdGguUEkgKiBybmcoKSk7XHJcbiAgfVxyXG5cclxuICBjb25zdCBybmcgICA9IG1ha2VSbmcoNyk7XHJcbiAgY29uc3Qgbm9pc2UgPSBBcnJheS5mcm9tKHtsZW5ndGg6IDQwfSwgKCkgPT4gKHsgbng6IHJhbmRuKHJuZyksIG55OiByYW5kbihybmcpIH0pKTtcclxuXHJcbiAgY29uc3Qgc2FtcGxlcyA9IG5vaXNlLm1hcCgobiwgaSkgPT4ge1xyXG4gICAgY29uc3QgYmF0Y2ggPSBpIDwgMjAgPyBcIkJhdGNoIDFcIiA6IFwiQmF0Y2ggMlwiO1xyXG4gICAgY29uc3QgZ3JvdXAgPSBkZXNpZ24gPT09IFwiQ29uZm91bmRlZFwiXHJcbiAgICAgID8gKGJhdGNoID09PSBcIkJhdGNoIDFcIiA/IFwiQ2FzZVwiIDogXCJDb250cm9sXCIpXHJcbiAgICAgIDogKGkgJSA0IDwgMiA/IFwiQ2FzZVwiIDogXCJDb250cm9sXCIpO1xyXG4gICAgY29uc3QgeU9mZnNldCA9IGRlc2lnbiA9PT0gXCJCYWxhbmNlZFwiXHJcbiAgICAgID8gKGdyb3VwID09PSBcIkNhc2VcIiA/IDEuMSA6IC0xLjEpXHJcbiAgICAgIDogMDtcclxuICAgIHJldHVybiB7XHJcbiAgICAgIGJhdGNoLCBncm91cCxcclxuICAgICAgeDogKGJhdGNoID09PSBcIkJhdGNoIDFcIiA/IC0yLjUgOiAyLjUpICsgbi5ueCAqIDEuMixcclxuICAgICAgeTogeU9mZnNldCArIG4ubnkgKiAxLjJcclxuICAgIH07XHJcbiAgfSk7XHJcblxyXG4gIGNvbnN0IHBsb3RXID0gTWF0aC5mbG9vcigoTWF0aC5taW4od2lkdGgsIDcyMCkgLSA1NikgLyAyKTtcclxuICBjb25zdCB5RG9tYWluID0gWy01LCA1XTtcclxuXHJcbiAgZnVuY3Rpb24gbWFrZVBsb3QoZmllbGQsIGRvbWFpbiwgcmFuZ2UpIHtcclxuICAgIHJldHVybiBQbG90LnBsb3Qoe1xyXG4gICAgICB3aWR0aDogcGxvdFcsXHJcbiAgICAgIGhlaWdodDogMzAwLFxyXG4gICAgICB4OiB7IGxhYmVsOiBcIlBDMVwiLCBncmlkOiB0cnVlLCB0aWNrRm9ybWF0OiBkID0+IGQudG9GaXhlZCgxKSB9LFxyXG4gICAgICB5OiB7IGxhYmVsOiBcIlBDMlwiLCBncmlkOiB0cnVlLCBkb21haW46IHlEb21haW4sIHRpY2tGb3JtYXQ6IGQgPT4gZC50b0ZpeGVkKDEpIH0sXHJcbiAgICAgIGNvbG9yOiB7IGRvbWFpbiwgcmFuZ2UsIGxlZ2VuZDogdHJ1ZSB9LFxyXG4gICAgICBtYXJrczogW1xyXG4gICAgICAgIFBsb3QuZG90KHNhbXBsZXMsIHtcclxuICAgICAgICAgIHg6IFwieFwiLCB5OiBcInlcIiwgZmlsbDogZmllbGQsXHJcbiAgICAgICAgICByOiA2LCBzdHJva2U6IFwid2hpdGVcIiwgc3Ryb2tlV2lkdGg6IDEuNSxcclxuICAgICAgICAgIHRpdGxlOiBkID0+IGAke2QuZ3JvdXB9IOKAlCAke2QuYmF0Y2h9YFxyXG4gICAgICAgIH0pXHJcbiAgICAgIF1cclxuICAgIH0pO1xyXG4gIH1cclxuXHJcbiAgZnVuY3Rpb24gbGFiZWxlZChwbG90LCB0aXRsZVRleHQpIHtcclxuICAgIGNvbnN0IHdyYXAgPSBPYmplY3QuYXNzaWduKGRvY3VtZW50LmNyZWF0ZUVsZW1lbnQoXCJkaXZcIiksIHtcclxuICAgICAgc3R5bGU6IFwiZGlzcGxheTpmbGV4OyBmbGV4LWRpcmVjdGlvbjpjb2x1bW47IGFsaWduLWl0ZW1zOmNlbnRlcjsgZmxleDoxOyBtaW4td2lkdGg6MTgwcHg7XCJcclxuICAgIH0pO1xyXG4gICAgY29uc3QgaCA9IE9iamVjdC5hc3NpZ24oZG9jdW1lbnQuY3JlYXRlRWxlbWVudChcImRpdlwiKSwge1xyXG4gICAgICB0ZXh0Q29udGVudDogdGl0bGVUZXh0LFxyXG4gICAgICBzdHlsZTogXCJmb250LXdlaWdodDo2MDA7IGZvbnQtc2l6ZTowLjk1cmVtOyB0ZXh0LWFsaWduOmNlbnRlcjsgbWFyZ2luLWJvdHRvbTowLjM1cmVtOyBjb2xvcjojMmExYTJlO1wiXHJcbiAgICB9KTtcclxuICAgIHdyYXAuYXBwZW5kKGgsIHBsb3QpO1xyXG4gICAgcmV0dXJuIHdyYXA7XHJcbiAgfVxyXG5cclxuICBjb25zdCBjYXB0aW9uID0gZGVzaWduID09PSBcIkNvbmZvdW5kZWRcIlxyXG4gICAgPyBcIkNvbmZvdW5kZWQgZGVzaWduOiBjYXNlcyBhbmQgY29udHJvbHMgb2NjdXB5IHNlcGFyYXRlIGJhdGNoZXMuIFRoZSB0d28gcGxvdHMgYXJlIG1pcnJvciBpbWFnZXMg4oCUIHlvdSBjYW5ub3QgdGVsbCB3aGV0aGVyIHNlcGFyYXRpb24gb24gYW55IGF4aXMgcmVmbGVjdHMgYmlvbG9neSBvciBiYXRjaCBwcm9jZXNzaW5nLlwiXHJcbiAgICA6IFwiQmFsYW5jZWQgZGVzaWduOiBiYXRjaCBkcml2ZXMgdGhlIGxlZnQvcmlnaHQgc2VwYXJhdGlvbiBvbiBQQzEuIFdpdGhpbiBlYWNoIGJhdGNoLCBjYXNlcyBzaXQgaGlnaGVyIGFuZCBjb250cm9scyBsb3dlciDigJQgdGhlIGNhc2UvY29udHJvbCBkaWZmZXJlbmNlIG9uIFBDMiBpcyBvbmx5IGRldGVjdGFibGUgaGVyZSBiZWNhdXNlIGJvdGggZ3JvdXBzIGFwcGVhciBpbiBldmVyeSBiYXRjaC5cIjtcclxuXHJcbiAgY29uc3QgbGVmdCAgPSBsYWJlbGVkKG1ha2VQbG90KFwiYmF0Y2hcIiwgW1wiQmF0Y2ggMVwiLCBcIkJhdGNoIDJcIl0sIFtcIiMxNTY1QzBcIiwgXCIjQzYyODI4XCJdKSwgXCJCYXRjaFwiKTtcclxuICBjb25zdCByaWdodCA9IGxhYmVsZWQobWFrZVBsb3QoXCJncm91cFwiLCBbXCJDYXNlXCIsIFwiQ29udHJvbFwiXSwgICAgW1wiIzc1MmY3ZFwiLCBcIiMyRTdEMzJcIl0pLCBcIlRyZWF0bWVudCBHcm91cFwiKTtcclxuXHJcbiAgY29uc3QgY2FwRWwgPSBPYmplY3QuYXNzaWduKGRvY3VtZW50LmNyZWF0ZUVsZW1lbnQoXCJwXCIpLCB7XHJcbiAgICB0ZXh0Q29udGVudDogY2FwdGlvbixcclxuICAgIHN0eWxlOiBcIndpZHRoOjEwMCU7IG1hcmdpbjowLjZyZW0gMCAwOyBmb250LXNpemU6MC44NzVyZW07IGNvbG9yOiM1NTU7IGZvbnQtc3R5bGU6aXRhbGljO1wiXHJcbiAgfSk7XHJcblxyXG4gIGNvbnN0IGNvbnRhaW5lciA9IE9iamVjdC5hc3NpZ24oZG9jdW1lbnQuY3JlYXRlRWxlbWVudChcImRpdlwiKSwge1xyXG4gICAgc3R5bGU6IGBcclxuICAgICAgZGlzcGxheTogZmxleDsgZmxleC13cmFwOiB3cmFwOyBnYXA6IDFyZW07IGFsaWduLWl0ZW1zOiBmbGV4LXN0YXJ0O1xyXG4gICAgICBib3JkZXI6IDEuNXB4IHNvbGlkICNkNGI4ZDg7IGJvcmRlci1yYWRpdXM6IDhweDsgcGFkZGluZzogMS4yNXJlbTtcclxuICAgIGBcclxuICB9KTtcclxuICBjb250YWluZXIuYXBwZW5kKGxlZnQsIHJpZ2h0LCBjYXBFbCk7XHJcbiAgcmV0dXJuIGNvbnRhaW5lcjtcclxufVxyXG4ifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXRRdWlldCIsInNvdXJjZSI6InNoaW55SW5wdXQoJ2Rlc2lnbicpIn1dfQ==
-</script>
-<script type="module">
-if (window.location.protocol === "file:") { alert("The OJS runtime does not work with file:// URLs. Please use a web server to view this document."); }
-window._ojs.paths.runtimeToDoc = "../..";
-window._ojs.paths.runtimeToRoot = "../..";
-window._ojs.paths.docToRoot = "";
-window._ojs.selfContained = false;
-window._ojs.runtime.interpretFromScriptTags();
-</script>
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     // Ensure there is a toggle, if there isn't float one in the top right

@@ -174,7 +174,7 @@ Mixing primer pairs across studies is not valid — do not combine datasets from
 -   When that variation is **systematic** (e.g., all cases in batch 1, all controls in batch 2) it becomes a batch effect indistinguishable from biology
 -   Design principle: **balance treatment groups across batches**
 
-::: callout-warning
+::: callout-caution
 A confounded study design cannot be rescued in analysis. Balance must be built in at the design stage.
 :::
 
@@ -365,7 +365,7 @@ Taxonomic hierarchy:
 
 **Ordination** (PCoA, NMDS, PCA) reduces the distance matrix to 2–3D for visualization.
 
-::: callout-warning
+::: callout-caution
 Ordination plots suggest patterns — they do not prove them. Test with PERMANOVA; check dispersion with PERMDISP.
 :::
 

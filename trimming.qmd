@@ -6,11 +6,11 @@ Before reads can be used to infer microbial taxa, two cleaning steps are applied
 
 ## Primer trimming
 
-Regardless of the demultiplexing approach, the primer sequences need to be removed before analysis. Primers are not part of the 16S sequence you want to analyze — they are artificial sequences that were added. If they are not removed, they will interfere with error modeling and alignment to the reference database.
+Regardless of the demultiplexing approach, the primer sequences need to be removed before analysis. Primers are not part of the 16S sequence you want to analyze. They are artificial sequences that were added. If they are not removed, they will interfere with error modeling and alignment to the reference database.
 
 **Cutadapt** is the standard tool for primer trimming. It searches for the primer sequence at the start of each read and removes it, along with any adapter content that may appear at the read ends.
 
-::: callout-warning
+::: callout-caution
 ## Primer trimming is not optional
 
 Leaving primers in reads is a common mistake. In DADA2, primers extend into the region used for error modeling and denoising. In QIIME2, untrimmed reads will fail or produce spurious ASVs. Always verify primers are removed by checking that the per-base sequence composition in FastQC no longer shows a conserved sequence at position 1.
@@ -59,43 +59,58 @@ qiime cutadapt trim-paired \
 
 ## The truncation decision
 
-This is one of the most impactful parameters in the pipeline. Illumina quality profiles typically show a characteristic pattern: high-quality bases at the start of the read (Q ≥ 30), followed by a gradual or sharp drop toward the 3′ end. This drop-off point — often called the **"elbow"** — is a natural guide for where to truncate. A Q30 score means a 1-in-1,000 chance of a base call error; Q25 means roughly 1-in-300. Truncation is generally recommended when quality consistently falls below Q25–30 across the majority of reads.
+Illumina quality profiles typically show a characteristic pattern: high-quality bases at the start of the read (Q ≥ 30), followed by a gradual or sharp drop toward the 3′ end. This drop-off point is a natural guide for where to truncate. A Q30 score means a 1-in-1,000 chance of a base call error; Q25 means roughly 1-in-300. Truncation is generally recommended when quality consistently falls below Q30 across the majority of reads.
 
 Two constraints must be balanced:
 
 1.  **Quality**: truncate where quality drops, to remove unreliable bases.
-2.  **Overlap**: for paired-end data, after truncation the forward and reverse reads must still overlap enough to merge — typically at least 20–30 bp.
+2.  **Overlap**: for paired-end data, after truncation the forward and reverse reads must still overlap enough to merge typically at least 20–30 bp.
 
-The overlap available is: `overlap = (R1 truncated length + R2 truncated length) − amplicon length`. For V3–V4 (\~460 bp) with 2×250 reads, truncating R1 to 230 and R2 to 200 leaves 30 bp of overlap — workable. Truncating R2 to 180 leaves only 10 bp — marginal and likely to cause most pairs to fail merging. Quality cannot be the only consideration.
+The overlap available is: `overlap = (R1 truncated length + R2 truncated length) − amplicon length`. For V3–V4 (\~460 bp) with 2×250 reads, truncating R1 to 230 and R2 to 200 leaves 30 bp of overlap. This would be workable. Truncating R2 to 180 leaves only 10 bp which is likely to cause most pairs to fail merging. In these cases, it is important to consider the quality scores as well as ensure that the paired reads have overlap.
 
-::: callout-warning
+::: callout-caution
 ## They must have overlap!
 
-If truncation is too aggressive, you may eliminate the overlap region and reads cannot be merged. To retain around 20–50 bp of overlap, ensure that you do not trim the sequences too short.
+If truncation is too aggressive, you may eliminate the overlap region and reads cannot be merged for paired-end sequencing. To retain around 20–50 bp of overlap, ensure that you do not trim the sequences too short.
+
+**Max combined trim** = (R1 length + R2 length) − amplicon length − min overlap
+
+Here is a table to help get a sense of how much can be trimmed without removing the overlap between the reads.
+
+| Region | Typical primers | Amplicon (\~bp) | Typical reads | Max combined trim (bp) |
+|---------------|---------------|:-------------:|:-------------:|:-------------:|
+| V1–V2  | 27F / 338R      |       300       |     2×250     |          180           |
+| V4     | 515F / 806R     |       253       |     2×250     |          227           |
+| V4–V5  | 515F / 926R     |       380       |     2×250     |          100           |
+| V3–V4  | 341F / 805R     |       460       |     2×300     |          120           |
+| V3–V4  | 341F / 805R     |       460       |     2×250     |         **20**         |
+| V1–V3  | 27F / 519R      |       490       |     2×300     |           90           |
+
+: Assumes 20 bp minimum overlap. V3–V4 with 2×250 reads leaves almost no room — use 2×300 if possible. {.striped}
 :::
 
 ::: callout-important
 ## These parameters must be the same for all samples in a study
 
-Changing truncation lengths between samples is not valid — it would affect error rates differently across samples and make them incomparable. Choose one set of parameters for the entire dataset based on the median quality profile across all samples.
+Changing truncation lengths between samples is not valid. This would affect error rates differently across samples and make them incomparable. Choose one set of parameters for the entire dataset based on the median quality profile across all samples.
 :::
 
 ## Expected errors vs. quality score cutoffs
 
 DADA2 uses the **expected errors** framework: rather than filtering on per-base quality scores directly, it computes the expected number of errors in an entire read as the sum of the error probabilities at each position. `maxEE = 2` means: discard any read where the expected number of errors exceeds 2.
 
-This is more principled than "discard reads with any base below Q20" because it considers the whole read rather than being thrown off by a single low-quality base.
+This is more principled than "discard reads with any base below Q30" because it considers the whole read rather than being thrown off by a single low-quality base.
 
 ::: callout-important
 ## Reproducibility in truncation
 
-Make sure that you carefully note the selection of where to truncate based on quality scores for both the forward and reverse reads. This is necessary for others to reproduce your results.
+Make sure that you carefully note the selection of where to truncate based on quality scores for both the forward and reverse reads. This is necessary for others to reproduce your results and should be reported in the methods section of any manuscript.
 :::
 
 ::: {.callout-tip collapse="true"}
 ## Code and tool examples
 
-**DADA2 filterAndTrim (R)**
+**DADA2 filterAndTrim**
 
 See here for more information: [documentation](https://benjjneb.github.io/dada2/tutorial.html)
 
@@ -115,7 +130,7 @@ filtered <- filterAndTrim(
 )
 ```
 
-**QIIME2 denoise-paired (command line)**
+**QIIME2 denoise-paired**
 
 See here for more information: [documentation](https://docs.qiime2.org/2024.10/plugins/available/dada2/denoise-paired/)
 
@@ -136,7 +151,7 @@ qiime dada2 denoise-paired \
 
 ## What gets discarded
 
-After filtering, check how many reads were retained per sample. Typical retention rates:
+After filtering, check how many reads were retained per sample. Generally, you want to run the same QC report you ran previously (e.g. FastQC or QIIME2 demux summarize) to consider the impact of trimming and truncation on sample quality. Typical retention rates:
 
 -   70–90% is normal
 -   \<50% suggests something went wrong: poor run quality, very long amplicon with insufficient overlap, or parameters that are too aggressive

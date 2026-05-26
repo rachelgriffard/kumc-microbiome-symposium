@@ -277,9 +277,9 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./index.html">Introduction to Microbiome Analysis</a></li><li class="breadcrumb-item"><a href="./types-of-microbiome-data.html">Types of Microbiome Data</a></li></ol></nav>
-        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
-        </a>
+        <a class="flex-grow-1 no-decor" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+          <h1 class="quarto-secondary-nav-title">Types of Microbiome Data</h1>
+        </a>     
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
       </button>
@@ -328,6 +328,12 @@ ul.task-list li input[type="checkbox"] {
  <span class="menu-text">What is 16S rRNA seq?</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./confounding.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Technical Variation &amp; Confounders</span></a>
+  </div>
+</li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
@@ -351,13 +357,7 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./03-sequencing.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Sequencing &amp; Confounders</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./02-amplification.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Amplification &amp; Pooling</span></a>
+ <span class="menu-text">Sequencing</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -474,10 +474,10 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#the-census---targeted-amplicon-sequencing" id="toc-the-census---targeted-amplicon-sequencing" class="nav-link active" data-scroll-target="#the-census---targeted-amplicon-sequencing"><img src="assets/census-targetedamplicon.png" height="24"> The Census - Targeted Amplicon Sequencing</a></li>
-  <li><a href="#the-full-background-checks---shotgun-metagenomics" id="toc-the-full-background-checks---shotgun-metagenomics" class="nav-link" data-scroll-target="#the-full-background-checks---shotgun-metagenomics"><img src="assets/backgroundcheck-metagenomics.svg" height="24"> The Full Background Checks - Shotgun Metagenomics</a></li>
-  <li><a href="#the-conversations---metatranscriptomics" id="toc-the-conversations---metatranscriptomics" class="nav-link" data-scroll-target="#the-conversations---metatranscriptomics"><img src="assets/microphone-metatranscriptomics.png" height="24"> The Conversations - Metatranscriptomics</a></li>
-  <li><a href="#the-city-output---metabolomics" id="toc-the-city-output---metabolomics" class="nav-link" data-scroll-target="#the-city-output---metabolomics"><img src="assets/trash-metabolomics.png" height="24"> The City Output - Metabolomics</a></li>
+  <li><a href="#the-census---targeted-amplicon-sequencing" id="toc-the-census---targeted-amplicon-sequencing" class="nav-link active" data-scroll-target="#the-census---targeted-amplicon-sequencing">The Census - Targeted Amplicon Sequencing</a></li>
+  <li><a href="#the-full-background-checks---shotgun-metagenomics" id="toc-the-full-background-checks---shotgun-metagenomics" class="nav-link" data-scroll-target="#the-full-background-checks---shotgun-metagenomics">The Full Background Checks - Shotgun Metagenomics</a></li>
+  <li><a href="#the-conversations---metatranscriptomics" id="toc-the-conversations---metatranscriptomics" class="nav-link" data-scroll-target="#the-conversations---metatranscriptomics">The Conversations - Metatranscriptomics</a></li>
+  <li><a href="#the-city-output---metabolomics" id="toc-the-city-output---metabolomics" class="nav-link" data-scroll-target="#the-city-output---metabolomics">The City Output - Metabolomics</a></li>
   </ul>
 </nav>
     </div>
@@ -485,9 +485,9 @@ ul.task-list li input[type="checkbox"] {
 <main class="content" id="quarto-document-content">
 
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./index.html">Introduction to Microbiome Analysis</a></li><li class="breadcrumb-item"><a href="./types-of-microbiome-data.html">Types of Microbiome Data</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Types of Microbiome Data</h1>
+<h1 class="title d-none d-lg-block">Types of Microbiome Data</h1>
 </div>
 
 
@@ -506,12 +506,24 @@ ul.task-list li input[type="checkbox"] {
 
 <p>To understand some of the types microbiome data there are, we are going to consider the microbiome as a city that we are trying to characterize. This characterization can mean different things. For example, do we want to know roughly how many people have the last name Johnson? Or are we more interested in how many people have the occupation of carpenter? Or are we interested in understanding how many bird houses are being produced by those carpenters? Each of these looks to understand this city deeper, but they are unique in their approach. Similarly, we have to consider the types of questions we want to answer about our microbiome before we select the appropriate technology for our experiment. Each of these microbiome technologies provide a different layer of information about the same community. This is not a comprehensive list, but aimed at giving you an idea of the various ways you can look at these little microbial cities.</p>
 <section id="the-census---targeted-amplicon-sequencing" class="level1">
-<h1><img src="assets/census-targetedamplicon.png" height="24"> The Census - Targeted Amplicon Sequencing</h1>
+<h1>The Census - Targeted Amplicon Sequencing</h1>
 <p><strong>Big Question:</strong> Who is present in this community and in what proportion?</p>
+<div class="city-analogy callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Knocking on doors
+</div>
+</div>
+<div class="callout-body-container callout-body">
 <p>When we use <u>targeted amplicon sequencing</u> of the 16S or ITS gene, we are essentially knocking on every door of the city and asking for the last name of those present. You are able to understand that there is a larger proportion of Smiths in the city than Andersons. However, you will not know the first names of the Smiths, Andersons, or any other city members–this technology is not that specific. You also are not able to know whether the Smiths are bakers and the Andersons are bankers. We cannot directly determine what these people in the city are doing from this data alone, only their general identity.</p>
+</div>
+</div>
 <p>Similarly, with this technology we can predict usually to a genus level resolution who is in the microbial community of interest. An experimental question that would be well answered by this data would be: What is the difference in microbiome compositions in patients before and after antibiotics?</p>
 <div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -520,24 +532,36 @@ ul.task-list li input[type="checkbox"] {
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<div id="callout-2" class="callout-2-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>Here are a few resources if you want to read more about this data:</p>
 <ul>
-<li><p>Bharti, R., &amp; Grimm, D. G. (2021). Current challenges and best-practice protocols for microbiome analysis.&nbsp;<em>Briefings in bioinformatics</em>,&nbsp;<em>22</em>(1), 178–193. https://doi.org/10.1093/bib/bbz155</p></li>
-<li><p>Pollock, J., Glendinning, L., Wisedchanwet, T., &amp; Watson, M. (2018). The Madness of Microbiome: Attempting To Find Consensus “Best Practice” for 16S Microbiome Studies.&nbsp;<em>Applied and environmental microbiology</em>,&nbsp;<em>84</em>(7), e02627-17. https://doi.org/10.1128/AEM.02627-17</p></li>
+<li><p>Bharti, R., &amp; Grimm, D. G. (2021). Current challenges and best-practice protocols for microbiome analysis. <em>Briefings in bioinformatics</em>, <em>22</em>(1), 178–193. https://doi.org/10.1093/bib/bbz155</p></li>
+<li><p>Pollock, J., Glendinning, L., Wisedchanwet, T., &amp; Watson, M. (2018). The Madness of Microbiome: Attempting To Find Consensus “Best Practice” for 16S Microbiome Studies. <em>Applied and environmental microbiology</em>, <em>84</em>(7), e02627-17. https://doi.org/10.1128/AEM.02627-17</p></li>
 </ul>
 </div>
 </div>
 </div>
 </section>
 <section id="the-full-background-checks---shotgun-metagenomics" class="level1">
-<h1><img src="assets/backgroundcheck-metagenomics.svg" height="24"> The Full Background Checks - Shotgun Metagenomics</h1>
+<h1>The Full Background Checks - Shotgun Metagenomics</h1>
 <p><strong>Big Question:</strong> Who is present in this community and what is the potential function?</p>
+<div class="city-analogy callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Running a background check
+</div>
+</div>
+<div class="callout-body-container callout-body">
 <p><u>Shotgun metagenomics</u> is like running a full background check on every resident in the city. We now have access to each person’s complete history: their education, skills, certifications, prior work experience, criminal records. We can now see that the Smith family has culinary degrees, and the Andersons have years as banking associates on their work history. From this, we can infer that the Smith family is likely the bakers and the Andersons are likely the bankers, though we have yet to see them in action. We know that they have the training to do so, though.</p>
+</div>
+</div>
 <p>Similar to this, this technology allows us to recover large portions of genomes of the members present in the microbial community. We can see what genes these members have and predict their potential activity, though we are not able to confidently say they are contributing in this way. A good example of a question for this type of data would be: Does this gut microbiome harbor antibiotic resistant genes, and, if so, which members are carrying them?</p>
 <div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -546,24 +570,36 @@ ul.task-list li input[type="checkbox"] {
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div id="callout-4" class="callout-4-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>Here are a few resources if you want to read more about this data:</p>
 <ul>
-<li><p>Bharti, R., &amp; Grimm, D. G. (2021). Current challenges and best-practice protocols for microbiome analysis.&nbsp;<em>Briefings in bioinformatics</em>,&nbsp;<em>22</em>(1), 178–193. https://doi.org/10.1093/bib/bbz155</p></li>
-<li><p>Quince, C., Walker, A. W., Simpson, J. T., Loman, N. J., &amp; Segata, N. (2017). Shotgun metagenomics, from sampling to analysis.&nbsp;<em>Nature biotechnology</em>,&nbsp;<em>35</em>(9), 833–844. https://doi.org/10.1038/nbt.3935</p></li>
+<li><p>Bharti, R., &amp; Grimm, D. G. (2021). Current challenges and best-practice protocols for microbiome analysis. <em>Briefings in bioinformatics</em>, <em>22</em>(1), 178–193. https://doi.org/10.1093/bib/bbz155</p></li>
+<li><p>Quince, C., Walker, A. W., Simpson, J. T., Loman, N. J., &amp; Segata, N. (2017). Shotgun metagenomics, from sampling to analysis. <em>Nature biotechnology</em>, <em>35</em>(9), 833–844. https://doi.org/10.1038/nbt.3935</p></li>
 </ul>
 </div>
 </div>
 </div>
 </section>
 <section id="the-conversations---metatranscriptomics" class="level1">
-<h1><img src="assets/microphone-metatranscriptomics.png" height="24"> The Conversations - Metatranscriptomics</h1>
+<h1>The Conversations - Metatranscriptomics</h1>
 <p><strong>Big Question:</strong> What is happening in this city at this exact moment in time?</p>
-<p>When we use <u>metatranscriptomics</u>, we are essentially recording all the conversations happening in a the city over a short period of time. This allows us to see what topics are being talked about. Perhaps the Smiths are discussing the twenty loaves of bread they are about to start making, or the Andersons are talking about the large transaction at the bank they have to deal with soon. However, we can only know what conversations are happening in that short period of time, making the results of this heavily dependent on the time that we record these conversations. We will likely find a different conversation going on at 2AM on a Saturday versus 3PM on a workday.</p>
+<div class="city-analogy callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Recording the conversations
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>When we use <u>metatranscriptomics</u>, we are essentially recording all the conversations happening in the city over a short period of time. This allows us to see what topics are being talked about. Perhaps the Smiths are discussing the twenty loaves of bread they are about to start making, or the Andersons are talking about the large transaction at the bank they have to deal with soon. However, we can only know what conversations are happening in that short period of time, making the results of this heavily dependent on the time that we record these conversations. We will likely find a different conversation going on at 2AM on a Saturday versus 3PM on a workday.</p>
+</div>
+</div>
 <p>In practice, this technology can help us try to understand which genes in the microbial community are being expressed at the moment that the samples are taken. While using metagenomics tells us that the Smiths have a lot of experience as bakers, the metatranscriptomics tells us that they are actively discussing the bread they expect to be baking for the day. The data could be used to investigate a question like: Which microbial genes are actively being expressed in the gut during antibiotic treatment, and is this different than those being expressed in patients before treatment?</p>
 <div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -572,24 +608,36 @@ ul.task-list li input[type="checkbox"] {
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-3" class="callout-3-contents callout-collapse collapse">
+<div id="callout-6" class="callout-6-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>Here are a few more resources if you want to read more about this kind of data:</p>
 <ul>
-<li><p>Zhang, Y., Thompson, K. N., Branck, T., Yan Yan, Nguyen, L. H., Franzosa, E. A., &amp; Huttenhower, C. (2021). Metatranscriptomics for the Human Microbiome and Microbial Community Functional Profiling.&nbsp;<em>Annual review of biomedical data science</em>,&nbsp;<em>4</em>, 279–311. https://doi.org/10.1146/annurev-biodatasci-031121-103035</p></li>
-<li><p>Ojala, T., Häkkinen, A. E., Kankuri, E., &amp; Kankainen, M. (2023). Current concepts, advances, and challenges in deciphering the human microbiota with metatranscriptomics.&nbsp;<em>Trends in genetics : TIG</em>,&nbsp;<em>39</em>(9), 686–702. https://doi.org/10.1016/j.tig.2023.05.004</p></li>
+<li><p>Zhang, Y., Thompson, K. N., Branck, T., Yan Yan, Nguyen, L. H., Franzosa, E. A., &amp; Huttenhower, C. (2021). Metatranscriptomics for the Human Microbiome and Microbial Community Functional Profiling. <em>Annual review of biomedical data science</em>, <em>4</em>, 279–311. https://doi.org/10.1146/annurev-biodatasci-031121-103035</p></li>
+<li><p>Ojala, T., Häkkinen, A. E., Kankuri, E., &amp; Kankainen, M. (2023). Current concepts, advances, and challenges in deciphering the human microbiota with metatranscriptomics. <em>Trends in genetics : TIG</em>, <em>39</em>(9), 686–702. https://doi.org/10.1016/j.tig.2023.05.004</p></li>
 </ul>
 </div>
 </div>
 </div>
 </section>
 <section id="the-city-output---metabolomics" class="level1">
-<h1><img src="assets/trash-metabolomics.png" height="24"> The City Output - Metabolomics</h1>
+<h1>The City Output - Metabolomics</h1>
 <p><strong>Big Question:</strong> What is the chemical fingerprint of what this city produces and consumes?</p>
+<div class="city-analogy callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Checking the city’s output
+</div>
+</div>
+<div class="callout-body-container callout-body">
 <p>Using <u>metabolomics</u> allows us to get a picture of all of the products that are created in this city. We are going to look and see what the main drainage water looks like, the air quality monitor, and the loading dock that moves exports out of town. Here, we can see that the baker family we have seen previously, the Smiths, have potentially been around. We can see that there is CO2 and ethanol in the air, leaving the ovens while the bread is baking. Something has been actively baking in this city, and the chemistry of the city output is reflecting that. We have strong reason to suspect that the Smiths are hard at work, though we never see them, only their outputs. We have to make a confident inference, though we cannot confirm without additional evidence, that this was that particular family hard at work.</p>
+</div>
+</div>
 <p>When in use, this technology can help us understand all small molecules present that make up the chemical outputs, inputs, and signals of the community. This can be hard to attribute to specific organisms and pathways, and many metabolites remain chemically unidentified. This approach might answer questions like: Do patients that receive antibiotics have different metabolic outputs than those who do not?</p>
 <div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-8-contents" aria-controls="callout-8" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -598,14 +646,33 @@ ul.task-list li input[type="checkbox"] {
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-4" class="callout-4-contents callout-collapse collapse">
+<div id="callout-8" class="callout-8-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>Here are a few more resources if you want to read more about this kind of data:</p>
 <ul>
-<li><p>Roach, J., Mital, R., Haffner, J. J., Colwell, N., Coats, R., Palacios, H. M., Liu, Z., Godinho, J. L. P., Ness, M., Peramuna, T., &amp; McCall, L. I. (2024). Microbiome metabolite quantification methods enabling insights into human health and disease.&nbsp;<em>Methods (San Diego, Calif.)</em>,&nbsp;<em>222</em>, 81–99. https://doi.org/10.1016/j.ymeth.2023.12.007</p></li>
-<li><p>Lee-Sarwar, K. A., Lasky-Su, J., Kelly, R. S., Litonjua, A. A., &amp; Weiss, S. T. (2020). Metabolome-Microbiome Crosstalk and Human Disease.&nbsp;<em>Metabolites</em>,&nbsp;<em>10</em>(5), 181. https://doi.org/10.3390/metabo10050181</p></li>
+<li><p>Roach, J., Mital, R., Haffner, J. J., Colwell, N., Coats, R., Palacios, H. M., Liu, Z., Godinho, J. L. P., Ness, M., Peramuna, T., &amp; McCall, L. I. (2024). Microbiome metabolite quantification methods enabling insights into human health and disease. <em>Methods (San Diego, Calif.)</em>, <em>222</em>, 81–99. https://doi.org/10.1016/j.ymeth.2023.12.007</p></li>
+<li><p>Lee-Sarwar, K. A., Lasky-Su, J., Kelly, R. S., Litonjua, A. A., &amp; Weiss, S. T. (2020). Metabolome-Microbiome Crosstalk and Human Disease. <em>Metabolites</em>, <em>10</em>(5), 181. https://doi.org/10.3390/metabo10050181</p></li>
 </ul>
 </div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Further microbiome data type resources
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>In case you are curious and want to know more about the multitude of directions you can go in using microbiome data, feel free to review some of the following papers that might give you some insight.</p>
+<ul>
+<li><p>Arıkan, M., &amp; Muth, T. (2023). Integrated multi-omics analyses of microbial communities: a review of the current state and future directions..&nbsp;<em>Molecular omics</em>. https://doi.org/10.1039/d3mo00089c.</p></li>
+<li><p>Franzosa, E., Hsu, T., Sirota-Madi, A., Shafquat, A., Abu-Ali, G., Morgan, X., &amp; Huttenhower, C. (2015). Sequencing and beyond: integrating molecular ‘omics’ for microbial community profiling.&nbsp;<em>Nature Reviews Microbiology, 13</em>, 360-372. https://doi.org/10.1038/nrmicro3451.</p></li>
+<li><p>Zhang, X., Li, L., Butcher, J., Stintzi, A., &amp; Figeys, D. (2019). Advancing functional and translational microbiome research using meta-omics approaches.&nbsp;<em>Microbiome, 7</em>. https://doi.org/10.1186/s40168-019-0767-6.</p></li>
+<li><p>Whon, T., Shin, N., Kim, J., &amp; Roh, S. (2021). Omics in gut microbiome analysis.&nbsp;<em>Journal of Microbiology, 59</em>, 292 - 297. https://doi.org/10.1007/s12275-021-1004-0.</p></li>
+</ul>
 </div>
 </div>
 

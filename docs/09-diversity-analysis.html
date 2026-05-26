@@ -312,9 +312,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Targeted Amplicon Sequencing Analysis</li><li class="breadcrumb-item"><a href="./taxonomy.html">Downstream Analysis</a></li><li class="breadcrumb-item"><a href="./09-diversity-analysis.html">Diversity Analysis</a></li></ol></nav>
-        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
-        </a>
+        <a class="flex-grow-1 no-decor" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+          <h1 class="quarto-secondary-nav-title">Diversity Analysis</h1>
+        </a>     
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
       </button>
@@ -363,6 +363,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="menu-text">What is 16S rRNA seq?</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./confounding.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Technical Variation &amp; Confounders</span></a>
+  </div>
+</li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
@@ -386,13 +392,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./03-sequencing.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Sequencing &amp; Confounders</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./02-amplification.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Amplification &amp; Pooling</span></a>
+ <span class="menu-text">Sequencing</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -525,9 +525,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <main class="content" id="quarto-document-content">
 
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Targeted Amplicon Sequencing Analysis</li><li class="breadcrumb-item"><a href="./taxonomy.html">Downstream Analysis</a></li><li class="breadcrumb-item"><a href="./09-diversity-analysis.html">Diversity Analysis</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Diversity Analysis</h1>
+<h1 class="title d-none d-lg-block">Diversity Analysis</h1>
 </div>
 
 
@@ -605,13 +605,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="statistical-testing-of-alpha-diversity" class="level3">
 <h3 class="anchored" data-anchor-id="statistical-testing-of-alpha-diversity">Statistical testing of alpha diversity</h3>
 <p>Use non-parametric tests (Kruskal-Wallis for multiple groups, Wilcoxon for two groups) when alpha diversity values are not normally distributed — which they often aren’t. For more complex models (multiple covariates, longitudinal data), linear mixed models are appropriate.</p>
-<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout callout-style-default callout-caution callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Warning</span>Confounding variables in alpha diversity
+<span class="screen-reader-only">Caution</span>Confounding variables in alpha diversity
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -672,13 +672,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><strong>PCoA</strong> (Principal Coordinates Analysis) — the most common approach. Produces a scatter plot where samples that are more similar in community composition cluster together. The axes represent the major sources of variation in the distance matrix. The first axis explains the most variance, and so on.</p>
 <p><strong>NMDS</strong> (Non-metric Multidimensional Scaling) — better at preserving rank order of distances rather than actual distances. A stress value &lt;0.2 indicates an acceptable fit.</p>
 <p><strong>PCA</strong> — works on the abundance matrix directly (not a distance matrix). Used with CLR-transformed data (Aitchison-PCA).</p>
-<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout callout-style-default callout-caution callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Warning</span>Ordination plots show patterns, not statistics
+<span class="screen-reader-only">Caution</span>Ordination plots show patterns, not statistics
 </div>
 </div>
 <div class="callout-body-container callout-body">

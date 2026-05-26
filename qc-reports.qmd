@@ -4,30 +4,12 @@ title: "QC Reports"
 
 Before any preprocessing begins, you need to understand what your data looks like. Two tools are standard for inspecting the quality of your sequencing output: **FastQC** and **QIIME2's demux summarize**. Both give you a view of per-base quality scores across reads, which is the primary input for choosing truncation parameters.
 
-## What you receive from the core: multiplexed vs. demultiplexed
-
-Sequencing data from a core facility or commercial provider arrives in one of two states:
-
--   **Demultiplexed** — one FASTQ file pair per sample (e.g., `Sample1_R1.fastq.gz`, `Sample1_R2.fastq.gz`). Sample identifiers are in the filenames. This is what most modern Illumina runs deliver.
--   **Multiplexed** — one or two large FASTQ files containing reads from all samples mixed together, plus a separate index file or barcode map. You must run demultiplexing yourself before any other analysis.
-
-**How to tell which you have:** If you receive many files with recognizable sample names in the filenames, your data is already demultiplexed. If you receive one or two large files without sample identifiers, the data is still multiplexed. When in doubt, ask the core.
-
-## How samples are distinguished
-
-During library prep, each sample's amplicons are tagged with a unique short sequence called a barcode or index. This may be:
-
--   **Inline barcodes** — embedded directly in the primer sequence, immediately adjacent to the primer
--   **Illumina dual indices** — short sequences added as separate adapter sequences, read by the instrument in separate index-read cycles
-
-For most modern Illumina workflows, the instrument handles the initial demultiplexing before you ever see the data. You still need to remove the primer sequences (which are not part of the biological read).
-
 ## Checking your results
 
-After demultiplexing, inspect:
+After demultiplexing if necessary, inspect:
 
--   **Read counts per sample** — are they roughly balanced? An outlier with dramatically fewer reads may have had poor library prep, a failed PCR, or a barcode collision.
--   **Unassigned reads** — what fraction of reads could not be assigned to any sample? Some unassigned reads are normal (reads from PhiX, primer dimers, index-hopping), but if \>20% are unassigned, something went wrong.
+-   **Read counts per sample**: are they roughly balanced? An outlier with dramatically fewer reads may have had poor library prep, a failed PCR, or a barcode collision.
+-   **Unassigned reads**: what fraction of reads could not be assigned to any sample? Some unassigned reads are normal (reads from PhiX, primer dimers, index-hopping), but if \>20% are unassigned, something went wrong.
 
 ## Looking at a quality report
 
@@ -44,14 +26,18 @@ QIIME2's demux plugin produces similar quality plots and is often the first thin
 ::: {.callout-tip collapse="true"}
 ## Code and tool examples
 
-**FastQC** — for more information, check out [this site](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/).
+**FastQC**
+
+See here for more information: [documentation](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/)
 
 ``` bash
 # to run the analysis on all files in a folder ending in .fastq.gz
 fastqc *.fastq.gz
 ```
 
-**QIIME2 Demux Summarize** — for more information, check out [this site](https://docs.qiime2.org/2024.10/plugins/available/demux/summarize/).
+**QIIME2 Demux Summarize**
+
+See here for more information: [documentation](https://docs.qiime2.org/2024.10/plugins/available/demux/summarize/)
 
 ``` bash
 qiime2 demux-summarize \
@@ -61,6 +47,8 @@ qiime2 demux-summarize \
 :::
 
 A common diagnostic plot is the **per-base quality score distribution**. These are often a box plot or line plot showing, at each read position, the spread of quality scores across all reads. For this example below, the shaded band is the interquartile range (middle 50% of reads), the solid line is the median, and the thin lines are the whiskers. Toggle between R1 and R2 to see how the quality degrades over the length of the read.
+
+This plot is important in helping us figure out where to truncate our samples based on the quality scores we saw previously in the FASTQ files.
 
 ```{ojs}
 //| echo: false
@@ -116,7 +104,7 @@ viewof selectedRead = Inputs.radio(["R1", "R2", "Both"], {
     y: { label: "↑ Phred quality score", domain: [0, 42], grid: true },
     marks: [
       Plot.rect(
-        [{y1: 0, y2: 20}, {y1: 20, y2: 28}, {y1: 28, y2: 42}],
+        [{y1: 0, y2: 20}, {y1: 20, y2: 30}, {y1: 30, y2: 42}],
         { x1: 1, x2: nPos, y1: "y1", y2: "y2",
           fill: ["#ffebee", "#fff9c4", "#e8f5e9"], fillOpacity: 0.6 }
       ),
@@ -150,13 +138,5 @@ viewof selectedRead = Inputs.radio(["R1", "R2", "Both"], {
 ::: callout-note
 ## Reading the plot
 
-The **green zone** (Q ≥ 28) is good quality. The **yellow zone** (Q 20–28) is acceptable but worth watching. The **red zone** (Q \< 20) should be trimmed before analysis. Notice that R2 dips into the yellow zone well before position 250 — this is normal and is why DADA2 truncation lengths for R1 and R2 are set independently.
+The **green zone** (Q ≥ 30) is good quality. The **yellow zone** (Q 20–30) is acceptable but worth watching. The **red zone** (Q \< 20) should be trimmed before analysis. Notice that R2 dips into the yellow zone well before position 250 — this is normal and is why DADA2 truncation lengths for R1 and R2 are set independently.
 :::
-
-## What can go wrong
-
-**Sample swaps** — if samples were loaded into the wrong wells during library prep, the barcodes will assign reads to the wrong samples. This is undetectable computationally without external metadata. Always maintain a physical sample tracking record.
-
-**Low read counts in specific samples** — often traces back to the wet lab (poor amplification, poor normalization in the pooling step). A sample with \<1,000 reads after demultiplexing may need to be excluded from analysis or re-run.
-
-**Contamination from a dominant sample** — if one sample has vastly more reads than others in the pool (because it was overloaded during pooling), index hopping can bleed a small number of its reads into neighboring wells. This is usually visible as unexpected taxa at low abundance in your negative controls.
