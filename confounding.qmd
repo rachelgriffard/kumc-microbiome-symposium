@@ -31,7 +31,7 @@ To mitigate these issues, it is important that we stratify these variables, or s
 | **Collection** | Swab type | Affects how much biomass is recovered and which taxa adhere. |
 | **Collection** | Time of day | Oral and gut communities shift measurably across the day. |
 | **Collection** | Time to storage | A sample left at room temperature for 2 hours before freezing looks different from one frozen immediately. |
-| **Transport & Storage** | Temperature excursions | Differential cell lysis during shipping — some taxa are more fragile than others. A common hidden variable in multi-site studies. |
+| **Transport & Storage** | Temperature excursions | Differential cell lysis during shipping: some taxa are more fragile than others. A common hidden variable in multi-site studies. |
 | **Transport & Storage** | Storage duration | Communities degrade over time; longer storage selectively depletes fragile taxa. |
 | **DNA Extraction** | Kit manufacturer | Different kits lyse cells with different efficiency. Gram-positive bacteria are notoriously difficult to break open, so kit choice directly shapes which taxa appear in your data. |
 | **DNA Extraction** | Operator variability | Even the same kit in the same lab can produce different yields depending on who runs it and when. |

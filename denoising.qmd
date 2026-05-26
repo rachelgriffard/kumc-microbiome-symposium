@@ -28,12 +28,12 @@ Operational Taxonomic Units (OTUs) group similar sequences together based on a p
 ::: {.callout-note .city-analogy}
 ## The census taker's notebook
 
-**OTU clustering** is like a supervisor who reviews the notebook and says: *"Smeth and Smith are close enough — I'll put them in the same household."* Anyone within a similarity threshold gets merged into one group. This is forgiving of sloppy handwriting, but it can also lump genuinely different residents together, such **Smith** and **Smyth**, just because their names look alike. The threshold is arbitrary, and you can no longer tell if the Smiths and the Smyths and the Smeths are genuinely distinct families or a writing error.
+**OTU clustering** is like a supervisor who reviews the notebook and says: *"Smeth and Smith are close enough. I'll put them in the same household."* Anyone within a similarity threshold gets merged into one group. This is forgiving of sloppy handwriting, but it can also lump genuinely different residents together, such **Smith** and **Smyth**, just because their names look alike. The threshold is arbitrary, and you can no longer tell if the Smiths and the Smyths and the Smeths are genuinely distinct families or a writing error.
 :::
 
 ### ASV denoising
 
-Amplicon Sequence Variants (ASVs) are exact sequences — the actual nucleotide sequence of each unique variant, after sequencing errors have been corrected by a statistical model. Instead of clustering, DADA2 models the error process of the sequencing run and uses that model to distinguish true biological variants from noise.
+Amplicon Sequence Variants (ASVs) are exact sequences, the actual nucleotide sequence of each unique variant, after sequencing errors have been corrected by a statistical model. Instead of clustering, DADA2 models the error process of the sequencing run and uses that model to distinguish true biological variants from noise.
 
 -   **Pro**: exact sequences are reproducible across studies and databases; can resolve variants differing by a single base; exact sequences can be searched against any database
 -   **Con**: requires a good error model (poor quality data = poor error model); computationally more intensive

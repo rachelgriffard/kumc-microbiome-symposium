@@ -21,7 +21,7 @@ The traditional approach is to subsample (rarefy) all samples down to the same r
 -   **Pro**: simple to understand; many diversity metrics were developed with this approach in mind
 -   **Con**: discards real data from well-sequenced samples; samples with fewer reads than the cutoff are excluded entirely; results depend on the randomly chosen cutoff
 
-::: callout-important
+::: callout-caution
 ## Choosing a rarefaction depth
 
 This decision is often agonized over. A practical approach: look at a histogram of read counts across samples. Choose a depth that retains ≥80% of samples. Samples falling below the cutoff are excluded from subsequent analysis — document this clearly.

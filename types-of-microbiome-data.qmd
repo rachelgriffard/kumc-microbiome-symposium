@@ -92,7 +92,7 @@ Here are a few more resources if you want to read more about this kind of data:
 -   Lee-Sarwar, K. A., Lasky-Su, J., Kelly, R. S., Litonjua, A. A., & Weiss, S. T. (2020). Metabolome-Microbiome Crosstalk and Human Disease. *Metabolites*, *10*(5), 181. https://doi.org/10.3390/metabo10050181
 :::
 
-::: callout-note
+::: {.callout-note collapse="true"}
 ## Further microbiome data type resources
 
 In case you are curious and want to know more about the multitude of directions you can go in using microbiome data, feel free to review some of the following papers that might give you some insight.

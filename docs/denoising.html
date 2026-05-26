@@ -583,13 +583,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p><strong>OTU clustering</strong> is like a supervisor who reviews the notebook and says: <em>“Smeth and Smith are close enough — I’ll put them in the same household.”</em> Anyone within a similarity threshold gets merged into one group. This is forgiving of sloppy handwriting, but it can also lump genuinely different residents together, such <strong>Smith</strong> and <strong>Smyth</strong>, just because their names look alike. The threshold is arbitrary, and you can no longer tell if the Smiths and the Smyths and the Smeths are genuinely distinct families or a writing error.</p>
+<p><strong>OTU clustering</strong> is like a supervisor who reviews the notebook and says: <em>“Smeth and Smith are close enough. I’ll put them in the same household.”</em> Anyone within a similarity threshold gets merged into one group. This is forgiving of sloppy handwriting, but it can also lump genuinely different residents together, such <strong>Smith</strong> and <strong>Smyth</strong>, just because their names look alike. The threshold is arbitrary, and you can no longer tell if the Smiths and the Smyths and the Smeths are genuinely distinct families or a writing error.</p>
 </div>
 </div>
 </section>
 <section id="asv-denoising" class="level3">
 <h3 class="anchored" data-anchor-id="asv-denoising">ASV denoising</h3>
-<p>Amplicon Sequence Variants (ASVs) are exact sequences — the actual nucleotide sequence of each unique variant, after sequencing errors have been corrected by a statistical model. Instead of clustering, DADA2 models the error process of the sequencing run and uses that model to distinguish true biological variants from noise.</p>
+<p>Amplicon Sequence Variants (ASVs) are exact sequences, the actual nucleotide sequence of each unique variant, after sequencing errors have been corrected by a statistical model. Instead of clustering, DADA2 models the error process of the sequencing run and uses that model to distinguish true biological variants from noise.</p>
 <ul>
 <li><strong>Pro</strong>: exact sequences are reproducible across studies and databases; can resolve variants differing by a single base; exact sequences can be searched against any database</li>
 <li><strong>Con</strong>: requires a good error model (poor quality data = poor error model); computationally more intensive</li>
