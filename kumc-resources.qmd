@@ -4,14 +4,16 @@ title: "KUMC Resources"
 
 ## Bioinformatics support
 
+[Department of Biostatistics & Data Science](https://www.kumc.edu/school-of-medicine/academics/departments/biostatistics-and-data-science.html)
+
+*For more information about bioinformatic support, including guild-based analysis, fill out a project registration form below.*
+
+-   Contact: Devin Koestler
+
+-   [Project Registration](https://biostat-pts.kumc.edu/velos/jsp/kumcpr.jsp)
+
 ## Sequencing
 
 [University of Kansas Medical Center Genome Sequencing Facility](https://www.kumc.edu/research/genome-sequencing-facility/services/illumina-services-x18557.html)
 
 [University of Kansas Genome Sequencing Core](https://gsc.ku.edu/)
-
-## High-performance computing
-
-## Data management and storage
-
-## Software available on HPC
