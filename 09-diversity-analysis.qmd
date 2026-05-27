@@ -87,7 +87,7 @@ PERMANOVA (Permutational Multivariate Analysis of Variance) tests whether groups
 
 The key output is an R² value (proportion of variance explained) and a p-value. The R² for microbiome studies is typically small — 5–15% — because within-group variation is substantial. A small but significant R² is still scientifically meaningful.
 
-::: callout-important
+::: callout-caution
 ## PERMANOVA and PERMDISP
 
 PERMANOVA tests whether group centroids differ. But if one group is more variable than another (different spread in ordination space), PERMANOVA can be significant due to dispersion differences, not true differences in composition. Always run PERMDISP (beta dispersion test) alongside PERMANOVA and report both.
@@ -113,4 +113,3 @@ disp <- betadisper(dist_bc, metadata$treatment)
 permutest(disp)
 ```
 :::
-
