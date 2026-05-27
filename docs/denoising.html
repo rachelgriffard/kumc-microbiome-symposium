@@ -583,13 +583,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p><strong>OTU clustering</strong> is like a supervisor who reviews the notebook and says: <em>“Smeth and Smith are close enough — I’ll put them in the same household.”</em> Anyone within a similarity threshold gets merged into one group. This is forgiving of sloppy handwriting, but it can also lump genuinely different residents together, such <strong>Smith</strong> and <strong>Smyth</strong>, just because their names look alike. The threshold is arbitrary, and you can no longer tell if the Smiths and the Smyths and the Smeths are genuinely distinct families or a writing error.</p>
+<p><strong>OTU clustering</strong> is like a supervisor who reviews the notebook and says: <em>“Smeth and Smith are close enough. I’ll put them in the same household.”</em> Anyone within a similarity threshold gets merged into one group. This is forgiving of sloppy handwriting, but it can also lump genuinely different residents together, such <strong>Smith</strong> and <strong>Smyth</strong>, just because their names look alike. The threshold is arbitrary, and you can no longer tell if the Smiths and the Smyths and the Smeths are genuinely distinct families or a writing error.</p>
 </div>
 </div>
 </section>
 <section id="asv-denoising" class="level3">
 <h3 class="anchored" data-anchor-id="asv-denoising">ASV denoising</h3>
-<p>Amplicon Sequence Variants (ASVs) are exact sequences — the actual nucleotide sequence of each unique variant, after sequencing errors have been corrected by a statistical model. Instead of clustering, DADA2 models the error process of the sequencing run and uses that model to distinguish true biological variants from noise.</p>
+<p>Amplicon Sequence Variants (ASVs) are exact sequences, the actual nucleotide sequence of each unique variant, after sequencing errors have been corrected by a statistical model. Instead of clustering, DADA2 models the error process of the sequencing run and uses that model to distinguish true biological variants from noise.</p>
 <ul>
 <li><strong>Pro</strong>: exact sequences are reproducible across studies and databases; can resolve variants differing by a single base; exact sequences can be searched against any database</li>
 <li><strong>Con</strong>: requires a good error model (poor quality data = poor error model); computationally more intensive</li>
@@ -645,7 +645,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <div id="callout-5" class="callout-5-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p><strong>DADA2 (R package)</strong></p>
+<p><strong>DADA2</strong></p>
 <p>For more information about DADA2, see the <a href="https://www.nature.com/articles/nmeth.3869">original Nature Methods paper</a> and the <a href="https://benjjneb.github.io/dada2/tutorial.html">R package tutorial</a>.</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Learn error rates (run once per sequencing run)</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>err_forward <span class="ot">&lt;-</span> <span class="fu">learnErrors</span>(filtered_forward, <span class="at">multithread =</span> <span class="cn">TRUE</span>)</span>
@@ -664,7 +664,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Remove chimeras</span></span>
 <span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>seqtab_nochim <span class="ot">&lt;-</span> <span class="fu">removeBimeraDenovo</span>(seqtab, <span class="at">method =</span> <span class="st">"consensus"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p><strong>QIIME2 (dada2 plugin)</strong></p>
+<p><strong>QIIME2</strong></p>
 <p>For more information, see the <a href="https://docs.qiime2.org/2024.10/plugins/available/dada2/">QIIME2 dada2 plugin documentation</a>.</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">qiime</span> dada2 denoise-paired <span class="dt">\</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">--i-demultiplexed-seqs</span> demux-paired-end.qza <span class="dt">\</span></span>
