@@ -69,7 +69,7 @@ Once these steps have completed, the unique sequences are officially considered 
 ::: {.callout-tip collapse="true"}
 ## Code and tool examples
 
-**DADA2 (R package)**
+**DADA2**
 
 For more information about DADA2, see the [original Nature Methods paper](https://www.nature.com/articles/nmeth.3869) and the [R package tutorial](https://benjjneb.github.io/dada2/tutorial.html).
 
@@ -93,7 +93,7 @@ seqtab <- makeSequenceTable(merged)
 seqtab_nochim <- removeBimeraDenovo(seqtab, method = "consensus")
 ```
 
-**QIIME2 (dada2 plugin)**
+**QIIME2**
 
 For more information, see the [QIIME2 dada2 plugin documentation](https://docs.qiime2.org/2024.10/plugins/available/dada2/).
 

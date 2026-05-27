@@ -475,9 +475,11 @@ ul.task-list li input[type="checkbox"] {
    
   <ul>
   <li><a href="#why-sequencing-depth-varies" id="toc-why-sequencing-depth-varies" class="nav-link active" data-scroll-target="#why-sequencing-depth-varies">Why sequencing depth varies</a></li>
-  <li><a href="#rarefaction-subsampling" id="toc-rarefaction-subsampling" class="nav-link" data-scroll-target="#rarefaction-subsampling">Rarefaction (subsampling)</a></li>
-  <li><a href="#alternatives-to-rarefaction" id="toc-alternatives-to-rarefaction" class="nav-link" data-scroll-target="#alternatives-to-rarefaction">Alternatives to rarefaction</a></li>
+  <li><a href="#rarefaction" id="toc-rarefaction" class="nav-link" data-scroll-target="#rarefaction">Rarefaction</a>
+  <ul class="collapse">
   <li><a href="#alpha-rarefaction-curves" id="toc-alpha-rarefaction-curves" class="nav-link" data-scroll-target="#alpha-rarefaction-curves">Alpha rarefaction curves</a></li>
+  </ul></li>
+  <li><a href="#alternatives-to-rarefaction" id="toc-alternatives-to-rarefaction" class="nav-link" data-scroll-target="#alternatives-to-rarefaction">Alternatives to rarefaction</a></li>
   </ul>
 </nav>
     </div>
@@ -504,20 +506,21 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>The count table contains raw read counts, but those counts are not directly comparable across samples. Different samples received different numbers of sequencing reads — some may have 50,000, others 8,000 — and that technical variation has nothing to do with biology. Before comparing community composition across samples, you need to account for these differences. This is the normalization problem, and it is one of the most actively debated methodological areas in microbiome analysis.</p>
+<p>The count table contains raw read counts, but those counts are not directly comparable across samples. Different samples received different numbers of sequencing reads: some may have 50,000, others 8,000. This technical variation is not related to the biological question that we are interested in considering in downstream analyses. Before comparing community composition across samples, you need to account for these differences to ensure any findings from later are not driven by this difference in sequencing depth. This is the normalization problem, and it is still actively debated in microbiome analyses.</p>
 <section id="why-sequencing-depth-varies" class="level2">
 <h2 class="anchored" data-anchor-id="why-sequencing-depth-varies">Why sequencing depth varies</h2>
-<p>Even when you carefully normalize the pooled library before loading the sequencer, different samples end up with different read counts. This arises from:</p>
+<p>Even when you carefully normalize the pooled library before loading the sequencer, different samples end up with different read counts. This can arise from a variety of different things:</p>
 <ul>
 <li>Slight differences in DNA concentration across samples before pooling</li>
 <li>Amplification efficiency differences (biological and technical)</li>
 <li>Random sampling variation in cluster formation on the flow cell</li>
 </ul>
-<p>The result is that a taxon observed in 100 reads in a sample with 10,000 total reads (1%) looks very different from the same taxon in 500 reads in a sample with 50,000 reads (also 1%), even though the relative abundance is identical.</p>
+<p>The result is that a taxon observed in 100 reads in a sample with 10,000 total reads (1%) looks very different from the same taxon in 500 reads in a sample with 50,000 reads (also 1%), even though the relative abundance is identical. Before we find a way to normalize, we cannot compare the absolute counts that we have after denoising.</p>
+<p>Let’s talk about some potential options for this issue.</p>
 </section>
-<section id="rarefaction-subsampling" class="level2">
-<h2 class="anchored" data-anchor-id="rarefaction-subsampling">Rarefaction (subsampling)</h2>
-<p>The traditional approach is to subsample (rarefy) all samples down to the same read depth — the depth of the shallowest sample, or a chosen cutoff that retains most samples.</p>
+<section id="rarefaction" class="level2">
+<h2 class="anchored" data-anchor-id="rarefaction">Rarefaction</h2>
+<p>The traditional approach is to rarefy, or subsample, all samples down to the same read depth. Sometimes this is the depth of the shallowest sample, or a chosen cutoff that retains most samples.</p>
 <ul>
 <li><strong>Pro</strong>: simple to understand; many diversity metrics were developed with this approach in mind</li>
 <li><strong>Con</strong>: discards real data from well-sequenced samples; samples with fewer reads than the cutoff are excluded entirely; results depend on the randomly chosen cutoff</li>
@@ -532,20 +535,12 @@ ul.task-list li input[type="checkbox"] {
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>This decision is often agonized over. A practical approach: look at a histogram of read counts across samples. Choose a depth that retains ≥80% of samples. Samples falling below the cutoff are excluded from subsequent analysis — document this clearly.</p>
-<p>There is no objectively correct rarefaction depth. Some researchers run the analysis at multiple depths to check whether conclusions are sensitive to the choice.</p>
+<p>This decision is often agonized over. There is no objectively correct rarefaction depth. Some researchers run the analysis at multiple depths to check whether conclusions are sensitive to the choice. Doing this iteratively at multiple depths can produce an <strong>alpha rarefaction curve</strong>, which is discussed below.</p>
+<p>Ultimately, the most important aspect of this process is clearly documenting the choice of rarefaction depth and any samples which are removed from the analysis in the process.</p>
 </div>
 </div>
-</section>
-<section id="alternatives-to-rarefaction" class="level2">
-<h2 class="anchored" data-anchor-id="alternatives-to-rarefaction">Alternatives to rarefaction</h2>
-<p><strong>Relative abundance</strong> — divide each cell by the sample’s total reads. Simple, but proportional and therefore compositional: the relative abundance of one taxon affects all others.</p>
-<p><strong>CSS normalization</strong> (cumulative sum scaling, metagenomeSeq) and <strong>DESeq2 normalization</strong> borrow from RNA-seq workflows and attempt to normalize without discarding data. These are preferred for differential abundance testing.</p>
-<p><strong>CLR transformation</strong> (centered log-ratio) is the current statistical recommendation for compositional data. It converts relative abundances into log-ratios with respect to the geometric mean, making the data more amenable to standard statistical tests. Required for some downstream analyses (Aitchison distance).</p>
-<p>The field does not have a consensus. For diversity analysis, rarefaction or relative abundance is most common. For differential abundance, normalization-aware tools (DESeq2, ANCOM-BC, ALDEx2) are preferred.</p>
-</section>
-<section id="alpha-rarefaction-curves" class="level2">
-<h2 class="anchored" data-anchor-id="alpha-rarefaction-curves">Alpha rarefaction curves</h2>
+<section id="alpha-rarefaction-curves" class="level3">
+<h3 class="anchored" data-anchor-id="alpha-rarefaction-curves">Alpha rarefaction curves</h3>
 <p>Before choosing a rarefaction depth, examine how diversity changes as a function of sequencing depth for each sample. An <strong>alpha rarefaction curve</strong> plots observed features (ASVs) on the y-axis against sequencing depth on the x-axis, starting from a small subsample and increasing to the full read count.</p>
 <p>At low depths, each additional read tends to reveal new taxa. As depth increases, the curve flattens — you are reading more sequences but finding fewer new organisms. This plateau indicates that most of the detectable diversity in that sample has been captured.</p>
 <p>How to use this to choose a rarefaction depth:</p>
@@ -554,19 +549,49 @@ ul.task-list li input[type="checkbox"] {
 <li>The depth must also be low enough to retain a sufficient number of samples — any sample with fewer reads than the cutoff is excluded from subsequent analysis.</li>
 <li>The goal is to maximize both completeness (plateau reached) and sample retention (enough samples kept).</li>
 </ul>
-<div class="callout callout-style-default callout-note callout-titled">
+<div class="city-analogy callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Analogy: the candy jar
+<span class="screen-reader-only">Note</span>Rarefaction in the census
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Imagine estimating how many different types of candy are in a jar. Each handful you grab at first reveals new types. After enough handfuls, you mostly find the same candies and new types appear rarely — you have captured the true diversity of the jar. A rarefaction curve that has plateaued is telling you the same thing: additional sequencing depth would tell you little new about the community.</p>
+<p>Let’s jump back into the city to get a better intuition behind this process.</p>
+<p>Let’s say we are looking at four different cities. We are doing a survey where we are randomly sampling from each of the cities to collect last names and get an idea of the population.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="assets/alpha-rarefaction-uneven-seq.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="background-color:white;"></p>
+</figure>
+</div>
+<p>We can see here our four cities. Ideally, we would randomly reach out to the same number of people. For example, we might survey 4,000 people and compare the composition of last names between the cities.</p>
+<p>Unfortunately, as we have discussed previously, the multiplexing of samples when sequencing does not result in the same sequencing depth for all samples; in fact, there is often a meaningful difference. So it would be more like we see above, where there is a large range of the number of people we sample from each city.</p>
+<p>Now, if we have 18 Smiths in city A and 92 Smiths in City C, how are we supposed to meaningfully compare whether there are more Smiths in one city versus the other when the overall number of people sampled is not the same?</p>
+<p>If we use rarefaction, we are going to subsample from each city the same number of people, allowing us to compare the counts we have. However, how do we know we have sampled enough people that we are preserving the composition of those cities? Is 890 people from each city enough? Or do we need to consider sampling 1,400 people?</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="assets/city_rarefaction_curve.gif" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+</figure>
+</div>
+<p>We can start to consider this problem by looking at an alpha rarefaction curve like the one above. We will randomly subsample many times at each sampling depth and each time count the number of unique last names in that subsample. We want to select a subsampling depth that is no longer consistently returning more unique last names as we go above it. This looks like a place in the curve where there is flattening of most of our lines.</p>
+<p>Below, we can see what happens as we select different subsampling depths. You will notice that to pick a point where most of the cities curves flatten out, we have to pick a number for the subsample that exceeds the original sample from City A. This would mean that we would have to drop City A from our analysis. This is a common balancing act in rarefaction, where you want to retain as many replicates as you can while also ensuring your are sampling enough to represent the true population in the sample.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="assets/city_rarefaction_sweep.gif" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+</figure>
 </div>
 </div>
+</div>
+</section>
+</section>
+<section id="alternatives-to-rarefaction" class="level2">
+<h2 class="anchored" data-anchor-id="alternatives-to-rarefaction">Alternatives to rarefaction</h2>
+<p><strong>Relative abundance</strong> — divide each cell by the sample’s total reads. Simple, but proportional and therefore compositional: the relative abundance of one taxon affects all others.</p>
+<p><strong>CSS normalization</strong> (cumulative sum scaling, metagenomeSeq) and <strong>DESeq2 normalization</strong> borrow from RNA-seq workflows and attempt to normalize without discarding data. These are preferred for differential abundance testing.</p>
+<p><strong>CLR transformation</strong> (centered log-ratio) is the current statistical recommendation for compositional data. It converts relative abundances into log-ratios with respect to the geometric mean, making the data more amenable to standard statistical tests. Required for some downstream analyses (Aitchison distance).</p>
+<p>The field does not have a consensus. For diversity analysis, rarefaction or relative abundance is most common. For differential abundance, normalization-aware tools (ANCOM-BC, DESeq2, ALDEx2) are preferred.</p>
 
 
 </section>
