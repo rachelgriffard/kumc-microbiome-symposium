@@ -2,37 +2,35 @@
 title: "Diversity Analysis"
 ---
 
-Diversity analysis is where sequencing data becomes biological insight — or where analytical choices obscure it. This section covers the two main branches of diversity analysis (alpha and beta), the statistical methods used to test them, and the interpretive traps that are common in published microbiome literature.
+Diversity analysis allows us to look at the unique players within a sample and compare them between samples. This section covers the two main branches of diversity analysis (alpha and beta).
 
 ## Alpha diversity: within-sample diversity
 
-Alpha diversity describes the diversity of a single sample — how many different taxa are present, and how evenly distributed the reads are among them. Different alpha diversity metrics capture different aspects of this.
+::: {.callout-note .city-analogy}
+## The landlocked city
+
+Alpha diversity is like looking at the diversity of last names within our city. We might be interested in how many unique last names there are and how many people have these last names compared to each other. We can also take the alpha diversity of one city and compare it to another to see if they have similar diversity of last names in the city, though we cannot tell if the have the actual same family groups in the city.
+:::
+
+Alpha diversity describes the diversity of a single sample, how many different taxa are present, and how evenly distributed the reads are among them. Different alpha diversity metrics capture different aspects of the data.
 
 | Metric | What it captures | Notes |
 |------------------------|------------------------|------------------------|
 | **Observed features** | Raw count of unique ASVs/OTUs | Sensitive to sequencing depth; should be compared only at equal rarefaction depth |
 | **Shannon index** | Both richness and evenness | Penalizes communities dominated by one taxon |
-| **Simpson / Inverse Simpson** | Evenness-weighted diversity | Less sensitive to rare taxa than Shannon |
+| **Simpson** | Evenness-weighted diversity | Less sensitive to rare taxa than Shannon |
 | **Faith's PD** | Phylogenetic diversity — total branch length of the community's phylogenetic tree | Accounts for how evolutionarily distinct the taxa are |
 | **Chao1** | Estimated true richness, accounting for undetected rare taxa | Useful when comparing samples at different depths |
 
-::: callout-note
-## High diversity is not always good
-
-Alpha diversity is often discussed as if "more diversity = healthier." This is true for some contexts (gut microbiome diversity tends to be lower in disease states) but not universal. Lower diversity can indicate a specialized, adapted community. Interpret alpha diversity in the context of your sample type and hypothesis.
-:::
-
-### Statistical testing of alpha diversity
-
-Use non-parametric tests (Kruskal-Wallis for multiple groups, Wilcoxon for two groups) when alpha diversity values are not normally distributed — which they often aren't. For more complex models (multiple covariates, longitudinal data), linear mixed models are appropriate.
-
-::: callout-caution
-## Confounding variables in alpha diversity
-
-Alpha diversity is affected by sample quality, extraction efficiency, sequencing depth, and the rarefaction cutoff — not just biology. A group difference in alpha diversity may reflect any of these. Always include negative controls and check whether outliers correlate with technical variables before interpreting biologically.
-:::
-
 ## Beta diversity: between-sample diversity
+
+::: {.callout-note .city-analogy}
+## Comparing the landlocked city and the beach front city
+
+Using beta diversity allows us to get one number that tells us how similar two cities are in who makes up the cities. Some of them consider only the different family names that are in the city, some of them actually consider the family names as well as how many people had those family names. Some might even consider whether the family names have the same origin, grouping German last names together, Japanese last names together, and so on.
+
+We get one score for each two city comparison, with scores closer to one indicating that the people that make up the cities are more similar and closer to zero indicating that the people who make up the cities are very different.
+:::
 
 Beta diversity describes how different community composition is between samples. It requires a distance (or dissimilarity) metric — a number between 0 (identical communities) and some maximum (completely different communities).
 
@@ -44,23 +42,13 @@ Beta diversity describes how different community composition is between samples.
 | **UniFrac (weighted)** | Phylogenetic distance with abundance weighting | Phylogeny + abundances |
 | **Aitchison** | Euclidean distance in CLR space | Compositionally aware |
 
-Choice of distance metric is a scientific decision — different metrics emphasize different aspects of community structure. Run multiple metrics and look for consistent patterns.
+Choice of distance metric can impact the results, and different metrics emphasize different aspects of community structure. Often, people run multiple metrics for the same data, as they describe slightly different results.
 
 ## Ordination: visualizing beta diversity
 
-With a distance matrix in hand, ordination techniques reduce the high-dimensional distance information to 2 or 3 dimensions for visualization.
+With a distance matrix in hand, ordination techniques reduce the high-dimensional distance information to 2 or 3 dimensions for visualization. This is important because as more samples are added the number of beta diversity values goes up quickly and makes it hard, if not impossible, for us to look at the matrix and understand what is going on under the hood.
 
-**PCoA** (Principal Coordinates Analysis) — the most common approach. Produces a scatter plot where samples that are more similar in community composition cluster together. The axes represent the major sources of variation in the distance matrix. The first axis explains the most variance, and so on.
-
-**NMDS** (Non-metric Multidimensional Scaling) — better at preserving rank order of distances rather than actual distances. A stress value \<0.2 indicates an acceptable fit.
-
-**PCA** — works on the abundance matrix directly (not a distance matrix). Used with CLR-transformed data (Aitchison-PCA).
-
-::: callout-caution
-## Ordination plots show patterns, not statistics
-
-A PCoA plot that looks like two groups are separating is suggestive but not conclusive. Statistical significance requires a permutational test (PERMANOVA). And PERMANOVA is sensitive to differences in dispersion between groups (one group may be more variable than the other), which should be tested separately with PERMDISP.
-:::
+**Principal Coordinates Analysis (PCoA)** is the most common approach. This produces a scatter plot where samples that are more similar in community composition cluster together. The axes represent the major sources of variation in the distance matrix. The first axis explains the most variance, and so on.
 
 ::: {.callout-tip collapse="true"}
 ## Code and tool examples
@@ -78,38 +66,5 @@ ord <- ordinate(physeq, method = "PCoA", distance = dist_bc)
 # Plot, colored by metadata variable
 plot_ordination(physeq, ord, color = "treatment_group") +
   theme_bw()
-```
-:::
-
-### PERMANOVA
-
-PERMANOVA (Permutational Multivariate Analysis of Variance) tests whether groups of samples have significantly different community composition. It works directly on the distance matrix and makes no distributional assumptions.
-
-The key output is an R² value (proportion of variance explained) and a p-value. The R² for microbiome studies is typically small — 5–15% — because within-group variation is substantial. A small but significant R² is still scientifically meaningful.
-
-::: callout-caution
-## PERMANOVA and PERMDISP
-
-PERMANOVA tests whether group centroids differ. But if one group is more variable than another (different spread in ordination space), PERMANOVA can be significant due to dispersion differences, not true differences in composition. Always run PERMDISP (beta dispersion test) alongside PERMANOVA and report both.
-:::
-
-::: {.callout-tip collapse="true"}
-## Code and tool examples
-
-``` r
-library(vegan)
-
-# Bray-Curtis distance matrix
-dist_bc <- vegdist(otu_table, method = "bray")
-
-# PERMANOVA: does treatment group explain community composition?
-adonis2(dist_bc ~ treatment + age + sex,
-        data = metadata,
-        permutations = 999,
-        by = "margin")
-
-# Test dispersion (PERMDISP)
-disp <- betadisper(dist_bc, metadata$treatment)
-permutest(disp)
 ```
 :::

@@ -13,38 +13,43 @@ Because the count table is compositional (relative abundances sum to 1), standar
 
 Current recommended tools:
 
--   **ANCOM-BC2** — compositionally aware; controls false discovery rate; preferred for most studies
--   **DESeq2** — borrowed from RNA-seq; performs well in practice but assumptions may not strictly hold
--   **ALDEx2** — Dirichlet-multinomial model; robust but conservative
--   **Maaslin2** — handles multivariable models and mixed effects
+-   **ANCOM-BC2**: compositionally aware; controls false discovery rate; preferred for most studies
+-   **DESeq2**: borrowed from RNA-seq; performs well in practice but assumptions may not strictly hold due to compositional nature of data
+-   **ALDEx2**: Dirichlet-multinomial model; robust but conservative; less commonly used in practice
 
 ## Why ANCOM works: the log-ratio approach
 
-ANCOM and ANCOM-BC are widely used because they are built around the compositional nature of microbiome data from the start. Instead of asking "is taxon A more abundant in group 1 vs. group 2?" — a question that is confounded by the fact that relative abundances are not independent — ANCOM asks "is the *ratio* of taxon A to every other taxon different between groups?" For each taxon, it counts how many of these pairwise log-ratio tests come back significant (the W statistic). A taxon is called differentially abundant only if it shows consistent differences across the majority of its comparisons.
+ANCOM and ANCOM-BC are widely used because they are built around the compositional nature of microbiome data from the start. Instead of asking "is taxon A more abundant in group 1 vs. group 2?" which is a question that is confounded by the fact that relative abundances are not independent, ANCOM asks "is the *ratio* of taxon A to every other taxon different between groups?" For each taxon, it counts how many of these pairwise log-ratio tests come back significant. A taxon is called differentially abundant only if it shows consistent differences across the majority of its comparisons.
 
-This "majority-wins" design means random noise is extremely unlikely to produce a false positive: noise might make a few ratios look significant, but it would have to affect most of them simultaneously to trigger a call. The tradeoff is lower sensitivity — ANCOM may miss real differences, especially for rare taxa — but it almost never produces false positives.
+This "majority-wins" design means random noise is extremely unlikely to produce a false positive: noise might make a few ratios look significant, but it would have to affect most of them simultaneously to trigger a call. **The tradeoff is lower sensitivity. ANCOM may miss real differences, especially for rare taxa, but it almost never produces false positives.**
 
 ANCOM-BC extends this by explicitly modeling and correcting for library size (the total reads per sample) and providing interpretable log-fold changes with confidence intervals, similar to what you would see in an RNA-seq differential expression report.
 
-::: callout-note
-## Analogy: proving one student is taller than the class
+::: {.callout-note .city-analogy}
+## The Microbial City: Proving one city has more Smiths
 
-A standard t-test is like comparing one student to a single classmate — easy to get a false positive if the classmate happens to slouch. ANCOM compares that student to *everyone* in the class, and only declares them "significantly taller" if they are taller than the majority of classmates. This majority-vote safeguard is why ANCOM's false positive rate is near zero.
+Let's bring this back to the census. Imagine you want to know whether City A has more Smiths than City B. A naive comparison of 500 Smiths in City A vs. 200 Smiths from City B seems to suggest that there are more Smiths in City A. The problem is that we may have 10,000 people surveyed in City A versus 2,000 in City B. It turns out that City A actually has a much smaller proportion of Smiths than City B!
+
+Instead of declaring "City A has more Smiths," ANCOM asks: are there more Smiths *relative to Johnsons*? More Smiths *relative to Williams*? More Smiths *relative to every other last name in the census?* Only if Smiths win the majority of those pairwise comparisons does ANCOM call them truly over-represented in City A. Random noise might skew one or two ratios, but it is nearly impossible to simultaneously shift most of them — which is why ANCOM's false positive rate is near zero.
 :::
 
 ::: {.callout-tip collapse="true"}
 ## Code and tool examples
+
+**ANCOMBC**
+
+For more information about using ANCOMBC in R, look here: [documentation](https://www.nature.com/articles/s41467-020-17041-7)
 
 ``` r
 library(ANCOMBC)
 
 # Run ANCOM-BC2
 out <- ancombc2(
-  data = physeq,
+  data = physeq,           # data in a phyloseq format
   fix_formula = "treatment + age + sex",
-  p_adj_method = "BH",
+  p_adj_method = "BH",     # method to adjust for multiple testing
   pseudo_sens = TRUE,
-  prv_cut = 0.10,          # exclude taxa present in <10% of samples
+  prv_cut = 0.10,          # exclude taxa from analysis present in <10% of samples
   lib_cut = 1000,
   s0_perc = 0.05,
   group = "treatment",
@@ -58,20 +63,34 @@ out <- ancombc2(
 res <- out$res
 # Columns: lfc (log-fold change), se, W, p_val, q_val (FDR-adjusted), diff_abn
 ```
+
+**QIIME2**
+
+For more information about using ANCOMBC within QIIME2, check this out: [documentation](https://docs.qiime2.org/2024.10/plugins/available/composition/ancombc/)
+
+``` bash
+# Filter to only the samples you want to compare
+qiime feature-table filter-samples \
+  --i-table table.qza \
+  --m-metadata-file metadata.tsv \
+  --p-where "[treatment]='case' OR [treatment]='control'" \
+  --o-filtered-table filtered-table.qza
+
+# Run ANCOM-BC
+qiime composition ancombc \
+  --i-table filtered-table.qza \
+  --m-metadata-file metadata.tsv \
+  --p-formula "treatment" \
+  --o-differentials differentials.qza
+
+# Visualize as a bar plot of log-fold changes
+qiime composition da-barplot \
+  --i-data differentials.qza \
+  --p-significance-threshold 0.05 \
+  --o-visualization da-barplot.qzv
+```
 :::
 
 ## Multiple testing
 
-A typical microbiome study tests hundreds to thousands of taxa simultaneously. Apply a false discovery rate correction (Benjamini-Hochberg is standard). Report both uncorrected p-values and FDR-adjusted q-values. A q-value threshold of 0.05 is conventional — taxa passing this threshold are considered differentially abundant.
-
-## Common interpretive traps
-
-**Correlation ≠ causation** — a taxon associated with a disease state may be a cause, a consequence, or correlated with a third variable (e.g., diet, medication, age). 16S data alone cannot distinguish these.
-
-**Relative abundance artifacts** — if an antibiotic kills one dominant taxon, all other taxa will appear to increase in relative abundance even if their absolute counts did not change. This is particularly important in intervention studies.
-
-**Confounders** — diet, BMI, antibiotic history, proton pump inhibitor use, and laxative use all have large effects on gut microbiome composition. Studies that do not account for these will attribute their effects to the variable of interest.
-
-**Low sample sizes** — microbiome studies are highly variable. Small cohorts (n \< 20 per group) are underpowered for most analyses. Effect sizes in published literature are frequently inflated due to small-sample bias.
-
-**Taxonomy gaps** — a large fraction of "unclassified" reads in a sample may represent true biology (novel taxa) or analytical failure (poor DNA quality, wrong reference database). Do not ignore them.
+A typical microbiome study tests hundreds to thousands of taxa simultaneously. It is well advised to apply for multiple testing correction. The ANCOMBC2 package has the `p_adj_method` parameter in R or the `--p-p-adj-method` in QIIME2 framework to account for this.
