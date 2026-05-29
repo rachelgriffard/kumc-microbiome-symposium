@@ -506,7 +506,7 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>The count table contains raw read counts, but those counts are not directly comparable across samples. Different samples received different numbers of sequencing reads: some may have 50,000, others 8,000. This technical variation is not related to the biological question that we are interested in considering in downstream analyses. Before comparing community composition across samples, you need to account for these differences to ensure any findings from later are not driven by this difference in sequencing depth. This is the normalization problem, and it is still actively debated in microbiome analyses.</p>
+<p>The count table contains raw read counts, but those counts are not directly comparable across samples. Different samples received different numbers of sequencing reads: some may have 50,000, others 8,000. This technical variation is not related to the biological question that we are interested in considering in downstream analyses. Before comparing community composition across samples, you need to account for these differences to ensure any findings from later are not driven by this difference in sequencing depth.</p>
 <section id="why-sequencing-depth-varies" class="level2">
 <h2 class="anchored" data-anchor-id="why-sequencing-depth-varies">Why sequencing depth varies</h2>
 <p>Even when you carefully normalize the pooled library before loading the sequencer, different samples end up with different read counts. This can arise from a variety of different things:</p>
@@ -520,7 +520,7 @@ ul.task-list li input[type="checkbox"] {
 </section>
 <section id="rarefaction" class="level2">
 <h2 class="anchored" data-anchor-id="rarefaction">Rarefaction</h2>
-<p>The traditional approach is to rarefy, or subsample, all samples down to the same read depth. Sometimes this is the depth of the shallowest sample, or a chosen cutoff that retains most samples.</p>
+<p>One approach to resolve this problem is to rarefy, or subsample, all samples down to the same read depth. Sometimes this is the depth of the shallowest sample, or a chosen cutoff that retains most samples.</p>
 <ul>
 <li><strong>Pro</strong>: simple to understand; many diversity metrics were developed with this approach in mind</li>
 <li><strong>Con</strong>: discards real data from well-sequenced samples; samples with fewer reads than the cutoff are excluded entirely; results depend on the randomly chosen cutoff</li>
@@ -588,10 +588,37 @@ ul.task-list li input[type="checkbox"] {
 </section>
 <section id="alternatives-to-rarefaction" class="level2">
 <h2 class="anchored" data-anchor-id="alternatives-to-rarefaction">Alternatives to rarefaction</h2>
-<p><strong>Relative abundance</strong> — divide each cell by the sample’s total reads. Simple, but proportional and therefore compositional: the relative abundance of one taxon affects all others.</p>
-<p><strong>CSS normalization</strong> (cumulative sum scaling, metagenomeSeq) and <strong>DESeq2 normalization</strong> borrow from RNA-seq workflows and attempt to normalize without discarding data. These are preferred for differential abundance testing.</p>
-<p><strong>CLR transformation</strong> (centered log-ratio) is the current statistical recommendation for compositional data. It converts relative abundances into log-ratios with respect to the geometric mean, making the data more amenable to standard statistical tests. Required for some downstream analyses (Aitchison distance).</p>
-<p>The field does not have a consensus. For diversity analysis, rarefaction or relative abundance is most common. For differential abundance, normalization-aware tools (ANCOM-BC, DESeq2, ALDEx2) are preferred.</p>
+<p>Another way that people choose to deal with the unequal sampling depth problem is by normalizing their data in a multitude of different ways. Some of the more common options follow.</p>
+<p><strong>Relative abundance</strong> divides each cell by the sample’s total reads. Simple, but proportional and therefore compositional: the relative abundance of one taxon affects all others.</p>
+<p><strong>CSS normalization</strong> (cumulative sum scaling, metagenomeSeq) and <strong>DESeq2 normalization</strong> borrow from RNA-seq workflows and attempt to normalize without discarding data.</p>
+<p><strong>CLR transformation</strong> (centered log-ratio) is the current statistical recommendation for compositional data. It converts relative abundances into log-ratios with respect to the geometric mean, making the data more amenable to standard statistical tests.</p>
+<p>The field does not have a consensus. For diversity analysis, rarefaction or relative abundance is most common. For differential abundance, normalization tools (ANCOM-BC, DESeq2, ALDEx2) are more commonly used.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>More on rarefaction, normalization, and the other joys of microbiome data statistical complexity
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-3" class="callout-3-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>For more on the impact of each of these methods for dealing with unequal sequencing depth:</p>
+<ul>
+<li><p>Weiss, S., Xu, Z.Z., Peddada, S.&nbsp;<em>et al.</em>&nbsp;Normalization and microbial differential abundance strategies depend upon data characteristics.&nbsp;<em>Microbiome</em>&nbsp;<strong>5</strong>, 27 (2017). https://doi.org/10.1186/s40168-017-0237-y</p></li>
+<li><p>McMurdie, P. J., &amp; Holmes, S. (2014). Waste not, want not: why rarefying microbiome data is inadmissible.&nbsp;<em>PLoS computational biology</em>,&nbsp;<em>10</em>(4), e1003531. https://doi.org/10.1371/journal.pcbi.1003531</p></li>
+<li><p>Willis A. D. (2019). Rarefaction, Alpha Diversity, and Statistics.&nbsp;<em>Frontiers in microbiology</em>,&nbsp;<em>10</em>, 2407. https://doi.org/10.3389/fmicb.2019.02407</p></li>
+</ul>
+<p>More on the general statistical complexity of 16S rRNA sequencing data:</p>
+<ul>
+<li><p>Gloor, G. B., Macklaim, J. M., Pawlowsky-Glahn, V., &amp; Egozcue, J. J. (2017). Microbiome Datasets Are Compositional: And This Is Not Optional.&nbsp;<em>Frontiers in microbiology</em>,&nbsp;<em>8</em>, 2224. https://doi.org/10.3389/fmicb.2017.02224</p></li>
+<li><p>Kaul, A., Mandal, S., Davidov, O., &amp; Peddada, S. D. (2017). Analysis of Microbiome Data in the Presence of Excess Zeros.&nbsp;<em>Frontiers in microbiology</em>,&nbsp;<em>8</em>, 2114. https://doi.org/10.3389/fmicb.2017.02114</p></li>
+</ul>
+</div>
+</div>
+</div>
 
 
 </section>

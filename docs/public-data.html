@@ -512,7 +512,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#repositories" id="toc-repositories" class="nav-link active" data-scroll-target="#repositories">Repositories</a>
   <ul class="collapse">
   <li><a href="#ncbi-sequence-read-archive-sra" id="toc-ncbi-sequence-read-archive-sra" class="nav-link" data-scroll-target="#ncbi-sequence-read-archive-sra">NCBI Sequence Read Archive (SRA)</a></li>
-  <li><a href="#ena-european-nucleotide-archive" id="toc-ena-european-nucleotide-archive" class="nav-link" data-scroll-target="#ena-european-nucleotide-archive">ENA — European Nucleotide Archive</a></li>
+  <li><a href="#european-nucleotide-archive-ena" id="toc-european-nucleotide-archive-ena" class="nav-link" data-scroll-target="#european-nucleotide-archive-ena">European Nucleotide Archive (ENA)</a></li>
   <li><a href="#qiita" id="toc-qiita" class="nav-link" data-scroll-target="#qiita">QIITA</a></li>
   <li><a href="#earth-microbiome-project-emp" id="toc-earth-microbiome-project-emp" class="nav-link" data-scroll-target="#earth-microbiome-project-emp">Earth Microbiome Project (EMP)</a></li>
   <li><a href="#human-microbiome-project-hmp" id="toc-human-microbiome-project-hmp" class="nav-link" data-scroll-target="#human-microbiome-project-hmp">Human Microbiome Project (HMP)</a></li>
@@ -546,7 +546,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p>Not every microbiome project starts with your own sequencing run. A growing number of well-characterized datasets are publicly available through open repositories. These can be great resources for pilot analyses, comparative studies, replication, and methods development. Once you have downloaded FASTQ files from a repository, the analysis pipeline is identical to what you would run on your own data.</p>
+<p>Not every microbiome project has to start with your own sequencing run. A growing number of well-characterized datasets are publicly available through open repositories. These can be great resources for pilot analyses, comparative studies, replication, and methods development. Once you have downloaded FASTQ files from a repository, the analysis pipeline is identical to what you would run on your own data.</p>
 <p>Below we list some of the most common repositories for microbiome data, but this is far from a complete list.</p>
 <section id="repositories" class="level2">
 <h2 class="anchored" data-anchor-id="repositories">Repositories</h2>
@@ -554,7 +554,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h3 class="anchored" data-anchor-id="ncbi-sequence-read-archive-sra">NCBI Sequence Read Archive (SRA)</h3>
 <p>The SRA is the largest publicly available repository of high-throughput sequencing data. Most data associated with published microbiome papers in U.S.-funded journals is archived here.</p>
 <ul>
-<li>Search by condition, body site, organism, or keyword at <a href="https://www.ncbi.nlm.nih.gov/sra">https://www.ncbi.nlm.nih.gov/sra</a></li>
+<li>Search by condition, body site, organism, or keyword at <a href="https://www.ncbi.nlm.nih.gov/sra" class="uri">https://www.ncbi.nlm.nih.gov/sra</a></li>
 <li>Each dataset has a <strong>BioProject</strong> accession (e.g., PRJNA######) linking all samples from a study</li>
 <li>Individual samples have <strong>SRR</strong> accessions (SRR#######) for download</li>
 <li>Download via the <strong>SRA Toolkit</strong> (<code>fastq-dump</code> or <code>fasterq-dump</code>) or through NCBI’s cloud interface</li>
@@ -573,21 +573,21 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </section>
-<section id="ena-european-nucleotide-archive" class="level3">
-<h3 class="anchored" data-anchor-id="ena-european-nucleotide-archive">ENA — European Nucleotide Archive</h3>
+<section id="european-nucleotide-archive-ena" class="level3">
+<h3 class="anchored" data-anchor-id="european-nucleotide-archive-ena">European Nucleotide Archive (ENA)</h3>
 <p>ENA mirrors most SRA content and is often faster to download from outside North America. It also accepts direct submissions from European-funded projects that may not appear in SRA.</p>
 <ul>
-<li>Browser interface at <a href="https://www.ebi.ac.uk/ena/browser">https://www.ebi.ac.uk/ena/browser</a></li>
+<li>Browser interface at <a href="https://www.ebi.ac.uk/ena/browser" class="uri">https://www.ebi.ac.uk/ena/browser</a></li>
 <li>ENA accessions begin with <strong>ERR</strong> (runs), <strong>ERS</strong> (samples), or <strong>PRJEB</strong> (projects)</li>
-<li>FASTQ files are available directly via FTP or the ENA browser — no toolkit required</li>
+<li>FASTQ files are available directly via FTP or the ENA browser</li>
 </ul>
 </section>
 <section id="qiita" class="level3">
 <h3 class="anchored" data-anchor-id="qiita">QIITA</h3>
-<p>QIITA is a specialized platform for microbiome data hosting and reanalysis, developed by the QIIME2 team. It stores not just raw reads but processed artifacts (count tables, metadata) from large-scale studies, making it easier to access analysis-ready data.</p>
+<p>QIITA is a specialized platform for microbiome data hosting and reanalysis, developed by the QIIME2 team. It stores not just raw reads but processed artifacts (count tables, metadata) from large-scale studies, making it easier to access analysis-ready data. Just make sure you understand how they got to those tables! As discussed, the upstream choices can greatly impact downstream analysis.</p>
 <ul>
-<li>Browse at <a href="https://qiita.ucsd.edu">https://qiita.ucsd.edu</a></li>
-<li>Particularly useful for studies processed through QIIME2 — artifacts can be downloaded and used directly</li>
+<li>Browse at <a href="https://qiita.ucsd.edu" class="uri">https://qiita.ucsd.edu</a></li>
+<li>Particularly useful for studies processed through QIIME2, since artifacts can be downloaded and used directly</li>
 <li>Hosts data from the Earth Microbiome Project and Human Microbiome Project</li>
 </ul>
 </section>
@@ -595,8 +595,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h3 class="anchored" data-anchor-id="earth-microbiome-project-emp">Earth Microbiome Project (EMP)</h3>
 <p>A collaborative effort to characterize microbial diversity across the planet’s environments. Standardized protocols and uniform processing make EMP data highly comparable across studies.</p>
 <ul>
-<li>Data and protocols at <a href="https://earthmicrobiome.org">https://earthmicrobiome.org</a></li>
-<li>Uses 515F/806R primers (V4 region) throughout — straightforward to integrate with your own V4 data</li>
+<li>Data and protocols at <a href="https://earthmicrobiome.org" class="uri">https://earthmicrobiome.org</a></li>
+<li>Uses 515F/806R primers (V4 region)</li>
 <li>EMP data is accessible through QIITA and SRA</li>
 </ul>
 </section>
@@ -604,7 +604,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h3 class="anchored" data-anchor-id="human-microbiome-project-hmp">Human Microbiome Project (HMP)</h3>
 <p>A foundational reference dataset for human-associated microbiome communities, covering gut, oral, skin, vaginal, and airway sites across healthy adults.</p>
 <ul>
-<li>Data portal at <a href="https://hmpdacc.org">https://hmpdacc.org</a></li>
+<li>Data portal at <a href="https://hmpdacc.org" class="uri">https://hmpdacc.org</a></li>
 <li>Includes both 16S amplicon and shotgun metagenomic data</li>
 <li>Useful as a reference community or baseline for human studies</li>
 </ul>
@@ -613,7 +613,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h3 class="anchored" data-anchor-id="mgnify">MGnify</h3>
 <p>EBI’s microbiome analysis portal that hosts raw data and provides pre-computed analyses (taxonomic profiles, functional annotations) for thousands of publicly available studies.</p>
 <ul>
-<li>Browse at <a href="https://www.ebi.ac.uk/metagenomics">https://www.ebi.ac.uk/metagenomics</a></li>
+<li>Browse at <a href="https://www.ebi.ac.uk/metagenomics" class="uri">https://www.ebi.ac.uk/metagenomics</a></li>
 <li>Useful when you want a quick look at a public dataset without re-running the full pipeline</li>
 </ul>
 <hr>
@@ -664,9 +664,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="what-to-check-before-using-public-data" class="level2">
 <h2 class="anchored" data-anchor-id="what-to-check-before-using-public-data">What to check before using public data</h2>
 <p>Public datasets vary widely in quality and comparability. Before beginning analysis, it is prudent to check the following:</p>
-<p><strong>Primer pair</strong> — confirm which variable region and primers were used. A study using V3–V4 (341F/805R) cannot be directly compared to one using V4 (515F/806R).</p>
-<p><strong>Sequencing platform and read length</strong> — Data from different sequencing runs should be processed separately.</p>
-<p><strong>Metadata completeness</strong> — public metadata can be incomplete or inconsistently coded. Before relying on a covariate (BMI, antibiotic use, disease status), check how it was collected and whether the coding is consistent across samples. Certain metadata may not be housed in the public repository and may require request to the corresponding author.</p>
+<p><strong>Primer pair</strong>: confirm which variable region and primers were used. A study using V3–V4 (341F/805R) cannot easily (if at all) be directly compared to one using V4 (515F/806R).</p>
+<p><strong>Sequencing platform and read length</strong>: Data from different sequencing runs should be processed separately.</p>
+<p><strong>Metadata completeness</strong>: public metadata can be incomplete or inconsistently coded. Before relying on a covariate (BMI, antibiotic use, disease status), check how it was collected and whether the coding is consistent across samples. Certain metadata may not be housed in the public repository and may require request to the corresponding author.</p>
 
 
 </section>

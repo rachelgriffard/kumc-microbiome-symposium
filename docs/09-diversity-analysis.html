@@ -509,15 +509,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#alpha-diversity-within-sample-diversity" id="toc-alpha-diversity-within-sample-diversity" class="nav-link active" data-scroll-target="#alpha-diversity-within-sample-diversity">Alpha diversity: within-sample diversity</a>
-  <ul class="collapse">
-  <li><a href="#statistical-testing-of-alpha-diversity" id="toc-statistical-testing-of-alpha-diversity" class="nav-link" data-scroll-target="#statistical-testing-of-alpha-diversity">Statistical testing of alpha diversity</a></li>
-  </ul></li>
+  <li><a href="#alpha-diversity-within-sample-diversity" id="toc-alpha-diversity-within-sample-diversity" class="nav-link active" data-scroll-target="#alpha-diversity-within-sample-diversity">Alpha diversity: within-sample diversity</a></li>
   <li><a href="#beta-diversity-between-sample-diversity" id="toc-beta-diversity-between-sample-diversity" class="nav-link" data-scroll-target="#beta-diversity-between-sample-diversity">Beta diversity: between-sample diversity</a></li>
-  <li><a href="#ordination-visualizing-beta-diversity" id="toc-ordination-visualizing-beta-diversity" class="nav-link" data-scroll-target="#ordination-visualizing-beta-diversity">Ordination: visualizing beta diversity</a>
-  <ul class="collapse">
-  <li><a href="#permanova" id="toc-permanova" class="nav-link" data-scroll-target="#permanova">PERMANOVA</a></li>
-  </ul></li>
+  <li><a href="#ordination-visualizing-beta-diversity" id="toc-ordination-visualizing-beta-diversity" class="nav-link" data-scroll-target="#ordination-visualizing-beta-diversity">Ordination: visualizing beta diversity</a></li>
   </ul>
 </nav>
     </div>
@@ -544,10 +538,23 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p>Diversity analysis is where sequencing data becomes biological insight — or where analytical choices obscure it. This section covers the two main branches of diversity analysis (alpha and beta), the statistical methods used to test them, and the interpretive traps that are common in published microbiome literature.</p>
+<p>Diversity analysis allows us to look at the unique players within a sample and compare them between samples. This section covers the two main branches of diversity analysis (alpha and beta).</p>
 <section id="alpha-diversity-within-sample-diversity" class="level2">
 <h2 class="anchored" data-anchor-id="alpha-diversity-within-sample-diversity">Alpha diversity: within-sample diversity</h2>
-<p>Alpha diversity describes the diversity of a single sample — how many different taxa are present, and how evenly distributed the reads are among them. Different alpha diversity metrics capture different aspects of this.</p>
+<div class="city-analogy callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>The landlocked city
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Alpha diversity is like looking at the diversity of last names within our city. We might be interested in how many unique last names there are and how many people have these last names compared to each other. We can also take the alpha diversity of one city and compare it to another to see if they have similar diversity of last names in the city, though we cannot tell if the have the actual same family groups in the city.</p>
+</div>
+</div>
+<p>Alpha diversity describes the diversity of a single sample, how many different taxa are present, and how evenly distributed the reads are among them. Different alpha diversity metrics capture different aspects of the data.</p>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 33%">
@@ -573,7 +580,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>Penalizes communities dominated by one taxon</td>
 </tr>
 <tr class="odd">
-<td><strong>Simpson / Inverse Simpson</strong></td>
+<td><strong>Simpson</strong></td>
 <td>Evenness-weighted diversity</td>
 <td>Less sensitive to rare taxa than Shannon</td>
 </tr>
@@ -589,39 +596,23 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tr>
 </tbody>
 </table>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>High diversity is not always good
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Alpha diversity is often discussed as if “more diversity = healthier.” This is true for some contexts (gut microbiome diversity tends to be lower in disease states) but not universal. Lower diversity can indicate a specialized, adapted community. Interpret alpha diversity in the context of your sample type and hypothesis.</p>
-</div>
-</div>
-<section id="statistical-testing-of-alpha-diversity" class="level3">
-<h3 class="anchored" data-anchor-id="statistical-testing-of-alpha-diversity">Statistical testing of alpha diversity</h3>
-<p>Use non-parametric tests (Kruskal-Wallis for multiple groups, Wilcoxon for two groups) when alpha diversity values are not normally distributed — which they often aren’t. For more complex models (multiple covariates, longitudinal data), linear mixed models are appropriate.</p>
-<div class="callout callout-style-default callout-caution callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Caution</span>Confounding variables in alpha diversity
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Alpha diversity is affected by sample quality, extraction efficiency, sequencing depth, and the rarefaction cutoff — not just biology. A group difference in alpha diversity may reflect any of these. Always include negative controls and check whether outliers correlate with technical variables before interpreting biologically.</p>
-</div>
-</div>
-</section>
 </section>
 <section id="beta-diversity-between-sample-diversity" class="level2">
 <h2 class="anchored" data-anchor-id="beta-diversity-between-sample-diversity">Beta diversity: between-sample diversity</h2>
+<div class="city-analogy callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Comparing the landlocked city and the beach front city
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Using beta diversity allows us to get one number that tells us how similar two cities are in who makes up the cities. Some of them consider only the different family names that are in the city, some of them actually consider the family names as well as how many people had those family names. Some might even consider whether the family names have the same origin, grouping German last names together, Japanese last names together, and so on.</p>
+<p>We get one score for each two city comparison, with scores closer to one indicating that the people that make up the cities are more similar and closer to zero indicating that the people who make up the cities are very different.</p>
+</div>
+</div>
 <p>Beta diversity describes how different community composition is between samples. It requires a distance (or dissimilarity) metric — a number between 0 (identical communities) and some maximum (completely different communities).</p>
 <table class="caption-top table">
 <colgroup>
@@ -664,29 +655,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tr>
 </tbody>
 </table>
-<p>Choice of distance metric is a scientific decision — different metrics emphasize different aspects of community structure. Run multiple metrics and look for consistent patterns.</p>
+<p>Choice of distance metric can impact the results, and different metrics emphasize different aspects of community structure. Often, people run multiple metrics for the same data, as they describe slightly different results.</p>
 </section>
 <section id="ordination-visualizing-beta-diversity" class="level2">
 <h2 class="anchored" data-anchor-id="ordination-visualizing-beta-diversity">Ordination: visualizing beta diversity</h2>
-<p>With a distance matrix in hand, ordination techniques reduce the high-dimensional distance information to 2 or 3 dimensions for visualization.</p>
-<p><strong>PCoA</strong> (Principal Coordinates Analysis) — the most common approach. Produces a scatter plot where samples that are more similar in community composition cluster together. The axes represent the major sources of variation in the distance matrix. The first axis explains the most variance, and so on.</p>
-<p><strong>NMDS</strong> (Non-metric Multidimensional Scaling) — better at preserving rank order of distances rather than actual distances. A stress value &lt;0.2 indicates an acceptable fit.</p>
-<p><strong>PCA</strong> — works on the abundance matrix directly (not a distance matrix). Used with CLR-transformed data (Aitchison-PCA).</p>
-<div class="callout callout-style-default callout-caution callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Caution</span>Ordination plots show patterns, not statistics
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>A PCoA plot that looks like two groups are separating is suggestive but not conclusive. Statistical significance requires a permutational test (PERMANOVA). And PERMANOVA is sensitive to differences in dispersion between groups (one group may be more variable than the other), which should be tested separately with PERMDISP.</p>
-</div>
-</div>
+<p>With a distance matrix in hand, ordination techniques reduce the high-dimensional distance information to 2 or 3 dimensions for visualization. This is important because as more samples are added the number of beta diversity values goes up quickly and makes it hard, if not impossible, for us to look at the matrix and understand what is going on under the hood.</p>
+<p><strong>Principal Coordinates Analysis (PCoA)</strong> is the most common approach. This produces a scatter plot where samples that are more similar in community composition cluster together. The axes represent the major sources of variation in the distance matrix. The first axis explains the most variance, and so on.</p>
 <div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -695,7 +671,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-4" class="callout-4-contents callout-collapse collapse">
+<div id="callout-3" class="callout-3-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(vegan)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(phyloseq)</span>
@@ -712,55 +688,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<section id="permanova" class="level3">
-<h3 class="anchored" data-anchor-id="permanova">PERMANOVA</h3>
-<p>PERMANOVA (Permutational Multivariate Analysis of Variance) tests whether groups of samples have significantly different community composition. It works directly on the distance matrix and makes no distributional assumptions.</p>
-<p>The key output is an R² value (proportion of variance explained) and a p-value. The R² for microbiome studies is typically small — 5–15% — because within-group variation is substantial. A small but significant R² is still scientifically meaningful.</p>
-<div class="callout callout-style-default callout-caution callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Caution</span>PERMANOVA and PERMDISP
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>PERMANOVA tests whether group centroids differ. But if one group is more variable than another (different spread in ordination space), PERMANOVA can be significant due to dispersion differences, not true differences in composition. Always run PERMDISP (beta dispersion test) alongside PERMANOVA and report both.</p>
-</div>
-</div>
-<div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Tip</span>Code and tool examples
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-6" class="callout-6-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(vegan)</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Bray-Curtis distance matrix</span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>dist_bc <span class="ot">&lt;-</span> <span class="fu">vegdist</span>(otu_table, <span class="at">method =</span> <span class="st">"bray"</span>)</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="co"># PERMANOVA: does treatment group explain community composition?</span></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="fu">adonis2</span>(dist_bc <span class="sc">~</span> treatment <span class="sc">+</span> age <span class="sc">+</span> sex,</span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>        <span class="at">data =</span> metadata,</span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>        <span class="at">permutations =</span> <span class="dv">999</span>,</span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>        <span class="at">by =</span> <span class="st">"margin"</span>)</span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Test dispersion (PERMDISP)</span></span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>disp <span class="ot">&lt;-</span> <span class="fu">betadisper</span>(dist_bc, metadata<span class="sc">$</span>treatment)</span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="fu">permutest</span>(disp)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-</div>
-</div>
 
 
-</section>
 </section>
 
 </main> <!-- /main -->
