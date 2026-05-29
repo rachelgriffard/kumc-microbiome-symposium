@@ -147,3 +147,13 @@ Most pipelines produce a summary table of read counts at each step (input → fi
 | After chimera removal | 38,000 (97%) |
 
 Large drops at any single step indicate a problem at that stage.
+
+::: {.callout-note collapse="true"}
+## More resources on OTU and ASV methods
+
+For more information and comparisons between methods, see the following resources:
+
+-   [Comparison of six different methods, three OTU-based and three ASV-based on mock sample](https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0227434)
+
+-   [Consideration of the impact of OTU versus ASV methods when considering diversity metrics](https://journals.asm.org/doi/10.1128/msphere.00148-18)
+:::
