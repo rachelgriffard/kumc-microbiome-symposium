@@ -12,7 +12,7 @@ Taxonomy is a hierarchical system:
 
 For example: *Bacteria → Firmicutes → Bacilli → Lactobacillales → Lactobacillaceae → Lactobacillus → L. acidophilus*
 
-QIIME2 classifies sequences using a trained **Naïve Bayes classifier** against a reference database, usually SILVA or Greengenes2. The classifier compares each ASV to reference sequences and returns the deepest taxonomic level at which it can make a confident assignment, along with a probability score.
+QIIME2 classifies sequences using a trained Naïve Bayes classifier against a reference database, usually SILVA or Greengenes2. The classifier compares each ASV to reference sequences and returns the deepest taxonomic level at which it can make a confident assignment, along with a probability score.
 
 Key caveats:
 
