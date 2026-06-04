@@ -2,6 +2,22 @@
 title: "Guilds"
 ---
 
-## Ecological Guilds
+## Guild-Based Analysis
 
-*Content coming soon.*
+In microbiome research, traditional taxonomic analysis often links the same taxonomic unit to opposing health outcomes and disease phenotypes. For example, *Bacteroides fragilis* has been shown to reduce graft-versus-host disease in mouse models, suggesting anti-inflammatory effects (Sofi et al., 2021). Conversely, elevated levels of *B. fragilis* have also been associated with higher risk of colorectal cancer, suggesting pro-inflammatory effects (Liu et al., 2021). These types of conflicting associations are not uncommon in microbiome literature and highlight a key limitation of taxonomy-based approaches: genetically and functionally distinct strains can be collapsed under a single taxonomic label.
+
+Even at the species level, these man-made taxonomic units can exhibit up to four to five percent genomic difference within the 16S gene alone (Richter and Rosselló-Móra, 2009). To put this into perspective, humans differ from chimpanzees by approximately one to two percent across their entire genomic sequence (Chen and Li, 2001). These genomes are roughly 2 million times longer than the 16S gene, emphasizing the strikingly large genetic variation that can exist within a single microbial species taxon. This heterogeneity in taxonomic classifications obscures biologically meaningful variation.
+
+To overcome this, researchers can analyze the 16S rRNA sequencing at its highest resolution unit, the amplicon sequencing variant (ASV). ASVs are defined by exact sequence matches and are therefore unique down to the last nucleotide. However, analyzing these data at the ASV level present two challenges: (1) a lack of consistent identifiers for unique ASV sequences across studies, and (2) high dimensionality.
+
+To address this high dimensionality, guild-based 16S rRNA sequencing analysis collapses individual ASVs into coherent ecological units known as co-abundance groups (CAGs). A subset of these CAGs that show consistent responses to environmental perturbations are termed as guilds (Wu et al., 2021; Zhao et al., 2024). Mounting evidence supports that this guild-based analysis framework yields biologically meaningful results. Furthermore, these results are more consistent across experiments and conditions than those derived from taxonomic analysis. The full guild reference database and documentation can be found at the [16S Guild documentation site](https://zhao-microbiome-lab.github.io/16Sguild-docs/).
+
+::: {.callout-note .city-analogy}
+## A guild in the city
+
+Imagine tracking last-name frequency across many cities and noticing that wherever Smith families are common, Kurtz families tend to be common too, and both are rare in cities where the other is absent. The pattern is consistent across many cities, but at first we may not know why.
+
+When we look closer, we learn that Smiths are bakers and Kurtzs are flour suppliers. Their co-occurrence makes sense: they are economically interdependent, and where one trade thrives, so does the other. This is an *ecological relationship*, and together the Smiths and Kurtzs form a guild.
+
+In the microbiome, guilds capture the same idea. ASVs that consistently co-occur across samples and conditions are grouped into the same guild.
+:::

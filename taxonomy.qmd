@@ -2,22 +2,22 @@
 title: "Taxonomy Assignment"
 ---
 
-Once ASVs are identified, each sequence is compared against a reference database of known 16S rRNA sequences to assign a taxonomic label. This step moves you from a table of anonymous sequences to one where each row has a name — and opens the door to ecological interpretation.
+Once ASVs are identified, each sequence is compared against a reference database of known 16S rRNA sequences to predict a taxonomic label. This step moves you from a table of anonymous sequences to one where each row has a distinct name. With 16S rRNA sequencing data, the classifier can generally give a good prediction to about the genus level for most sequences.
 
 ## Taxonomic classification
 
-Bacterial taxonomy is a hierarchical system:
+Taxonomy is a hierarchical system:
 
 **Domain → Phylum → Class → Order → Family → Genus → Species**
 
 For example: *Bacteria → Firmicutes → Bacilli → Lactobacillales → Lactobacillaceae → Lactobacillus → L. acidophilus*
 
-QIIME2 classifies sequences using a trained **Naïve Bayes classifier** against a reference database (commonly SILVA or Greengenes2). The classifier compares each ASV to reference sequences and returns the deepest taxonomic level at which it can make a confident assignment, along with a probability score.
+QIIME2 classifies sequences using a trained Naïve Bayes classifier against a reference database, usually SILVA or Greengenes2. The classifier compares each ASV to reference sequences and returns the deepest taxonomic level at which it can make a confident assignment, along with a probability score.
 
 Key caveats:
 
--   **Species-level calls are unreliable.** The V4 region (\~250 bp) often lacks the resolution to distinguish closely related species. Genus is typically the deepest reliable level for most taxa.
--   **"Unclassified" is a real result.** ASVs that don't match any reference sequence may represent genuinely novel or understudied taxa. Do not discard them.
+-   **Species-level calls are unreliable.** Genus is typically the deepest reliable level for most taxa.
+-   **"Unclassified" is a real result.** ASVs that don't match any reference sequence may represent genuinely novel or understudied taxa.
 -   **Database choice matters.** SILVA, Greengenes2, and NCBI vary in their coverage and update frequency. Use the database that is most appropriate for your sample type and most current.
 
 ## Reference databases
@@ -34,26 +34,31 @@ The reference database you choose affects which taxa you can name and at what re
 ::: {.callout-tip collapse="true"}
 ## Code and tool examples
 
+**R**
+
+For more information about taxonomy assignment with DADA2 in R, look here: [DADA2 documentation](https://benjjneb.github.io/dada2/tutorial.html).
+
 ``` r
 # Assign taxonomy (against Silva)
 taxa <- assignTaxonomy(seqtab_nochim, "silva_nr_v138_train_set.fa.gz")
 ```
+
+**QIIME2**
+
+For more information about taxonomy classification in QIIME2, look here: [documentation](https://docs.qiime2.org/2024.10/plugins/available/feature-classifier/). Pre-trained classifiers for common primer sets and databases are available on the [QIIME2 data resources page](https://docs.qiime2.org/2024.10/data-resources/).
+
+``` bash
+# Classify representative sequences using a pre-trained Naive Bayes classifier
+qiime feature-classifier classify-sklearn \
+  --i-classifier silva-138-99-515-806-nb-classifier.qza \
+  --i-reads rep-seqs.qza \
+  --o-classification taxonomy.qza
+
+# Visualize taxonomy as an interactive stacked bar chart
+qiime taxa barplot \
+  --i-table table.qza \
+  --i-taxonomy taxonomy.qza \
+  --m-metadata-file metadata.tsv \
+  --o-visualization taxa-bar-plots.qzv
+```
 :::
-
-## Phylogenetic tree
-
-Many key diversity metrics require a phylogenetic tree — a branching diagram representing evolutionary relationships among the ASVs in your dataset. Sequences that are more similar cluster closer together; more distantly related sequences branch farther apart. Branch lengths reflect evolutionary distance.
-
-The tree is built in three steps: (1) ASV sequences are aligned so that comparable positions line up across taxa; (2) an evolutionary model estimates how different the sequences are; (3) the resulting distances are used to construct the branching diagram.
-
-Why it matters:
-
--   **Faith's Phylogenetic Diversity (PD)** measures not just how many taxa are present but how much evolutionary branch length they collectively span. A community with 10 evolutionarily diverse bacteria scores higher than one with 10 closely related strains, even with the same ASV count.
--   **UniFrac distances** compare communities by asking how much of the evolutionary tree they share. Unweighted UniFrac uses presence/absence; weighted UniFrac incorporates abundances.
-
-::: callout-note
-## Why evolutionary context changes the picture
-
-Counting species alone misses something important. A gut community containing both *Firmicutes* and *Bacteroidetes* spans far more evolutionary distance than one dominated by closely related *Lachnospiraceae*, even if both have the same number of ASVs. The phylogenetic tree is what makes that distinction visible in a diversity metric.
-:::
-

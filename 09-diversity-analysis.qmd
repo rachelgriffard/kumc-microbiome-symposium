@@ -19,7 +19,7 @@ Alpha diversity describes the diversity of a single sample, how many different t
 | **Observed features** | Raw count of unique ASVs/OTUs | Sensitive to sequencing depth; should be compared only at equal rarefaction depth |
 | **Shannon index** | Both richness and evenness | Penalizes communities dominated by one taxon |
 | **Simpson** | Evenness-weighted diversity | Less sensitive to rare taxa than Shannon |
-| **Faith's PD** | Phylogenetic diversity — total branch length of the community's phylogenetic tree | Accounts for how evolutionarily distinct the taxa are |
+| **Faith's PD** | Phylogenetic diversity, total branch length of the community's phylogenetic tree | Accounts for how evolutionarily distinct the taxa are |
 | **Chao1** | Estimated true richness, accounting for undetected rare taxa | Useful when comparing samples at different depths |
 
 ## Beta diversity: between-sample diversity
@@ -32,7 +32,7 @@ Using beta diversity allows us to get one number that tells us how similar two c
 We get one score for each two city comparison, with scores closer to one indicating that the people that make up the cities are more similar and closer to zero indicating that the people who make up the cities are very different.
 :::
 
-Beta diversity describes how different community composition is between samples. It requires a distance (or dissimilarity) metric — a number between 0 (identical communities) and some maximum (completely different communities).
+Beta diversity describes how different community composition is between samples. It requires a distance (or dissimilarity) metric, a number between 0 (identical communities) and some maximum (completely different communities).
 
 | Metric | What it measures | Considers |
 |------------------------|------------------------|------------------------|
@@ -53,6 +53,10 @@ With a distance matrix in hand, ordination techniques reduce the high-dimensiona
 ::: {.callout-tip collapse="true"}
 ## Code and tool examples
 
+**R**
+
+For more information about using phyloseq and vegan in R, look here: [phyloseq documentation](https://joey711.github.io/phyloseq/)
+
 ``` r
 library(vegan)
 library(phyloseq)
@@ -66,5 +70,30 @@ ord <- ordinate(physeq, method = "PCoA", distance = dist_bc)
 # Plot, colored by metadata variable
 plot_ordination(physeq, ord, color = "treatment_group") +
   theme_bw()
+
+# Alpha diversity: compute and compare Shannon index across groups
+alpha_div <- estimate_richness(physeq, measures = c("Shannon", "Observed", "Chao1"))
+kruskal.test(Shannon ~ treatment_group, data = cbind(alpha_div, sample_data(physeq)))
+```
+
+**QIIME2**
+
+For more information about diversity analysis in QIIME2, look here: [documentation](https://docs.qiime2.org/2024.10/plugins/available/diversity/)
+
+``` bash
+# Run core diversity metrics (alpha + beta) at a chosen rarefaction depth
+# Requires a rooted phylogenetic tree for Faith's PD and UniFrac metrics
+qiime diversity core-metrics-phylogenetic \
+  --i-phylogeny rooted-tree.qza \
+  --i-table table.qza \
+  --p-sampling-depth 10000 \
+  --m-metadata-file metadata.tsv \
+  --output-dir core-metrics-results
+
+# Visualize PCoA interactively with Emperor
+qiime emperor plot \
+  --i-pcoa core-metrics-results/bray_curtis_pcoa_results.qza \
+  --m-metadata-file metadata.tsv \
+  --o-visualization bray-curtis-emperor.qzv
 ```
 :::

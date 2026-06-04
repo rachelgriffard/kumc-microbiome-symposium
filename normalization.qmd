@@ -12,7 +12,7 @@ Even when you carefully normalize the pooled library before loading the sequence
 -   Amplification efficiency differences (biological and technical)
 -   Random sampling variation in cluster formation on the flow cell
 
-The result is that a taxon observed in 100 reads in a sample with 10,000 total reads (1%) looks very different from the same taxon in 500 reads in a sample with 50,000 reads (also 1%), even though the relative abundance is identical. Before we find a way to normalize, we cannot compare the absolute counts that we have after denoising.
+The result is that a taxon observed in 100 reads in a sample with 10,000 total reads (1%) looks very different from the same taxon in 500 reads in a sample with 50,000 reads (also 1%), even though the relative abundance is identical. Along with this, samples with a much deeper sequencing depth are likely to find more unique amplicon sequencing variants. How can we compare across samples?
 
 Let's talk about some potential options for this issue.
 
@@ -35,12 +35,12 @@ Ultimately, the most important aspect of this process is clearly documenting the
 
 Before choosing a rarefaction depth, examine how diversity changes as a function of sequencing depth for each sample. An **alpha rarefaction curve** plots observed features (ASVs) on the y-axis against sequencing depth on the x-axis, starting from a small subsample and increasing to the full read count.
 
-At low depths, each additional read tends to reveal new taxa. As depth increases, the curve flattens — you are reading more sequences but finding fewer new organisms. This plateau indicates that most of the detectable diversity in that sample has been captured.
+At low depths, each additional read tends to reveal new taxa. As depth increases, the curve flattens, and you are reading more sequences but finding fewer new organisms. This plateau indicates that most of the detectable diversity in that sample has been captured.
 
 How to use this to choose a rarefaction depth:
 
 -   Choose a depth where most samples' curves have plateaued. Sequencing deeper beyond this point yields diminishing returns.
--   The depth must also be low enough to retain a sufficient number of samples — any sample with fewer reads than the cutoff is excluded from subsequent analysis.
+-   The depth must also be low enough to retain a sufficient number of samples. Any sample with fewer reads than the cutoff is excluded from subsequent analysis.
 -   The goal is to maximize both completeness (plateau reached) and sample retention (enough samples kept).
 
 ::: {.callout-note .city-analogy}
@@ -69,18 +69,6 @@ Below, we can see what happens as we select different subsampling depths. You wi
 ![](assets/city_rarefaction_sweep.gif){fig-align="center"}
 :::
 
-## Alternatives to rarefaction
-
-Another way that people choose to deal with the unequal sampling depth problem is by normalizing their data in a multitude of different ways. Some of the more common options follow.
-
-**Relative abundance** divides each cell by the sample's total reads. Simple, but proportional and therefore compositional: the relative abundance of one taxon affects all others.
-
-**CSS normalization** (cumulative sum scaling, metagenomeSeq) and **DESeq2 normalization** borrow from RNA-seq workflows and attempt to normalize without discarding data.
-
-**CLR transformation** (centered log-ratio) is the current statistical recommendation for compositional data. It converts relative abundances into log-ratios with respect to the geometric mean, making the data more amenable to standard statistical tests.
-
-The field does not have a consensus. For diversity analysis, rarefaction or relative abundance is most common. For differential abundance, normalization tools (ANCOM-BC, DESeq2, ALDEx2) are more commonly used.
-
 ::: {.callout-note collapse="true"}
 ## More on rarefaction, normalization, and the other joys of microbiome data statistical complexity
 
@@ -97,4 +85,48 @@ More on the general statistical complexity of 16S rRNA sequencing data:
 -   Gloor, G. B., Macklaim, J. M., Pawlowsky-Glahn, V., & Egozcue, J. J. (2017). Microbiome Datasets Are Compositional: And This Is Not Optional. *Frontiers in microbiology*, *8*, 2224. https://doi.org/10.3389/fmicb.2017.02224
 
 -   Kaul, A., Mandal, S., Davidov, O., & Peddada, S. D. (2017). Analysis of Microbiome Data in the Presence of Excess Zeros. *Frontiers in microbiology*, *8*, 2114. https://doi.org/10.3389/fmicb.2017.02114
+:::
+
+::: {.callout-tip collapse="true"}
+## Code and tool examples
+
+**R**
+
+For more information about using phyloseq for rarefaction in R, look here: [phyloseq documentation](https://joey711.github.io/phyloseq/)
+
+``` r
+library(phyloseq)
+library(vegan)
+
+# Generate alpha rarefaction curves to help choose a rarefaction depth
+otu_mat <- as(otu_table(physeq), "matrix")
+if (taxa_are_rows(physeq)) otu_mat <- t(otu_mat)
+rarecurve(otu_mat, step = 500, label = FALSE, main = "Alpha Rarefaction Curves")
+
+# Rarefy to a chosen depth (set seed for reproducibility)
+# Samples with fewer reads than sample.size are dropped
+physeq_rare <- rarefy_even_depth(physeq, sample.size = 10000, rngseed = 42)
+```
+
+**QIIME2**
+
+For more information about rarefaction in QIIME2, look here: [alpha-rarefaction documentation](https://docs.qiime2.org/2024.10/plugins/available/diversity/alpha-rarefaction/) and [rarefy documentation](https://docs.qiime2.org/2024.10/plugins/available/feature-table/rarefy/)
+
+``` bash
+# Generate alpha rarefaction curves to help choose a sampling depth
+# Set --p-max-depth to the maximum depth you want to explore
+qiime diversity alpha-rarefaction \
+  --i-table table.qza \
+  --i-phylogeny rooted-tree.qza \
+  --p-max-depth 10000 \
+  --m-metadata-file metadata.tsv \
+  --o-visualization alpha-rarefaction.qzv
+
+# Rarefy the feature table to the chosen sampling depth
+# Samples below the chosen depth will be dropped from the rarefied table
+qiime feature-table rarefy \
+  --i-table table.qza \
+  --p-sampling-depth 10000 \
+  --o-rarefied-table rarefied-table.qza
+```
 :::

@@ -20,6 +20,41 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -479,7 +514,6 @@ ul.task-list li input[type="checkbox"] {
   <ul class="collapse">
   <li><a href="#alpha-rarefaction-curves" id="toc-alpha-rarefaction-curves" class="nav-link" data-scroll-target="#alpha-rarefaction-curves">Alpha rarefaction curves</a></li>
   </ul></li>
-  <li><a href="#alternatives-to-rarefaction" id="toc-alternatives-to-rarefaction" class="nav-link" data-scroll-target="#alternatives-to-rarefaction">Alternatives to rarefaction</a></li>
   </ul>
 </nav>
     </div>
@@ -515,7 +549,7 @@ ul.task-list li input[type="checkbox"] {
 <li>Amplification efficiency differences (biological and technical)</li>
 <li>Random sampling variation in cluster formation on the flow cell</li>
 </ul>
-<p>The result is that a taxon observed in 100 reads in a sample with 10,000 total reads (1%) looks very different from the same taxon in 500 reads in a sample with 50,000 reads (also 1%), even though the relative abundance is identical. Before we find a way to normalize, we cannot compare the absolute counts that we have after denoising.</p>
+<p>The result is that a taxon observed in 100 reads in a sample with 10,000 total reads (1%) looks very different from the same taxon in 500 reads in a sample with 50,000 reads (also 1%), even though the relative abundance is identical. Along with this, samples with a much deeper sequencing depth are likely to find more unique amplicon sequencing variants. How can we compare across samples?</p>
 <p>Let’s talk about some potential options for this issue.</p>
 </section>
 <section id="rarefaction" class="level2">
@@ -542,11 +576,11 @@ ul.task-list li input[type="checkbox"] {
 <section id="alpha-rarefaction-curves" class="level3">
 <h3 class="anchored" data-anchor-id="alpha-rarefaction-curves">Alpha rarefaction curves</h3>
 <p>Before choosing a rarefaction depth, examine how diversity changes as a function of sequencing depth for each sample. An <strong>alpha rarefaction curve</strong> plots observed features (ASVs) on the y-axis against sequencing depth on the x-axis, starting from a small subsample and increasing to the full read count.</p>
-<p>At low depths, each additional read tends to reveal new taxa. As depth increases, the curve flattens — you are reading more sequences but finding fewer new organisms. This plateau indicates that most of the detectable diversity in that sample has been captured.</p>
+<p>At low depths, each additional read tends to reveal new taxa. As depth increases, the curve flattens, and you are reading more sequences but finding fewer new organisms. This plateau indicates that most of the detectable diversity in that sample has been captured.</p>
 <p>How to use this to choose a rarefaction depth:</p>
 <ul>
 <li>Choose a depth where most samples’ curves have plateaued. Sequencing deeper beyond this point yields diminishing returns.</li>
-<li>The depth must also be low enough to retain a sufficient number of samples — any sample with fewer reads than the cutoff is excluded from subsequent analysis.</li>
+<li>The depth must also be low enough to retain a sufficient number of samples. Any sample with fewer reads than the cutoff is excluded from subsequent analysis.</li>
 <li>The goal is to maximize both completeness (plateau reached) and sample retention (enough samples kept).</li>
 </ul>
 <div class="city-analogy callout callout-style-default callout-note callout-titled">
@@ -584,15 +618,6 @@ ul.task-list li input[type="checkbox"] {
 </div>
 </div>
 </div>
-</section>
-</section>
-<section id="alternatives-to-rarefaction" class="level2">
-<h2 class="anchored" data-anchor-id="alternatives-to-rarefaction">Alternatives to rarefaction</h2>
-<p>Another way that people choose to deal with the unequal sampling depth problem is by normalizing their data in a multitude of different ways. Some of the more common options follow.</p>
-<p><strong>Relative abundance</strong> divides each cell by the sample’s total reads. Simple, but proportional and therefore compositional: the relative abundance of one taxon affects all others.</p>
-<p><strong>CSS normalization</strong> (cumulative sum scaling, metagenomeSeq) and <strong>DESeq2 normalization</strong> borrow from RNA-seq workflows and attempt to normalize without discarding data.</p>
-<p><strong>CLR transformation</strong> (centered log-ratio) is the current statistical recommendation for compositional data. It converts relative abundances into log-ratios with respect to the geometric mean, making the data more amenable to standard statistical tests.</p>
-<p>The field does not have a consensus. For diversity analysis, rarefaction or relative abundance is most common. For differential abundance, normalization tools (ANCOM-BC, DESeq2, ALDEx2) are more commonly used.</p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
@@ -619,8 +644,54 @@ ul.task-list li input[type="checkbox"] {
 </div>
 </div>
 </div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Code and tool examples
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-4" class="callout-4-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><strong>R</strong></p>
+<p>For more information about using phyloseq for rarefaction in R, look here: <a href="https://joey711.github.io/phyloseq/">phyloseq documentation</a></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(phyloseq)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(vegan)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate alpha rarefaction curves to help choose a rarefaction depth</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>otu_mat <span class="ot">&lt;-</span> <span class="fu">as</span>(<span class="fu">otu_table</span>(physeq), <span class="st">"matrix"</span>)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="fu">taxa_are_rows</span>(physeq)) otu_mat <span class="ot">&lt;-</span> <span class="fu">t</span>(otu_mat)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">rarecurve</span>(otu_mat, <span class="at">step =</span> <span class="dv">500</span>, <span class="at">label =</span> <span class="cn">FALSE</span>, <span class="at">main =</span> <span class="st">"Alpha Rarefaction Curves"</span>)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Rarefy to a chosen depth (set seed for reproducibility)</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Samples with fewer reads than sample.size are dropped</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>physeq_rare <span class="ot">&lt;-</span> <span class="fu">rarefy_even_depth</span>(physeq, <span class="at">sample.size =</span> <span class="dv">10000</span>, <span class="at">rngseed =</span> <span class="dv">42</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>QIIME2</strong></p>
+<p>For more information about rarefaction in QIIME2, look here: <a href="https://docs.qiime2.org/2024.10/plugins/available/diversity/alpha-rarefaction/">alpha-rarefaction documentation</a> and <a href="https://docs.qiime2.org/2024.10/plugins/available/feature-table/rarefy/">rarefy documentation</a></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate alpha rarefaction curves to help choose a sampling depth</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Set --p-max-depth to the maximum depth you want to explore</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="ex">qiime</span> diversity alpha-rarefaction <span class="dt">\</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">--i-table</span> table.qza <span class="dt">\</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">--i-phylogeny</span> rooted-tree.qza <span class="dt">\</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">--p-max-depth</span> 10000 <span class="dt">\</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">--m-metadata-file</span> metadata.tsv <span class="dt">\</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">--o-visualization</span> alpha-rarefaction.qzv</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Rarefy the feature table to the chosen sampling depth</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Samples below the chosen depth will be dropped from the rarefied table</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="ex">qiime</span> feature-table rarefy <span class="dt">\</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">--i-table</span> table.qza <span class="dt">\</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">--p-sampling-depth</span> 10000 <span class="dt">\</span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>  <span class="at">--o-rarefied-table</span> rarefied-table.qza</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+</div>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->
