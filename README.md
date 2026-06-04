@@ -34,7 +34,7 @@ the talk. A recording of the full presentation will be made available after the 
 ## Author
 
 **Rachel Griffard-Smith**  
-Bioinformatic Data Scientist, Department of Biostatistics & Data Science  
+Bioinformatian, Department of Biostatistics & Data Science  
 University of Kansas Medical Center  
 [rachelgriffard.github.io](https://rachelgriffard.github.io) · 
 [github.com/rachelgriffard](https://github.com/rachelgriffard)
