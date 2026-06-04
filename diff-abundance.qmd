@@ -2,7 +2,7 @@
 title: "Differential Abundance"
 ---
 
-Identifying individual taxa that are more or less abundant between groups is one of the most requested analyses in microbiome research — and one of the most statistically fraught. This page covers why naive approaches fail, which tools are recommended, and what the results actually mean.
+Identifying individual taxa that are more or less abundant between groups is one of the most requested analyses in microbiome research, and one of the most statistically fraught. This page covers why naive approaches fail, which tools are recommended, and what the results actually mean.
 
 ## The compositionality problem
 
@@ -30,7 +30,7 @@ ANCOM-BC extends this by explicitly modeling and correcting for library size (th
 
 Let's bring this back to the census. Imagine you want to know whether City A has more Smiths than City B. A naive comparison of 500 Smiths in City A vs. 200 Smiths from City B seems to suggest that there are more Smiths in City A. The problem is that we may have 10,000 people surveyed in City A versus 2,000 in City B. It turns out that City A actually has a much smaller proportion of Smiths than City B!
 
-Instead of declaring "City A has more Smiths," ANCOM asks: are there more Smiths *relative to Johnsons*? More Smiths *relative to Williams*? More Smiths *relative to every other last name in the census?* Only if Smiths win the majority of those pairwise comparisons does ANCOM call them truly over-represented in City A. Random noise might skew one or two ratios, but it is nearly impossible to simultaneously shift most of them — which is why ANCOM's false positive rate is near zero.
+Instead of declaring "City A has more Smiths," ANCOM asks: are there more Smiths *relative to Johnsons*? More Smiths *relative to Williams*? More Smiths *relative to every other last name in the census?* Only if Smiths win the majority of those pairwise comparisons does ANCOM call them truly over-represented in City A. Random noise might skew one or two ratios, but it is nearly impossible to simultaneously shift most of them, which is why ANCOM's false positive rate is near zero.
 :::
 
 ::: {.callout-tip collapse="true"}

@@ -586,7 +586,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tr>
 <tr class="even">
 <td><strong>Faith’s PD</strong></td>
-<td>Phylogenetic diversity — total branch length of the community’s phylogenetic tree</td>
+<td>Phylogenetic diversity, total branch length of the community’s phylogenetic tree</td>
 <td>Accounts for how evolutionarily distinct the taxa are</td>
 </tr>
 <tr class="odd">
@@ -613,7 +613,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>We get one score for each two city comparison, with scores closer to one indicating that the people that make up the cities are more similar and closer to zero indicating that the people who make up the cities are very different.</p>
 </div>
 </div>
-<p>Beta diversity describes how different community composition is between samples. It requires a distance (or dissimilarity) metric — a number between 0 (identical communities) and some maximum (completely different communities).</p>
+<p>Beta diversity describes how different community composition is between samples. It requires a distance (or dissimilarity) metric, a number between 0 (identical communities) and some maximum (completely different communities).</p>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 33%">
@@ -673,6 +673,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <div id="callout-3" class="callout-3-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
+<p><strong>R</strong></p>
+<p>For more information about using phyloseq and vegan in R, look here: <a href="https://joey711.github.io/phyloseq/">phyloseq documentation</a></p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(vegan)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(phyloseq)</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -684,7 +686,27 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot, colored by metadata variable</span></span>
 <span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_ordination</span>(physeq, ord, <span class="at">color =</span> <span class="st">"treatment_group"</span>) <span class="sc">+</span></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Alpha diversity: compute and compare Shannon index across groups</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>alpha_div <span class="ot">&lt;-</span> <span class="fu">estimate_richness</span>(physeq, <span class="at">measures =</span> <span class="fu">c</span>(<span class="st">"Shannon"</span>, <span class="st">"Observed"</span>, <span class="st">"Chao1"</span>))</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="fu">kruskal.test</span>(Shannon <span class="sc">~</span> treatment_group, <span class="at">data =</span> <span class="fu">cbind</span>(alpha_div, <span class="fu">sample_data</span>(physeq)))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>QIIME2</strong></p>
+<p>For more information about diversity analysis in QIIME2, look here: <a href="https://docs.qiime2.org/2024.10/plugins/available/diversity/">documentation</a></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Run core diversity metrics (alpha + beta) at a chosen rarefaction depth</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Requires a rooted phylogenetic tree for Faith's PD and UniFrac metrics</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="ex">qiime</span> diversity core-metrics-phylogenetic <span class="dt">\</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">--i-phylogeny</span> rooted-tree.qza <span class="dt">\</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">--i-table</span> table.qza <span class="dt">\</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">--p-sampling-depth</span> 10000 <span class="dt">\</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">--m-metadata-file</span> metadata.tsv <span class="dt">\</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">--output-dir</span> core-metrics-results</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Visualize PCoA interactively with Emperor</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="ex">qiime</span> emperor plot <span class="dt">\</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">--i-pcoa</span> core-metrics-results/bray_curtis_pcoa_results.qza <span class="dt">\</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">--m-metadata-file</span> metadata.tsv <span class="dt">\</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">--o-visualization</span> bray-curtis-emperor.qzv</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div>
 </div>

@@ -16,7 +16,27 @@ McMurdie, P. J., & Holmes, S. (2014). Waste not, want not: why rarefying microbi
 
 Oksanen, J., et al. (2022). vegan: Community Ecology Package. R package version 2.6-2. <https://CRAN.R-project.org/package=vegan>
 
+Di Tommaso, P., Chatzou, M., Floden, E.W., Barja, P.P., Palumbo, E., & Notredame, C. (2017). Nextflow enables reproducible computational workflows. *Nature Biotechnology*, 35(4), 316–319. <https://doi.org/10.1038/nbt.3820>
+
+Douglas, G.M., Maffei, V.J., Zaneveld, J.R., Yurgel, S.N., Brown, J.R., Taylor, C.M., et al. (2020). PICRUSt2 for prediction of metagenome functions. *Nature Biotechnology*, 38(6), 685–688. <https://doi.org/10.1038/s41587-020-0548-6>
+
+Watts, S.C., Ritchie, S.C., Inouye, M., & Holt, K.E. (2019). FastSpar: rapid and scalable correlation estimation for compositional data. *Bioinformatics*, 35(6), 1064–1066. <https://doi.org/10.1093/bioinformatics/bty734>
+
 Weinroth, M.D., Belk, A.D., Dean, C., et al. (2022). Considerations and best practices in animal science 16S ribosomal RNA gene sequencing microbiome studies. *Journal of Animal Science*, 100(2), skab346. <https://doi.org/10.1093/jas/skab346>
+
+## Research articles
+
+Chen, F.C., & Li, W.H. (2001). Genomic divergences between humans and other hominoids and the effective population size of the common ancestor of humans and chimpanzees. *Am J Hum Genet*, 68(2), 444–456. <https://doi.org/10.1086/318206>
+
+Liu, K., Yang, X., Zeng, M., Yuan, Y., Sun, J., He, P., et al. (2021). The Role of Fecal *Fusobacterium nucleatum* and pks+ *Escherichia coli* as Early Diagnostic Markers of Colorectal Cancer. *Dis Markers*, 2021, 1171239. <https://doi.org/10.1155/2021/1171239>
+
+Richter, M., & Rosselló-Móra, R. (2009). Shifting the genomic gold standard for the prokaryotic species definition. *Proc Natl Acad Sci U S A*, 106(45), 19126–19131. <https://doi.org/10.1073/pnas.0906412106>
+
+Sofi, M.H., Wu, Y., Ticer, T., Schutt, S., Bastian, D., Choi, H.J., et al. (2021). A single strain of *Bacteroides fragilis* protects gut integrity and reduces GVHD. *JCI Insight*, 6(3). <https://doi.org/10.1172/jci.insight.136841>
+
+Wu, G., Zhao, N., Zhang, C., Lam, Y.Y., & Zhao, L. (2021). Guild-based analysis for understanding gut microbiome in human health and diseases. *Genome Medicine*, 13(1), 22. <https://doi.org/10.1186/s13073-021-00840-y>
+
+Zhao, L., Wu, G., & Zhao, N. (2024). Guild-based approach for mitigating information loss and distortion issues in microbiome analysis. *J Clin Invest*, 134(17). <https://doi.org/10.1172/jci185395>
 
 ## Reference databases
 
