@@ -1,4 +1,4 @@
-# The Microbial City - An Introduction to Microbiome Analysis
+# **The Microbial City**: An Introduction to Microbiome Analysis
 
 ## KUMC Microbiome Symposium 2026
 
