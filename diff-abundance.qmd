@@ -11,6 +11,8 @@ Because the count table is compositional (relative abundances sum to 1), standar
 -   A taxon can appear to increase in one group simply because a different, dominant taxon decreased.
 -   Standard t-tests or Wilcoxon tests on raw relative abundances do not account for this and will produce false positives.
 
+Read more about compositionality [here](https://www.frontiersin.org/journals/microbiology/articles/10.3389/fmicb.2017.02224/full).
+
 Current recommended tools:
 
 -   **ANCOM-BC2**: compositionally aware; controls false discovery rate; preferred for most studies
