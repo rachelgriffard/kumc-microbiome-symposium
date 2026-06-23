@@ -462,6 +462,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="menu-text">Differential Abundance</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./further-analyses.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Further Analyses</span></a>
+  </div>
+</li>
       </ul>
   </li>
       </ul>
@@ -532,7 +538,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
 <h1 class="title d-none d-lg-block">The Microbial City: An Introduction to Microbiome Analysis</h1>
-<p class="subtitle lead">2026 KUMC Microbiome Symposium Workshop</p>
+<p class="subtitle lead">2026 KUMC Microbiome Symposium</p>
 </div>
 
 
@@ -777,22 +783,26 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>Identifying taxa that differ between groups</td>
 </tr>
 <tr class="odd">
+<td><a href="./further-analyses.html">Further Analyses</a></td>
+<td>Resources about analyses beyond the above</td>
+</tr>
+<tr class="even">
 <td><strong>Further Resources</strong></td>
 <td></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><a href="./public-data.html">Public Sequencing Data</a></td>
 <td>Repositories and how to access existing datasets</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><a href="./kumc-resources.html">KUMC Resources</a></td>
 <td>Local compute, storage, and support</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><a href="./external-resources.html">External Resources</a></td>
 <td>Tutorials, tools, and documentation</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><a href="./citations.html">Citations</a></td>
 <td>References and image credits</td>
 </tr>
@@ -818,20 +828,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
 <span class="screen-reader-only">Note</span>Further information
 </div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-3" class="callout-3-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>These boxes provide additional context, background, or elaboration that deepens understanding without being required reading. They typically explain <em>why</em> something works the way it does, or offer an analogy to make an abstract concept more concrete.</p>
 <p><strong>Example of when you’ll see this:</strong> An explanation of why quality scores degrade toward the 3′ end of a read, or what a rarefaction curve is measuring conceptually.</p>
-</div>
 </div>
 </div>
 <div class="callout callout-style-default callout-caution callout-titled">
@@ -863,16 +870,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
 <span class="screen-reader-only">Tip</span>Code and tool examples
 </div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-6" class="callout-6-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>These expandable blocks contain example code from different tools to illustrate how a pipeline step is implemented in practice. They are collapsed by default, but you can open them if you want to see more about the mechanics behind a step. These are not comprehensive, but I will do my best to link the software documentation itself for further review.</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Example: primer trimming with Cutadapt</span></span>
@@ -883,7 +888,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">-o</span> sample_R1_trimmed.fastq.gz <span class="dt">\</span></span>
 <span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">-p</span> sample_R2_trimmed.fastq.gz <span class="dt">\</span></span>
 <span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>  sample_R1.fastq.gz sample_R2.fastq.gz</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
 </div>
 </div>
 <hr>

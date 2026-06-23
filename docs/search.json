@@ -181,7 +181,7 @@
     "href": "index.html#s-rrna-sequencing-a-culture-independent-approach",
     "title": "The Microbial City: An Introduction to Microbiome Analysis",
     "section": "16S rRNA sequencing: a culture-independent approach",
-    "text": "16S rRNA sequencing: a culture-independent approach\nOne primary tool for profiling bacterial communities is 16S rRNA gene sequencing. The 16S rRNA gene is present in all bacteria and archaea. Within this gene — approximately 1,500 base pairs long — some regions are highly conserved across species (useful for designing universal primers), while others are variable enough to distinguish taxonomic units. By amplifying and sequencing these variable regions, researchers can profile bacterial communities directly from a biological sample, without needing to grow any organisms in culture.\n\n\n\n16S gene with variable regions (dark gray and labelled) and conserved regions (light gray)\n\n\nThis workshop walks through a typical analysis pipeline for 16S rRNA sequencing from sample collection through diversity analysis. The emphasis is on understanding why each step exists, what decisions you are making along the way, and how those decisions shape other choices and results downstream.\n\n\n\nStage\nWhat happens\n\n\n\n\nIntroduction to Microbiome Analysis\n\n\n\nTypes of Microbiome Data\nAmplicon, metagenomic, transcriptomic, and metabolomic approaches\n\n\nWhat is 16S rRNA seq?\nThe 16S gene, variable regions, and amplicons\n\n\nTechnical Variation & Confounders\nBatch effects, study design, and sources of systematic error\n\n\nPreprocessing\n\n\n\nSequencing\nHow reads are generated, primer design, and PCR duplicates\n\n\nFASTQ Files\nRaw data files from the sequencer\n\n\nQC Reports\nInspecting data quality before analysis\n\n\nTrimming & Truncation\nRemoving primers and low-quality bases\n\n\nDenoising & Merging\nBuilding the ASV count table\n\n\nNormalization\nAccounting for sequencing depth differences\n\n\nDownstream Analysis\n\n\n\nTaxonomy Assignment\nNaming ASVs and visualizing community structure\n\n\nGuilds\nEcologically relevant groupings\n\n\nDiversity Analysis\nAlpha and beta diversity, statistical testing\n\n\nDifferential Abundance\nIdentifying taxa that differ between groups\n\n\nFurther Resources\n\n\n\nPublic Sequencing Data\nRepositories and how to access existing datasets\n\n\nKUMC Resources\nLocal compute, storage, and support\n\n\nExternal Resources\nTutorials, tools, and documentation\n\n\nCitations\nReferences and image credits\n\n\n\nA slide deck covering the full workshop is also available to download.\nDownload workshop slides (.pptx)",
+    "text": "16S rRNA sequencing: a culture-independent approach\nOne primary tool for profiling bacterial communities is 16S rRNA gene sequencing. The 16S rRNA gene is present in all bacteria and archaea. Within this gene — approximately 1,500 base pairs long — some regions are highly conserved across species (useful for designing universal primers), while others are variable enough to distinguish taxonomic units. By amplifying and sequencing these variable regions, researchers can profile bacterial communities directly from a biological sample, without needing to grow any organisms in culture.\n\n\n\n16S gene with variable regions (dark gray and labelled) and conserved regions (light gray)\n\n\nThis workshop walks through a typical analysis pipeline for 16S rRNA sequencing from sample collection through diversity analysis. The emphasis is on understanding why each step exists, what decisions you are making along the way, and how those decisions shape other choices and results downstream.\n\n\n\nStage\nWhat happens\n\n\n\n\nIntroduction to Microbiome Analysis\n\n\n\nTypes of Microbiome Data\nAmplicon, metagenomic, transcriptomic, and metabolomic approaches\n\n\nWhat is 16S rRNA seq?\nThe 16S gene, variable regions, and amplicons\n\n\nTechnical Variation & Confounders\nBatch effects, study design, and sources of systematic error\n\n\nPreprocessing\n\n\n\nSequencing\nHow reads are generated, primer design, and PCR duplicates\n\n\nFASTQ Files\nRaw data files from the sequencer\n\n\nQC Reports\nInspecting data quality before analysis\n\n\nTrimming & Truncation\nRemoving primers and low-quality bases\n\n\nDenoising & Merging\nBuilding the ASV count table\n\n\nNormalization\nAccounting for sequencing depth differences\n\n\nDownstream Analysis\n\n\n\nTaxonomy Assignment\nNaming ASVs and visualizing community structure\n\n\nGuilds\nEcologically relevant groupings\n\n\nDiversity Analysis\nAlpha and beta diversity, statistical testing\n\n\nDifferential Abundance\nIdentifying taxa that differ between groups\n\n\nFurther Analyses\nResources about analyses beyond the above\n\n\nFurther Resources\n\n\n\nPublic Sequencing Data\nRepositories and how to access existing datasets\n\n\nKUMC Resources\nLocal compute, storage, and support\n\n\nExternal Resources\nTutorials, tools, and documentation\n\n\nCitations\nReferences and image credits\n\n\n\nA slide deck covering the full workshop is also available to download.\nDownload workshop slides (.pptx)",
     "crumbs": [
       "Home",
       "Introduction to Microbiome Analysis",
@@ -193,7 +193,7 @@
     "href": "index.html#how-to-read-this-guide",
     "title": "The Microbial City: An Introduction to Microbiome Analysis",
     "section": "How to read this guide",
-    "text": "How to read this guide\nEach page uses five types of callout boxes to signal different kinds of content.\n\n\n\n\n\n\nNoteCity analogy\n\n\n\nThese boxes pair a city or census scenario with the microbiome concept on that page. When you see one, you’re getting the analogy version of what follows.\n\n\n\n\n\n\n\n\nNoteFurther information\n\n\n\n\n\nThese boxes provide additional context, background, or elaboration that deepens understanding without being required reading. They typically explain why something works the way it does, or offer an analogy to make an abstract concept more concrete.\nExample of when you’ll see this: An explanation of why quality scores degrade toward the 3′ end of a read, or what a rarefaction curve is measuring conceptually.\n\n\n\n\n\n\n\n\n\nCautionWarnings\n\n\n\nThese boxes flag common mistakes, easy-to-overlook pitfalls, or steps where errors are frequently introduced. Pay close attention — skipping or mis-applying the flagged step often causes silent failures that are difficult to diagnose later.\nExample of when you’ll see this: Reminders that you cannot easily compare studies that use different variable regions and primers.\n\n\n\n\n\n\n\n\nImportantReproducibility reminders\n\n\n\nThese boxes highlight decisions that must be documented for reproducibility of your analysis. The items that these point out should always be included in your documentation to ensure that you (and others) can replicate your analysis.\nExample of when you’ll see this: The requirement that truncation parameters, extraction kits, and rarefaction depth be identical across all samples in a study.\n\n\n\n\n\n\n\n\nTipCode and tool examples\n\n\n\n\n\nThese expandable blocks contain example code from different tools to illustrate how a pipeline step is implemented in practice. They are collapsed by default, but you can open them if you want to see more about the mechanics behind a step. These are not comprehensive, but I will do my best to link the software documentation itself for further review.\n# Example: primer trimming with Cutadapt\ncutadapt \\\n  -g GTGYCAGCMGCCGCGGTAA \\\n  -G GGACTACNVGGGTWTCTAAT \\\n  --discard-untrimmed \\\n  -o sample_R1_trimmed.fastq.gz \\\n  -p sample_R2_trimmed.fastq.gz \\\n  sample_R1.fastq.gz sample_R2.fastq.gz",
+    "text": "How to read this guide\nEach page uses five types of callout boxes to signal different kinds of content.\n\n\n\n\n\n\nNoteCity analogy\n\n\n\nThese boxes pair a city or census scenario with the microbiome concept on that page. When you see one, you’re getting the analogy version of what follows.\n\n\n\n\n\n\n\n\nNoteFurther information\n\n\n\nThese boxes provide additional context, background, or elaboration that deepens understanding without being required reading. They typically explain why something works the way it does, or offer an analogy to make an abstract concept more concrete.\nExample of when you’ll see this: An explanation of why quality scores degrade toward the 3′ end of a read, or what a rarefaction curve is measuring conceptually.\n\n\n\n\n\n\n\n\nCautionWarnings\n\n\n\nThese boxes flag common mistakes, easy-to-overlook pitfalls, or steps where errors are frequently introduced. Pay close attention — skipping or mis-applying the flagged step often causes silent failures that are difficult to diagnose later.\nExample of when you’ll see this: Reminders that you cannot easily compare studies that use different variable regions and primers.\n\n\n\n\n\n\n\n\nImportantReproducibility reminders\n\n\n\nThese boxes highlight decisions that must be documented for reproducibility of your analysis. The items that these point out should always be included in your documentation to ensure that you (and others) can replicate your analysis.\nExample of when you’ll see this: The requirement that truncation parameters, extraction kits, and rarefaction depth be identical across all samples in a study.\n\n\n\n\n\n\n\n\nTipCode and tool examples\n\n\n\nThese expandable blocks contain example code from different tools to illustrate how a pipeline step is implemented in practice. They are collapsed by default, but you can open them if you want to see more about the mechanics behind a step. These are not comprehensive, but I will do my best to link the software documentation itself for further review.\n# Example: primer trimming with Cutadapt\ncutadapt \\\n  -g GTGYCAGCMGCCGCGGTAA \\\n  -G GGACTACNVGGGTWTCTAAT \\\n  --discard-untrimmed \\\n  -o sample_R1_trimmed.fastq.gz \\\n  -p sample_R2_trimmed.fastq.gz \\\n  sample_R1.fastq.gz sample_R2.fastq.gz",
     "crumbs": [
       "Home",
       "Introduction to Microbiome Analysis",
@@ -213,269 +213,224 @@
     ]
   },
   {
-    "objectID": "external-resources.html",
-    "href": "external-resources.html",
-    "title": "External Resources",
+    "objectID": "further-analyses.html",
+    "href": "further-analyses.html",
+    "title": "Further Analyses",
     "section": "",
-    "text": "QIIME2 documentation — tutorials, plugin references, and a community forum for the most widely used microbiome analysis platform\nnf-core/ampliseq — a Nextflow pipeline for amplicon sequencing analysis maintained by the nf-core community\nDADA2 tutorial — R-based ASV pipeline\nphyloseq tutorials — R package for microbiome data analysis and visualization\nNational Microbiome Data Collaborative Microbiome Scence Certificate Program — Overarching, in-depth overview of microbiome analyses free for public",
-    "crumbs": [
-      "Home",
-      "Further Resources",
-      "External Resources"
-    ]
-  },
-  {
-    "objectID": "external-resources.html#analysis-pipelines-and-tutorials",
-    "href": "external-resources.html#analysis-pipelines-and-tutorials",
-    "title": "External Resources",
-    "section": "",
-    "text": "QIIME2 documentation — tutorials, plugin references, and a community forum for the most widely used microbiome analysis platform\nnf-core/ampliseq — a Nextflow pipeline for amplicon sequencing analysis maintained by the nf-core community\nDADA2 tutorial — R-based ASV pipeline\nphyloseq tutorials — R package for microbiome data analysis and visualization\nNational Microbiome Data Collaborative Microbiome Scence Certificate Program — Overarching, in-depth overview of microbiome analyses free for public",
-    "crumbs": [
-      "Home",
-      "Further Resources",
-      "External Resources"
-    ]
-  },
-  {
-    "objectID": "external-resources.html#reference-databases-and-comparative-datasets",
-    "href": "external-resources.html#reference-databases-and-comparative-datasets",
-    "title": "External Resources",
-    "section": "Reference databases and comparative datasets",
-    "text": "Reference databases and comparative datasets\n\nEarth Microbiome Project — protocols, reference databases, and comparative datasets\nSilva database — rRNA reference database for taxonomy assignment\nGreengenes2 — updated 16S reference database",
-    "crumbs": [
-      "Home",
-      "Further Resources",
-      "External Resources"
-    ]
-  },
-  {
-    "objectID": "denoising.html",
-    "href": "denoising.html",
-    "title": "Denoising & Merging",
-    "section": "",
-    "text": "The count table is the central data object in a microbiome study: a matrix of features, often taxa (rows) × samples (columns), where each cell contains the number of sequencing reads assigned to that taxon in that sample. Every diversity analysis, differential abundance test, and visualization works from this table.",
+    "text": "Beyond the core analyses covered in this workshop, a rich ecosystem of tools and approaches exists for deeper exploration of microbiome data. This page introduces three areas as jumping-off points for further reading. These topics are not covered in the main presentation but represent further directions you can take your analysis.",
     "crumbs": [
       "Home",
       "Targeted Amplicon Sequencing Analysis",
-      "Preprocessing",
-      "Denoising & Merging"
+      "Downstream Analysis",
+      "Further Analyses"
     ]
   },
   {
-    "objectID": "denoising.html#asvs-vs.-otus-a-philosophical-divide",
-    "href": "denoising.html#asvs-vs.-otus-a-philosophical-divide",
-    "title": "Denoising & Merging",
+    "objectID": "further-analyses.html#functional-inference-with-picrust2",
+    "href": "further-analyses.html#functional-inference-with-picrust2",
+    "title": "Further Analyses",
+    "section": "Functional inference with PICRUSt2",
+    "text": "Functional inference with PICRUSt2\nTaxonomic composition tells you who is there, but not what they are doing. Functional inference tools attempt to predict the metabolic and functional potential of a community directly from 16S amplicon data without requiring separate shotgun metagenomic sequencing.\nPICRUSt2 (Phylogenetic Investigation of Communities by Reconstruction of Unobserved States 2) takes your ASV table and a phylogenetic tree, then uses reference genome databases to predict the abundance of metabolic pathways (KEGG, MetaCyc) and enzyme families (EC numbers) in each sample.\n\nHow it works\nPICRUSt2 places your ASVs on a reference phylogenetic tree and uses the known functional content of sequenced genomes at nearby tips to infer what functions your ASVs likely carry. The closer an ASV is to well-characterized reference genomes, the more reliable the prediction. The output is a pathway abundance table per sample that can be analyzed similarly to the original feature table: differential abundance, diversity metrics, and so on, but at the functional level.\n\n\n\n\n\n\nWarningImportant limitation\n\n\n\nPICRUSt2 predictions are inferred, not measured. They are only as reliable as the reference genomes available for the organisms in your samples. Communities containing many novel or understudied microbes will produce less reliable predictions. If accurate functional data is required, shotgun metagenomics or metatranscriptomics is the appropriate approach.\n\n\n\n\n\n\n\n\nTipCode and tool examples\n\n\n\n\n\nQIIME2\nPICRUSt2 is available as a QIIME2 plugin. See the q2-picrust2 documentation for installation.\n# Run the full PICRUSt2 pipeline within QIIME2\nqiime picrust2 full-pipeline \\\n  --i-table table.qza \\\n  --i-seq rep-seqs.qza \\\n  --output-dir picrust2-output \\\n  --p-threads 4 \\\n  --p-hsp-method pic \\\n  --p-max-nsti 2 \\\n  --verbose\nStandalone PICRUSt2 (Python/command line)\n# Install via conda\nconda install -c bioconda picrust2\n\n# Run the full pipeline\npicrust2_pipeline.py \\\n  -s rep-seqs.fasta \\\n  -i feature-table.biom \\\n  -o picrust2-output \\\n  -p 4\n\n\n\n\n\n\n\n\n\nNoteMore on PICRUSt2\n\n\n\n\n\nHere are a few resources if you want to read more about functional inference:\n\nDouglas, G. M., Maffei, V. J., Zaneveld, J. R., Yurgel, S. N., Brown, J. R., Taylor, C. M., Huttenhower, C., & Langille, M. G. I. (2020). PICRUSt2 for prediction of metagenome functions. Nature Biotechnology, 38(6), 685–688. https://doi.org/10.1038/s41587-020-0548-6\nLangille, M. G. I., Zaneveld, J., Caporaso, J. G., McDonald, D., Knights, D., Reyes, J. A., Clemente, J. C., Burkepile, D. E., Thurber, R. L. V., Knight, R., Beiko, R. G., & Huttenhower, C. (2013). Predictive functional profiling of microbial communities using 16S rRNA marker gene sequences. Nature Biotechnology, 31(9), 814–821. https://doi.org/10.1038/nbt.2676\nPICRUSt2 GitHub wiki and documentation\nq2-picrust2 QIIME2 plugin",
+    "crumbs": [
+      "Home",
+      "Targeted Amplicon Sequencing Analysis",
+      "Downstream Analysis",
+      "Further Analyses"
+    ]
+  },
+  {
+    "objectID": "further-analyses.html#predictive-modeling",
+    "href": "further-analyses.html#predictive-modeling",
+    "title": "Further Analyses",
+    "section": "Predictive modeling",
+    "text": "Predictive modeling\nA natural next question after characterizing community composition is whether it can explain or predict variation in a host outcome. This section covers three broad approaches, ranging from classical statistics to machine learning.\n\n\n\n\n\n\nCautionCheck your statistical assumptions!\n\n\n\nImportantly, microbiome data is sparse, high-dimensional, and compositional. These features of the data can break many commonly used statistical model’s assumptions. It is important that when you are tackling these type of data that you pay particular attention to these features. If possible, it is best to loop in someone with a strong statistical foundation.\nFor more information about best (and worst) practices when applying these models to microbiome data, check out these papers:\n\nBoshuizen HC, Te Beest DE. Pitfalls in the statistical analysis of microbiome amplicon sequencing data. Mol Ecol Resour. 2023 Apr;23(3):539-548. doi: 10.1111/1755-0998.13730. Epub 2022 Nov 27. PMID: 36330663.\nTsilimigras MC, Fodor AA. Compositional data analysis of the microbiome: fundamentals, tools, and challenges. Ann Epidemiol. 2016 May;26(5):330-5. doi: 10.1016/j.annepidem.2016.03.002. Epub 2016 Mar 31. PMID: 27255738.\n\n\n\n\nStatistical models\nThe simplest way to associate microbiome features with host metadata is through standard regression. A diversity metric or the abundance of a some features of interest can be used as a predictor or outcome in a linear model. Logistic regression works the same way for binary outcomes like disease status.\nWhen samples are not independent, repeated measures from the same subject over time, or subjects nested within households or study sites, linear mixed effects models extend this framework by adding random effects to account for that correlation structure.\nThese single-feature models are straightforward but require a correction for multiple testing when run across many taxa simultaneously. MaAsLin2 (described below) automates this workflow.\n\n\nSurvival analysis\nWhen the outcome is time-to-event such as disease onset, hospitalization, death, or relapse, survival analysis is the appropriate framework. The Cox proportional hazards model tests whether a microbiome feature (a diversity metric, a taxon or ASV abundance, or a principal coordinate) is associated with the hazard of the event, while controlling for clinical covariates. Kaplan-Meier curves offer a visual complement, stratifying samples into high/low groups based on a microbiome feature and plotting event-free survival over time.\nThese approaches are especially common in longitudinal clinical cohort studies where the microbiome is characterized at baseline and patients are followed for an outcome of interest.\n\n\n\n\n\n\nNoteMore on statistical models and survival analysis\n\n\n\n\n\nHere are a few resources if you want to read more about statistical modeling with microbiome data:\n\nBates, D., Maechler, M., Bolker, B., & Walker, S. (2015). Fitting linear mixed-effects models using lme4. Journal of Statistical Software, 67(1), 1–48. https://doi.org/10.18637/jss.v067.i01\nTherneau, T. M., & Grambsch, P. M. (2000). Modeling Survival Data: Extending the Cox Model. Springer. https://doi.org/10.1007/978-1-4757-3294-8\nsurvival R package documentation\nsurvminer R package – Kaplan-Meier visualization\nIntroduction to mixed models in R – CRAN lme4 vignette\n\n\n\n\n\n\nMachine learning\nRandom forest, LASSO regression, and other penalized approaches can build classifiers or continuous predictors from the high-dimensional feature table. These are useful for identifying which taxa are most predictive of an outcome, evaluating whether the microbiome adds predictive value beyond clinical covariates alone.\n\n\n\n\n\n\nWarningOverfitting is a serious risk\n\n\n\nMicrobiome datasets are typically high-dimensional, with far more features than samples. Models trained on this data overfit easily. Always evaluate performance on held-out data using cross-validation or an independent test set. Be skeptical of very high AUC values without rigorous validation. Reporting training accuracy as model performance rather than on a holdout set is a common and significant error in the literature.\n\n\n\n\n\n\n\n\nTipCode and tool examples\n\n\n\n\n\nMaAsLin2 (R)\nMaAsLin2 fits per-feature multivariable linear (or generalized linear) models across all taxa simultaneously and corrects for multiple testing.\nlibrary(Maaslin2)\n\n# Convert phyloseq object to data frames\nfeatures &lt;- as.data.frame(t(otu_table(physeq)))\nmetadata &lt;- as.data.frame(sample_data(physeq))\n\n# Run MaAsLin2 with fixed and random effects\nfit_data &lt;- Maaslin2(\n  input_data     = features,\n  input_metadata = metadata,\n  output         = \"maaslin2_output\",\n  fixed_effects  = c(\"treatment\", \"age\", \"bmi\"),\n  random_effects = c(\"subject_id\"),  # for repeated measures\n  normalization  = \"TSS\",\n  transform      = \"LOG\",\n  min_prevalence = 0.1\n)\nSIAMCAT (R)\nSIAMCAT is designed specifically for microbiome-based machine learning with built-in cross-validation and model calibration.\nlibrary(SIAMCAT)\n\n# Create a SIAMCAT object\nsc.obj &lt;- siamcat(feat  = feature_matrix,\n                  meta  = metadata,\n                  label = \"disease_status\",\n                  case  = \"IBD\")\n\n# Filter, normalize, split, train, predict, evaluate\nsc.obj &lt;- filter.features(sc.obj, cutoff = 0.01)\nsc.obj &lt;- normalize.features(sc.obj, norm.method = \"log.std\")\nsc.obj &lt;- create.data.split(sc.obj, num.folds = 5, num.resample = 5)\nsc.obj &lt;- train.model(sc.obj, method = \"lasso\")\nsc.obj &lt;- make.predictions(sc.obj)\nsc.obj &lt;- evaluate.predictions(sc.obj)\nmodel.evaluation.plot(sc.obj)\n\n\n\n\n\n\n\n\n\nNoteMore on predictive modeling\n\n\n\n\n\nHere are a few resources if you want to read more about microbiome-based modeling:\n\nMallick, H., Rahnavard, A., McIver, L. J., Ma, S., Zhang, Y., Nguyen, L. H., Tickle, T. L., Weingart, G., Ren, B., Schwager, E. H., Chatterjee, S., Thompson, K. N., Wilkinson, J. E., Subramanian, A., Lu, Y., Waldron, L., Paulson, J. N., Franzosa, E. A., Janson, L., & Huttenhower, C. (2021). Multivariable association discovery in population-scale meta-omics studies. PLOS Computational Biology, 17(11), e1009442. https://doi.org/10.1371/journal.pcbi.1009442\nWirbel, J., Zych, K., Essex, M., Karcher, N., Kartal, E., Salazar, G., Bork, P., Sunagawa, S., & Zeller, G. (2021). Microbiome meta-analysis and cross-cohort validation to assess and improve disease prediction from stool 16S sequencing. PLOS Computational Biology, 17(3), e1008857. https://doi.org/10.1371/journal.pcbi.1008857\nMarcos-Zambrano, L. J., Karaduzovic-Hadziabdic, K., Loncar Turukalo, T., Przymus, P., Trajkovik, V., Aasmets, O., Arumugam, M., Bahiri, A., Bordel, E., & Carrillo de Santa Pau, E. (2021). Applications of machine learning in human microbiome studies: A review on feature selection, biomarker identification, disease prediction and treatment. Frontiers in Microbiology, 12, 634511. https://doi.org/10.3389/fmicb.2021.634511\nMaAsLin2 documentation - Huttenhower Lab\nSIAMCAT R package",
+    "crumbs": [
+      "Home",
+      "Targeted Amplicon Sequencing Analysis",
+      "Downstream Analysis",
+      "Further Analyses"
+    ]
+  },
+  {
+    "objectID": "further-analyses.html#co-occurrence-network-analysis",
+    "href": "further-analyses.html#co-occurrence-network-analysis",
+    "title": "Further Analyses",
+    "section": "Co-occurrence network analysis",
+    "text": "Co-occurrence network analysis\nMicrobial co-occurrence network analysis asks: which taxa consistently appear together across samples? Rather than testing individual taxa against a metadata variable, network analysis characterizes the relationships among taxa themselves. This is particularly powerful for identifying structural features of the community and potential ecological interactions.\n\nHow networks are built\nEach node in the network represents a feature (ASV, species, genus, or guild). An edge between two nodes is drawn when the pair is significantly correlated across samples: positively (co-occurrence) or negatively (co-exclusion). The resulting network can be analyzed for:\n\nHub taxa: highly connected nodes that may play keystone ecological roles\nModules or clusters: groups of co-occurring taxa that may represent functional guilds or ecological niches\nCondition comparisons: how network structure changes between healthy and disease states, or across treatments\n\n\n\n\n\n\n\nNoteThe city’s social network\n\n\n\nImagine mapping which families consistently live in the same neighborhoods across hundreds of different cities. Some families cluster together everywhere; they might share an occupation, a cultural background, or economic ties. Others are rarely found in the same district. This cross-city pattern of co-residence is structurally identical to co-occurrence analysis in microbiomes.\nThis is also why guild analysis (covered on the Guilds page) can be thought of as network-informed dimensionality reduction: guilds are the coherent co-occurrence clusters that fall out of this kind of analysis, identified by their consistent responses to environmental change.\n\n\n\n\nHandling compositionality in networks\nNaive Pearson or Spearman correlation on relative abundances is problematic for the same reasons described in Differential Abundance: compositional data create spurious correlations. Two approaches designed to address this:\n\nSPIEC-EASI: sparse inverse covariance estimation on CLR-transformed data; produces sparse, ecologically interpretable networks\nSparCC: estimates correlations from log-ratio transformed data; widely used and well-validated in the literature\n\n\n\n\n\n\n\nTipCode and tool examples\n\n\n\n\n\n16Sguild\nCurrently a tool internal to the University of Kansas Medical Center, this method aims to create a taxonomy-free framework to analyze microbiome data. We are using this method to try and identify groups of features that share an ecological niche into guilds. More about this method can be found here: 16Sguild documentation. For more information, reach out to the Department of Biostatistics & Data Science and register your project.\nSPIEC-EASI (R)\nlibrary(SpiecEasi)\n\n# Run SPIEC-EASI on a count matrix\nse_result &lt;- spiec.easi(otu_matrix,\n                        method           = \"mb\",\n                        lambda.min.ratio = 1e-2,\n                        nlambda          = 20,\n                        pulsar.params    = list(rep.num = 50))\n\n# Extract adjacency matrix for downstream use\nadj_matrix &lt;- getRefit(se_result)\n\n\n\n\n\n\n\n\n\nNoteMore on co-occurrence network analysis\n\n\n\n\n\nHere are a few resources if you want to read more about microbial network analysis:\n\nPeschel, S., Muller, C. L., von Mutius, E., Boulesteix, A. L., & Depner, M. (2021). NetCoMi: network construction and comparison for microbiome data in R. Briefings in Bioinformatics, 22(4), bbaa290. https://doi.org/10.1093/bib/bbaa290\nKurtz, Z. D., Muller, C. L., Miraldi, E. R., Littman, D. R., Blaser, M. J., & Bonneau, R. A. (2015). Sparse and compositionally robust inference of microbial ecological networks. PLOS Computational Biology, 11(5), e1004226. https://doi.org/10.1371/journal.pcbi.1004226\nFriedman, J., & Alm, E. J. (2012). Inferring correlation networks from genomic survey data. PLOS Computational Biology, 8(9), e1002687. https://doi.org/10.1371/journal.pcbi.1002687\nFaust, K., & Raes, J. (2012). Microbial interactions: from networks to models. Nature Reviews Microbiology, 10(8), 538–550. https://doi.org/10.1038/nrmicro2832\nNetCoMi GitHub and vignettes\n16S Guild documentation – Zhao Lab",
+    "crumbs": [
+      "Home",
+      "Targeted Amplicon Sequencing Analysis",
+      "Downstream Analysis",
+      "Further Analyses"
+    ]
+  },
+  {
+    "objectID": "diff-abundance.html",
+    "href": "diff-abundance.html",
+    "title": "Differential Abundance",
+    "section": "",
+    "text": "Identifying individual taxa that are more or less abundant between groups is one of the most requested analyses in microbiome research, and one of the most statistically fraught. This page covers why naive approaches fail, which tools are recommended, and what the results actually mean.",
+    "crumbs": [
+      "Home",
+      "Targeted Amplicon Sequencing Analysis",
+      "Downstream Analysis",
+      "Differential Abundance"
+    ]
+  },
+  {
+    "objectID": "diff-abundance.html#the-compositionality-problem",
+    "href": "diff-abundance.html#the-compositionality-problem",
+    "title": "Differential Abundance",
+    "section": "The compositionality problem",
+    "text": "The compositionality problem\nBecause the count table is compositional (relative abundances sum to 1), standard statistical tests assume independence that is not present. An increase in one taxon’s relative abundance necessarily decreases others’. This means:\n\nA taxon can appear to increase in one group simply because a different, dominant taxon decreased.\nStandard t-tests or Wilcoxon tests on raw relative abundances do not account for this and will produce false positives.\n\nRead more about compositionality here.\nCurrent recommended tools:\n\nANCOM-BC2: compositionally aware; controls false discovery rate; preferred for most studies\nDESeq2: borrowed from RNA-seq; performs well in practice but assumptions may not strictly hold due to compositional nature of data\nALDEx2: Dirichlet-multinomial model; robust but conservative; less commonly used in practice",
+    "crumbs": [
+      "Home",
+      "Targeted Amplicon Sequencing Analysis",
+      "Downstream Analysis",
+      "Differential Abundance"
+    ]
+  },
+  {
+    "objectID": "diff-abundance.html#why-ancom-works-the-log-ratio-approach",
+    "href": "diff-abundance.html#why-ancom-works-the-log-ratio-approach",
+    "title": "Differential Abundance",
+    "section": "Why ANCOM works: the log-ratio approach",
+    "text": "Why ANCOM works: the log-ratio approach\nANCOM and ANCOM-BC are widely used because they are built around the compositional nature of microbiome data from the start. Instead of asking “is taxon A more abundant in group 1 vs. group 2?” which is a question that is confounded by the fact that relative abundances are not independent, ANCOM asks “is the ratio of taxon A to every other taxon different between groups?” For each taxon, it counts how many of these pairwise log-ratio tests come back significant. A taxon is called differentially abundant only if it shows consistent differences across the majority of its comparisons.\nThis “majority-wins” design means random noise is extremely unlikely to produce a false positive: noise might make a few ratios look significant, but it would have to affect most of them simultaneously to trigger a call. The tradeoff is lower sensitivity. ANCOM may miss real differences, especially for rare taxa, but it almost never produces false positives.\nANCOM-BC extends this by explicitly modeling and correcting for library size (the total reads per sample) and providing interpretable log-fold changes with confidence intervals, similar to what you would see in an RNA-seq differential expression report.\n\n\n\n\n\n\nNoteThe Microbial City: Proving one city has more Smiths\n\n\n\nLet’s bring this back to the census. Imagine you want to know whether City A has more Smiths than City B. A naive comparison of 500 Smiths in City A vs. 200 Smiths from City B seems to suggest that there are more Smiths in City A. The problem is that we may have 10,000 people surveyed in City A versus 2,000 in City B. It turns out that City A actually has a much smaller proportion of Smiths than City B!\nInstead of declaring “City A has more Smiths,” ANCOM asks: are there more Smiths relative to Johnsons? More Smiths relative to Williams? More Smiths relative to every other last name in the census? Only if Smiths win the majority of those pairwise comparisons does ANCOM call them truly over-represented in City A. Random noise might skew one or two ratios, but it is nearly impossible to simultaneously shift most of them, which is why ANCOM’s false positive rate is near zero.\n\n\n\n\n\n\n\n\nTipCode and tool examples\n\n\n\n\n\nANCOMBC\nFor more information about using ANCOMBC in R, look here: documentation\nlibrary(ANCOMBC)\n\n# Run ANCOM-BC2\nout &lt;- ancombc2(\n  data = physeq,           # data in a phyloseq format\n  fix_formula = \"treatment + age + sex\",\n  p_adj_method = \"BH\",     # method to adjust for multiple testing\n  pseudo_sens = TRUE,\n  prv_cut = 0.10,          # exclude taxa from analysis present in &lt;10% of samples\n  lib_cut = 1000,\n  s0_perc = 0.05,\n  group = \"treatment\",\n  struc_zero = TRUE,\n  neg_lb = TRUE,\n  alpha = 0.05,\n  n_cl = 2\n)\n\n# Results\nres &lt;- out$res\n# Columns: lfc (log-fold change), se, W, p_val, q_val (FDR-adjusted), diff_abn\nQIIME2\nFor more information about using ANCOMBC within QIIME2, check this out: documentation\n# Filter to only the samples you want to compare\nqiime feature-table filter-samples \\\n  --i-table table.qza \\\n  --m-metadata-file metadata.tsv \\\n  --p-where \"[treatment]='case' OR [treatment]='control'\" \\\n  --o-filtered-table filtered-table.qza\n\n# Run ANCOM-BC\nqiime composition ancombc \\\n  --i-table filtered-table.qza \\\n  --m-metadata-file metadata.tsv \\\n  --p-formula \"treatment\" \\\n  --o-differentials differentials.qza\n\n# Visualize as a bar plot of log-fold changes\nqiime composition da-barplot \\\n  --i-data differentials.qza \\\n  --p-significance-threshold 0.05 \\\n  --o-visualization da-barplot.qzv",
+    "crumbs": [
+      "Home",
+      "Targeted Amplicon Sequencing Analysis",
+      "Downstream Analysis",
+      "Differential Abundance"
+    ]
+  },
+  {
+    "objectID": "diff-abundance.html#multiple-testing",
+    "href": "diff-abundance.html#multiple-testing",
+    "title": "Differential Abundance",
+    "section": "Multiple testing",
+    "text": "Multiple testing\nA typical microbiome study tests hundreds to thousands of taxa simultaneously. It is well advised to apply for multiple testing correction. The ANCOMBC2 package has the p_adj_method parameter in R or the --p-p-adj-method in QIIME2 framework to account for this.",
+    "crumbs": [
+      "Home",
+      "Targeted Amplicon Sequencing Analysis",
+      "Downstream Analysis",
+      "Differential Abundance"
+    ]
+  },
+  {
+    "objectID": "confounding.html",
+    "href": "confounding.html",
+    "title": "Technical Variation & Confounders",
+    "section": "",
+    "text": "Technical variation can enter at any point in the experimental design, often long before any software is involved. The table below outlines common sources organized by where they occur.\n\nWhy systematic variation is a real problem\nIndividual technical differences are often unavoidable. The danger is when technical variation is correlated with your biological groups. When this happens, it becomes indistinguishable from the signal you are trying to measure.\n\n\n\n\n\n\nNoteA census analogy\n\n\n\nImagine two cities with similar geography, climate, and population size. Two census takers are each sent to one city to record occupants’ last names by knocking on doors.\n\nCensus Taker A goes out on a rainy, cold Monday morning.\nCensus Taker B goes out on a clear 70°F evening.\n\nThe data come back and City A appears to have more Johnsons than City B. But is that a real demographic difference, or does the Johnson family simply work outside the home and was not there to answer the door on a Monday morning?\nThe same logic applies to microbiome studies. If control samples are processed in one batch and treated samples in another, if different primers are used for cases versus controls, or if pre-treatment samples are collected in one building and post-treatment samples in another, there is no way to separate biological signal from technical variation.\nTo mitigate these issues, it is important that we stratify these variables, or spread them evenly across biological groups, when we can and at least keep record of them in cases in which we cannot. This allows us to check for their influence and, if necessary, adjust for them in our analyses downstream. While adjusting for every variable is not possible, we definitely cannot adjust for anything that was not recorded.\n\n\n\n\nCommon sources of technical variation\n\n\n\n\n\n\n\n\nStage\nVariable\nWhy it matters\n\n\n\n\nCollection\nSite / facility\nDifferent hospital wings, clinics, or rooms have different ambient microbiomes, cleaning protocols, and personnel practices. Two “healthy controls” from different sites can differ for purely logistical reasons.\n\n\nCollection\nSwab type\nAffects how much biomass is recovered and which taxa adhere.\n\n\nCollection\nTime of day\nOral and gut communities shift measurably across the day.\n\n\nCollection\nTime to storage\nA sample left at room temperature for 2 hours before freezing looks different from one frozen immediately.\n\n\nTransport & Storage\nTemperature excursions\nDifferential cell lysis during shipping: some taxa are more fragile than others. A common hidden variable in multi-site studies.\n\n\nTransport & Storage\nStorage duration\nCommunities degrade over time; longer storage selectively depletes fragile taxa.\n\n\nDNA Extraction\nKit manufacturer\nDifferent kits lyse cells with different efficiency. Gram-positive bacteria are notoriously difficult to break open, so kit choice directly shapes which taxa appear in your data.\n\n\nDNA Extraction\nOperator variability\nEven the same kit in the same lab can produce different yields depending on who runs it and when.\n\n\nLibrary Preparation\nPrimer choice\nDetermines which region of the 16S gene is amplified, creating systematic biases toward certain taxa and blind spots for others.\n\n\nLibrary Preparation\nPCR cycles\nMore cycles introduce more chimeric sequences and amplification artifacts.\n\n\nSequencing\nSequencing depth\nTotal reads per sample varies across samples and runs, directly affecting detection of low-abundance taxa.\n\n\nSequencing\nMultiplexing\nHow many samples share a run affects per-sample depth.\n\n\nSequencing\nRead type\nShort vs. long read and single vs. paired-end affect taxonomic resolution.\n\n\n\nThis is a non-comprehensive list. The key point: by the time data reaches your analysis pipeline, it carries the fingerprints of every decision made upstream.\n\n\n\n\n\n\nCautionMitigating batch effects\n\n\n\nHere you can see what a set of samples run in two batches looks like when the researcher does and does not confound the treatment group with batch. These are dimension reduction plots that indicate one sample per point. The closer the points are together, the more similar they are. Ideally, we see separation of points by their biological groups (second plot) but not by the batch they were run in (first plot). This indicates that there seems to be a biological difference between treatment and control samples that is not explained by batch processing differences.\n\n\nShow example\nviewof design = Inputs.radio([\"Confounded\", \"Balanced\"], {\n  value: \"Confounded\",\n  label: html`&lt;div style=\"font-size: 24px; font-weight: bold; text-align: center;\"&gt;\n    Study design\n  &lt;/div&gt;`\n})\n\n\n\n\n\n\n\n\n\nShow example\n{\n  function makeRng(seed) {\n    let s = seed &gt;&gt;&gt; 0;\n    return () =&gt; { s = (Math.imul(s, 1664525) + 1013904223) &gt;&gt;&gt; 0; return s / 4294967296; };\n  }\n  function randn(rng) {\n    return Math.sqrt(-2 * Math.log(rng() + 1e-10)) * Math.cos(2 * Math.PI * rng());\n  }\n\n  const rng   = makeRng(7);\n  const noise = Array.from({length: 40}, () =&gt; ({ nx: randn(rng), ny: randn(rng) }));\n\n  const samples = noise.map((n, i) =&gt; {\n    const batch = i &lt; 20 ? \"Batch 1\" : \"Batch 2\";\n    const group = design === \"Confounded\"\n      ? (batch === \"Batch 1\" ? \"Case\" : \"Control\")\n      : (i % 4 &lt; 2 ? \"Case\" : \"Control\");\n    const yOffset = design === \"Balanced\"\n      ? (group === \"Case\" ? 1.1 : -1.1)\n      : 0;\n    return {\n      batch, group,\n      x: (batch === \"Batch 1\" ? -2.5 : 2.5) + n.nx * 1.2,\n      y: yOffset + n.ny * 1.2\n    };\n  });\n\n  const plotW = Math.floor((Math.min(width, 720) - 56) / 2);\n  const yDomain = [-5, 5];\n\n  function makePlot(field, domain, range) {\n    return Plot.plot({\n      width: plotW,\n      height: 300,\n      x: { label: \"PC1\", grid: true, tickFormat: d =&gt; d.toFixed(1) },\n      y: { label: \"PC2\", grid: true, domain: yDomain, tickFormat: d =&gt; d.toFixed(1) },\n      color: { domain, range, legend: true },\n      marks: [\n        Plot.dot(samples, {\n          x: \"x\", y: \"y\", fill: field,\n          r: 6, stroke: \"white\", strokeWidth: 1.5,\n          title: d =&gt; `${d.group} — ${d.batch}`\n        })\n      ]\n    });\n  }\n\n  function labeled(plot, titleText) {\n    const wrap = Object.assign(document.createElement(\"div\"), {\n      style: \"display:flex; flex-direction:column; align-items:center; flex:1; min-width:180px;\"\n    });\n    const h = Object.assign(document.createElement(\"div\"), {\n      textContent: titleText,\n      style: \"font-weight:600; font-size:0.95rem; text-align:center; margin-bottom:0.35rem; color:#2a1a2e;\"\n    });\n    wrap.append(h, plot);\n    return wrap;\n  }\n\n  const caption = design === \"Confounded\"\n    ? \"Confounded design: cases and controls occupy separate batches. The two plots are mirror images — you cannot tell whether separation on any axis reflects biology or batch processing.\"\n    : \"Balanced design: batch drives the left/right separation on PC1. Within each batch, cases sit higher and controls lower — the case/control difference on PC2 is only detectable here because both groups appear in every batch.\";\n\n  const left  = labeled(makePlot(\"batch\", [\"Batch 1\", \"Batch 2\"], [\"#1565C0\", \"#C62828\"]), \"Batch\");\n  const right = labeled(makePlot(\"group\", [\"Case\", \"Control\"],    [\"#752f7d\", \"#2E7D32\"]), \"Treatment Group\");\n\n  const capEl = Object.assign(document.createElement(\"p\"), {\n    textContent: caption,\n    style: \"width:100%; margin:0.6rem 0 0; font-size:0.875rem; color:#555; font-style:italic;\"\n  });\n\n  const container = Object.assign(document.createElement(\"div\"), {\n    style: `\n      display: flex; flex-wrap: wrap; gap: 1rem; align-items: flex-start;\n      border: 1.5px solid #d4b8d8; border-radius: 8px; padding: 1.25rem;\n    `\n  });\n  container.append(left, right, capEl);\n  return container;\n}\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nTipCode and tool examples\n\n\n\n\n\nHere is a brief example of how to check for batch effects in R using the phyloseq package. This assumes you have a phyloseq object called physeq with sample metadata that includes a “batch” variable and a “treatment” variable.\nlibrary(phyloseq)\n\nord &lt;- ordinate(physeq, method = \"PCoA\", distance = \"bray\")\n\nplot_ordination(physeq, ord, color = \"variable_of_interest\")\nSee the phyloseq ordination tutorial for further options.\n\n\n\nThe key principle: balance your treatment groups across batches. If every case is extracted in January and every control in February, you will never be able to separate the effect of your treatment from the effect of processing date.",
+    "crumbs": [
+      "Home",
+      "Introduction to Microbiome Analysis",
+      "Technical Variation & Confounders"
+    ]
+  },
+  {
+    "objectID": "16s-overview.html",
+    "href": "16s-overview.html",
+    "title": "What is 16S rRNA Sequencing?",
+    "section": "",
+    "text": "While we have established that there are a multitude of different types of questions we can ask about our microbial city, we are going to pivot and focus in on only one of those in this particular page: targeted amplicon sequencing, or the census.\nThis is targeted DNA sequencing data that is focused on the 16S, ITS, or 18S genes. These are genes that are highly conserved in members of the microbiome. In this case, we will focus in on the most common, 16S rRNA sequencing.\n16S rRNA amplicon sequencing works by selectively amplifying a conserved portion or portions of the 16S rRNA gene, a gene present in virtually all bacteria and archaea. The gene has conserved regions that can be targeted by primers that surround hypervariable regions where the sequence differs enough to distinguish taxa.",
+    "crumbs": [
+      "Home",
+      "Introduction to Microbiome Analysis",
+      "What is 16S rRNA seq?"
+    ]
+  },
+  {
+    "objectID": "16s-overview.html#the-16s-rrna-gene-structure",
+    "href": "16s-overview.html#the-16s-rrna-gene-structure",
+    "title": "What is 16S rRNA Sequencing?",
+    "section": "The 16S rRNA gene structure",
+    "text": "The 16S rRNA gene structure\nThe 16S rRNA gene is approximately 1,500 bp long and contains alternating conserved regions and nine hypervariable regions (V1–V9) whose sequence diversity distinguishes taxa, functioning like genetic barcodes. No single variable region resolves all taxa equally well, and short-read sequencing (150–300 bp per read) means you are targeting one or two regions at a time.\nYour choice of target region is a consequential decision in your study design.",
+    "crumbs": [
+      "Home",
+      "Introduction to Microbiome Analysis",
+      "What is 16S rRNA seq?"
+    ]
+  },
+  {
+    "objectID": "16s-overview.html#variable-region-selection",
+    "href": "16s-overview.html#variable-region-selection",
+    "title": "What is 16S rRNA Sequencing?",
+    "section": "Variable region selection",
+    "text": "Variable region selection\n\n\n\n\n\n\n\n\n\n\nRegion\nForward / Reverse Primers\nAmplicon Size\nSequencing Mode\nNotes\n\n\n\n\nV4\n515F GTGYCAGCMGCCGCGGTAA / 806R GGACTACHVGGGTWTCTAAT\n~250 bp\n2×150 or 2×250 bp\nEarth Microbiome Project standard; short, fits Illumina read lengths well; broad coverage\n\n\nV3–V4\n341F CCTACGGGNGGCWGCAG / 805R GACTACHVGGGTATCTAATCC\n~460 bp\n2×250 or 2×300 bp\nMost common in clinical microbiome studies; better taxonomic resolution; requires good paired-end overlap\n\n\nV4–V5\n515F GTGYCAGCMGCCGCGGTAA / 926R CCGYCAATTYMTTTRAGTTT\n~380–415 bp\n2×250 bp\nBetter archaeal coverage\n\n\nV1–V2\n27F AGAGTTTGATCMTGGCTCAG / 338R TGCTGCCTCCCGTAGGAGT\n~310 bp\n2×250 bp\nBetter gram-positive resolution; less reference data; less common in human microbiome studies\n\n\n\n\n\n\n\n\n\nCautionMixing samples with different primers: I wouldn’t!\n\n\n\nCommunity composition estimates are not directly comparable across studies that used different primer pairs. Even within the same region, primer mismatches can create systematic biases toward certain taxa. If you are comparing to published data or a reference cohort, you are best off using the same primer pair.",
+    "crumbs": [
+      "Home",
+      "Introduction to Microbiome Analysis",
+      "What is 16S rRNA seq?"
+    ]
+  },
+  {
+    "objectID": "16s-overview.html#amplicons",
+    "href": "16s-overview.html#amplicons",
+    "title": "What is 16S rRNA Sequencing?",
+    "section": "Amplicons",
+    "text": "Amplicons\nThe product of PCR amplification using these primers is called an amplicon, the short DNA fragment spanning the targeted variable region. Because the same primers are used for every sample, every amplicon produced from a given study targets the same stretch of the 16S gene.\nAfter sequencing, each amplicon sequence can be compared to a reference database to assign a taxonomic identity. Sequences that are identical are grouped into Amplicon Sequence Variants (ASVs) which serve as the highest resolution unit in downstream analysis.",
+    "crumbs": [
+      "Home",
+      "Introduction to Microbiome Analysis",
+      "What is 16S rRNA seq?"
+    ]
+  },
+  {
+    "objectID": "07-count-table.html",
+    "href": "07-count-table.html",
+    "title": "Count Table (ASVs / OTUs)",
+    "section": "",
+    "text": "The count table is the central data object in a microbiome study: a matrix of taxa (rows) × samples (columns), where each cell contains the number of sequencing reads assigned to that taxon in that sample. Every diversity analysis, differential abundance test, and visualization works from this table. The decisions made in building it affect everything that follows."
+  },
+  {
+    "objectID": "07-count-table.html#asvs-vs.-otus-a-philosophical-divide",
+    "href": "07-count-table.html#asvs-vs.-otus-a-philosophical-divide",
+    "title": "Count Table (ASVs / OTUs)",
     "section": "ASVs vs. OTUs: a philosophical divide",
-    "text": "ASVs vs. OTUs: a philosophical divide\nThere are two main approaches to going from reads to features. Operational Taxonomic Units are not often used in current analyses, but are worth reviewing to understand their impact in older studies.\n\n\n\n\n\n\nNoteThe census taker’s notebook\n\n\n\nImagine a census taker going door to door through the microbial city, recording every resident’s last name. Because they’re writing quickly, some entries come out a little garbled. A resident named Smith might appear as Smeth in a handful of entries, because the dot over the i was lost in a hurried pen stroke. It is worth noting, however, that there is truly a Smith family and a Smyth family that are distinct in this city.\n\n\n\n\n\nNow we can look at the methods to resolve this below.\n\n\n\nOTU clustering\nOperational Taxonomic Units (OTUs) group similar sequences together based on a percent identity threshold, typically 97% (the conventional proxy for a bacterial “species”). All reads within 97% of each other are collapsed into a single OTU represented by a consensus or centroid sequence.\n\nPro: tolerant of sequencing errors (errors fall within the similarity threshold)\nCon: different taxa can be merged into the same OTU; the 97% threshold is arbitrary and varies in its biological meaning across lineages; results change depending on clustering order; not reproducible across datasets with different sample sets\n\n\n\n\n\n\n\nNoteThe census taker’s notebook\n\n\n\nOTU clustering is like a supervisor who reviews the notebook and says: “Smeth and Smith are close enough. I’ll put them in the same household.” Anyone within a similarity threshold gets merged into one group. This is forgiving of sloppy handwriting, but it can also lump genuinely different residents together, such Smith and Smyth, just because their names look alike. The threshold is arbitrary, and you can no longer tell if the Smiths and the Smyths and the Smeths are genuinely distinct families or a writing error.\n\n\n\n\nASV denoising\nAmplicon Sequence Variants (ASVs) are exact sequences, the actual nucleotide sequence of each unique variant, after sequencing errors have been corrected by a statistical model. Instead of clustering, DADA2 models the error process of the sequencing run and uses that model to distinguish true biological variants from noise.\n\nPro: exact sequences are reproducible across studies and databases; can resolve variants differing by a single base; exact sequences can be searched against any database\nCon: requires a good error model (poor quality data = poor error model); computationally more intensive\n\n\n\n\n\n\n\nNoteThe census taker’s notebook\n\n\n\nASV denoising takes a different approach. Instead of grouping by similarity, it studies the census taker’s handwriting habits across thousands of entries. It learns that this particular writer tends to skip i dots when rushing, and concludes that “Smeth” appearing a few times alongside a high-frequency “Smith” is almost certainly a transcription error and corrects it. But if someone truly named Smeth keeps showing up consistently at a rate that can’t be explained by handwriting error alone, the algorithm keeps them as a real, distinct resident.\nThe result: ASVs give you exact, corrected sequences that are reproducible across studies. OTUs give you approximate groups that tolerate noise but sacrifice resolution.\n\n\n\n\n\n\n\n\nCautionThe field has largely moved to ASVs\n\n\n\nMost current publications and tools (DADA2, QIIME2’s default, Deblur) use ASVs. If you are comparing to older literature or datasets that used OTU clustering, be aware that they are not directly comparable without re-analysis.\nThe coding examples here will focus on denoising for this reason.",
-    "crumbs": [
-      "Home",
-      "Targeted Amplicon Sequencing Analysis",
-      "Preprocessing",
-      "Denoising & Merging"
-    ]
+    "text": "ASVs vs. OTUs: a philosophical divide\nThere are two main approaches to going from reads to taxa.\n\nOTU clustering\nOperational Taxonomic Units (OTUs) group similar sequences together based on a percent identity threshold, typically 97% (the conventional proxy for a bacterial “species”). All reads within 97% of each other are collapsed into a single OTU represented by a consensus or centroid sequence.\n\nPro: tolerant of sequencing errors (errors fall within the similarity threshold)\nCon: different taxa can be merged into the same OTU; the 97% threshold is arbitrary and varies in its biological meaning across lineages; results change depending on clustering order; not reproducible across datasets with different sample sets\n\n\n\nASV denoising (DADA2, Deblur)\nAmplicon Sequence Variants (ASVs) are exact sequences — the actual nucleotide sequence of each unique variant, after sequencing errors have been corrected by a statistical model. Instead of clustering, DADA2 models the error process of the sequencing run and uses that model to distinguish true biological variants from noise.\n\nPro: exact sequences are reproducible across studies and databases; can resolve variants differing by a single base; exact sequences can be searched against any database\nCon: requires a good error model (poor quality data = poor error model); computationally more intensive\n\n\n\n\n\n\n\nNoteThe field has largely moved to ASVs\n\n\n\nMost current publications and tools (DADA2, QIIME2’s default, Deblur) use ASVs. If you are comparing to older literature or datasets that used OTU clustering, be aware that they are not directly comparable without re-analysis."
   },
   {
-    "objectID": "denoising.html#how-dada2-builds-the-count-table",
-    "href": "denoising.html#how-dada2-builds-the-count-table",
-    "title": "Denoising & Merging",
+    "objectID": "07-count-table.html#how-dada2-builds-the-count-table",
+    "href": "07-count-table.html#how-dada2-builds-the-count-table",
+    "title": "Count Table (ASVs / OTUs)",
     "section": "How DADA2 builds the count table",
-    "text": "How DADA2 builds the count table\n\nLearn error rates: the algorithm examines quality score profiles across all reads in the run to build a model of how often each nucleotide is substituted for another at each quality score. This is why all samples in a run should be processed together during error learning.\nDenoise: reads are corrected based on the error model, and unique true sequences (ASVs) are identified.\nMerge paired reads: corrected R1 and R2 reads are aligned and merged in the overlap region. Non-overlapping pairs are discarded.\nRemove chimeras: sequences that appear to be PCR chimeras (composites of two real sequences) are identified and removed.\n\nOnce these steps have completed, the unique sequences are officially considered amplicon sequencing variants (ASVs).\n\n\n\n\n\n\nTipCode and tool examples\n\n\n\n\n\nDADA2\nFor more information about DADA2, see the original Nature Methods paper and the R package tutorial.\n# Learn error rates (run once per sequencing run)\nerr_forward &lt;- learnErrors(filtered_forward, multithread = TRUE)\nerr_reverse &lt;- learnErrors(filtered_reverse, multithread = TRUE)\n\n# Denoise\ndada_forward &lt;- dada(filtered_forward, err = err_forward, multithread = TRUE)\ndada_reverse &lt;- dada(filtered_reverse, err = err_reverse, multithread = TRUE)\n\n# Merge\nmerged &lt;- mergePairs(dada_forward, filtered_forward,\n                     dada_reverse, filtered_reverse)\n\n# Build count table\nseqtab &lt;- makeSequenceTable(merged)\n\n# Remove chimeras\nseqtab_nochim &lt;- removeBimeraDenovo(seqtab, method = \"consensus\")\nQIIME2\nFor more information, see the QIIME2 dada2 plugin documentation.\nqiime dada2 denoise-paired \\\n  --i-demultiplexed-seqs demux-paired-end.qza \\\n  --p-trim-left-f 0 \\\n  --p-trim-left-r 0 \\\n  --p-trunc-len-f 230 \\\n  --p-trunc-len-r 180 \\\n  --o-table table.qza \\\n  --o-representative-sequences rep-seqs.qza \\\n  --o-denoising-stats denoising-stats.qza",
-    "crumbs": [
-      "Home",
-      "Targeted Amplicon Sequencing Analysis",
-      "Preprocessing",
-      "Denoising & Merging"
-    ]
+    "text": "How DADA2 builds the count table\n\nLearn error rates — the algorithm examines quality score profiles across all reads in the run to build a model of how often each nucleotide is substituted for another at each quality score. This is why all samples in a run should be processed together during error learning.\nDenoise — reads are corrected based on the error model, and unique true sequences (ASVs) are identified.\nMerge paired reads — corrected R1 and R2 reads are aligned and merged in the overlap region. Non-overlapping pairs are discarded.\nRemove chimeras — sequences that appear to be PCR chimeras (composites of two real sequences) are identified and removed.\nAssign taxonomy — each ASV is compared against a reference database (Silva, Greengenes2, NCBI) to get a taxonomic classification.\n\n\n\n\n\n\n\nTipCode and tool examples\n\n\n\n\n\n# Learn error rates (run once per sequencing run)\nerr_forward &lt;- learnErrors(filtered_forward, multithread = TRUE)\nerr_reverse &lt;- learnErrors(filtered_reverse, multithread = TRUE)\n\n# Denoise\ndada_forward &lt;- dada(filtered_forward, err = err_forward, multithread = TRUE)\ndada_reverse &lt;- dada(filtered_reverse, err = err_reverse, multithread = TRUE)\n\n# Merge\nmerged &lt;- mergePairs(dada_forward, filtered_forward,\n                     dada_reverse, filtered_reverse)\n\n# Build count table\nseqtab &lt;- makeSequenceTable(merged)\n\n# Remove chimeras\nseqtab_nochim &lt;- removeBimeraDenovo(seqtab, method = \"consensus\")\n\n# Assign taxonomy (against Silva)\ntaxa &lt;- assignTaxonomy(seqtab_nochim, \"silva_nr_v138_train_set.fa.gz\")"
   },
   {
-    "objectID": "denoising.html#what-the-asv-table-looks-like",
-    "href": "denoising.html#what-the-asv-table-looks-like",
-    "title": "Denoising & Merging",
-    "section": "What the ASV table looks like",
-    "text": "What the ASV table looks like\nThe output is a matrix where rows are ASVs (each identified by its exact nucleotide sequence or more commonly a short hash) and columns are samples. Each cell is an integer count.\n\n\n\nASV\nSample_1\nSample_2\nSample_3\nSample_4\n\n\n\n\nASV_001\n1284\n0\n532\n891\n\n\nASV_002\n0\n4471\n213\n0\n\n\nASV_003\n62\n88\n0\n1104\n\n\nASV_004\n3100\n2850\n2901\n3200\n\n\n…\n…\n…\n…\n…\n\n\n\nThis table will have thousands of rows (one per unique ASV) and one column per sample. Most cells will be zero, as ASVs are typically present in only a subset of samples.\n\n\n\n\n\n\nCautionThese counts are not directly comparable\n\n\n\nThe integers in this table are absolute, raw read counts. A count of 1,284 for ASV_001 in Sample_1 means nothing on its own without knowing how many total reads that sample produced.\nLooking at the table above, Sample_1 has a total of 4,446 reads across these four ASVs, while Sample_2 has 7,409. If ASV_003 appears in Sample_1 at 62 reads and in Sample_2 at 88 reads, that does not mean it is more abundant in Sample_2. It may be that Sample_2 simply had more reads to begin with. Comparing raw counts is not possible without adjusting somehow for this difference in sequencing depth.\nThis is addressed in the upcoming Normalization section, which discuses some of the methods to account for these depth differences before any downstream analysis.",
-    "crumbs": [
-      "Home",
-      "Targeted Amplicon Sequencing Analysis",
-      "Preprocessing",
-      "Denoising & Merging"
-    ]
+    "objectID": "07-count-table.html#reference-databases-for-taxonomy",
+    "href": "07-count-table.html#reference-databases-for-taxonomy",
+    "title": "Count Table (ASVs / OTUs)",
+    "section": "Reference databases for taxonomy",
+    "text": "Reference databases for taxonomy\nThe reference database you choose affects which taxa you can name and at what resolution.\n\n\n\n\n\n\n\nDatabase\nNotes\n\n\n\n\nSilva\nMost comprehensive; updated regularly; used for bacteria, archaea, and some eukaryotes\n\n\nGreengenes2\nUpdated 2022; improved integration with Earth Microbiome Project data\n\n\nNCBI RefSeq\nBroad coverage; useful for linking to NCBI records\n\n\nUNITE\nFungi-specific; required if your primers target ITS instead of 16S\n\n\n\nTaxonomy assignment is probabilistic — confidence at the genus or species level is often low. Species-level calls from 16S are unreliable; genus is typically the deepest reliable level for most taxa."
   },
   {
-    "objectID": "denoising.html#tracking-read-counts-through-the-pipeline",
-    "href": "denoising.html#tracking-read-counts-through-the-pipeline",
-    "title": "Denoising & Merging",
+    "objectID": "07-count-table.html#what-can-go-wrong",
+    "href": "07-count-table.html#what-can-go-wrong",
+    "title": "Count Table (ASVs / OTUs)",
+    "section": "What can go wrong",
+    "text": "What can go wrong\nPoor error model — if the run had poor quality or very low read counts, DADA2’s error model will be poorly estimated. Signs: very few ASVs recovered, or implausibly large numbers of ASVs. Running with pooling (pool = TRUE) or pseudo-pooling can help for low-abundance samples.\nMerge failures — if too few reads merge (check the dada2 step summary), the truncation lengths are likely the culprit (see Quality Control). Some pipelines accept single-end reads as a fallback.\nChimera over-removal — the chimera removal step is aggressive. Rare legitimate ASVs can be incorrectly flagged as chimeras if they resemble combinations of two more abundant sequences. This is an inherent limitation and not fully controllable.\nDatabase gaps — sequences from understudied environments or unusual taxa may get no classification below phylum or even domain level. “Unclassified” is a real biological result in many communities — don’t discard it."
+  },
+  {
+    "objectID": "07-count-table.html#tracking-read-counts-through-the-pipeline",
+    "href": "07-count-table.html#tracking-read-counts-through-the-pipeline",
+    "title": "Count Table (ASVs / OTUs)",
     "section": "Tracking read counts through the pipeline",
-    "text": "Tracking read counts through the pipeline\nMost pipelines produce a summary table of read counts at each step (input → filtered → denoised → merged → chimeras removed). This is a good method for diagnosing where reads are being lost. This may look something like this table:\n\n\n\nStep\nReads\n\n\n\n\nInput\n50,000\n\n\nAfter filtering\n42,000 (84%)\n\n\nAfter denoising\n41,500 (99%)\n\n\nAfter merging\n39,000 (94%)\n\n\nAfter chimera removal\n38,000 (97%)\n\n\n\nLarge drops at any single step indicate a problem at that stage.\n\n\n\n\n\n\nNoteMore resources on OTU and ASV methods\n\n\n\n\n\nFor more information and comparisons between methods, see the following resources:\n\nComparison of six different methods, three OTU-based and three ASV-based on mock sample\nConsideration of the impact of OTU versus ASV methods when considering diversity metrics",
-    "crumbs": [
-      "Home",
-      "Targeted Amplicon Sequencing Analysis",
-      "Preprocessing",
-      "Denoising & Merging"
-    ]
+    "text": "Tracking read counts through the pipeline\nMost pipelines produce a summary table of read counts at each step (input → filtered → denoised → merged → chimeras removed). This is essential for diagnosing where reads are being lost. A healthy pipeline looks like:\n\n\n\nStep\nReads\n\n\n\n\nInput\n50,000\n\n\nAfter filtering\n42,000 (84%)\n\n\nAfter denoising\n41,500 (99%)\n\n\nAfter merging\n39,000 (94%)\n\n\nAfter chimera removal\n38,000 (97%)\n\n\n\nLarge drops at any single step indicate a problem at that stage."
   },
   {
-    "objectID": "citations.html",
-    "href": "citations.html",
-    "title": "Citations & Image Credits",
-    "section": "",
-    "text": "Callahan, B.J., McMurdie, P.J., Rosen, M.J., Han, A.W., Johnson, A.J.A., & Holmes, S.P. (2016). DADA2: High-resolution sample inference from Illumina amplicon data. Nature Methods, 13, 581–583. https://doi.org/10.1038/nmeth.3869\nBolyen, E., Rideout, J.R., Dillon, M.R., et al. (2019). Reproducible, interactive, scalable and extensible microbiome data science using QIIME 2. Nature Biotechnology, 37, 852–857. https://doi.org/10.1038/s41587-019-0209-9\nMartin, M. (2011). Cutadapt removes adapter sequences from high-throughput sequencing reads. EMBnet.journal, 17(1), 10–12. https://doi.org/10.14806/ej.17.1.200\nMcMurdie, P.J., & Holmes, S. (2013). phyloseq: An R package for reproducible interactive analysis and graphics of microbiome census data. PLOS ONE, 8(4), e61217. https://doi.org/10.1371/journal.pone.0061217\nMcMurdie, P. J., & Holmes, S. (2014). Waste not, want not: why rarefying microbiome data is inadmissible. PLoS computational biology, 10(4), e1003531. https://doi.org/10.1371/journal.pcbi.1003531\nOksanen, J., et al. (2022). vegan: Community Ecology Package. R package version 2.6-2. https://CRAN.R-project.org/package=vegan\nDi Tommaso, P., Chatzou, M., Floden, E.W., Barja, P.P., Palumbo, E., & Notredame, C. (2017). Nextflow enables reproducible computational workflows. Nature Biotechnology, 35(4), 316–319. https://doi.org/10.1038/nbt.3820\nDouglas, G.M., Maffei, V.J., Zaneveld, J.R., Yurgel, S.N., Brown, J.R., Taylor, C.M., et al. (2020). PICRUSt2 for prediction of metagenome functions. Nature Biotechnology, 38(6), 685–688. https://doi.org/10.1038/s41587-020-0548-6\nWatts, S.C., Ritchie, S.C., Inouye, M., & Holt, K.E. (2019). FastSpar: rapid and scalable correlation estimation for compositional data. Bioinformatics, 35(6), 1064–1066. https://doi.org/10.1093/bioinformatics/bty734\nWeinroth, M.D., Belk, A.D., Dean, C., et al. (2022). Considerations and best practices in animal science 16S ribosomal RNA gene sequencing microbiome studies. Journal of Animal Science, 100(2), skab346. https://doi.org/10.1093/jas/skab346",
-    "crumbs": [
-      "Home",
-      "Further Resources",
-      "Citations"
-    ]
+    "objectID": "07-count-table.html#taxonomic-classification",
+    "href": "07-count-table.html#taxonomic-classification",
+    "title": "Count Table (ASVs / OTUs)",
+    "section": "Taxonomic classification",
+    "text": "Taxonomic classification\nOnce ASVs are identified, each sequence is compared against a reference database of known 16S rRNA sequences to assign a taxonomic label. Bacterial taxonomy is a hierarchical system:\nDomain → Phylum → Class → Order → Family → Genus → Species\nFor example: Bacteria → Firmicutes → Bacilli → Lactobacillales → Lactobacillaceae → Lactobacillus → L. acidophilus\nQIIME2 classifies sequences using a trained Naïve Bayes classifier against a reference database (commonly SILVA or Greengenes2). The classifier compares each ASV to reference sequences and returns the deepest taxonomic level at which it can make a confident assignment, along with a probability score.\nKey caveats: - Species-level calls are unreliable. The V4 region (~250 bp) often lacks the resolution to distinguish closely related species. Genus is typically the deepest reliable level for most taxa. - “Unclassified” is a real result. ASVs that don’t match any reference sequence may represent genuinely novel or understudied taxa. Do not discard them. - Database choice matters. SILVA, Greengenes2, and NCBI vary in their coverage and update frequency. Use the database that is most appropriate for your sample type and most current."
   },
   {
-    "objectID": "citations.html#methods-software-pipeline-papers",
-    "href": "citations.html#methods-software-pipeline-papers",
-    "title": "Citations & Image Credits",
-    "section": "",
-    "text": "Callahan, B.J., McMurdie, P.J., Rosen, M.J., Han, A.W., Johnson, A.J.A., & Holmes, S.P. (2016). DADA2: High-resolution sample inference from Illumina amplicon data. Nature Methods, 13, 581–583. https://doi.org/10.1038/nmeth.3869\nBolyen, E., Rideout, J.R., Dillon, M.R., et al. (2019). Reproducible, interactive, scalable and extensible microbiome data science using QIIME 2. Nature Biotechnology, 37, 852–857. https://doi.org/10.1038/s41587-019-0209-9\nMartin, M. (2011). Cutadapt removes adapter sequences from high-throughput sequencing reads. EMBnet.journal, 17(1), 10–12. https://doi.org/10.14806/ej.17.1.200\nMcMurdie, P.J., & Holmes, S. (2013). phyloseq: An R package for reproducible interactive analysis and graphics of microbiome census data. PLOS ONE, 8(4), e61217. https://doi.org/10.1371/journal.pone.0061217\nMcMurdie, P. J., & Holmes, S. (2014). Waste not, want not: why rarefying microbiome data is inadmissible. PLoS computational biology, 10(4), e1003531. https://doi.org/10.1371/journal.pcbi.1003531\nOksanen, J., et al. (2022). vegan: Community Ecology Package. R package version 2.6-2. https://CRAN.R-project.org/package=vegan\nDi Tommaso, P., Chatzou, M., Floden, E.W., Barja, P.P., Palumbo, E., & Notredame, C. (2017). Nextflow enables reproducible computational workflows. Nature Biotechnology, 35(4), 316–319. https://doi.org/10.1038/nbt.3820\nDouglas, G.M., Maffei, V.J., Zaneveld, J.R., Yurgel, S.N., Brown, J.R., Taylor, C.M., et al. (2020). PICRUSt2 for prediction of metagenome functions. Nature Biotechnology, 38(6), 685–688. https://doi.org/10.1038/s41587-020-0548-6\nWatts, S.C., Ritchie, S.C., Inouye, M., & Holt, K.E. (2019). FastSpar: rapid and scalable correlation estimation for compositional data. Bioinformatics, 35(6), 1064–1066. https://doi.org/10.1093/bioinformatics/bty734\nWeinroth, M.D., Belk, A.D., Dean, C., et al. (2022). Considerations and best practices in animal science 16S ribosomal RNA gene sequencing microbiome studies. Journal of Animal Science, 100(2), skab346. https://doi.org/10.1093/jas/skab346",
-    "crumbs": [
-      "Home",
-      "Further Resources",
-      "Citations"
-    ]
-  },
-  {
-    "objectID": "citations.html#research-articles",
-    "href": "citations.html#research-articles",
-    "title": "Citations & Image Credits",
-    "section": "Research articles",
-    "text": "Research articles\nChen, F.C., & Li, W.H. (2001). Genomic divergences between humans and other hominoids and the effective population size of the common ancestor of humans and chimpanzees. Am J Hum Genet, 68(2), 444–456. https://doi.org/10.1086/318206\nLiu, K., Yang, X., Zeng, M., Yuan, Y., Sun, J., He, P., et al. (2021). The Role of Fecal Fusobacterium nucleatum and pks+ Escherichia coli as Early Diagnostic Markers of Colorectal Cancer. Dis Markers, 2021, 1171239. https://doi.org/10.1155/2021/1171239\nRichter, M., & Rosselló-Móra, R. (2009). Shifting the genomic gold standard for the prokaryotic species definition. Proc Natl Acad Sci U S A, 106(45), 19126–19131. https://doi.org/10.1073/pnas.0906412106\nSofi, M.H., Wu, Y., Ticer, T., Schutt, S., Bastian, D., Choi, H.J., et al. (2021). A single strain of Bacteroides fragilis protects gut integrity and reduces GVHD. JCI Insight, 6(3). https://doi.org/10.1172/jci.insight.136841\nWu, G., Zhao, N., Zhang, C., Lam, Y.Y., & Zhao, L. (2021). Guild-based analysis for understanding gut microbiome in human health and diseases. Genome Medicine, 13(1), 22. https://doi.org/10.1186/s13073-021-00840-y\nZhao, L., Wu, G., & Zhao, N. (2024). Guild-based approach for mitigating information loss and distortion issues in microbiome analysis. J Clin Invest, 134(17). https://doi.org/10.1172/jci185395",
-    "crumbs": [
-      "Home",
-      "Further Resources",
-      "Citations"
-    ]
-  },
-  {
-    "objectID": "citations.html#reference-databases",
-    "href": "citations.html#reference-databases",
-    "title": "Citations & Image Credits",
-    "section": "Reference databases",
-    "text": "Reference databases\nQuast, C., Pruesse, E., Yilmaz, P., et al. (2013). The SILVA ribosomal RNA gene database project: improved data processing and web-based tools. Nucleic Acids Research, 41(D1), D590–D596. https://doi.org/10.1093/nar/gks1219\nMcDonald, D., Jiang, Y., Balaban, M., et al. (2023). Greengenes2 unifies microbial data in a single reference tree. Nature Biotechnology, 41, 1630–1633. https://doi.org/10.1038/s41587-023-01845-1",
-    "crumbs": [
-      "Home",
-      "Further Resources",
-      "Citations"
-    ]
-  },
-  {
-    "objectID": "citations.html#images-and-visualizations",
-    "href": "citations.html#images-and-visualizations",
-    "title": "Citations & Image Credits",
-    "section": "Images and visualizations",
-    "text": "Images and visualizations\nAll stock imagery licensed via Adobe Stock. Asset IDs used on this site include: 1920368934, 252259825, 254265838, 254272392, 138554024, 228279263\nPlots created using ggplot2 (version 4.0.2), gganimate (version 1.0.11) in R (version 4.5.3)\nGoogle. (2026). List of census names in handwritten script [AI image generator]. Google Gemini.\n\n16S rRNA gene structure (variable and conserved regions, V1–V9, with 515F/806R primer locations)\n\nFigure used on the Overview page. Source: ResearchGate. Retrieved from https://www.researchgate.net/figure/S-rRNA-gene-showing-the-V1-V9-varaibale-regions-and-conserved-regions-The-515F-806R_fig1_340622946",
-    "crumbs": [
-      "Home",
-      "Further Resources",
-      "Citations"
-    ]
-  },
-  {
-    "objectID": "09-diversity-analysis.html",
-    "href": "09-diversity-analysis.html",
-    "title": "Diversity Analysis",
-    "section": "",
-    "text": "Diversity analysis allows us to look at the unique players within a sample and compare them between samples. This section covers the two main branches of diversity analysis (alpha and beta).",
-    "crumbs": [
-      "Home",
-      "Targeted Amplicon Sequencing Analysis",
-      "Downstream Analysis",
-      "Diversity Analysis"
-    ]
-  },
-  {
-    "objectID": "09-diversity-analysis.html#alpha-diversity-within-sample-diversity",
-    "href": "09-diversity-analysis.html#alpha-diversity-within-sample-diversity",
-    "title": "Diversity Analysis",
-    "section": "Alpha diversity: within-sample diversity",
-    "text": "Alpha diversity: within-sample diversity\n\n\n\n\n\n\nNoteThe landlocked city\n\n\n\nAlpha diversity is like looking at the diversity of last names within our city. We might be interested in how many unique last names there are and how many people have these last names compared to each other. We can also take the alpha diversity of one city and compare it to another to see if they have similar diversity of last names in the city, though we cannot tell if the have the actual same family groups in the city.\n\n\nAlpha diversity describes the diversity of a single sample, how many different taxa are present, and how evenly distributed the reads are among them. Different alpha diversity metrics capture different aspects of the data.\n\n\n\n\n\n\n\n\nMetric\nWhat it captures\nNotes\n\n\n\n\nObserved features\nRaw count of unique ASVs/OTUs\nSensitive to sequencing depth; should be compared only at equal rarefaction depth\n\n\nShannon index\nBoth richness and evenness\nPenalizes communities dominated by one taxon\n\n\nSimpson\nEvenness-weighted diversity\nLess sensitive to rare taxa than Shannon\n\n\nFaith’s PD\nPhylogenetic diversity, total branch length of the community’s phylogenetic tree\nAccounts for how evolutionarily distinct the taxa are\n\n\nChao1\nEstimated true richness, accounting for undetected rare taxa\nUseful when comparing samples at different depths",
-    "crumbs": [
-      "Home",
-      "Targeted Amplicon Sequencing Analysis",
-      "Downstream Analysis",
-      "Diversity Analysis"
-    ]
-  },
-  {
-    "objectID": "09-diversity-analysis.html#beta-diversity-between-sample-diversity",
-    "href": "09-diversity-analysis.html#beta-diversity-between-sample-diversity",
-    "title": "Diversity Analysis",
-    "section": "Beta diversity: between-sample diversity",
-    "text": "Beta diversity: between-sample diversity\n\n\n\n\n\n\nNoteComparing the landlocked city and the beach front city\n\n\n\nUsing beta diversity allows us to get one number that tells us how similar two cities are in who makes up the cities. Some of them consider only the different family names that are in the city, some of them actually consider the family names as well as how many people had those family names. Some might even consider whether the family names have the same origin, grouping German last names together, Japanese last names together, and so on.\nWe get one score for each two city comparison, with scores closer to one indicating that the people that make up the cities are more similar and closer to zero indicating that the people who make up the cities are very different.\n\n\nBeta diversity describes how different community composition is between samples. It requires a distance (or dissimilarity) metric, a number between 0 (identical communities) and some maximum (completely different communities).\n\n\n\n\n\n\n\n\nMetric\nWhat it measures\nConsiders\n\n\n\n\nBray-Curtis\nShared taxa and their abundances\nAbundances; ignores phylogeny\n\n\nJaccard\nShared presence/absence\nPresence/absence only\n\n\nUniFrac (unweighted)\nPhylogenetic distance, presence/absence\nPhylogeny; ignores abundances\n\n\nUniFrac (weighted)\nPhylogenetic distance with abundance weighting\nPhylogeny + abundances\n\n\nAitchison\nEuclidean distance in CLR space\nCompositionally aware\n\n\n\nChoice of distance metric can impact the results, and different metrics emphasize different aspects of community structure. Often, people run multiple metrics for the same data, as they describe slightly different results.",
-    "crumbs": [
-      "Home",
-      "Targeted Amplicon Sequencing Analysis",
-      "Downstream Analysis",
-      "Diversity Analysis"
-    ]
-  },
-  {
-    "objectID": "09-diversity-analysis.html#ordination-visualizing-beta-diversity",
-    "href": "09-diversity-analysis.html#ordination-visualizing-beta-diversity",
-    "title": "Diversity Analysis",
-    "section": "Ordination: visualizing beta diversity",
-    "text": "Ordination: visualizing beta diversity\nWith a distance matrix in hand, ordination techniques reduce the high-dimensional distance information to 2 or 3 dimensions for visualization. This is important because as more samples are added the number of beta diversity values goes up quickly and makes it hard, if not impossible, for us to look at the matrix and understand what is going on under the hood.\nPrincipal Coordinates Analysis (PCoA) is the most common approach. This produces a scatter plot where samples that are more similar in community composition cluster together. The axes represent the major sources of variation in the distance matrix. The first axis explains the most variance, and so on.\n\n\n\n\n\n\nTipCode and tool examples\n\n\n\n\n\nR\nFor more information about using phyloseq and vegan in R, look here: phyloseq documentation\nlibrary(vegan)\nlibrary(phyloseq)\n\n# Compute Bray-Curtis distance matrix\ndist_bc &lt;- distance(physeq, method = \"bray\")\n\n# Ordinate (PCoA)\nord &lt;- ordinate(physeq, method = \"PCoA\", distance = dist_bc)\n\n# Plot, colored by metadata variable\nplot_ordination(physeq, ord, color = \"treatment_group\") +\n  theme_bw()\n\n# Alpha diversity: compute and compare Shannon index across groups\nalpha_div &lt;- estimate_richness(physeq, measures = c(\"Shannon\", \"Observed\", \"Chao1\"))\nkruskal.test(Shannon ~ treatment_group, data = cbind(alpha_div, sample_data(physeq)))\nQIIME2\nFor more information about diversity analysis in QIIME2, look here: documentation\n# Run core diversity metrics (alpha + beta) at a chosen rarefaction depth\n# Requires a rooted phylogenetic tree for Faith's PD and UniFrac metrics\nqiime diversity core-metrics-phylogenetic \\\n  --i-phylogeny rooted-tree.qza \\\n  --i-table table.qza \\\n  --p-sampling-depth 10000 \\\n  --m-metadata-file metadata.tsv \\\n  --output-dir core-metrics-results\n\n# Visualize PCoA interactively with Emperor\nqiime emperor plot \\\n  --i-pcoa core-metrics-results/bray_curtis_pcoa_results.qza \\\n  --m-metadata-file metadata.tsv \\\n  --o-visualization bray-curtis-emperor.qzv",
-    "crumbs": [
-      "Home",
-      "Targeted Amplicon Sequencing Analysis",
-      "Downstream Analysis",
-      "Diversity Analysis"
-    ]
-  },
-  {
-    "objectID": "04-fastq.html",
-    "href": "04-fastq.html",
-    "title": "FASTQ Files",
-    "section": "",
-    "text": "After sequencing, you receive your data as FASTQ files. FASTQ files are a plain text format that stores both the sequence and the sequencer’s confidence estimate for each base. Understanding this format helps you interpret quality reports and make sense of what the downstream tools are doing.",
-    "crumbs": [
-      "Home",
-      "Targeted Amplicon Sequencing Analysis",
-      "Preprocessing",
-      "FASTQ Files"
-    ]
-  },
-  {
-    "objectID": "04-fastq.html#the-fastq-format",
-    "href": "04-fastq.html#the-fastq-format",
-    "title": "FASTQ Files",
-    "section": "The FASTQ format",
-    "text": "The FASTQ format\nEach read in a FASTQ file is represented by four lines:\n@SEQ_ID\nGATTTGGGGTTCAAAGCAGTATCGATCAAATAGTAAATCCATTTGTTCAACTCACAGTTT\n+\n!''*((((***+))%%%++)(%%%%).1***-+*'))**55CCF&gt;&gt;&gt;&gt;&gt;&gt;CCCCCCC65\n\n\n\n\n\n\n\nLine\nContains\n\n\n\n\nLine 1\nRead identifier (instrument, run, flow cell, coordinates, barcode)\n\n\nLine 2\nDNA sequence\n\n\nLine 3\n+ (separator, sometimes repeats the identifier)\n\n\nLine 4\nQuality scores, one character per base\n\n\n\n\n\n\n\n\n\nTipCode and tool examples\n\n\n\n\n\nBecause each read is exactly four lines, counting reads is simple — divide the total line count by four.\n# if unzipped file\necho $(($(wc -l &lt; input.fastq) / 4))\n\n# if zipped\necho $(($(zcat input.fastq.gz | wc -l) / 4))",
-    "crumbs": [
-      "Home",
-      "Targeted Amplicon Sequencing Analysis",
-      "Preprocessing",
-      "FASTQ Files"
-    ]
-  },
-  {
-    "objectID": "04-fastq.html#phred-quality-scores",
-    "href": "04-fastq.html#phred-quality-scores",
-    "title": "FASTQ Files",
-    "section": "Phred quality scores",
-    "text": "Phred quality scores\nThe quality score for each base is encoded as a single ASCII character. The underlying value (called a Q score or Phred score) represents the sequencer’s estimate of the probability that the base call is wrong:\n\n\n\nQ score\nError probability\nAccuracy\n\n\n\n\nQ10\n1 in 10\n90%\n\n\nQ20\n1 in 100\n99%\n\n\nQ30\n1 in 1000\n99.9%\n\n\nQ40\n1 in 10,000\n99.99%\n\n\n\nA Q30 score is generally the minimum acceptable threshold. Run reports from Illumina sequencers report the percentage of bases at or above Q30 as a key quality metric.\n\n\n\n\n\n\nNoteWhy do quality scores drop at the 3’ end?\n\n\n\nIllumina sequencing reads the template base-by-base as a fluorescent cluster. As sequencing cycles progress, clusters lose synchrony (phasing). Some copies in a cluster get one base ahead or behind, blurring the signal. This accumulates over the run, causing quality to degrade toward the 3’ end of every read. This is normal and is why trimming the 3’ ends of reads is standard practice.\n\n\n\n\n\n\n\n\nNoteMore information on PHRED scores\n\n\n\n\n\nIn case you are interested to learn more about these scores, here are a few resources to learn more:\nGATK PHRED score overview\nIllumina Quality Scorres for Next-Generation Sequencing",
-    "crumbs": [
-      "Home",
-      "Targeted Amplicon Sequencing Analysis",
-      "Preprocessing",
-      "FASTQ Files"
-    ]
-  },
-  {
-    "objectID": "04-fastq.html#what-you-actually-receive-from-the-core",
-    "href": "04-fastq.html#what-you-actually-receive-from-the-core",
-    "title": "FASTQ Files",
-    "section": "What you actually receive from the core",
-    "text": "What you actually receive from the core\nFor a paired-end run, you should expect to receive:\n\nsample_R1.fastq.gz - forward reads (the primer end)\nsample_R2.fastq.gz - reverse reads (sequenced from the other end)\n\nFiles are usually gzip-compressed (.fastq.gz or .fq.gz), as they can be large.\nSome cores deliver a single multiplexed file with all samples mixed together. These reads have barcodes embedded in the sequence or the read header that allows the reads to be separated into samples. In that case, demultiplexing is your first computational step.",
-    "crumbs": [
-      "Home",
-      "Targeted Amplicon Sequencing Analysis",
-      "Preprocessing",
-      "FASTQ Files"
-    ]
+    "objectID": "07-count-table.html#phylogenetic-tree",
+    "href": "07-count-table.html#phylogenetic-tree",
+    "title": "Count Table (ASVs / OTUs)",
+    "section": "Phylogenetic tree",
+    "text": "Phylogenetic tree\nMany key diversity metrics require a phylogenetic tree — a branching diagram representing evolutionary relationships among the ASVs in your dataset. Sequences that are more similar cluster closer together; more distantly related sequences branch farther apart. Branch lengths reflect evolutionary distance.\nThe tree is built in three steps: (1) ASV sequences are aligned so that comparable positions line up across taxa; (2) an evolutionary model estimates how different the sequences are; (3) the resulting distances are used to construct the branching diagram.\nWhy it matters:\n\nFaith’s Phylogenetic Diversity (PD) measures not just how many taxa are present but how much evolutionary branch length they collectively span. A community with 10 evolutionarily diverse bacteria scores higher than one with 10 closely related strains, even with the same ASV count.\nUniFrac distances compare communities by asking how much of the evolutionary tree they share. Unweighted UniFrac uses presence/absence; weighted UniFrac incorporates abundances.\n\n\n\n\n\n\n\nNoteWhy evolutionary context changes the picture\n\n\n\nCounting species alone misses something important. A gut community containing both Firmicutes and Bacteroidetes spans far more evolutionary distance than one dominated by closely related Lachnospiraceae, even if both have the same number of ASVs. The phylogenetic tree is what makes that distinction visible in a diversity metric."
   },
   {
     "objectID": "03-sequencing.html",
@@ -569,171 +524,268 @@
     ]
   },
   {
-    "objectID": "07-count-table.html",
-    "href": "07-count-table.html",
-    "title": "Count Table (ASVs / OTUs)",
+    "objectID": "04-fastq.html",
+    "href": "04-fastq.html",
+    "title": "FASTQ Files",
     "section": "",
-    "text": "The count table is the central data object in a microbiome study: a matrix of taxa (rows) × samples (columns), where each cell contains the number of sequencing reads assigned to that taxon in that sample. Every diversity analysis, differential abundance test, and visualization works from this table. The decisions made in building it affect everything that follows."
+    "text": "After sequencing, you receive your data as FASTQ files. FASTQ files are a plain text format that stores both the sequence and the sequencer’s confidence estimate for each base. Understanding this format helps you interpret quality reports and make sense of what the downstream tools are doing.",
+    "crumbs": [
+      "Home",
+      "Targeted Amplicon Sequencing Analysis",
+      "Preprocessing",
+      "FASTQ Files"
+    ]
   },
   {
-    "objectID": "07-count-table.html#asvs-vs.-otus-a-philosophical-divide",
-    "href": "07-count-table.html#asvs-vs.-otus-a-philosophical-divide",
-    "title": "Count Table (ASVs / OTUs)",
+    "objectID": "04-fastq.html#the-fastq-format",
+    "href": "04-fastq.html#the-fastq-format",
+    "title": "FASTQ Files",
+    "section": "The FASTQ format",
+    "text": "The FASTQ format\nEach read in a FASTQ file is represented by four lines:\n@SEQ_ID\nGATTTGGGGTTCAAAGCAGTATCGATCAAATAGTAAATCCATTTGTTCAACTCACAGTTT\n+\n!''*((((***+))%%%++)(%%%%).1***-+*'))**55CCF&gt;&gt;&gt;&gt;&gt;&gt;CCCCCCC65\n\n\n\n\n\n\n\nLine\nContains\n\n\n\n\nLine 1\nRead identifier (instrument, run, flow cell, coordinates, barcode)\n\n\nLine 2\nDNA sequence\n\n\nLine 3\n+ (separator, sometimes repeats the identifier)\n\n\nLine 4\nQuality scores, one character per base\n\n\n\n\n\n\n\n\n\nTipCode and tool examples\n\n\n\n\n\nBecause each read is exactly four lines, counting reads is simple — divide the total line count by four.\n# if unzipped file\necho $(($(wc -l &lt; input.fastq) / 4))\n\n# if zipped\necho $(($(zcat input.fastq.gz | wc -l) / 4))",
+    "crumbs": [
+      "Home",
+      "Targeted Amplicon Sequencing Analysis",
+      "Preprocessing",
+      "FASTQ Files"
+    ]
+  },
+  {
+    "objectID": "04-fastq.html#phred-quality-scores",
+    "href": "04-fastq.html#phred-quality-scores",
+    "title": "FASTQ Files",
+    "section": "Phred quality scores",
+    "text": "Phred quality scores\nThe quality score for each base is encoded as a single ASCII character. The underlying value (called a Q score or Phred score) represents the sequencer’s estimate of the probability that the base call is wrong:\n\n\n\nQ score\nError probability\nAccuracy\n\n\n\n\nQ10\n1 in 10\n90%\n\n\nQ20\n1 in 100\n99%\n\n\nQ30\n1 in 1000\n99.9%\n\n\nQ40\n1 in 10,000\n99.99%\n\n\n\nA Q30 score is generally the minimum acceptable threshold. Run reports from Illumina sequencers report the percentage of bases at or above Q30 as a key quality metric.\n\n\n\n\n\n\nNoteWhy do quality scores drop at the 3’ end?\n\n\n\nIllumina sequencing reads the template base-by-base as a fluorescent cluster. As sequencing cycles progress, clusters lose synchrony (phasing). Some copies in a cluster get one base ahead or behind, blurring the signal. This accumulates over the run, causing quality to degrade toward the 3’ end of every read. This is normal and is why trimming the 3’ ends of reads is standard practice.\n\n\n\n\n\n\n\n\nNoteMore information on PHRED scores\n\n\n\n\n\nIn case you are interested to learn more about these scores, here are a few resources to learn more:\nGATK PHRED score overview\nIllumina Quality Scorres for Next-Generation Sequencing",
+    "crumbs": [
+      "Home",
+      "Targeted Amplicon Sequencing Analysis",
+      "Preprocessing",
+      "FASTQ Files"
+    ]
+  },
+  {
+    "objectID": "04-fastq.html#what-you-actually-receive-from-the-core",
+    "href": "04-fastq.html#what-you-actually-receive-from-the-core",
+    "title": "FASTQ Files",
+    "section": "What you actually receive from the core",
+    "text": "What you actually receive from the core\nFor a paired-end run, you should expect to receive:\n\nsample_R1.fastq.gz - forward reads (the primer end)\nsample_R2.fastq.gz - reverse reads (sequenced from the other end)\n\nFiles are usually gzip-compressed (.fastq.gz or .fq.gz), as they can be large.\nSome cores deliver a single multiplexed file with all samples mixed together. These reads have barcodes embedded in the sequence or the read header that allows the reads to be separated into samples. In that case, demultiplexing is your first computational step.",
+    "crumbs": [
+      "Home",
+      "Targeted Amplicon Sequencing Analysis",
+      "Preprocessing",
+      "FASTQ Files"
+    ]
+  },
+  {
+    "objectID": "09-diversity-analysis.html",
+    "href": "09-diversity-analysis.html",
+    "title": "Diversity Analysis",
+    "section": "",
+    "text": "Diversity analysis allows us to look at the unique players within a sample and compare them between samples. This section covers the two main branches of diversity analysis (alpha and beta).",
+    "crumbs": [
+      "Home",
+      "Targeted Amplicon Sequencing Analysis",
+      "Downstream Analysis",
+      "Diversity Analysis"
+    ]
+  },
+  {
+    "objectID": "09-diversity-analysis.html#alpha-diversity-within-sample-diversity",
+    "href": "09-diversity-analysis.html#alpha-diversity-within-sample-diversity",
+    "title": "Diversity Analysis",
+    "section": "Alpha diversity: within-sample diversity",
+    "text": "Alpha diversity: within-sample diversity\n\n\n\n\n\n\nNoteThe landlocked city\n\n\n\nAlpha diversity is like looking at the diversity of last names within our city. We might be interested in how many unique last names there are and how many people have these last names compared to each other. We can also take the alpha diversity of one city and compare it to another to see if they have similar diversity of last names in the city, though we cannot tell if the have the actual same family groups in the city.\n\n\nAlpha diversity describes the diversity of a single sample, how many different taxa are present, and how evenly distributed the reads are among them. Different alpha diversity metrics capture different aspects of the data.\n\n\n\n\n\n\n\n\nMetric\nWhat it captures\nNotes\n\n\n\n\nObserved features\nRaw count of unique ASVs/OTUs\nSensitive to sequencing depth; should be compared only at equal rarefaction depth\n\n\nShannon index\nBoth richness and evenness\nPenalizes communities dominated by one taxon\n\n\nSimpson\nEvenness-weighted diversity\nLess sensitive to rare taxa than Shannon\n\n\nFaith’s PD\nPhylogenetic diversity, total branch length of the community’s phylogenetic tree\nAccounts for how evolutionarily distinct the taxa are\n\n\nChao1\nEstimated true richness, accounting for undetected rare taxa\nUseful when comparing samples at different depths",
+    "crumbs": [
+      "Home",
+      "Targeted Amplicon Sequencing Analysis",
+      "Downstream Analysis",
+      "Diversity Analysis"
+    ]
+  },
+  {
+    "objectID": "09-diversity-analysis.html#beta-diversity-between-sample-diversity",
+    "href": "09-diversity-analysis.html#beta-diversity-between-sample-diversity",
+    "title": "Diversity Analysis",
+    "section": "Beta diversity: between-sample diversity",
+    "text": "Beta diversity: between-sample diversity\n\n\n\n\n\n\nNoteComparing the landlocked city and the beach front city\n\n\n\nUsing beta diversity allows us to get one number that tells us how similar two cities are in who makes up the cities. Some of them consider only the different family names that are in the city, some of them actually consider the family names as well as how many people had those family names. Some might even consider whether the family names have the same origin, grouping German last names together, Japanese last names together, and so on.\nWe get one score for each two city comparison, with scores closer to one indicating that the people that make up the cities are more similar and closer to zero indicating that the people who make up the cities are very different.\n\n\nBeta diversity describes how different community composition is between samples. It requires a distance (or dissimilarity) metric, a number between 0 (identical communities) and some maximum (completely different communities).\n\n\n\n\n\n\n\n\nMetric\nWhat it measures\nConsiders\n\n\n\n\nBray-Curtis\nShared taxa and their abundances\nAbundances; ignores phylogeny\n\n\nJaccard\nShared presence/absence\nPresence/absence only\n\n\nUniFrac (unweighted)\nPhylogenetic distance, presence/absence\nPhylogeny; ignores abundances\n\n\nUniFrac (weighted)\nPhylogenetic distance with abundance weighting\nPhylogeny + abundances\n\n\nAitchison\nEuclidean distance in CLR space\nCompositionally aware\n\n\n\nChoice of distance metric can impact the results, and different metrics emphasize different aspects of community structure. Often, people run multiple metrics for the same data, as they describe slightly different results.",
+    "crumbs": [
+      "Home",
+      "Targeted Amplicon Sequencing Analysis",
+      "Downstream Analysis",
+      "Diversity Analysis"
+    ]
+  },
+  {
+    "objectID": "09-diversity-analysis.html#ordination-visualizing-beta-diversity",
+    "href": "09-diversity-analysis.html#ordination-visualizing-beta-diversity",
+    "title": "Diversity Analysis",
+    "section": "Ordination: visualizing beta diversity",
+    "text": "Ordination: visualizing beta diversity\nWith a distance matrix in hand, ordination techniques reduce the high-dimensional distance information to 2 or 3 dimensions for visualization. This is important because as more samples are added the number of beta diversity values goes up quickly and makes it hard, if not impossible, for us to look at the matrix and understand what is going on under the hood.\nPrincipal Coordinates Analysis (PCoA) is the most common approach. This produces a scatter plot where samples that are more similar in community composition cluster together. The axes represent the major sources of variation in the distance matrix. The first axis explains the most variance, and so on.\n\n\n\n\n\n\nTipCode and tool examples\n\n\n\n\n\nR\nFor more information about using phyloseq and vegan in R, look here: phyloseq documentation\nlibrary(vegan)\nlibrary(phyloseq)\n\n# Compute Bray-Curtis distance matrix\ndist_bc &lt;- distance(physeq, method = \"bray\")\n\n# Ordinate (PCoA)\nord &lt;- ordinate(physeq, method = \"PCoA\", distance = dist_bc)\n\n# Plot, colored by metadata variable\nplot_ordination(physeq, ord, color = \"treatment_group\") +\n  theme_bw()\n\n# Alpha diversity: compute and compare Shannon index across groups\nalpha_div &lt;- estimate_richness(physeq, measures = c(\"Shannon\", \"Observed\", \"Chao1\"))\nkruskal.test(Shannon ~ treatment_group, data = cbind(alpha_div, sample_data(physeq)))\nQIIME2\nFor more information about diversity analysis in QIIME2, look here: documentation\n# Run core diversity metrics (alpha + beta) at a chosen rarefaction depth\n# Requires a rooted phylogenetic tree for Faith's PD and UniFrac metrics\nqiime diversity core-metrics-phylogenetic \\\n  --i-phylogeny rooted-tree.qza \\\n  --i-table table.qza \\\n  --p-sampling-depth 10000 \\\n  --m-metadata-file metadata.tsv \\\n  --output-dir core-metrics-results\n\n# Visualize PCoA interactively with Emperor\nqiime emperor plot \\\n  --i-pcoa core-metrics-results/bray_curtis_pcoa_results.qza \\\n  --m-metadata-file metadata.tsv \\\n  --o-visualization bray-curtis-emperor.qzv",
+    "crumbs": [
+      "Home",
+      "Targeted Amplicon Sequencing Analysis",
+      "Downstream Analysis",
+      "Diversity Analysis"
+    ]
+  },
+  {
+    "objectID": "citations.html",
+    "href": "citations.html",
+    "title": "Citations & Image Credits",
+    "section": "",
+    "text": "Callahan, B.J., McMurdie, P.J., Rosen, M.J., Han, A.W., Johnson, A.J.A., & Holmes, S.P. (2016). DADA2: High-resolution sample inference from Illumina amplicon data. Nature Methods, 13, 581–583. https://doi.org/10.1038/nmeth.3869\nBolyen, E., Rideout, J.R., Dillon, M.R., et al. (2019). Reproducible, interactive, scalable and extensible microbiome data science using QIIME 2. Nature Biotechnology, 37, 852–857. https://doi.org/10.1038/s41587-019-0209-9\nMartin, M. (2011). Cutadapt removes adapter sequences from high-throughput sequencing reads. EMBnet.journal, 17(1), 10–12. https://doi.org/10.14806/ej.17.1.200\nMcMurdie, P.J., & Holmes, S. (2013). phyloseq: An R package for reproducible interactive analysis and graphics of microbiome census data. PLOS ONE, 8(4), e61217. https://doi.org/10.1371/journal.pone.0061217\nMcMurdie, P. J., & Holmes, S. (2014). Waste not, want not: why rarefying microbiome data is inadmissible. PLoS computational biology, 10(4), e1003531. https://doi.org/10.1371/journal.pcbi.1003531\nOksanen, J., et al. (2022). vegan: Community Ecology Package. R package version 2.6-2. https://CRAN.R-project.org/package=vegan\nDi Tommaso, P., Chatzou, M., Floden, E.W., Barja, P.P., Palumbo, E., & Notredame, C. (2017). Nextflow enables reproducible computational workflows. Nature Biotechnology, 35(4), 316–319. https://doi.org/10.1038/nbt.3820\nDouglas, G.M., Maffei, V.J., Zaneveld, J.R., Yurgel, S.N., Brown, J.R., Taylor, C.M., et al. (2020). PICRUSt2 for prediction of metagenome functions. Nature Biotechnology, 38(6), 685–688. https://doi.org/10.1038/s41587-020-0548-6\nWatts, S.C., Ritchie, S.C., Inouye, M., & Holt, K.E. (2019). FastSpar: rapid and scalable correlation estimation for compositional data. Bioinformatics, 35(6), 1064–1066. https://doi.org/10.1093/bioinformatics/bty734\nWeinroth, M.D., Belk, A.D., Dean, C., et al. (2022). Considerations and best practices in animal science 16S ribosomal RNA gene sequencing microbiome studies. Journal of Animal Science, 100(2), skab346. https://doi.org/10.1093/jas/skab346",
+    "crumbs": [
+      "Home",
+      "Further Resources",
+      "Citations"
+    ]
+  },
+  {
+    "objectID": "citations.html#methods-software-pipeline-papers",
+    "href": "citations.html#methods-software-pipeline-papers",
+    "title": "Citations & Image Credits",
+    "section": "",
+    "text": "Callahan, B.J., McMurdie, P.J., Rosen, M.J., Han, A.W., Johnson, A.J.A., & Holmes, S.P. (2016). DADA2: High-resolution sample inference from Illumina amplicon data. Nature Methods, 13, 581–583. https://doi.org/10.1038/nmeth.3869\nBolyen, E., Rideout, J.R., Dillon, M.R., et al. (2019). Reproducible, interactive, scalable and extensible microbiome data science using QIIME 2. Nature Biotechnology, 37, 852–857. https://doi.org/10.1038/s41587-019-0209-9\nMartin, M. (2011). Cutadapt removes adapter sequences from high-throughput sequencing reads. EMBnet.journal, 17(1), 10–12. https://doi.org/10.14806/ej.17.1.200\nMcMurdie, P.J., & Holmes, S. (2013). phyloseq: An R package for reproducible interactive analysis and graphics of microbiome census data. PLOS ONE, 8(4), e61217. https://doi.org/10.1371/journal.pone.0061217\nMcMurdie, P. J., & Holmes, S. (2014). Waste not, want not: why rarefying microbiome data is inadmissible. PLoS computational biology, 10(4), e1003531. https://doi.org/10.1371/journal.pcbi.1003531\nOksanen, J., et al. (2022). vegan: Community Ecology Package. R package version 2.6-2. https://CRAN.R-project.org/package=vegan\nDi Tommaso, P., Chatzou, M., Floden, E.W., Barja, P.P., Palumbo, E., & Notredame, C. (2017). Nextflow enables reproducible computational workflows. Nature Biotechnology, 35(4), 316–319. https://doi.org/10.1038/nbt.3820\nDouglas, G.M., Maffei, V.J., Zaneveld, J.R., Yurgel, S.N., Brown, J.R., Taylor, C.M., et al. (2020). PICRUSt2 for prediction of metagenome functions. Nature Biotechnology, 38(6), 685–688. https://doi.org/10.1038/s41587-020-0548-6\nWatts, S.C., Ritchie, S.C., Inouye, M., & Holt, K.E. (2019). FastSpar: rapid and scalable correlation estimation for compositional data. Bioinformatics, 35(6), 1064–1066. https://doi.org/10.1093/bioinformatics/bty734\nWeinroth, M.D., Belk, A.D., Dean, C., et al. (2022). Considerations and best practices in animal science 16S ribosomal RNA gene sequencing microbiome studies. Journal of Animal Science, 100(2), skab346. https://doi.org/10.1093/jas/skab346",
+    "crumbs": [
+      "Home",
+      "Further Resources",
+      "Citations"
+    ]
+  },
+  {
+    "objectID": "citations.html#research-articles",
+    "href": "citations.html#research-articles",
+    "title": "Citations & Image Credits",
+    "section": "Research articles",
+    "text": "Research articles\nChen, F.C., & Li, W.H. (2001). Genomic divergences between humans and other hominoids and the effective population size of the common ancestor of humans and chimpanzees. Am J Hum Genet, 68(2), 444–456. https://doi.org/10.1086/318206\nLiu, K., Yang, X., Zeng, M., Yuan, Y., Sun, J., He, P., et al. (2021). The Role of Fecal Fusobacterium nucleatum and pks+ Escherichia coli as Early Diagnostic Markers of Colorectal Cancer. Dis Markers, 2021, 1171239. https://doi.org/10.1155/2021/1171239\nRichter, M., & Rosselló-Móra, R. (2009). Shifting the genomic gold standard for the prokaryotic species definition. Proc Natl Acad Sci U S A, 106(45), 19126–19131. https://doi.org/10.1073/pnas.0906412106\nSofi, M.H., Wu, Y., Ticer, T., Schutt, S., Bastian, D., Choi, H.J., et al. (2021). A single strain of Bacteroides fragilis protects gut integrity and reduces GVHD. JCI Insight, 6(3). https://doi.org/10.1172/jci.insight.136841\nWu, G., Zhao, N., Zhang, C., Lam, Y.Y., & Zhao, L. (2021). Guild-based analysis for understanding gut microbiome in human health and diseases. Genome Medicine, 13(1), 22. https://doi.org/10.1186/s13073-021-00840-y\nZhao, L., Wu, G., & Zhao, N. (2024). Guild-based approach for mitigating information loss and distortion issues in microbiome analysis. J Clin Invest, 134(17). https://doi.org/10.1172/jci185395",
+    "crumbs": [
+      "Home",
+      "Further Resources",
+      "Citations"
+    ]
+  },
+  {
+    "objectID": "citations.html#reference-databases",
+    "href": "citations.html#reference-databases",
+    "title": "Citations & Image Credits",
+    "section": "Reference databases",
+    "text": "Reference databases\nQuast, C., Pruesse, E., Yilmaz, P., et al. (2013). The SILVA ribosomal RNA gene database project: improved data processing and web-based tools. Nucleic Acids Research, 41(D1), D590–D596. https://doi.org/10.1093/nar/gks1219\nMcDonald, D., Jiang, Y., Balaban, M., et al. (2023). Greengenes2 unifies microbial data in a single reference tree. Nature Biotechnology, 41, 1630–1633. https://doi.org/10.1038/s41587-023-01845-1",
+    "crumbs": [
+      "Home",
+      "Further Resources",
+      "Citations"
+    ]
+  },
+  {
+    "objectID": "citations.html#images-and-visualizations",
+    "href": "citations.html#images-and-visualizations",
+    "title": "Citations & Image Credits",
+    "section": "Images and visualizations",
+    "text": "Images and visualizations\nAll stock imagery licensed via Adobe Stock. Asset IDs used on this site include: 1920368934, 252259825, 254265838, 254272392, 138554024, 228279263\nPlots created using ggplot2 (version 4.0.2), gganimate (version 1.0.11) in R (version 4.5.3)\nGoogle. (2026). List of census names in handwritten script [AI image generator]. Google Gemini.\n\n16S rRNA gene structure (variable and conserved regions, V1–V9, with 515F/806R primer locations)\n\nFigure used on the Overview page. Source: ResearchGate. Retrieved from https://www.researchgate.net/figure/S-rRNA-gene-showing-the-V1-V9-varaibale-regions-and-conserved-regions-The-515F-806R_fig1_340622946",
+    "crumbs": [
+      "Home",
+      "Further Resources",
+      "Citations"
+    ]
+  },
+  {
+    "objectID": "denoising.html",
+    "href": "denoising.html",
+    "title": "Denoising & Merging",
+    "section": "",
+    "text": "The count table is the central data object in a microbiome study: a matrix of features, often taxa (rows) × samples (columns), where each cell contains the number of sequencing reads assigned to that taxon in that sample. Every diversity analysis, differential abundance test, and visualization works from this table.",
+    "crumbs": [
+      "Home",
+      "Targeted Amplicon Sequencing Analysis",
+      "Preprocessing",
+      "Denoising & Merging"
+    ]
+  },
+  {
+    "objectID": "denoising.html#asvs-vs.-otus-a-philosophical-divide",
+    "href": "denoising.html#asvs-vs.-otus-a-philosophical-divide",
+    "title": "Denoising & Merging",
     "section": "ASVs vs. OTUs: a philosophical divide",
-    "text": "ASVs vs. OTUs: a philosophical divide\nThere are two main approaches to going from reads to taxa.\n\nOTU clustering\nOperational Taxonomic Units (OTUs) group similar sequences together based on a percent identity threshold, typically 97% (the conventional proxy for a bacterial “species”). All reads within 97% of each other are collapsed into a single OTU represented by a consensus or centroid sequence.\n\nPro: tolerant of sequencing errors (errors fall within the similarity threshold)\nCon: different taxa can be merged into the same OTU; the 97% threshold is arbitrary and varies in its biological meaning across lineages; results change depending on clustering order; not reproducible across datasets with different sample sets\n\n\n\nASV denoising (DADA2, Deblur)\nAmplicon Sequence Variants (ASVs) are exact sequences — the actual nucleotide sequence of each unique variant, after sequencing errors have been corrected by a statistical model. Instead of clustering, DADA2 models the error process of the sequencing run and uses that model to distinguish true biological variants from noise.\n\nPro: exact sequences are reproducible across studies and databases; can resolve variants differing by a single base; exact sequences can be searched against any database\nCon: requires a good error model (poor quality data = poor error model); computationally more intensive\n\n\n\n\n\n\n\nNoteThe field has largely moved to ASVs\n\n\n\nMost current publications and tools (DADA2, QIIME2’s default, Deblur) use ASVs. If you are comparing to older literature or datasets that used OTU clustering, be aware that they are not directly comparable without re-analysis."
+    "text": "ASVs vs. OTUs: a philosophical divide\nThere are two main approaches to going from reads to features. Operational Taxonomic Units are not often used in current analyses, but are worth reviewing to understand their impact in older studies.\n\n\n\n\n\n\nNoteThe census taker’s notebook\n\n\n\nImagine a census taker going door to door through the microbial city, recording every resident’s last name. Because they’re writing quickly, some entries come out a little garbled. A resident named Smith might appear as Smeth in a handful of entries, because the dot over the i was lost in a hurried pen stroke. It is worth noting, however, that there is truly a Smith family and a Smyth family that are distinct in this city.\n\n\n\n\n\nNow we can look at the methods to resolve this below.\n\n\n\nOTU clustering\nOperational Taxonomic Units (OTUs) group similar sequences together based on a percent identity threshold, typically 97% (the conventional proxy for a bacterial “species”). All reads within 97% of each other are collapsed into a single OTU represented by a consensus or centroid sequence.\n\nPro: tolerant of sequencing errors (errors fall within the similarity threshold)\nCon: different taxa can be merged into the same OTU; the 97% threshold is arbitrary and varies in its biological meaning across lineages; results change depending on clustering order; not reproducible across datasets with different sample sets\n\n\n\n\n\n\n\nNoteThe census taker’s notebook\n\n\n\nOTU clustering is like a supervisor who reviews the notebook and says: “Smeth and Smith are close enough. I’ll put them in the same household.” Anyone within a similarity threshold gets merged into one group. This is forgiving of sloppy handwriting, but it can also lump genuinely different residents together, such Smith and Smyth, just because their names look alike. The threshold is arbitrary, and you can no longer tell if the Smiths and the Smyths and the Smeths are genuinely distinct families or a writing error.\n\n\n\n\nASV denoising\nAmplicon Sequence Variants (ASVs) are exact sequences, the actual nucleotide sequence of each unique variant, after sequencing errors have been corrected by a statistical model. Instead of clustering, DADA2 models the error process of the sequencing run and uses that model to distinguish true biological variants from noise.\n\nPro: exact sequences are reproducible across studies and databases; can resolve variants differing by a single base; exact sequences can be searched against any database\nCon: requires a good error model (poor quality data = poor error model); computationally more intensive\n\n\n\n\n\n\n\nNoteThe census taker’s notebook\n\n\n\nASV denoising takes a different approach. Instead of grouping by similarity, it studies the census taker’s handwriting habits across thousands of entries. It learns that this particular writer tends to skip i dots when rushing, and concludes that “Smeth” appearing a few times alongside a high-frequency “Smith” is almost certainly a transcription error and corrects it. But if someone truly named Smeth keeps showing up consistently at a rate that can’t be explained by handwriting error alone, the algorithm keeps them as a real, distinct resident.\nThe result: ASVs give you exact, corrected sequences that are reproducible across studies. OTUs give you approximate groups that tolerate noise but sacrifice resolution.\n\n\n\n\n\n\n\n\nCautionThe field has largely moved to ASVs\n\n\n\nMost current publications and tools (DADA2, QIIME2’s default, Deblur) use ASVs. If you are comparing to older literature or datasets that used OTU clustering, be aware that they are not directly comparable without re-analysis.\nThe coding examples here will focus on denoising for this reason.",
+    "crumbs": [
+      "Home",
+      "Targeted Amplicon Sequencing Analysis",
+      "Preprocessing",
+      "Denoising & Merging"
+    ]
   },
   {
-    "objectID": "07-count-table.html#how-dada2-builds-the-count-table",
-    "href": "07-count-table.html#how-dada2-builds-the-count-table",
-    "title": "Count Table (ASVs / OTUs)",
+    "objectID": "denoising.html#how-dada2-builds-the-count-table",
+    "href": "denoising.html#how-dada2-builds-the-count-table",
+    "title": "Denoising & Merging",
     "section": "How DADA2 builds the count table",
-    "text": "How DADA2 builds the count table\n\nLearn error rates — the algorithm examines quality score profiles across all reads in the run to build a model of how often each nucleotide is substituted for another at each quality score. This is why all samples in a run should be processed together during error learning.\nDenoise — reads are corrected based on the error model, and unique true sequences (ASVs) are identified.\nMerge paired reads — corrected R1 and R2 reads are aligned and merged in the overlap region. Non-overlapping pairs are discarded.\nRemove chimeras — sequences that appear to be PCR chimeras (composites of two real sequences) are identified and removed.\nAssign taxonomy — each ASV is compared against a reference database (Silva, Greengenes2, NCBI) to get a taxonomic classification.\n\n\n\n\n\n\n\nTipCode and tool examples\n\n\n\n\n\n# Learn error rates (run once per sequencing run)\nerr_forward &lt;- learnErrors(filtered_forward, multithread = TRUE)\nerr_reverse &lt;- learnErrors(filtered_reverse, multithread = TRUE)\n\n# Denoise\ndada_forward &lt;- dada(filtered_forward, err = err_forward, multithread = TRUE)\ndada_reverse &lt;- dada(filtered_reverse, err = err_reverse, multithread = TRUE)\n\n# Merge\nmerged &lt;- mergePairs(dada_forward, filtered_forward,\n                     dada_reverse, filtered_reverse)\n\n# Build count table\nseqtab &lt;- makeSequenceTable(merged)\n\n# Remove chimeras\nseqtab_nochim &lt;- removeBimeraDenovo(seqtab, method = \"consensus\")\n\n# Assign taxonomy (against Silva)\ntaxa &lt;- assignTaxonomy(seqtab_nochim, \"silva_nr_v138_train_set.fa.gz\")"
+    "text": "How DADA2 builds the count table\n\nLearn error rates: the algorithm examines quality score profiles across all reads in the run to build a model of how often each nucleotide is substituted for another at each quality score. This is why all samples in a run should be processed together during error learning.\nDenoise: reads are corrected based on the error model, and unique true sequences (ASVs) are identified.\nMerge paired reads: corrected R1 and R2 reads are aligned and merged in the overlap region. Non-overlapping pairs are discarded.\nRemove chimeras: sequences that appear to be PCR chimeras (composites of two real sequences) are identified and removed.\n\nOnce these steps have completed, the unique sequences are officially considered amplicon sequencing variants (ASVs).\n\n\n\n\n\n\nTipCode and tool examples\n\n\n\n\n\nDADA2\nFor more information about DADA2, see the original Nature Methods paper and the R package tutorial.\n# Learn error rates (run once per sequencing run)\nerr_forward &lt;- learnErrors(filtered_forward, multithread = TRUE)\nerr_reverse &lt;- learnErrors(filtered_reverse, multithread = TRUE)\n\n# Denoise\ndada_forward &lt;- dada(filtered_forward, err = err_forward, multithread = TRUE)\ndada_reverse &lt;- dada(filtered_reverse, err = err_reverse, multithread = TRUE)\n\n# Merge\nmerged &lt;- mergePairs(dada_forward, filtered_forward,\n                     dada_reverse, filtered_reverse)\n\n# Build count table\nseqtab &lt;- makeSequenceTable(merged)\n\n# Remove chimeras\nseqtab_nochim &lt;- removeBimeraDenovo(seqtab, method = \"consensus\")\nQIIME2\nFor more information, see the QIIME2 dada2 plugin documentation.\nqiime dada2 denoise-paired \\\n  --i-demultiplexed-seqs demux-paired-end.qza \\\n  --p-trim-left-f 0 \\\n  --p-trim-left-r 0 \\\n  --p-trunc-len-f 230 \\\n  --p-trunc-len-r 180 \\\n  --o-table table.qza \\\n  --o-representative-sequences rep-seqs.qza \\\n  --o-denoising-stats denoising-stats.qza",
+    "crumbs": [
+      "Home",
+      "Targeted Amplicon Sequencing Analysis",
+      "Preprocessing",
+      "Denoising & Merging"
+    ]
   },
   {
-    "objectID": "07-count-table.html#reference-databases-for-taxonomy",
-    "href": "07-count-table.html#reference-databases-for-taxonomy",
-    "title": "Count Table (ASVs / OTUs)",
-    "section": "Reference databases for taxonomy",
-    "text": "Reference databases for taxonomy\nThe reference database you choose affects which taxa you can name and at what resolution.\n\n\n\n\n\n\n\nDatabase\nNotes\n\n\n\n\nSilva\nMost comprehensive; updated regularly; used for bacteria, archaea, and some eukaryotes\n\n\nGreengenes2\nUpdated 2022; improved integration with Earth Microbiome Project data\n\n\nNCBI RefSeq\nBroad coverage; useful for linking to NCBI records\n\n\nUNITE\nFungi-specific; required if your primers target ITS instead of 16S\n\n\n\nTaxonomy assignment is probabilistic — confidence at the genus or species level is often low. Species-level calls from 16S are unreliable; genus is typically the deepest reliable level for most taxa."
+    "objectID": "denoising.html#what-the-asv-table-looks-like",
+    "href": "denoising.html#what-the-asv-table-looks-like",
+    "title": "Denoising & Merging",
+    "section": "What the ASV table looks like",
+    "text": "What the ASV table looks like\nThe output is a matrix where rows are ASVs (each identified by its exact nucleotide sequence or more commonly a short hash) and columns are samples. Each cell is an integer count.\n\n\n\nASV\nSample_1\nSample_2\nSample_3\nSample_4\n\n\n\n\nASV_001\n1284\n0\n532\n891\n\n\nASV_002\n0\n4471\n213\n0\n\n\nASV_003\n62\n88\n0\n1104\n\n\nASV_004\n3100\n2850\n2901\n3200\n\n\n…\n…\n…\n…\n…\n\n\n\nThis table will have thousands of rows (one per unique ASV) and one column per sample. Most cells will be zero, as ASVs are typically present in only a subset of samples.\n\n\n\n\n\n\nCautionThese counts are not directly comparable\n\n\n\nThe integers in this table are absolute, raw read counts. A count of 1,284 for ASV_001 in Sample_1 means nothing on its own without knowing how many total reads that sample produced.\nLooking at the table above, Sample_1 has a total of 4,446 reads across these four ASVs, while Sample_2 has 7,409. If ASV_003 appears in Sample_1 at 62 reads and in Sample_2 at 88 reads, that does not mean it is more abundant in Sample_2. It may be that Sample_2 simply had more reads to begin with. Comparing raw counts is not possible without adjusting somehow for this difference in sequencing depth.\nThis is addressed in the upcoming Normalization section, which discuses some of the methods to account for these depth differences before any downstream analysis.",
+    "crumbs": [
+      "Home",
+      "Targeted Amplicon Sequencing Analysis",
+      "Preprocessing",
+      "Denoising & Merging"
+    ]
   },
   {
-    "objectID": "07-count-table.html#what-can-go-wrong",
-    "href": "07-count-table.html#what-can-go-wrong",
-    "title": "Count Table (ASVs / OTUs)",
-    "section": "What can go wrong",
-    "text": "What can go wrong\nPoor error model — if the run had poor quality or very low read counts, DADA2’s error model will be poorly estimated. Signs: very few ASVs recovered, or implausibly large numbers of ASVs. Running with pooling (pool = TRUE) or pseudo-pooling can help for low-abundance samples.\nMerge failures — if too few reads merge (check the dada2 step summary), the truncation lengths are likely the culprit (see Quality Control). Some pipelines accept single-end reads as a fallback.\nChimera over-removal — the chimera removal step is aggressive. Rare legitimate ASVs can be incorrectly flagged as chimeras if they resemble combinations of two more abundant sequences. This is an inherent limitation and not fully controllable.\nDatabase gaps — sequences from understudied environments or unusual taxa may get no classification below phylum or even domain level. “Unclassified” is a real biological result in many communities — don’t discard it."
-  },
-  {
-    "objectID": "07-count-table.html#tracking-read-counts-through-the-pipeline",
-    "href": "07-count-table.html#tracking-read-counts-through-the-pipeline",
-    "title": "Count Table (ASVs / OTUs)",
+    "objectID": "denoising.html#tracking-read-counts-through-the-pipeline",
+    "href": "denoising.html#tracking-read-counts-through-the-pipeline",
+    "title": "Denoising & Merging",
     "section": "Tracking read counts through the pipeline",
-    "text": "Tracking read counts through the pipeline\nMost pipelines produce a summary table of read counts at each step (input → filtered → denoised → merged → chimeras removed). This is essential for diagnosing where reads are being lost. A healthy pipeline looks like:\n\n\n\nStep\nReads\n\n\n\n\nInput\n50,000\n\n\nAfter filtering\n42,000 (84%)\n\n\nAfter denoising\n41,500 (99%)\n\n\nAfter merging\n39,000 (94%)\n\n\nAfter chimera removal\n38,000 (97%)\n\n\n\nLarge drops at any single step indicate a problem at that stage."
+    "text": "Tracking read counts through the pipeline\nMost pipelines produce a summary table of read counts at each step (input → filtered → denoised → merged → chimeras removed). This is a good method for diagnosing where reads are being lost. This may look something like this table:\n\n\n\nStep\nReads\n\n\n\n\nInput\n50,000\n\n\nAfter filtering\n42,000 (84%)\n\n\nAfter denoising\n41,500 (99%)\n\n\nAfter merging\n39,000 (94%)\n\n\nAfter chimera removal\n38,000 (97%)\n\n\n\nLarge drops at any single step indicate a problem at that stage.\n\n\n\n\n\n\nNoteMore resources on OTU and ASV methods\n\n\n\n\n\nFor more information and comparisons between methods, see the following resources:\n\nComparison of six different methods, three OTU-based and three ASV-based on mock sample\nConsideration of the impact of OTU versus ASV methods when considering diversity metrics",
+    "crumbs": [
+      "Home",
+      "Targeted Amplicon Sequencing Analysis",
+      "Preprocessing",
+      "Denoising & Merging"
+    ]
   },
   {
-    "objectID": "07-count-table.html#taxonomic-classification",
-    "href": "07-count-table.html#taxonomic-classification",
-    "title": "Count Table (ASVs / OTUs)",
-    "section": "Taxonomic classification",
-    "text": "Taxonomic classification\nOnce ASVs are identified, each sequence is compared against a reference database of known 16S rRNA sequences to assign a taxonomic label. Bacterial taxonomy is a hierarchical system:\nDomain → Phylum → Class → Order → Family → Genus → Species\nFor example: Bacteria → Firmicutes → Bacilli → Lactobacillales → Lactobacillaceae → Lactobacillus → L. acidophilus\nQIIME2 classifies sequences using a trained Naïve Bayes classifier against a reference database (commonly SILVA or Greengenes2). The classifier compares each ASV to reference sequences and returns the deepest taxonomic level at which it can make a confident assignment, along with a probability score.\nKey caveats: - Species-level calls are unreliable. The V4 region (~250 bp) often lacks the resolution to distinguish closely related species. Genus is typically the deepest reliable level for most taxa. - “Unclassified” is a real result. ASVs that don’t match any reference sequence may represent genuinely novel or understudied taxa. Do not discard them. - Database choice matters. SILVA, Greengenes2, and NCBI vary in their coverage and update frequency. Use the database that is most appropriate for your sample type and most current."
-  },
-  {
-    "objectID": "07-count-table.html#phylogenetic-tree",
-    "href": "07-count-table.html#phylogenetic-tree",
-    "title": "Count Table (ASVs / OTUs)",
-    "section": "Phylogenetic tree",
-    "text": "Phylogenetic tree\nMany key diversity metrics require a phylogenetic tree — a branching diagram representing evolutionary relationships among the ASVs in your dataset. Sequences that are more similar cluster closer together; more distantly related sequences branch farther apart. Branch lengths reflect evolutionary distance.\nThe tree is built in three steps: (1) ASV sequences are aligned so that comparable positions line up across taxa; (2) an evolutionary model estimates how different the sequences are; (3) the resulting distances are used to construct the branching diagram.\nWhy it matters:\n\nFaith’s Phylogenetic Diversity (PD) measures not just how many taxa are present but how much evolutionary branch length they collectively span. A community with 10 evolutionarily diverse bacteria scores higher than one with 10 closely related strains, even with the same ASV count.\nUniFrac distances compare communities by asking how much of the evolutionary tree they share. Unweighted UniFrac uses presence/absence; weighted UniFrac incorporates abundances.\n\n\n\n\n\n\n\nNoteWhy evolutionary context changes the picture\n\n\n\nCounting species alone misses something important. A gut community containing both Firmicutes and Bacteroidetes spans far more evolutionary distance than one dominated by closely related Lachnospiraceae, even if both have the same number of ASVs. The phylogenetic tree is what makes that distinction visible in a diversity metric."
-  },
-  {
-    "objectID": "16s-overview.html",
-    "href": "16s-overview.html",
-    "title": "What is 16S rRNA Sequencing?",
+    "objectID": "external-resources.html",
+    "href": "external-resources.html",
+    "title": "External Resources",
     "section": "",
-    "text": "While we have established that there are a multitude of different types of questions we can ask about our microbial city, we are going to pivot and focus in on only one of those in this particular page: targeted amplicon sequencing, or the census.\nThis is targeted DNA sequencing data that is focused on the 16S, ITS, or 18S genes. These are genes that are highly conserved in members of the microbiome. In this case, we will focus in on the most common, 16S rRNA sequencing.\n16S rRNA amplicon sequencing works by selectively amplifying a conserved portion or portions of the 16S rRNA gene, a gene present in virtually all bacteria and archaea. The gene has conserved regions that can be targeted by primers that surround hypervariable regions where the sequence differs enough to distinguish taxa.",
+    "text": "QIIME2 documentation — tutorials, plugin references, and a community forum for the most widely used microbiome analysis platform\nnf-core/ampliseq — a Nextflow pipeline for amplicon sequencing analysis maintained by the nf-core community\nDADA2 tutorial — R-based ASV pipeline\nphyloseq tutorials — R package for microbiome data analysis and visualization\nNational Microbiome Data Collaborative Microbiome Scence Certificate Program — Overarching, in-depth overview of microbiome analyses free for public",
     "crumbs": [
       "Home",
-      "Introduction to Microbiome Analysis",
-      "What is 16S rRNA seq?"
+      "Further Resources",
+      "External Resources"
     ]
   },
   {
-    "objectID": "16s-overview.html#the-16s-rrna-gene-structure",
-    "href": "16s-overview.html#the-16s-rrna-gene-structure",
-    "title": "What is 16S rRNA Sequencing?",
-    "section": "The 16S rRNA gene structure",
-    "text": "The 16S rRNA gene structure\nThe 16S rRNA gene is approximately 1,500 bp long and contains alternating conserved regions and nine hypervariable regions (V1–V9) whose sequence diversity distinguishes taxa, functioning like genetic barcodes. No single variable region resolves all taxa equally well, and short-read sequencing (150–300 bp per read) means you are targeting one or two regions at a time.\nYour choice of target region is a consequential decision in your study design.",
-    "crumbs": [
-      "Home",
-      "Introduction to Microbiome Analysis",
-      "What is 16S rRNA seq?"
-    ]
-  },
-  {
-    "objectID": "16s-overview.html#variable-region-selection",
-    "href": "16s-overview.html#variable-region-selection",
-    "title": "What is 16S rRNA Sequencing?",
-    "section": "Variable region selection",
-    "text": "Variable region selection\n\n\n\n\n\n\n\n\n\n\nRegion\nForward / Reverse Primers\nAmplicon Size\nSequencing Mode\nNotes\n\n\n\n\nV4\n515F GTGYCAGCMGCCGCGGTAA / 806R GGACTACHVGGGTWTCTAAT\n~250 bp\n2×150 or 2×250 bp\nEarth Microbiome Project standard; short, fits Illumina read lengths well; broad coverage\n\n\nV3–V4\n341F CCTACGGGNGGCWGCAG / 805R GACTACHVGGGTATCTAATCC\n~460 bp\n2×250 or 2×300 bp\nMost common in clinical microbiome studies; better taxonomic resolution; requires good paired-end overlap\n\n\nV4–V5\n515F GTGYCAGCMGCCGCGGTAA / 926R CCGYCAATTYMTTTRAGTTT\n~380–415 bp\n2×250 bp\nBetter archaeal coverage\n\n\nV1–V2\n27F AGAGTTTGATCMTGGCTCAG / 338R TGCTGCCTCCCGTAGGAGT\n~310 bp\n2×250 bp\nBetter gram-positive resolution; less reference data; less common in human microbiome studies\n\n\n\n\n\n\n\n\n\nCautionMixing samples with different primers: I wouldn’t!\n\n\n\nCommunity composition estimates are not directly comparable across studies that used different primer pairs. Even within the same region, primer mismatches can create systematic biases toward certain taxa. If you are comparing to published data or a reference cohort, you are best off using the same primer pair.",
-    "crumbs": [
-      "Home",
-      "Introduction to Microbiome Analysis",
-      "What is 16S rRNA seq?"
-    ]
-  },
-  {
-    "objectID": "16s-overview.html#amplicons",
-    "href": "16s-overview.html#amplicons",
-    "title": "What is 16S rRNA Sequencing?",
-    "section": "Amplicons",
-    "text": "Amplicons\nThe product of PCR amplification using these primers is called an amplicon, the short DNA fragment spanning the targeted variable region. Because the same primers are used for every sample, every amplicon produced from a given study targets the same stretch of the 16S gene.\nAfter sequencing, each amplicon sequence can be compared to a reference database to assign a taxonomic identity. Sequences that are identical are grouped into Amplicon Sequence Variants (ASVs) which serve as the highest resolution unit in downstream analysis.",
-    "crumbs": [
-      "Home",
-      "Introduction to Microbiome Analysis",
-      "What is 16S rRNA seq?"
-    ]
-  },
-  {
-    "objectID": "confounding.html",
-    "href": "confounding.html",
-    "title": "Technical Variation & Confounders",
+    "objectID": "external-resources.html#analysis-pipelines-and-tutorials",
+    "href": "external-resources.html#analysis-pipelines-and-tutorials",
+    "title": "External Resources",
     "section": "",
-    "text": "Technical variation can enter at any point in the experimental design, often long before any software is involved. The table below outlines common sources organized by where they occur.\n\nWhy systematic variation is a real problem\nIndividual technical differences are often unavoidable. The danger is when technical variation is correlated with your biological groups. When this happens, it becomes indistinguishable from the signal you are trying to measure.\n\n\n\n\n\n\nNoteA census analogy\n\n\n\nImagine two cities with similar geography, climate, and population size. Two census takers are each sent to one city to record occupants’ last names by knocking on doors.\n\nCensus Taker A goes out on a rainy, cold Monday morning.\nCensus Taker B goes out on a clear 70°F evening.\n\nThe data come back and City A appears to have more Johnsons than City B. But is that a real demographic difference, or does the Johnson family simply work outside the home and was not there to answer the door on a Monday morning?\nThe same logic applies to microbiome studies. If control samples are processed in one batch and treated samples in another, if different primers are used for cases versus controls, or if pre-treatment samples are collected in one building and post-treatment samples in another, there is no way to separate biological signal from technical variation.\nTo mitigate these issues, it is important that we stratify these variables, or spread them evenly across biological groups, when we can and at least keep record of them in cases in which we cannot. This allows us to check for their influence and, if necessary, adjust for them in our analyses downstream. While adjusting for every variable is not possible, we definitely cannot adjust for anything that was not recorded.\n\n\n\n\nCommon sources of technical variation\n\n\n\n\n\n\n\n\nStage\nVariable\nWhy it matters\n\n\n\n\nCollection\nSite / facility\nDifferent hospital wings, clinics, or rooms have different ambient microbiomes, cleaning protocols, and personnel practices. Two “healthy controls” from different sites can differ for purely logistical reasons.\n\n\nCollection\nSwab type\nAffects how much biomass is recovered and which taxa adhere.\n\n\nCollection\nTime of day\nOral and gut communities shift measurably across the day.\n\n\nCollection\nTime to storage\nA sample left at room temperature for 2 hours before freezing looks different from one frozen immediately.\n\n\nTransport & Storage\nTemperature excursions\nDifferential cell lysis during shipping: some taxa are more fragile than others. A common hidden variable in multi-site studies.\n\n\nTransport & Storage\nStorage duration\nCommunities degrade over time; longer storage selectively depletes fragile taxa.\n\n\nDNA Extraction\nKit manufacturer\nDifferent kits lyse cells with different efficiency. Gram-positive bacteria are notoriously difficult to break open, so kit choice directly shapes which taxa appear in your data.\n\n\nDNA Extraction\nOperator variability\nEven the same kit in the same lab can produce different yields depending on who runs it and when.\n\n\nLibrary Preparation\nPrimer choice\nDetermines which region of the 16S gene is amplified, creating systematic biases toward certain taxa and blind spots for others.\n\n\nLibrary Preparation\nPCR cycles\nMore cycles introduce more chimeric sequences and amplification artifacts.\n\n\nSequencing\nSequencing depth\nTotal reads per sample varies across samples and runs, directly affecting detection of low-abundance taxa.\n\n\nSequencing\nMultiplexing\nHow many samples share a run affects per-sample depth.\n\n\nSequencing\nRead type\nShort vs. long read and single vs. paired-end affect taxonomic resolution.\n\n\n\nThis is a non-comprehensive list. The key point: by the time data reaches your analysis pipeline, it carries the fingerprints of every decision made upstream.\n\n\n\n\n\n\nCautionMitigating batch effects\n\n\n\nHere you can see what a set of samples run in two batches looks like when the researcher does and does not confound the treatment group with batch. These are dimension reduction plots that indicate one sample per point. The closer the points are together, the more similar they are. Ideally, we see separation of points by their biological groups (second plot) but not by the batch they were run in (first plot). This indicates that there seems to be a biological difference between treatment and control samples that is not explained by batch processing differences.\n\n\nShow example\nviewof design = Inputs.radio([\"Confounded\", \"Balanced\"], {\n  value: \"Confounded\",\n  label: html`&lt;div style=\"font-size: 24px; font-weight: bold; text-align: center;\"&gt;\n    Study design\n  &lt;/div&gt;`\n})\n\n\n\n\n\n\n\n\n\nShow example\n{\n  function makeRng(seed) {\n    let s = seed &gt;&gt;&gt; 0;\n    return () =&gt; { s = (Math.imul(s, 1664525) + 1013904223) &gt;&gt;&gt; 0; return s / 4294967296; };\n  }\n  function randn(rng) {\n    return Math.sqrt(-2 * Math.log(rng() + 1e-10)) * Math.cos(2 * Math.PI * rng());\n  }\n\n  const rng   = makeRng(7);\n  const noise = Array.from({length: 40}, () =&gt; ({ nx: randn(rng), ny: randn(rng) }));\n\n  const samples = noise.map((n, i) =&gt; {\n    const batch = i &lt; 20 ? \"Batch 1\" : \"Batch 2\";\n    const group = design === \"Confounded\"\n      ? (batch === \"Batch 1\" ? \"Case\" : \"Control\")\n      : (i % 4 &lt; 2 ? \"Case\" : \"Control\");\n    const yOffset = design === \"Balanced\"\n      ? (group === \"Case\" ? 1.1 : -1.1)\n      : 0;\n    return {\n      batch, group,\n      x: (batch === \"Batch 1\" ? -2.5 : 2.5) + n.nx * 1.2,\n      y: yOffset + n.ny * 1.2\n    };\n  });\n\n  const plotW = Math.floor((Math.min(width, 720) - 56) / 2);\n  const yDomain = [-5, 5];\n\n  function makePlot(field, domain, range) {\n    return Plot.plot({\n      width: plotW,\n      height: 300,\n      x: { label: \"PC1\", grid: true, tickFormat: d =&gt; d.toFixed(1) },\n      y: { label: \"PC2\", grid: true, domain: yDomain, tickFormat: d =&gt; d.toFixed(1) },\n      color: { domain, range, legend: true },\n      marks: [\n        Plot.dot(samples, {\n          x: \"x\", y: \"y\", fill: field,\n          r: 6, stroke: \"white\", strokeWidth: 1.5,\n          title: d =&gt; `${d.group} — ${d.batch}`\n        })\n      ]\n    });\n  }\n\n  function labeled(plot, titleText) {\n    const wrap = Object.assign(document.createElement(\"div\"), {\n      style: \"display:flex; flex-direction:column; align-items:center; flex:1; min-width:180px;\"\n    });\n    const h = Object.assign(document.createElement(\"div\"), {\n      textContent: titleText,\n      style: \"font-weight:600; font-size:0.95rem; text-align:center; margin-bottom:0.35rem; color:#2a1a2e;\"\n    });\n    wrap.append(h, plot);\n    return wrap;\n  }\n\n  const caption = design === \"Confounded\"\n    ? \"Confounded design: cases and controls occupy separate batches. The two plots are mirror images — you cannot tell whether separation on any axis reflects biology or batch processing.\"\n    : \"Balanced design: batch drives the left/right separation on PC1. Within each batch, cases sit higher and controls lower — the case/control difference on PC2 is only detectable here because both groups appear in every batch.\";\n\n  const left  = labeled(makePlot(\"batch\", [\"Batch 1\", \"Batch 2\"], [\"#1565C0\", \"#C62828\"]), \"Batch\");\n  const right = labeled(makePlot(\"group\", [\"Case\", \"Control\"],    [\"#752f7d\", \"#2E7D32\"]), \"Treatment Group\");\n\n  const capEl = Object.assign(document.createElement(\"p\"), {\n    textContent: caption,\n    style: \"width:100%; margin:0.6rem 0 0; font-size:0.875rem; color:#555; font-style:italic;\"\n  });\n\n  const container = Object.assign(document.createElement(\"div\"), {\n    style: `\n      display: flex; flex-wrap: wrap; gap: 1rem; align-items: flex-start;\n      border: 1.5px solid #d4b8d8; border-radius: 8px; padding: 1.25rem;\n    `\n  });\n  container.append(left, right, capEl);\n  return container;\n}\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nTipCode and tool examples\n\n\n\n\n\nHere is a brief example of how to check for batch effects in R using the phyloseq package. This assumes you have a phyloseq object called physeq with sample metadata that includes a “batch” variable and a “treatment” variable.\nlibrary(phyloseq)\n\nord &lt;- ordinate(physeq, method = \"PCoA\", distance = \"bray\")\n\nplot_ordination(physeq, ord, color = \"variable_of_interest\")\nSee the phyloseq ordination tutorial for further options.\n\n\n\nThe key principle: balance your treatment groups across batches. If every case is extracted in January and every control in February, you will never be able to separate the effect of your treatment from the effect of processing date.",
+    "text": "QIIME2 documentation — tutorials, plugin references, and a community forum for the most widely used microbiome analysis platform\nnf-core/ampliseq — a Nextflow pipeline for amplicon sequencing analysis maintained by the nf-core community\nDADA2 tutorial — R-based ASV pipeline\nphyloseq tutorials — R package for microbiome data analysis and visualization\nNational Microbiome Data Collaborative Microbiome Scence Certificate Program — Overarching, in-depth overview of microbiome analyses free for public",
     "crumbs": [
       "Home",
-      "Introduction to Microbiome Analysis",
-      "Technical Variation & Confounders"
+      "Further Resources",
+      "External Resources"
     ]
   },
   {
-    "objectID": "diff-abundance.html",
-    "href": "diff-abundance.html",
-    "title": "Differential Abundance",
-    "section": "",
-    "text": "Identifying individual taxa that are more or less abundant between groups is one of the most requested analyses in microbiome research, and one of the most statistically fraught. This page covers why naive approaches fail, which tools are recommended, and what the results actually mean.",
+    "objectID": "external-resources.html#reference-databases-and-comparative-datasets",
+    "href": "external-resources.html#reference-databases-and-comparative-datasets",
+    "title": "External Resources",
+    "section": "Reference databases and comparative datasets",
+    "text": "Reference databases and comparative datasets\n\nEarth Microbiome Project — protocols, reference databases, and comparative datasets\nSilva database — rRNA reference database for taxonomy assignment\nGreengenes2 — updated 16S reference database",
     "crumbs": [
       "Home",
-      "Targeted Amplicon Sequencing Analysis",
-      "Downstream Analysis",
-      "Differential Abundance"
-    ]
-  },
-  {
-    "objectID": "diff-abundance.html#the-compositionality-problem",
-    "href": "diff-abundance.html#the-compositionality-problem",
-    "title": "Differential Abundance",
-    "section": "The compositionality problem",
-    "text": "The compositionality problem\nBecause the count table is compositional (relative abundances sum to 1), standard statistical tests assume independence that is not present. An increase in one taxon’s relative abundance necessarily decreases others’. This means:\n\nA taxon can appear to increase in one group simply because a different, dominant taxon decreased.\nStandard t-tests or Wilcoxon tests on raw relative abundances do not account for this and will produce false positives.\n\nCurrent recommended tools:\n\nANCOM-BC2: compositionally aware; controls false discovery rate; preferred for most studies\nDESeq2: borrowed from RNA-seq; performs well in practice but assumptions may not strictly hold due to compositional nature of data\nALDEx2: Dirichlet-multinomial model; robust but conservative; less commonly used in practice",
-    "crumbs": [
-      "Home",
-      "Targeted Amplicon Sequencing Analysis",
-      "Downstream Analysis",
-      "Differential Abundance"
-    ]
-  },
-  {
-    "objectID": "diff-abundance.html#why-ancom-works-the-log-ratio-approach",
-    "href": "diff-abundance.html#why-ancom-works-the-log-ratio-approach",
-    "title": "Differential Abundance",
-    "section": "Why ANCOM works: the log-ratio approach",
-    "text": "Why ANCOM works: the log-ratio approach\nANCOM and ANCOM-BC are widely used because they are built around the compositional nature of microbiome data from the start. Instead of asking “is taxon A more abundant in group 1 vs. group 2?” which is a question that is confounded by the fact that relative abundances are not independent, ANCOM asks “is the ratio of taxon A to every other taxon different between groups?” For each taxon, it counts how many of these pairwise log-ratio tests come back significant. A taxon is called differentially abundant only if it shows consistent differences across the majority of its comparisons.\nThis “majority-wins” design means random noise is extremely unlikely to produce a false positive: noise might make a few ratios look significant, but it would have to affect most of them simultaneously to trigger a call. The tradeoff is lower sensitivity. ANCOM may miss real differences, especially for rare taxa, but it almost never produces false positives.\nANCOM-BC extends this by explicitly modeling and correcting for library size (the total reads per sample) and providing interpretable log-fold changes with confidence intervals, similar to what you would see in an RNA-seq differential expression report.\n\n\n\n\n\n\nNoteThe Microbial City: Proving one city has more Smiths\n\n\n\nLet’s bring this back to the census. Imagine you want to know whether City A has more Smiths than City B. A naive comparison of 500 Smiths in City A vs. 200 Smiths from City B seems to suggest that there are more Smiths in City A. The problem is that we may have 10,000 people surveyed in City A versus 2,000 in City B. It turns out that City A actually has a much smaller proportion of Smiths than City B!\nInstead of declaring “City A has more Smiths,” ANCOM asks: are there more Smiths relative to Johnsons? More Smiths relative to Williams? More Smiths relative to every other last name in the census? Only if Smiths win the majority of those pairwise comparisons does ANCOM call them truly over-represented in City A. Random noise might skew one or two ratios, but it is nearly impossible to simultaneously shift most of them, which is why ANCOM’s false positive rate is near zero.\n\n\n\n\n\n\n\n\nTipCode and tool examples\n\n\n\n\n\nANCOMBC\nFor more information about using ANCOMBC in R, look here: documentation\nlibrary(ANCOMBC)\n\n# Run ANCOM-BC2\nout &lt;- ancombc2(\n  data = physeq,           # data in a phyloseq format\n  fix_formula = \"treatment + age + sex\",\n  p_adj_method = \"BH\",     # method to adjust for multiple testing\n  pseudo_sens = TRUE,\n  prv_cut = 0.10,          # exclude taxa from analysis present in &lt;10% of samples\n  lib_cut = 1000,\n  s0_perc = 0.05,\n  group = \"treatment\",\n  struc_zero = TRUE,\n  neg_lb = TRUE,\n  alpha = 0.05,\n  n_cl = 2\n)\n\n# Results\nres &lt;- out$res\n# Columns: lfc (log-fold change), se, W, p_val, q_val (FDR-adjusted), diff_abn\nQIIME2\nFor more information about using ANCOMBC within QIIME2, check this out: documentation\n# Filter to only the samples you want to compare\nqiime feature-table filter-samples \\\n  --i-table table.qza \\\n  --m-metadata-file metadata.tsv \\\n  --p-where \"[treatment]='case' OR [treatment]='control'\" \\\n  --o-filtered-table filtered-table.qza\n\n# Run ANCOM-BC\nqiime composition ancombc \\\n  --i-table filtered-table.qza \\\n  --m-metadata-file metadata.tsv \\\n  --p-formula \"treatment\" \\\n  --o-differentials differentials.qza\n\n# Visualize as a bar plot of log-fold changes\nqiime composition da-barplot \\\n  --i-data differentials.qza \\\n  --p-significance-threshold 0.05 \\\n  --o-visualization da-barplot.qzv",
-    "crumbs": [
-      "Home",
-      "Targeted Amplicon Sequencing Analysis",
-      "Downstream Analysis",
-      "Differential Abundance"
-    ]
-  },
-  {
-    "objectID": "diff-abundance.html#multiple-testing",
-    "href": "diff-abundance.html#multiple-testing",
-    "title": "Differential Abundance",
-    "section": "Multiple testing",
-    "text": "Multiple testing\nA typical microbiome study tests hundreds to thousands of taxa simultaneously. It is well advised to apply for multiple testing correction. The ANCOMBC2 package has the p_adj_method parameter in R or the --p-p-adj-method in QIIME2 framework to account for this.",
-    "crumbs": [
-      "Home",
-      "Targeted Amplicon Sequencing Analysis",
-      "Downstream Analysis",
-      "Differential Abundance"
+      "Further Resources",
+      "External Resources"
     ]
   },
   {

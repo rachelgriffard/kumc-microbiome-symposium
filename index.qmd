@@ -157,6 +157,7 @@ This workshop walks through a typical analysis pipeline for 16S rRNA sequencing 
 | [Guilds](guilds.qmd) | Ecologically relevant groupings |
 | [Diversity Analysis](09-diversity-analysis.qmd) | Alpha and beta diversity, statistical testing |
 | [Differential Abundance](diff-abundance.qmd) | Identifying taxa that differ between groups |
+| [Further Analyses](further-analyses.qmd) | Resources about analyses beyond the above |
 | **Further Resources** |  |
 | [Public Sequencing Data](public-data.qmd) | Repositories and how to access existing datasets |
 | [KUMC Resources](kumc-resources.qmd) | Local compute, storage, and support |
@@ -177,7 +178,7 @@ Each page uses five types of callout boxes to signal different kinds of content.
 These boxes pair a city or census scenario with the microbiome concept on that page. When you see one, you're getting the analogy version of what follows.
 :::
 
-::: {.callout-note collapse="true"}
+::: callout-note
 ## Further information
 
 These boxes provide additional context, background, or elaboration that deepens understanding without being required reading. They typically explain *why* something works the way it does, or offer an analogy to make an abstract concept more concrete.
@@ -201,7 +202,7 @@ These boxes highlight decisions that must be documented for reproducibility of y
 **Example of when you'll see this:** The requirement that truncation parameters, extraction kits, and rarefaction depth be identical across all samples in a study.
 :::
 
-::: {.callout-tip collapse="true"}
+::: callout-tip
 ## Code and tool examples
 
 These expandable blocks contain example code from different tools to illustrate how a pipeline step is implemented in practice. They are collapsed by default, but you can open them if you want to see more about the mechanics behind a step. These are not comprehensive, but I will do my best to link the software documentation itself for further review.

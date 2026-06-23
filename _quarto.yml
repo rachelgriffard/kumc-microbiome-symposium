@@ -64,6 +64,8 @@ website:
                 href: 09-diversity-analysis.qmd
               - text: "Differential Abundance"
                 href: diff-abundance.qmd
+              - text: "Further Analyses"
+                href: further-analyses.qmd
       - section: "Further Resources"
         contents:
           - text: "Public Sequencing Data"
