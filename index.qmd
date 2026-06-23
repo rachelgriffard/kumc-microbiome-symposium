@@ -1,6 +1,6 @@
 ---
 title: "The Microbial City: An Introduction to Microbiome Analysis"
-subtitle: "2026 KUMC Microbiome Symposium Workshop"
+subtitle: "2026 KUMC Microbiome Symposium"
 ---
 
 The human body is home to trillions of bacteria, archaea, viruses, and fungi that are collectively called the **microbiome**. These communities play roles in immune development, metabolism, and susceptibility to disease. Understanding which microbes are present, in what proportions, how they work together (or not), what they produce and consume, and how those communities differ across individuals or conditions is a common question in medical research.
