@@ -163,9 +163,19 @@ This workshop walks through a typical analysis pipeline for 16S rRNA sequencing 
 | [External Resources](external-resources.qmd) | Tutorials, tools, and documentation |
 | [Citations](citations.qmd) | References and image credits |
 
+A slide deck covering the full workshop is also available to download.
+
+[Download workshop slides (.pptx)](https://github.com/rachelgriffard/kumc-microbiome-symposium/releases/download/symposium-2026/2026_MicrobiomeSymposium_Workshop_v2.pptx)
+
 ## How to read this guide
 
-Each page uses four types of callout boxes to signal different kinds of content. Click any box below to see an example.
+Each page uses five types of callout boxes to signal different kinds of content.
+
+::: {.callout-note .city-analogy}
+## City analogy
+
+These boxes pair a city or census scenario with the microbiome concept on that page. When you see one, you're getting the analogy version of what follows.
+:::
 
 ::: {.callout-note collapse="true"}
 ## Further information
@@ -175,7 +185,7 @@ These boxes provide additional context, background, or elaboration that deepens 
 **Example of when you'll see this:** An explanation of why quality scores degrade toward the 3′ end of a read, or what a rarefaction curve is measuring conceptually.
 :::
 
-::: {.callout-caution collapse="true"}
+::: {.callout-caution}
 ## Warnings
 
 These boxes flag common mistakes, easy-to-overlook pitfalls, or steps where errors are frequently introduced. Pay close attention — skipping or mis-applying the flagged step often causes silent failures that are difficult to diagnose later.
@@ -183,7 +193,7 @@ These boxes flag common mistakes, easy-to-overlook pitfalls, or steps where erro
 **Example of when you'll see this:** Reminders that you cannot easily compare studies that use different variable regions and primers.
 :::
 
-::: {.callout-important collapse="true"}
+::: {.callout-important}
 ## Reproducibility reminders
 
 These boxes highlight decisions that must be documented for reproducibility of your analysis. The items that these point out should always be included in your documentation to ensure that you (and others) can replicate your analysis.
