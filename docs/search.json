@@ -201,6 +201,18 @@
     ]
   },
   {
+    "objectID": "index.html#about-me",
+    "href": "index.html#about-me",
+    "title": "The Microbial City: An Introduction to Microbiome Analysis",
+    "section": "About me",
+    "text": "About me\nRachel Griffard-Smith is a bioinformatician in the Department of Biostatistics & Data Science at the University of Kansas Medical Center. She designs reproducible analytical pipelines and consults with research teams to match rigorous statistical methods to complex experimental designs. Her work focuses heavily on microbiome data, analyzing and developing tools for 16S rRNA sequencing and metagenomic shotgun profiling. She is the author of micRoclean, a published, open-source R package for decontaminating low-biomass 16S rRNA microbiome data. Currently, Rachel is developing a Nextflow pipeline for a guild-based 16S microbiome analysis method. As a Nextflow Ambassador and nf-core Outreach Team member, she is active in the global open-source bioinformatics community.\n rachelgriffard.github.io  ·   LinkedIn  ·   GitHub  ·   ORCID",
+    "crumbs": [
+      "Home",
+      "Introduction to Microbiome Analysis",
+      "Introduction"
+    ]
+  },
+  {
     "objectID": "external-resources.html",
     "href": "external-resources.html",
     "title": "External Resources",
