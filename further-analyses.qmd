@@ -1,0 +1,265 @@
+﻿---
+title: "Further Analyses"
+---
+
+Beyond the core analyses covered in this workshop, a rich ecosystem of tools and approaches exists for deeper exploration of microbiome data. This page introduces three areas as jumping-off points for further reading. These topics are not covered in the main presentation but represent further directions you can take your analysis.
+
+## Functional inference with PICRUSt2
+
+Taxonomic composition tells you who is there, but not what they are doing. Functional inference tools attempt to predict the metabolic and functional potential of a community directly from 16S amplicon data without requiring separate shotgun metagenomic sequencing.
+
+PICRUSt2 (Phylogenetic Investigation of Communities by Reconstruction of Unobserved States 2) takes your ASV table and a phylogenetic tree, then uses reference genome databases to predict the abundance of metabolic pathways (KEGG, MetaCyc) and enzyme families (EC numbers) in each sample.
+
+### How it works
+
+PICRUSt2 places your ASVs on a reference phylogenetic tree and uses the known functional content of sequenced genomes at nearby tips to infer what functions your ASVs likely carry. The closer an ASV is to well-characterized reference genomes, the more reliable the prediction. The output is a pathway abundance table per sample that can be analyzed similarly to the original feature table: differential abundance, diversity metrics, and so on, but at the functional level.
+
+::: callout-warning
+## Important limitation
+
+PICRUSt2 predictions are inferred, not measured. They are only as reliable as the reference genomes available for the organisms in your samples. Communities containing many novel or understudied microbes will produce less reliable predictions. If accurate functional data is required, shotgun metagenomics or metatranscriptomics is the appropriate approach.
+:::
+
+::: {.callout-tip collapse="true"}
+## Code and tool examples
+
+**QIIME2**
+
+PICRUSt2 is available as a QIIME2 plugin. See the [q2-picrust2 documentation](https://github.com/gavinmdouglas/q2-picrust2) for installation.
+
+``` bash
+# Run the full PICRUSt2 pipeline within QIIME2
+qiime picrust2 full-pipeline \
+  --i-table table.qza \
+  --i-seq rep-seqs.qza \
+  --output-dir picrust2-output \
+  --p-threads 4 \
+  --p-hsp-method pic \
+  --p-max-nsti 2 \
+  --verbose
+```
+
+**Standalone PICRUSt2 (Python/command line)**
+
+``` bash
+# Install via conda
+conda install -c bioconda picrust2
+
+# Run the full pipeline
+picrust2_pipeline.py \
+  -s rep-seqs.fasta \
+  -i feature-table.biom \
+  -o picrust2-output \
+  -p 4
+```
+:::
+
+::: {.callout-note collapse="true"}
+## More on PICRUSt2
+
+Here are a few resources if you want to read more about functional inference:
+
+-   Douglas, G. M., Maffei, V. J., Zaneveld, J. R., Yurgel, S. N., Brown, J. R., Taylor, C. M., Huttenhower, C., & Langille, M. G. I. (2020). PICRUSt2 for prediction of metagenome functions. *Nature Biotechnology*, *38*(6), 685--688. https://doi.org/10.1038/s41587-020-0548-6
+
+-   Langille, M. G. I., Zaneveld, J., Caporaso, J. G., McDonald, D., Knights, D., Reyes, J. A., Clemente, J. C., Burkepile, D. E., Thurber, R. L. V., Knight, R., Beiko, R. G., & Huttenhower, C. (2013). Predictive functional profiling of microbial communities using 16S rRNA marker gene sequences. *Nature Biotechnology*, *31*(9), 814--821. https://doi.org/10.1038/nbt.2676
+
+-   [PICRUSt2 GitHub wiki and documentation](https://github.com/picrust/picrust2/wiki)
+
+-   [q2-picrust2 QIIME2 plugin](https://github.com/gavinmdouglas/q2-picrust2)
+:::
+
+------------------------------------------------------------------------
+
+## Predictive modeling
+
+A natural next question after characterizing community composition is whether it can explain or predict variation in a host outcome. This section covers three broad approaches, ranging from classical statistics to machine learning.
+
+::: callout-caution
+## Check your statistical assumptions!
+
+Importantly, microbiome data is sparse, high-dimensional, and compositional. These features of the data can break many commonly used statistical model's assumptions. It is important that when you are tackling these type of data that you pay particular attention to these features. If possible, it is best to loop in someone with a strong statistical foundation.
+
+For more information about best (and worst) practices when applying these models to microbiome data, check out these papers:
+
+-   Boshuizen HC, Te Beest DE. Pitfalls in the statistical analysis of microbiome amplicon sequencing data. Mol Ecol Resour. 2023 Apr;23(3):539-548. doi: 10.1111/1755-0998.13730. Epub 2022 Nov 27. PMID: 36330663.
+
+-   Tsilimigras MC, Fodor AA. Compositional data analysis of the microbiome: fundamentals, tools, and challenges. Ann Epidemiol. 2016 May;26(5):330-5. doi: 10.1016/j.annepidem.2016.03.002. Epub 2016 Mar 31. PMID: 27255738.
+:::
+
+### Statistical models
+
+The simplest way to associate microbiome features with host metadata is through standard regression. A diversity metric or the abundance of a some features of interest can be used as a predictor or outcome in a linear model. Logistic regression works the same way for binary outcomes like disease status.
+
+When samples are not independent, repeated measures from the same subject over time, or subjects nested within households or study sites, linear mixed effects models extend this framework by adding random effects to account for that correlation structure.
+
+These single-feature models are straightforward but require a correction for multiple testing when run across many taxa simultaneously. MaAsLin2 (described below) automates this workflow.
+
+### Survival analysis
+
+When the outcome is time-to-event such as disease onset, hospitalization, death, or relapse, survival analysis is the appropriate framework. The Cox proportional hazards model tests whether a microbiome feature (a diversity metric, a taxon or ASV abundance, or a principal coordinate) is associated with the hazard of the event, while controlling for clinical covariates. Kaplan-Meier curves offer a visual complement, stratifying samples into high/low groups based on a microbiome feature and plotting event-free survival over time.
+
+These approaches are especially common in longitudinal clinical cohort studies where the microbiome is characterized at baseline and patients are followed for an outcome of interest.
+
+::: {.callout-note collapse="true"}
+## More on statistical models and survival analysis
+
+Here are a few resources if you want to read more about statistical modeling with microbiome data:
+
+-   Bates, D., Maechler, M., Bolker, B., & Walker, S. (2015). Fitting linear mixed-effects models using lme4. *Journal of Statistical Software*, *67*(1), 1--48. https://doi.org/10.18637/jss.v067.i01
+
+-   Therneau, T. M., & Grambsch, P. M. (2000). *Modeling Survival Data: Extending the Cox Model*. Springer. https://doi.org/10.1007/978-1-4757-3294-8
+
+-   [survival R package documentation](https://cran.r-project.org/package=survival)
+
+-   [survminer R package -- Kaplan-Meier visualization](https://rpkgs.datanovia.com/survminer/)
+
+-   [Introduction to mixed models in R -- CRAN lme4 vignette](https://cran.r-project.org/web/packages/lme4/vignettes/lmer.pdf)
+:::
+
+### Machine learning
+
+Random forest, LASSO regression, and other penalized approaches can build classifiers or continuous predictors from the high-dimensional feature table. These are useful for identifying which taxa are most predictive of an outcome, evaluating whether the microbiome adds predictive value beyond clinical covariates alone.
+
+::: callout-warning
+## Overfitting is a serious risk
+
+Microbiome datasets are typically high-dimensional, with far more features than samples. Models trained on this data overfit easily. Always evaluate performance on held-out data using cross-validation or an independent test set. Be skeptical of very high AUC values without rigorous validation. Reporting training accuracy as model performance rather than on a holdout set is a common and significant error in the literature.
+:::
+
+::: {.callout-tip collapse="true"}
+## Code and tool examples
+
+**MaAsLin2 (R)**
+
+MaAsLin2 fits per-feature multivariable linear (or generalized linear) models across all taxa simultaneously and corrects for multiple testing.
+
+``` r
+library(Maaslin2)
+
+# Convert phyloseq object to data frames
+features <- as.data.frame(t(otu_table(physeq)))
+metadata <- as.data.frame(sample_data(physeq))
+
+# Run MaAsLin2 with fixed and random effects
+fit_data <- Maaslin2(
+  input_data     = features,
+  input_metadata = metadata,
+  output         = "maaslin2_output",
+  fixed_effects  = c("treatment", "age", "bmi"),
+  random_effects = c("subject_id"),  # for repeated measures
+  normalization  = "TSS",
+  transform      = "LOG",
+  min_prevalence = 0.1
+)
+```
+
+**SIAMCAT (R)**
+
+SIAMCAT is designed specifically for microbiome-based machine learning with built-in cross-validation and model calibration.
+
+``` r
+library(SIAMCAT)
+
+# Create a SIAMCAT object
+sc.obj <- siamcat(feat  = feature_matrix,
+                  meta  = metadata,
+                  label = "disease_status",
+                  case  = "IBD")
+
+# Filter, normalize, split, train, predict, evaluate
+sc.obj <- filter.features(sc.obj, cutoff = 0.01)
+sc.obj <- normalize.features(sc.obj, norm.method = "log.std")
+sc.obj <- create.data.split(sc.obj, num.folds = 5, num.resample = 5)
+sc.obj <- train.model(sc.obj, method = "lasso")
+sc.obj <- make.predictions(sc.obj)
+sc.obj <- evaluate.predictions(sc.obj)
+model.evaluation.plot(sc.obj)
+```
+:::
+
+::: {.callout-note collapse="true"}
+## More on predictive modeling
+
+Here are a few resources if you want to read more about microbiome-based modeling:
+
+-   Mallick, H., Rahnavard, A., McIver, L. J., Ma, S., Zhang, Y., Nguyen, L. H., Tickle, T. L., Weingart, G., Ren, B., Schwager, E. H., Chatterjee, S., Thompson, K. N., Wilkinson, J. E., Subramanian, A., Lu, Y., Waldron, L., Paulson, J. N., Franzosa, E. A., Janson, L., & Huttenhower, C. (2021). Multivariable association discovery in population-scale meta-omics studies. *PLOS Computational Biology*, *17*(11), e1009442. https://doi.org/10.1371/journal.pcbi.1009442
+
+-   Wirbel, J., Zych, K., Essex, M., Karcher, N., Kartal, E., Salazar, G., Bork, P., Sunagawa, S., & Zeller, G. (2021). Microbiome meta-analysis and cross-cohort validation to assess and improve disease prediction from stool 16S sequencing. *PLOS Computational Biology*, *17*(3), e1008857. https://doi.org/10.1371/journal.pcbi.1008857
+
+-   Marcos-Zambrano, L. J., Karaduzovic-Hadziabdic, K., Loncar Turukalo, T., Przymus, P., Trajkovik, V., Aasmets, O., Arumugam, M., Bahiri, A., Bordel, E., & Carrillo de Santa Pau, E. (2021). Applications of machine learning in human microbiome studies: A review on feature selection, biomarker identification, disease prediction and treatment. *Frontiers in Microbiology*, *12*, 634511. https://doi.org/10.3389/fmicb.2021.634511
+
+-   [MaAsLin2 documentation - Huttenhower Lab](https://huttenhower.sph.harvard.edu/maaslin2/)
+
+-   [SIAMCAT R package](https://siamcat.embl.de/)
+:::
+
+------------------------------------------------------------------------
+
+## Co-occurrence network analysis
+
+Microbial co-occurrence network analysis asks: which taxa consistently appear together across samples? Rather than testing individual taxa against a metadata variable, network analysis characterizes the relationships *among* taxa themselves. This is particularly powerful for identifying structural features of the community and potential ecological interactions.
+
+### How networks are built
+
+Each node in the network represents a feature (ASV, species, genus, or guild). An edge between two nodes is drawn when the pair is significantly correlated across samples: positively (co-occurrence) or negatively (co-exclusion). The resulting network can be analyzed for:
+
+-   **Hub taxa**: highly connected nodes that may play keystone ecological roles
+-   **Modules or clusters**: groups of co-occurring taxa that may represent functional guilds or ecological niches
+-   **Condition comparisons**: how network structure changes between healthy and disease states, or across treatments
+
+::: {.callout-note .city-analogy}
+## The city's social network
+
+Imagine mapping which families consistently live in the same neighborhoods across hundreds of different cities. Some families cluster together everywhere; they might share an occupation, a cultural background, or economic ties. Others are rarely found in the same district. This cross-city pattern of co-residence is structurally identical to co-occurrence analysis in microbiomes.
+
+This is also why guild analysis (covered on the [Guilds page](guilds.qmd)) can be thought of as network-informed dimensionality reduction: guilds are the coherent co-occurrence clusters that fall out of this kind of analysis, identified by their consistent responses to environmental change.
+:::
+
+### Handling compositionality in networks
+
+Naive Pearson or Spearman correlation on relative abundances is problematic for the same reasons described in [Differential Abundance](diff-abundance.qmd): compositional data create spurious correlations. Two approaches designed to address this:
+
+-   **SPIEC-EASI**: sparse inverse covariance estimation on CLR-transformed data; produces sparse, ecologically interpretable networks
+-   **SparCC**: estimates correlations from log-ratio transformed data; widely used and well-validated in the literature
+
+::: {.callout-tip collapse="true"}
+## Code and tool examples
+
+**16Sguild**
+
+Currently a tool internal to the University of Kansas Medical Center, this method aims to create a taxonomy-free framework to analyze microbiome data. We are using this method to try and identify groups of features that share an ecological niche into guilds. More about this method can be found here: [16Sguild documentation](https://zhao-microbiome-lab.github.io/16Sguild-docs/). For more information, reach out to the [Department of Biostatistics & Data Science](https://www.kumc.edu/school-of-medicine/academics/departments/biostatistics-and-data-science.html) and [register your project](https://biostat-pts.kumc.edu/velos/jsp/kumcpr.jsp).
+
+**SPIEC-EASI (R)**
+
+``` r
+library(SpiecEasi)
+
+# Run SPIEC-EASI on a count matrix
+se_result <- spiec.easi(otu_matrix,
+                        method           = "mb",
+                        lambda.min.ratio = 1e-2,
+                        nlambda          = 20,
+                        pulsar.params    = list(rep.num = 50))
+
+# Extract adjacency matrix for downstream use
+adj_matrix <- getRefit(se_result)
+```
+:::
+
+::: {.callout-note collapse="true"}
+## More on co-occurrence network analysis
+
+Here are a few resources if you want to read more about microbial network analysis:
+
+-   Peschel, S., Muller, C. L., von Mutius, E., Boulesteix, A. L., & Depner, M. (2021). NetCoMi: network construction and comparison for microbiome data in R. *Briefings in Bioinformatics*, *22*(4), bbaa290. https://doi.org/10.1093/bib/bbaa290
+
+-   Kurtz, Z. D., Muller, C. L., Miraldi, E. R., Littman, D. R., Blaser, M. J., & Bonneau, R. A. (2015). Sparse and compositionally robust inference of microbial ecological networks. *PLOS Computational Biology*, *11*(5), e1004226. https://doi.org/10.1371/journal.pcbi.1004226
+
+-   Friedman, J., & Alm, E. J. (2012). Inferring correlation networks from genomic survey data. *PLOS Computational Biology*, *8*(9), e1002687. https://doi.org/10.1371/journal.pcbi.1002687
+
+-   Faust, K., & Raes, J. (2012). Microbial interactions: from networks to models. *Nature Reviews Microbiology*, *10*(8), 538--550. https://doi.org/10.1038/nrmicro2832
+
+-   [NetCoMi GitHub and vignettes](https://github.com/stefpeschel/NetCoMi)
+
+-   [16S Guild documentation -- Zhao Lab](https://zhao-microbiome-lab.github.io/16Sguild-docs/)
+:::
