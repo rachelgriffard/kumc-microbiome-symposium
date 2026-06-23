@@ -185,7 +185,7 @@ These boxes provide additional context, background, or elaboration that deepens 
 **Example of when you'll see this:** An explanation of why quality scores degrade toward the 3′ end of a read, or what a rarefaction curve is measuring conceptually.
 :::
 
-::: {.callout-caution}
+::: callout-caution
 ## Warnings
 
 These boxes flag common mistakes, easy-to-overlook pitfalls, or steps where errors are frequently introduced. Pay close attention — skipping or mis-applying the flagged step often causes silent failures that are difficult to diagnose later.
@@ -193,7 +193,7 @@ These boxes flag common mistakes, easy-to-overlook pitfalls, or steps where erro
 **Example of when you'll see this:** Reminders that you cannot easily compare studies that use different variable regions and primers.
 :::
 
-::: {.callout-important}
+::: callout-important
 ## Reproducibility reminders
 
 These boxes highlight decisions that must be documented for reproducibility of your analysis. The items that these point out should always be included in your documentation to ensure that you (and others) can replicate your analysis.
@@ -217,3 +217,11 @@ cutadapt \
   sample_R1.fastq.gz sample_R2.fastq.gz
 ```
 :::
+
+------------------------------------------------------------------------
+
+## About me
+
+**Rachel Griffard-Smith** is a bioinformatician in the Department of Biostatistics & Data Science at the University of Kansas Medical Center. She designs reproducible analytical pipelines and consults with research teams to match rigorous statistical methods to complex experimental designs. Her work focuses heavily on microbiome data, analyzing and developing tools for 16S rRNA sequencing and metagenomic shotgun profiling. She is the author of micRoclean, a published, open-source R package for decontaminating low-biomass 16S rRNA microbiome data. Currently, Rachel is developing a Nextflow pipeline for a guild-based 16S microbiome analysis method. As a Nextflow Ambassador and nf-core Outreach Team member, she is active in the global open-source bioinformatics community.
+
+<a href="https://rachelgriffard.github.io" target="_blank"><i class="bi bi-globe2"></i> rachelgriffard.github.io</a>  ·  <a href="https://linkedin.com/in/rachelgriffard" target="_blank"><i class="bi bi-linkedin"></i> LinkedIn</a>  ·  <a href="https://github.com/rachelgriffard" target="_blank"><i class="bi bi-github"></i> GitHub</a>  ·  <a href="https://orcid.org/0000-0002-3330-695X" target="_blank"><i class="bi bi-person-badge"></i> ORCID</a>
